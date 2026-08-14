@@ -1,0 +1,16 @@
+RESULT: SUCCESS
+
+FILES CHANGED:
+- internal/toml/decode.go
+- internal/toml/value_test.go
+
+SUMMARY:
+Implemented standard tables, implicit/nested table resolution, array-of-table contexts, dotted-key provenance, and inline-table closure enforcement. Added focused tests.
+
+Scoped suites passed:
+- Tables: 24 valid, 62 invalid
+- Inline tables: 17 valid, 28 invalid
+- Go tests passed
+
+BLOCKERS:
+- Full suite retains unrelated pre-existing failures in multiline strings, numeric validation, and integer-sign handling.

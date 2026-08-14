@@ -1,0 +1,22 @@
+<requirement name="run-conformance-slice" stories="decoder-contract,conformance">
+Same contract as full_test.sh, scoped to the cases a single story owns: build the decoder, then run the installed toml-test suite over the pattern given as $1.
+</requirement>
+<requirement name="preserve-verdict" stories="conformance">
+Exit status is the verdict and the whole verdict. Do not filter, skip, or reinterpret.
+</requirement>
+<unattached story="architecture"/>
+<unattached story="decoder-invalid-input"/>
+<unattached story="decoder-tagged-json"/>
+<unattached story="lexical-strings"/>
+<unattached story="lexical-numbers"/>
+<unattached story="lexical-datetime"/>
+<unattached story="lexical-whitespace-comments"/>
+<unattached story="keys-forms"/>
+<unattached story="structures-arrays"/>
+<unattached story="keys-semantics"/>
+<unattached story="structures-inline-tables"/>
+<unattached story="structures-inline-table-closure"/>
+<unattached story="tables-standard"/>
+<unattached story="tables-redefinition"/>
+<unattached story="tables-arrays"/>
+<unattached story="tables-arrays-ordering"/>

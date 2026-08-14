@@ -1,0 +1,11 @@
+RESULT: SUCCESS
+
+FILES CHANGED:
+- internal/toml/decode.go
+- internal/toml/value_test.go
+
+SUMMARY:
+Implemented key uniqueness, scalar/table closure rules, nested inline tables, dotted inline keys, strict trailing-comma and newline validation. Scoped acceptance slices and Go tests pass.
+
+BLOCKERS:
+- Full conformance suite still reports unrelated pre-existing failures outside this build block.

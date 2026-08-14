@@ -1,0 +1,3040 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>workspace/logs/20260814.050246.545Z_toml_plan_codex.prompt.md</title>
+<link rel="stylesheet" href="../../../assets/kit.css">
+</head>
+<body>
+<main>
+<header class="fileheader"><div class="kind">Run artifact</div><h1>workspace/logs/20260814.050246.545Z_toml_plan_codex.prompt.md</h1><div class="filenav"><a href="../../../index.html">&larr; Report</a><a href="../../../workspace/logs/20260814.050246.545Z_toml_plan_codex.prompt.md">Raw file</a></div></header>
+<article class="doc"><h1>System Instructions</h1>
+<p>This prompt is divided into three sections:</p>
+<ol><li><strong>System Instructions</strong> (this section) — structural orientation only. Do not treat this</li></ol>
+<p>section as task input.</p>
+<ol><li><strong>Input Context</strong> — begins with the heading <code># Input Context</code>. All blocks are wrapped in</li></ol>
+<p><code>&lt;pblock&gt;</code> tags. Two block types:</p>
+<ul><li>File blocks: <code>&lt;pblock filename=&quot;&lt;name&gt;&quot; role=&quot;&lt;role&gt;&quot; guidance=&quot;...&quot;&gt;</code> — optional</li></ul>
+<p><code>guidance</code> attribute carries context-specific instructions; content is in a fenced block.</p>
+<ul><li>Metadata/section blocks: <code>&lt;pblock label=&quot;&lt;label&gt;&quot; kind=&quot;&lt;kind&gt;&quot;&gt;</code> — job parameters,</li></ul>
+<p>rules, instructions, or group headers.</p>
+<ol><li><strong>Agent Task</strong> — begins with the heading <code># Agent Task</code>. Defines your persona, constraints,</li></ol>
+<p>and required outputs. Read all input context before acting on this section.</p>
+<h1>Input Context</h1>
+<p>&lt;pblock label=&quot;Planning job&quot; kind=&quot;job&quot;&gt;</p>
+<h2>Planning job</h2>
+<ul><li>TARGET: toml</li><li>BLUEPRINT_PATH: /mnt/c/Users/barlo/projects/drydock/uat/Toml/runs/20260814.050011/workspace/targets/toml/blueprint</li><li>DATE: 2026-08-14</li><li>SYSTEM_SHAPE: unknown</li><li>ANALYSIS_QUALITY: Questions</li></ul>
+<p>&lt;/pblock&gt;</p>
+<p>&lt;pblock filename=&quot;COMPASS.md&quot; role=&quot;compass&quot; path=&quot;/mnt/c/Users/barlo/projects/drydock/uat/Toml/runs/20260814.050011/workspace/targets/toml/COMPASS.md&quot; guidance=&quot;Important: This is the core project intent, constraints, and guardrails. It should have presecedence in conflicts.&quot;&gt;</p>
+<pre><code># COMPASS: TOML 1.0.0 Parser
+
+## Compass
+Build a Go command-line TOML 1.0.0 parser for users and harnesses that need a deterministic stdin-to-tagged-JSON decoder. The parser must implement the supplied specification and distinguish valid documents from invalid documents through its output and exit behavior.
+
+## Constraints
+- Use Go with no `go.mod` dependencies.
+- Support the Go toolchain floor stated by the sources.
+- Read TOML only from stdin and write results only to stdout or diagnostics to stderr.
+- Preserve lossless signed 64-bit integers.
+- Stage and run the supplied conformance harness assets.
+- Complete acceptance uses the installed `toml-test` v2.2.0 suite.
+
+## Guardrails
+- Never modify the supplied scoring scripts.
+- Never import a third-party TOML parser.
+- Reject invalid TOML rather than accepting it permissively.
+- Do not add arguments, configuration, or side effects to the decoder command.
+- Treat the unfiltered full-suite exit status as the acceptance verdict.
+
+&lt;!-- drydock:build-write-guardrail:start --&gt;
+## Build Write Guardrail
+
+- Authorized build directory: `/mnt/c/Users/barlo/projects/drydock/uat/Toml/runs/20260814.050011/build/toml`
+- Authorized Target directory: `/mnt/c/Users/barlo/projects/drydock/uat/Toml/runs/20260814.050011/workspace/targets/toml`
+- Build agents have permission to create, modify, and remove files required by the active build block inside these authorized directories.
+- No path outside these authorized directories may be modified.
+- Protected Drydock artifacts:
+  - `/mnt/c/Users/barlo/projects/drydock/uat/Toml/runs/20260814.050011/workspace/targets/toml/blueprint/`
+  - `/mnt/c/Users/barlo/projects/drydock/uat/Toml/runs/20260814.050011/workspace/targets/toml/MANIFEST.md`
+  - `/mnt/c/Users/barlo/projects/drydock/uat/Toml/runs/20260814.050011/workspace/targets/toml/COMPASS.md`
+  - `/mnt/c/Users/barlo/projects/drydock/uat/Toml/runs/20260814.050011/workspace/targets/toml/QuarterDeck/`
+  - `/mnt/c/Users/barlo/projects/drydock/uat/Toml/runs/20260814.050011/workspace/targets/toml/evidence/`
+&lt;!-- drydock:build-write-guardrail:end --&gt;</code></pre>
+<p>&lt;/pblock&gt;</p>
+<p>&lt;pblock filename=&quot;TECHNOLOGY_STACK.md&quot; role=&quot;technology stack&quot; path=&quot;/mnt/c/Users/barlo/projects/drydock/uat/Toml/runs/20260814.050011/workspace/targets/toml/TECHNOLOGY_STACK.md&quot; guidance=&quot;Edit freely. Adding a technology never requires a matching Rigging file, and this file never blocks planning.&quot;&gt;</p>
+<pre><code># Technology Stack
+
+**Approved:** 2026-08-09
+
+Technology decisions of record for this Target. One row per technology, naming the
+Rigging best-practice file that governs building it.
+
+A `—` in the Rigging column means no Rigging guidance exists for that technology; the
+builder applies general best practice instead. Adding a row never requires a matching
+Rigging file.
+
+This file is owned by the UAT kit. It is seeded into the Target before `analyze`, which
+never overwrites it, and `drydock plan` reads it to assign per-story `stack:` guidance.
+
+| Technology | Rigging | Notes |
+|---|---|---|
+| Go | go.md | Go 1.22 or newer; toolchain minimum pinned in go.mod. |
+| Shell | common.md | POSIX sh for the supplied scoring entry point and the conformance harness. |</code></pre>
+<p>&lt;/pblock&gt;</p>
+<p>&lt;pblock filename=&quot;ANALYSIS.md&quot; role=&quot;planning basis&quot; path=&quot;/mnt/c/Users/barlo/projects/drydock/uat/Toml/runs/20260814.050011/workspace/targets/toml/ANALYSIS.md&quot; guidance=&quot;A list of Agile Stories suggested by an earlier analysis of the raw input.&quot;&gt;</p>
+<pre><code># Blueprint Analysis: TOML 1.0.0 Parser
+
+## Commander Expectations
+
+- assert the parser accepts every supplied valid TOML 1.0.0 case and rejects every supplied invalid case.
+- assert the decoder implements the stdin-to-tagged-JSON filter contract.
+- assert the implementation uses only the Go standard library.
+
+## Crew
+
+| Crew | Charge |
+|---|---|
+| Commander | Defines intent and decides what done means. |
+| Team Lead | Confirms epic completeness and stakeholder expectations. |
+| Planning Crew | Authors atomic specifications and the ordered Manifest. |
+| Shipyard Crew | Builds the tickets without synchronous Commander access. |
+
+## Story List
+
+### Feature: Decoder Contract
+
+| ID | Story | High-level AC |
+|---|---|---|
+| DECODER-001 | Build the TOML decoder command | `cmd/toml-decoder` reads TOML from stdin, emits tagged JSON on stdout, and exits zero for valid input. |
+| DECODER-002 | Report invalid input | Invalid TOML produces a diagnostic on stderr and a non-zero exit without emitting a successful result. |
+| DECODER-003 | Encode parsed values as tagged JSON | Tables, arrays, and all supported TOML values use the required JSON structure and string-valued payloads. |
+
+### Feature: TOML Lexical Values
+
+| ID | Story | High-level AC |
+|---|---|---|
+| LEXICAL-001 | Parse TOML strings | Basic, multiline basic, literal, and multiline literal strings follow TOML 1.0.0 escaping, trimming, UTF-8, and control-character rules. |
+| LEXICAL-002 | Parse numbers and booleans | Decimal, hexadecimal, octal, binary, floating-point, special float, and boolean values follow TOML 1.0.0 syntax and lossless integer requirements. |
+| LEXICAL-003 | Parse date and time values | Offset datetime, local datetime, local date, and local time values are recognized and encoded using the required representations. |
+| LEXICAL-004 | Process whitespace and comments | Whitespace, line endings, comments, and continuation rules are handled without altering valid values or accepting prohibited control characters. |
+
+### Feature: Keys and Key-Value Semantics
+
+| ID | Story | High-level AC |
+|---|---|---|
+| KEYS-001 | Parse bare, quoted, and dotted keys | Key forms and whitespace around dotted components produce the required nested structure. |
+| KEYS-002 | Enforce key definition rules | Duplicate keys, invalid keys, and attempts to turn scalar or closed structures into tables are rejected. |
+
+### Feature: Arrays and Inline Tables
+
+| ID | Story | High-level AC |
+|---|---|---|
+| STRUCTURES-001 | Parse arrays | Nested, mixed-type, multiline, commented, empty, and trailing-comma arrays are parsed correctly. |
+| STRUCTURES-002 | Parse inline tables | Nested inline tables and dotted keys are parsed, while multiline and trailing-comma violations are rejected. |
+| STRUCTURES-003 | Enforce inline-table closure | Keys and subtables cannot be added outside an already-defined inline table. |
+
+### Feature: Tables
+
+| ID | Story | High-level AC |
+|---|---|---|
+| TABLES-001 | Parse standard tables | Explicit and implicitly created tables, including empty and nested tables, are represented correctly. |
+| TABLES-002 | Enforce table redefinition rules | Duplicate tables and conflicts between tables, values, and arrays are rejected. |
+| TABLES-003 | Parse arrays of tables | Array-of-table headers create ordered table elements and support nested tables and nested arrays of tables. |
+| TABLES-004 | Enforce array-of-table ordering rules | Invalid parent ordering and conflicts with statically defined arrays or normal tables are rejected. |
+
+### Feature: Conformance Verification
+
+| ID | Story | High-level AC |
+|---|---|---|
+| CONFORMANCE-001 | Run the complete TOML conformance suite | **Suite: full** — the supplied `sources/full_test.sh` exits zero with every supplied valid and invalid case passing. |
+
+## Surfaced Acceptance Criteria
+
+| ID | Story ID | Criterion |
+|---|---|---|
+| AC-001 | DECODER-001 | The program accepts no arguments, has no configuration or side effects, and operates as a stdin/stdout filter. |
+| AC-002 | DECODER-003 | Offset datetimes use RFC 3339 encoding; local datetimes omit the offset; local dates and times use their date and time representations. |
+| AC-003 | LEXICAL-001 | The parser accepts only valid UTF-8 documents and rejects prohibited control characters and invalid string escapes. |
+| AC-004 | LEXICAL-002 | Integers are handled losslessly across the supported signed 64-bit range. |
+| AC-005 | CONFORMANCE-001 | The complete suite is invoked unfiltered, and its exit status is the acceptance verdict. |
+
+## Source Inventory
+
+| Path | Content kind | Disposition | Reason |
+|---|---|---|---|
+| `sources/INSTRUCTIONS.md` | markdown | analyzed | readable UTF-8 |
+| `sources/full_test.sh` | code | analyzed | readable UTF-8 |
+| `sources/run_conformance.sh` | code | analyzed | readable UTF-8 |
+| `sources/setup_harness.sh` | code | analyzed | readable UTF-8 |
+| `sources/stage_test.sh` | code | analyzed | readable UTF-8 |
+| `sources/toml-v1.0.0.md` | markdown | analyzed | readable UTF-8 |
+
+## Relationship Model
+
+| Source or group | Relationship type | Related source or group | Evidence | Delivery implication |
+|---|---|---|---|---|
+| `sources/toml-v1.0.0.md` | instruction-to-test | `sources/run_conformance.sh` | The specification defines TOML 1.0.0 behavior; the harness runs `toml-test test -toml 1.0`. | Implementation stories must follow the specification and use scoped conformance slices. |
+| `sources/full_test.sh` | test-kit-to-implementation | `cmd/toml-decoder` | The script builds `./cmd/toml-decoder` and supplies it through `DECODER`. | The decoder command must exist before terminal verification. |
+| `sources/run_conformance.sh` | test-kit-to-implementation | `cmd/toml-decoder` | The harness pipes TOML to the configured decoder and checks valid and invalid outcomes. | Decoder process behavior is an integration contract. |
+| `sources/stage_test.sh` | test-kit-to-implementation | parser features | The stage gate accepts a `-run` pattern for one owned suite slice. | Feature stories may run bounded conformance patterns. |
+| `sources/setup_harness.sh` | dependency | `toml-test` | The setup script installs the pinned `v2.2.0` harness. | Harness installation is an external prerequisite, not parser functionality. |
+
+## Source Roles
+
+| Path | Role | Plan disposition | Build disposition |
+|---|---|---|---|
+| `sources/INSTRUCTIONS.md` | author intent | compass | prompt-only |
+| `sources/full_test.sh` | conformance harness | context | stage |
+| `sources/run_conformance.sh` | conformance harness | context | stage |
+| `sources/setup_harness.sh` | test helper | context | stage |
+| `sources/stage_test.sh` | conformance harness | context | stage |
+| `sources/toml-v1.0.0.md` | normative specification and conformance test suite | context | prompt-only |
+
+## Planning Instructions
+
+### Delivery Shape
+
+Deliver a Go command-line filter with an internal TOML parser. It consumes UTF-8 TOML on stdin and produces tagged JSON on stdout, or a diagnostic and non-zero exit for invalid input. The staged shell harness builds the command and executes the pinned upstream TOML 1.0.0 conformance suite.
+
+### Story Realization Map
+
+- `DECODER-001` — `cmd/toml-decoder`; evidence `sources/INSTRUCTIONS.md`; capability and CLI contract.
+- `DECODER-002` — `cmd/toml-decoder` and parser error boundary; evidence `sources/INSTRUCTIONS.md`; capability and acceptance contract.
+- `DECODER-003` — `internal/toml` plus JSON output; evidence `sources/INSTRUCTIONS.md`; capability.
+- `LEXICAL-001` through `LEXICAL-004` — `internal/toml`; evidence `sources/toml-v1.0.0.md`; parser capabilities with scoped conformance tests.
+- `KEYS-001` and `KEYS-002` — `internal/toml`; evidence `sources/toml-v1.0.0.md`; parser capability and validation.
+- `STRUCTURES-001` through `STRUCTURES-003` — `internal/toml`; evidence `sources/toml-v1.0.0.md`; parser capability and validation.
+- `TABLES-001` through `TABLES-004` — `internal/toml`; evidence `sources/toml-v1.0.0.md`; parser capability and validation.
+- `CONFORMANCE-001` — `sources/full_test.sh`, `sources/run_conformance.sh`, and the completed decoder; terminal acceptance contract.
+
+### Test and Acceptance Strategy
+
+Parser stories use focused unit tests and bounded `toml-test` patterns through `sources/stage_test.sh`, declaring `Suite: scoped`. Decoder contract stories use process-level stdin, stdout, stderr, and exit-code tests. `CONFORMANCE-001` is the sole terminal story declaring `Suite: full`; it runs `sh sources/full_test.sh` unfiltered and gates on the harness exit status.
+
+### Sequencing and Dependencies
+
+Create the Go module and decoder contract first. Implement lexical values before composite structures, then keys and table semantics, followed by scoped conformance verification. Build the decoder before any harness execution. Install the pinned `toml-test` binary before acceptance. `CONFORMANCE-001` depends on every parser and decoder story.
+
+### Source Conflicts and Gaps
+
+No conflicting product definitions were found. Product identity is proposed for Commander confirmation because the metadata fields are blank. The source does not define a separate deployment target; the inferred target is local command-line execution.
+
+## Analysis Notes
+generated: 2026-08-14
+blueprint: /mnt/c/Users/barlo/projects/drydock/uat/Toml/runs/20260814.050011/workspace/targets/toml/blueprint
+
+Quality: Questions
+  blockers: 0
+  questions: 1
+  features: 6
+  stories: 18
+  stack: Go
+  display_name: TOML 1.0.0 Parser
+  short_description: A Go command-line parser that converts TOML 1.0.0 from stdin into tagged JSON and rejects invalid documents.
+
+None.</code></pre>
+<p>&lt;/pblock&gt;</p>
+<p>&lt;pblock filename=&quot;SEA_TRIALS.md&quot; role=&quot;project acceptance contract&quot; path=&quot;/mnt/c/Users/barlo/projects/drydock/uat/Toml/runs/20260814.050011/workspace/targets/toml/SEA_TRIALS.md&quot;&gt;</p>
+<pre><code># Sea Trials: Toml
+
+## Policy
+
+| Consequence | On FAIL | On INCONCLUSIVE |
+|---|---|---|
+| blocks  | fail   | attest |
+| scores  | score  | score  |
+| attests | report | report |
+
+## st-001: The supplied scoring script passes
+Type: technical
+Required: yes
+Criterion: The completed parser shall make sh sources/full_test.sh exit zero; that script&#x27;s exit status is the sole acceptance verdict.
+Testability: deterministic
+Consequence: blocks
+Verification: proof
+Pattern: ubiquitous</code></pre>
+<p>&lt;/pblock&gt;</p>
+<p>&lt;pblock label=&quot;Answered questionnaire header&quot; kind=&quot;section&quot;&gt;</p>
+<h2>Answered questionnaires (consume these decisions)</h2>
+<p>&lt;/pblock&gt;</p>
+<p>&lt;pblock filename=&quot;discovery-identity.json&quot; role=&quot;questionnaire&quot; path=&quot;/mnt/c/Users/barlo/projects/drydock/uat/Toml/runs/20260814.050011/workspace/targets/toml/QuarterDeck/questionnaires/discovery-identity.json&quot; guidance=&quot;Discovery/Questions and possible user answers.&quot;&gt;</p>
+<pre><code>{
+  &quot;id&quot;: &quot;discovery-identity&quot;,
+  &quot;title&quot;: &quot;Discovery: Project Identity&quot;,
+  &quot;purpose&quot;: &quot;Confirm the proposed display name and short description before planning.&quot;,
+  &quot;questions&quot;: [
+    {
+      &quot;id&quot;: &quot;display_name&quot;,
+      &quot;label&quot;: &quot;Display Name&quot;,
+      &quot;prompt&quot;: &quot;The display name Drydock will use for this project. Edit to override the proposal.&quot;,
+      &quot;input&quot;: &quot;text&quot;,
+      &quot;proposed&quot;: &quot;TOML 1.0.0 Parser&quot;,
+      &quot;answer&quot;: &quot;TOML 1.0.0 Parser&quot;
+    },
+    {
+      &quot;id&quot;: &quot;short_description&quot;,
+      &quot;label&quot;: &quot;Short Description&quot;,
+      &quot;prompt&quot;: &quot;One-sentence description of what this project does. Edit to override the proposal.&quot;,
+      &quot;input&quot;: &quot;textarea&quot;,
+      &quot;proposed&quot;: &quot;A Go command-line parser that converts TOML 1.0.0 from stdin into tagged JSON and rejects invalid documents.&quot;,
+      &quot;answer&quot;: &quot;A Go command-line parser that converts TOML 1.0.0 from stdin into tagged JSON and rejects invalid documents.&quot;
+    }
+  ]
+}</code></pre>
+<p>&lt;/pblock&gt;</p>
+<p>&lt;pblock filename=&quot;MANIFEST_CONTRACT.md&quot; role=&quot;contract&quot; path=&quot;/mnt/c/Users/barlo/projects/drydock/prompts/MANIFEST_CONTRACT.md&quot; guidance=&quot;MANIFEST output contract. Follow it exactly.&quot;&gt;</p>
+<pre><code>---
+name: Manifest Contract
+description: Contract governing the format, story types, field semantics, lifecycle states, block grouping, and execution rules for `MANIFEST.md` — the single generated executable build plan for a Drydock Target.
+version: 20260801 V14
+---
+
+## Overview
+
+`MANIFEST.md` is the single generated execution view of the Blueprint. It determines build order,
+selects required context, keeps work within useful context limits, identifies stale work, and
+preserves unaffected accepted work. It is not a second product definition.
+
+**Location:** `$DRYDOCK_WORKSPACE/targets/&lt;Target&gt;/MANIFEST.md`
+
+The Manifest manages the full product lifecycle:
+
+- specifications for individual components can be changed, resulting in context-minimized
+  incremental builds
+- new files (such as change tickets) can be discovered and applied
+
+---
+
+## Plan Header
+
+```markdown
+# MANIFEST: {ProjectName}
+updated:     2026-06-08T12:00:00
+plan_hash:   abc123456789
+applied_specs: |
+  DATABASE.md sha256=&lt;content_sha256&gt; commit=&lt;file_commit_sha&gt; applied_by=foundation applied_at=2026-06-26T14:22:00Z
+planning_feedback: |
+  decision-0123456789abcdef applied FEATURE-CATALOG.md
+  decision-fedcba9876543210 retained
+```
+
+Build execution evidence lives in the execution log. The Manifest preamble carries build-state
+provenance required to detect stale previously applied Blueprint Specifications. `applied_specs`
+records one line per Blueprint Specification file applied by a successful story. The path
+is relative to `blueprint/`. `sha256` is the authoritative dirty signal. `commit` is the latest git
+commit that touched that file, or `-` when unavailable. `applied_by` identifies the story
+that last applied the file. `applied_at` is the UTC application timestamp.
+
+---
+
+## Story Types
+
+The Manifest is a list of stories. A `type` field is the only variation.
+
+| Type | Contains | Runs |
+|---|---|---|
+| `foundational` | Foundation and scaffolding | Early; work depends on it |
+| `service` | Everything that does work | Reorderable |
+| `feature` | Acceptance criteria plus assembly and intent; no implementation instructions | After its members |
+
+Foundational work is structure and scaffolding. Standing up S3 and proving the connection is
+architecture. Everything S3 subsequently does is a service. Everything that is not architecture is
+a service, and services are reorderable because they carry no structural debt. Much of what source
+material labels architecture is service work: the web server and the database are foundation; a
+voice service interpreter is a service wearing an architecture filename.
+
+Foundation status derives from the dependency graph, not from a filename prefix. The rule is
+*build the foundation that is needed*, not *build all foundation first*.
+
+There is no fourth type. A &quot;foundational service&quot; — voice-to-text, for example — is foundational to
+whatever depends on it, which the edges already state more precisely than a label could.
+
+`spike` is not a story type. Research questions are handled by questionnaires before Plan and by the
+owning story&#x27;s `## Questions` section after. `ac` is not a story type: Programmatic Acceptance is
+verification the build runs to prove a story is complete. A story is not &quot;built and failed&quot; — it is
+built or it is not, so acceptance is a field the story owns and passing is part of the story&#x27;s own
+state transition.
+
+### Feature is an assembly story
+
+A feature is a story that depends on its member stories, carries acceptance criteria, and carries
+assembly and intent instructions instead of implementation instructions. Same node, same execution
+path, different content shape. When its member stories complete, the feature story runs and is made
+to pass like any other story, so integration testing is a real build step rather than an implicit
+hope. A feature story is preferably placed in the same block as its members.
+
+### Story
+
+```markdown
+## story N: {Name}
+id:           foundation
+summary:      One-line description.
+type:         foundational
+kind:         capability
+phase:        1
+block:        1
+implements:   ARCHITECTURE.md
+covers:       CATALOG-001
+accepts:      st-001
+context:      DATABASE.md
+stack:        common.md, python.md, fastapi.md
+stack_mode:   builder
+provides:     GET /health
+consumes:
+instructions: |
+  Stand up the application factory and health check.
+acceptance:   yes
+depends:
+state:        pending
+```
+
+**Field reference:**
+
+| Field | Required | Authored by | Description |
+|-------|----------|-------------|-------------|
+| `id` | Yes | Model | Stable unique slug within the Manifest |
+| `summary` | Yes | Model | One-line description |
+| `origin` | No | `drydock refit` | Provenance of a story authored from a source change, as `&lt;source&gt;@&lt;commit&gt;`. Absent on stories authored by `plan`. |
+| `created` | No | `drydock refit` | ISO date the story was appended to the graph. |
+| `type` | Yes | Model | `foundational` \| `service` \| `feature` |
+| `kind` | Yes | Model | Delivery kind: `capability` \| `integration` \| `migration` \| `test harness` |
+| `phase` | Yes | Model | Commander build sequencing; see below |
+| `block` | Generated | Drydock | Context-optimization group; computed, never authored |
+| `implements` | Yes | Model | The single governed specification this story builds |
+| `covers` | No | Model | `ANALYSIS.md` Story IDs this story delivers. Every analyzed Story ID is named by exactly one story, whatever its `type`; a story with no analyzed counterpart omits the field |
+| `accepts` | No | Model | `SEA_TRIALS.md` IDs this story implements |
+| `context` | No | Model | Read-only support context files. Never a Compass file |
+| `stack` | No | Model | Rigging stack files this story builds with |
+| `stack_mode` | Generated | Drydock | `builder` \| `consumer`; computed from first use in build order |
+| `provides` | No | Model | Routes, commands, symbols, datasets, queues, or events this story defines |
+| `consumes` | No | Model | Interface points this story calls |
+| `rules` | No | Model | Rigging rules files to inject |
+| `copy` | No | Model | `source -&gt; destination` file copies applied before build |
+| `instructions` | Yes | Model | Freeform build instructions. A `feature` carries assembly and intent, not implementation |
+| `acceptance` | Yes | Model | `yes` when the story has real acceptance to honor |
+| `depends` | No | Model | Story ids that must be `closed/verified` first |
+| `state` | Yes | Drydock | Current block state |
+| `evidence` | No | Drydock | Path to the evidence file written after execution |
+| `scope` | No | Model | `blueprint` \| `target` \| `both` — what this story changes |
+
+Stories and governed specifications are one-to-one: every story implements exactly one
+specification, and every specification is implemented by exactly one story. The story is the atomic
+build primitive.
+
+**Story sizing.** A story is a normal Agile story: 1 to 5 story points. Never a half point — that is
+a task, folded into the story it serves. Never twelve — that is split. A story does one thing
+completely, carries test criteria, and is releasable on its own; a task is not releasable and is
+therefore not a story. A story has no token dimension. Token cost is measured against the block a
+story is built in, never against the story. Story count is not capped: it is an output of correct
+decomposition, not a target.
+
+### Authorship versus verification
+
+The model authors relationships, the actual topology (the story dependency graph), the high-level
+topology (phases), and Programmatic Acceptance. Drydock verifies all of it, groups blocks, orders
+the work, and serializes the Manifest.
+
+The model never sorts, never checks its own consistency, and never reasons about a position in an
+order it has not computed. It states what each story requires and provides; Drydock does the rest.
+Contradictions become a deterministic error with a precise message instead of a shape failure.
+
+`drydock plan create` therefore does not emit this file. It emits a flat `TOPOLOGY.md` declaration
+carrying the Model-authored fields below — one `## story &lt;id&gt;` heading per governed specification,
+no ordering, no `block:`, no `stack_mode:`, no `state:` — and Drydock serializes `MANIFEST.md` from
+it. The field semantics in this contract govern both forms.
+
+**Two-topology check.** The high-level and actual topologies must agree: a story in phase 2 cannot
+depend on a story in phase 3.
+
+### Phase
+
+`Phase` is Commander instruction on how to build: *build Feature X, then Feature Y*. It is not a
+layer chain. The layer stack repeats inside each phase rather than running once across the project —
+foundational / database / service / ui, then service / ui, then foundational / service / service /
+ui. Commander ordering direction is input the model weighs, not an override applied afterward.
+
+`Phase` describes when a file is built, not the file, so it lives in the Manifest and never in a
+Blueprint header.
+
+### Blocks
+
+A **block** is a set of stories optimized for context: sized to amortize fixed stack-file cost
+across one build run, never crossing stacks. Blocks are an optimization output, not a taxonomy. UI
+stories group together whether or not they belong to the same Agile feature. Context economy comes
+from blocks, not from feature grouping.
+
+Blocks are ephemeral, Manifest-only, regenerated every run, and computed by Drydock:
+
+- **Hard:** one topology type per block; never cross a phase boundary; never violate the edges
+- **Objective:** amortize stack-file cost across the most stories that still fit one build pass
+
+The mechanism behind the no-cross-stack guardrail is stack creep from Rigging. Mixing topology types
+in one block forces every stack file each type needs into the block, so it pays for context neither
+half uses and the build agent reads instructions for work it is not doing. This is the reason story
+types exist: they are the block-partition key.
+
+### Builder and consumer mode
+
+The model authors the foundational story that stands a stack up. Drydock assigns the
+builder/consumer flag from first use in the computed order: by definition the first story using a
+stack is the builder and later ones are consumers. Ordering is build-order-global, as compact
+substitution already is — not per-block, not phase-based. A builder story receives the full stack
+file; a consumer story receives the interface view.
+
+If the model assigned the flag it would be asserting a position in an order it has not computed.
+Disagreement is a defect signal, not a tie to break: if the first user of a stack is not a
+`foundational` story, an edge or a foundational story is missing and Drydock reports it. Ambiguity
+defaults to builder, because consumer-when-it-should-be-builder starves the build agent while
+builder-when-it-should-be-consumer merely costs tokens.
+
+---
+
+## Acceptance
+
+Acceptance lives in one place per audience:
+
+- **Programmatic Acceptance** — executable assertions carrying pass/fail state. Lives in
+  `MANIFEST.md`. Not human-readable, not human-editable, regenerated wholly by every plan run.
+- **User Acceptance** — human-readable intent. Lives in the Blueprint specification.
+
+The discriminator for every other fact is the same question: **does the fact describe the artifact
+or the schedule?**
+
+| Fact | Home | Why |
+|---|---|---|
+| `Provides`, `Consumes`, `Depends On` | Blueprint header | Describe the file — what it offers and requires |
+| Story `type` | Manifest | Computed, machine-focused |
+| `Phase` | Manifest | Describes when the file is built, not the file |
+| Programmatic Acceptance | Manifest | Machine-focused; nobody should hand-edit it |
+| User Acceptance, `## Questions` | Blueprint | Human intent |
+
+Durability is not a discriminator: the Blueprint does not survive a replan. Only the `## Questions`
+section, harvested deterministically beforehand, survives.
+
+---
+
+## Block States
+
+Every story uses the same four states:
+
+| State | Meaning |
+|-------|---------|
+| `pending` | Not run yet |
+| `implemented` | Work done, waiting to be accepted |
+| `closed/verified` | Passed or accepted |
+| `closed/failed` | Failed or rejected |
+
+---
+
+## Execution Rules
+
+A story runs only when everything in `depends:` is `closed/verified`.
+
+Programmatic Acceptance runs after the story build and is part of the story&#x27;s own state
+transition: a story that fails its acceptance becomes `closed/failed` and blocks dependent work.
+There is no separate acceptance node with independent state.
+
+A `feature` story runs after its member stories close. Its assembly and intent instructions are
+made to pass like any other story&#x27;s, which is what turns integration testing into a real build step
+covering the seams between stories where multi-story builds actually break.
+
+`closed/failed` is not terminal. The product owner reopens failed work from the QuarterDeck —
+revising instructions, acceptance, or scope interactively — and the decision writer returns it to
+`pending` with the revision recorded. Recovery never requires hand-editing the Manifest.
+
+An open `Blocking` Blueprint question projects the story state as `blocked/questions`. That story
+and its dependents are unavailable, while independent frontier stories remain buildable. Open `Low`
+and `Material` decisions remain visible without gating.
+
+`User Acceptance` entries are Commander review signals and do not block ordinary downstream build
+unless modeled as explicit dependencies.
+
+---
+
+## Sea Trials Traceability
+
+`accepts:` lists stable project-acceptance IDs from `SEA_TRIALS.md` that the story implements.
+Every required technical or behavioral Sea Trial is referenced by at least one story or by a
+Blueprint Programmatic Acceptance proof. Unknown IDs are invalid.
+
+## Plan State Writer
+
+The **decision writer** is the only mutator of Manifest block state. It is invoked by:
+
+- the QuarterDeck review controls (approve, revise, reject, add defect on individual blocks)
+- the `drydock build` engine (state transitions during execution)
+
+Review decisions written in the QuarterDeck write back to `MANIFEST.md` through the same
+decision writer used by the CLI.
+
+---
+
+## Relationship to Blueprint
+
+The Manifest is generated from the Blueprint; it is not a second product definition. `drydock plan
+create` reads all Blueprint inputs and writes `MANIFEST.md` — the single work graph carrying build
+order, grouping, and per-step prompt-assembly fields. It regenerates after each planning cycle.
+
+The Blueprint remains the source of truth for what the project is and must do. The Manifest is
+the source of truth for build state. The QuarterDeck renders Manifest state and records decisions
+through the plan writer — the console can be deleted and regenerated at any time.</code></pre>
+<p>&lt;/pblock&gt;</p>
+<p>&lt;pblock filename=&quot;BLUEPRINTS_CONTRACT.md&quot; role=&quot;contract&quot; path=&quot;/mnt/c/Users/barlo/projects/drydock/prompts/BLUEPRINTS_CONTRACT.md&quot; guidance=&quot;Blueprint output contract. Follow it exactly.&quot;&gt;</p>
+<pre><code>---
+name: Blueprints Contract
+description: Contract governing the layout, file types, header format, and dependency conventions for Drydock Blueprint files.
+version: 20260813 V12
+---
+
+## Overview
+
+A **Blueprint** is the complete Typed Specification for one project. It lives at
+`$DRYDOCK_WORKSPACE/targets/&lt;Target&gt;/blueprint/` and contains all human-authored and
+process-created specification files. The Blueprint is the single source of truth for what the
+project is, what it must do, and how it is built.
+
+---
+
+## Specification File Types
+
+| File | Purpose | Required |
+|------|---------|----------|
+| `METADATA.md` | Project identity: name, display_name, short_description, status, stack, code_root | Yes |
+| `COMPASS.md` | Project guidance: intent, constraints, and guardrails | Yes |
+| `ARCHITECTURE.md` | Modules, routes, boundaries, interfaces, technical decisions | Yes |
+| `README.md` | One-line description and `## Intent` section | Yes |
+| `DATABASE.md` | Persistence contract: access patterns, typed interfaces, all stores, schemas, migrations | If has persistent state |
+| `UI-GENERAL.md` | Shared UI patterns across screens | If has UI |
+| `SCREEN-{Name}.md` | Per-screen: route, layout, interactions, programmatic and user acceptance | If has UI |
+| `FEATURE-{Name}.md` | Per-feature: purpose, status, trigger, sequence, routes, reads, writes, acceptance, guardrails | As needed |
+| `ARCHITECTURE_compact.md` | Compact architecture derivative for downstream build-step injection | Optional |
+| `DATABASE_compact.md` | Compact persistence derivative for downstream build-step injection | Optional |
+| `HOMEPAGE.md` | Portfolio homepage: branding, contact, bio | If publishes a portfolio |
+| `HOMEPAGE-PUBLISHER.md` | Template-based homepage publishing configuration | If publishes a portfolio |
+| `IDEAS.md` | Feature ideas and backlog — no typed header required | No |
+| `*-AC.md` / `AC-*.md` / `*-AC-*.md` | Acceptance criteria — any file where `AC` is a whole word in the filename | As needed |
+| `changes/TICKET-NNN-{Name}.md` | Post-baseline change, defect, or spike request | As needed |
+
+Every authored Specification file ends with `## Programmatic Acceptance`, `## User Acceptance`,
+and `## Guardrails`. Use `- None.` when no entries apply. Planning disclosures and Commander
+responses are records in the target&#x27;s `DECISIONS.json`.
+
+`ARCHITECTURE_compact.md` is a compact derivative of `ARCHITECTURE.md` produced by
+`drydock rigging compact`. Drydock uses filename-selected compaction algorithms rather than
+phase-aware compact variants.
+
+`DATABASE_compact.md` is a compact derivative of `DATABASE.md` produced by `drydock rigging compact`.
+
+---
+
+## Specification File Header Format
+
+Every authored Specification file except `METADATA.md` and `README.md` must begin with a typed
+header. Operational and generated files (`IDEAS.md`, build plans, analysis outputs, and AC files)
+are not authored Specification files.
+
+```markdown
+# {FileType}: {ObjectName}
+
+| Field       | Value |
+|-------------|-------|
+| Version     | YYYYMMDD V1 |
+| Description | One sentence summary. |
+| Depends On  | FEATURE-SERVICE-CATALOG.md, UI-GENERAL.md |
+| Provides    | GET /welcome, GET /welcome/summary |
+| Phase       | 2 |
+```
+
+**FileType values:** `COMPASS`, `SCREEN`, `FEATURE`, `DATABASE`, `UI-GENERAL`, `ARCHITECTURE`,
+`HOMEPAGE`, `CHANGE`
+
+**ObjectName:** Human-readable name matching the file subject (e.g., `Welcome Summary`,
+`Service Catalog`).
+
+**Fields:**
+
+| Field | Set By | Required | Description |
+|-------|--------|----------|-------------|
+| `Version` | Author | Yes | Date + increment: `YYYYMMDD V1`. Every agent write must set this to the current date with the next increment. If the existing version is already today&#x27;s date, increment the number. Never carry forward a stale date. |
+| `Description` | Author | Yes | One sentence |
+| `Depends On` | `drydock plan create` | No | Filenames this file requires to exist before build |
+| `Provides` | `drydock plan create` | No | HTTP routes or interfaces this file exposes |
+| `Phase` | `drydock plan create` | No | Build phase hint (integer); tooling may override |
+
+**Additional optional fields for SCREEN files:**
+
+| Field | Required | Description |
+|-------|----------|-------------|
+| `Route` | No | The URL this screen is served at |
+| `Parent` | No | Parent menu item or `—` |
+| `Main Menu` | No | Menu label and position |
+| `Sub Menu` | No | Submenu label and position |
+| `Tab Order` | No | Tab index within parent, or `—` |
+
+`Depends On` and `Provides` are written by `drydock plan create` — do not edit manually.
+`Phase` is written by `drydock plan create` — do not edit manually unless overriding.
+
+**Additional required fields for CHANGE files (`changes/TICKET-NNN-{Name}.md`):**
+
+| Field | Set By | Required | Description |
+|-------|--------|----------|-------------|
+| `Amends` | Author / `drydock refit` | Yes | The parent Blueprint spec this ticket modifies (e.g. `FEATURE-Copy.md`). `drydock refit` reads this field to resolve dependency inheritance and inject parent context. |
+| `Depends On` | `drydock refit` | Yes | Copied from the parent spec&#x27;s `Depends On` set plus the parent spec filename itself. Do not edit manually. |
+| `Scope` | Author / `drydock refit --sources` | Yes | `additive` or `amending`. Governs what the ticket supersedes. |
+| `Created` | `drydock refit` | Yes | ISO date the ticket was authored. |
+| `Origin` | `drydock refit --sources` | No | The source version this ticket came from, as `&lt;source&gt;@&lt;commit&gt;`. Absent on hand-authored tickets. |
+| `Stories` | `drydock refit --sources` | No | The Manifest story ids this ticket owns. When present, `drydock refit` emits exactly these ids and never invents new ones. |
+
+**Scope semantics.** A ticket declares its authority over its parent in one sentence directly
+below the header table.
+
+- `additive` — the ticket adds behavior. It supersedes nothing, and every assertion in the parent
+  Blueprint remains in force. Sentence: *&quot;This ticket is additive. It supersedes nothing; every
+  assertion in `&lt;parent&gt;` remains in force.&quot;*
+- `amending` — the ticket alters behavior already specified. It supersedes only the sections
+  listed under `## Amended Sections`, each of which must exist as a heading in the parent.
+  Sentence: *&quot;This ticket amends `&lt;parent&gt;`. It supersedes only the sections named under
+  `## Amended Sections`; every other assertion in `&lt;parent&gt;` remains in force.&quot;*
+
+An additive ticket must never claim authority over its whole parent: a single added requirement
+would otherwise supersede assertions it does not mention and that have already been proven.
+
+---
+
+## Common Authored Specification Sections
+
+Plan and Build disclosures use the existing `DECISIONS.json` schema. `severity: blocking` is the
+only decision gate and blocks only the attached story while its Commander response is absent.
+Analyze questionnaire answers are converted to `origin: analyze-questionnaire` records. Commander
+responses remain in the same records across replans.
+
+Every authored Specification file ends with these sections, using `- None.` when no entries apply:
+
+```markdown
+## Programmatic Acceptance
+
+- None.
+
+## User Acceptance
+
+- None.
+
+## Guardrails
+
+- None.
+
+```
+
+`Programmatic Acceptance` contains executable Python assertion snippets. Each check is one
+explicitly delimited block that can run from the build directory after the story implementing the
+file completes:
+
+```
+=== AC {check-id} ===
+Intent: One sentence stating what the check proves.
+Suite: scoped
+Requires: executable=python3; scope=test
+
+&lt;Python source, verbatim, to the end marker&gt;
+=== END AC {check-id} ===
+```
+
+The delimiters are the whole format. The id lives in the opening marker, so it is never inferred
+from a nearby heading. Declarations are the `Key: value` lines at the top of the block, ending at
+the first blank line; `Intent:` is required and the rest are optional. Everything after that blank
+line is the proof body, taken character for character to the matching end marker.
+
+Nothing inside the body can move a boundary. A Markdown fence, a `##` line, a `###` line, or a
+`Requires:` line inside a string is ordinary content — which matters, because a target that
+processes markup will legitimately embed all of them in its proof. Write the body as plain Python;
+do not wrap it in a fence.
+
+An unterminated block, an end marker naming a different id, a stray end marker, and a duplicate id
+are all hard errors that stop planning. None of them degrade into a criterion that silently stops
+gating.
+
+### The oracle rule
+
+&gt; **Act on the system. Read the state back. Compare to expected.**
+
+Arrange–Act–Assert, where the assertion reads *state*, never text a process printed.
+
+| Oracle | Verdict |
+|---|---|
+| Return value, parsed JSON, status code, DB row, file contents read back, exit status | **Correct** |
+| Substring of captured stdout/stderr, test-runner tally text, log lines | **Forbidden** |
+
+A state oracle cannot pass against a stub and cannot fail because a runner printed the word
+&quot;warning&quot;. Almost every acceptance defect observed in practice has the same shape: the oracle was
+a string in captured output.
+
+### The expected value must be one you could not get wrong
+
+Reading state back is half the rule. The other half is what you compare it *to*.
+
+&gt; **Never type an expected value twice. Bind it to a name and use the name on both sides.**
+
+You are authoring this criterion before the code exists, so a hand-typed expectation is a
+prediction about bytes you have not seen. When the prediction is wrong the criterion fails against
+a correct implementation, and nothing downstream can tell that from a real defect. This is the
+single largest source of wasted build budget on record.
+
+| Expected value | Verdict |
+|---|---|
+| A name bound to the value the criterion supplied as input | **Correct** |
+| A status code, exit status, or count | **Correct** |
+| A contract token read off a declared interface — `&quot;integer&quot;`, `&quot;application/json&quot;`, `&quot;POST&quot;` | **Correct** |
+| A staged suite&#x27;s exit status | **Correct** |
+| A string literal you typed out as the expected result | **Forbidden** |
+
+The forbidden row is judged mechanically: a string expectation carrying anything escapable —
+whitespace, a backslash, a quote, a newline, a non-ASCII character — that the criterion did not
+also supply as input. A criterion that breaks the rule still runs and is still reported, but it
+settles `DISPUTED` and gates nothing, so it buys the story no coverage at all.
+
+The case this comes from. Wrong:
+
+```
+source = &#x27;basic = &quot;line\\nvalue&quot;\nraw = \&#x27;C:\\\\Users\\\\nodejs\&#x27;\n&#x27;
+result = subprocess.run([&quot;./toml-decoder&quot;], input=source, capture_output=True, text=True)
+decoded = json.loads(result.stdout)
+assert decoded[&quot;raw&quot;][&quot;value&quot;] == r&quot;C:\Users\nodejs&quot;     # re-typed, and wrong
+```
+
+A TOML literal string preserves its backslashes verbatim, so the decoder returned the doubled
+form and the expectation was wrong. Right:
+
+```
+raw = &quot;C:\\Users\\nodejs&quot;
+source = f&quot;raw = &#x27;{raw}&#x27;\n&quot;
+result = subprocess.run([&quot;./toml-decoder&quot;], input=source, capture_output=True, text=True)
+decoded = json.loads(result.stdout)
+assert decoded[&quot;raw&quot;][&quot;value&quot;] == raw                    # one spelling, cannot disagree
+```
+
+When a transform&#x27;s output genuinely cannot be derived from its input — a renderer turning `# h`
+into `&lt;h1&gt;h&lt;/h1&gt;` — do not hand-write the expectation at all. Bind the criterion to the
+authoritative suite that defines correctness for that transform. Where no such suite exists, put
+the case in the project&#x27;s own test suite, where the implementer writes it against real output,
+rather than predicting it here.
+
+### Two test destinations
+
+A project carries tests in two places, and they are not the same artifact with different names.
+
+| | **Story AC** — `=== AC &lt;id&gt; ===` | **The project&#x27;s own test suite** |
+|---|---|---|
+| Job | gate the block | know the code works |
+| Count | few | unbounded |
+| Authored | here, by planning, **before the code exists** | by the build agent, **alongside the code** |
+| Oracle discipline | the rules above, without exception | full latitude — expectations are observed, not predicted |
+| Effect | binding: it decides whether the block closes | diagnostic: it guides repair, and its command is what a project criterion runs |
+| Runs | at its block | continuously, cumulatively |
+
+The split is not a matter of taste. Every expected value written here is a *prediction* about
+bytes that do not exist yet, and a wrong prediction fails a correct implementation — which is why
+the oracle rule and the no-re-typed-literal rule are absolute in this file. A test written beside
+the finished code compares against output its author has actually seen, so the same assertion that
+is hazardous here is safe there.
+
+So this is *more* testing, not less. Exhaustive coverage belongs to the project&#x27;s suite, which has
+no ceiling. An AC block is permanently constrained by having to survive as a gate, so author few
+and author them bulletproof. Coverage is never demonstrated by the number of AC blocks a story
+carries; it is demonstrated by the suite, and it is graded at the project level through the Sea
+Trial that runs that suite.
+
+**Where an authoritative suite exists, it is the coverage.** A conformance corpus staged into
+`sources/` defines correctness for the surface it covers. Bind one criterion to it and do not
+restate its cases in either destination — a restated case adds no coverage and adds one more
+expectation that can be wrong.
+
+### What a criterion is worth
+
+Every criterion you write lands in one of four tiers. The tier is decided by how the criterion is
+written, not by how it is labelled, and it decides what the criterion can do:
+
+| Tier | What it is | What it does |
+|---|---|---|
+| **BLOCKING** | a Commander-governed gate, or a criterion bound to a staged authoritative suite | fails the block |
+| **CONSULTATIVE** | a criterion whose expected value could not have been invented — a status code, an exit status, a value the criterion itself supplied as input | drives repair; unattended, it marks the block implemented-but-unverified rather than stalling the run |
+| **ADVISORY** | a criterion that re-types an expected literal | runs, is reported `DISPUTED`, **gates nothing** |
+| **VOID** | malformed: does not compile, or an unclosed container | not a criterion; recorded as a decision and gates nothing |
+
+Aim deliberately. A hand-typed expectation does not merely risk being wrong — it demotes the
+criterion to ADVISORY, so the story it was written to protect ends up with no gate at all. Binding
+the value to a name is what buys the criterion its authority back.
+
+None of these tiers reaches the release verdict. Story AC decides whether an increment was built;
+project acceptance is decided by Sea Trials alone.
+
+### Authoring patterns
+
+Patterns **1, 4, 6, 9, and 10** are the discipline of a gate and govern what you write here.
+Patterns **2, 3, 5, 7, and 8** are the discipline of a test suite: state them as expectations on
+the project&#x27;s own suite, which the build agent grows beside the code, rather than enumerating them
+into AC blocks.
+
+**1 — Round trip (the default form).** For anything that stores, mutates, or removes state:
+
+```
+create  → read back → assert present, with expected field values
+update  → read back → assert changed, and only the intended fields changed
+delete  → read back → assert absent
+```
+
+The read-back is a *separate call through the public interface*, not an inspection of the object
+returned by the write. A write that returns a plausible object while persisting nothing must fail.
+
+**2 — Exercise every callable workflow.** *Suite pattern.* One test per public entry point, per
+verb. Coverage is enumerated from the interface, not sampled: every HTTP route × every method it
+declares including declared error paths; every CLI subcommand and every flag that changes
+behavior; every exported library function. This belongs to the project&#x27;s suite. Here, name the
+routes a SCREEN provides — that gate is real — and leave the enumeration to the suite. Where a
+staged authoritative suite already covers the surface, it is the coverage.
+
+**3 — Idempotence.** *Suite pattern.* Where a verb claims idempotence (PUT, DELETE), apply it twice and assert the
+second is a no-op — same resulting state, and the declared status for a repeat. Where a verb is not
+idempotent (POST), apply twice and assert the declared behavior: two resources, or the declared
+conflict. Prefer idempotent verbs where the semantics allow; the assertion is stronger.
+
+**4 — Negative paths assert the contract, not the message.** Invalid input asserts the declared
+failure signal — status code, exception type, exit status — never the wording of an error message.
+Message text is prose and belongs to no contract.
+
+**5 — Boundaries.** *Suite pattern.* Empty collection, exactly one, many. Absent optional fields.
+Declared maxima. This is where a plausible-looking implementation actually breaks — and where a
+predicted expectation is most likely to be wrong, which is why the cases belong beside the code
+rather than here. Where a staged authoritative suite covers the surface, it is the coverage.
+
+**6 — RED before GREEN.** The assertion must fail against the pre-implementation tree and pass
+after. A check that passes against a stub is not a check.
+
+**7 — Isolation and determinism.** *Suite pattern, and it applies here too.* Each test arranges its own data and does not depend on another
+test&#x27;s residue or on ordering. No wall-clock dependence, no third-party network, no unseeded
+randomness, no sleep-based timing. Fresh store per test, or explicit teardown.
+
+**8 — One behavior per test, named for the behavior.** *Suite pattern.* A failure should be
+diagnosable from the test&#x27;s name alone.
+
+**9 — Subprocess discipline.** Where a check must shell out, **exit status is the verdict**. A
+substring check beside an exit-status assertion is redundant at best and a false-positive generator
+at worst. Never assert that a literal is absent from captured output.
+
+**10 — In-language tooling.** A check is written in the project&#x27;s own language and uses that
+language&#x27;s libraries — Python check, Python libraries; Go check, Go libraries. An in-language HTTP
+client yields a status code and a parsed body, which is state. `curl` yields stdout, which is text
+to scrape. Pattern 10 and the oracle rule are the same rule seen twice.
+
+### Declaring external tooling
+
+Reaching for an external executable is the exception, not the norm, and `curl` in particular will
+not work in every environment. When a check genuinely needs one, the tool belongs in the project&#x27;s
+Rigging or `TECHNOLOGY_STACK.md`, declared once by the Commander and true for every check in the
+project. A per-check declaration is also accepted and is recorded as a report:
+
+```markdown
+Requires: python-package=httpx; scope=test
+Requires: executable=node; scope=test
+```
+
+Kinds are `python-package` and `executable`; scopes are `runtime` and `test`. Framework test
+clients include their transport dependencies. `Requires:` metadata is not acceptance intent, and
+a missing declaration never fails planning — a tool that is present and undeclared works fine.
+A declared tool that is *absent* when the check runs reports UNVERIFIED, not FAIL: the check never
+reached the code under test, so it says nothing about the build.
+
+### Satisfiability
+
+Every assertion must be satisfiable by a correct implementation. An expectation no implementation
+can meet is a defect, not a red baseline. Escaping is the usual source of one: inside a raw
+literal, `\n` and `\r` are a backslash followed by a letter, not a control character, so
+`r&quot;text\n&quot;` asserts against six characters ending in a literal backslash. Binding the value to a
+name and using it on both sides removes the question entirely, which is why that is the rule.
+
+### Runnability
+
+**Subprocess mode.** Match the mode to `input=`. Text input declares `text=True` or `encoding=...`;
+binary input uses a bytes-like value and does not declare `text`, `encoding`, `errors`, or
+`universal_newlines`. A mismatch raises `TypeError` before the program under test starts, which
+reports UNVERIFIED — the criterion buys the story nothing. Write:
+
+```
+payload = &quot;one line\n&quot;
+result = subprocess.run([&quot;./program&quot;], input=payload, capture_output=True, text=True)
+assert result.returncode == 0
+```
+
+For a binary or invalid-encoding criterion, write:
+
+```
+result = subprocess.run([&quot;./program&quot;], input=b&quot;\xff&quot;, capture_output=True)
+assert result.returncode != 0
+```
+
+**ASCII test data.** Acceptance data is ASCII. Do not invent an encoding requirement: characters
+outside ASCII test a property the specification never stated, and a criterion that fails on them
+fails the build for something nobody asked the product to do. When the imported specification does
+state an encoding requirement, the criterion says so and may then use that encoding:
+
+```
+=== AC runtime-utf8 ===
+Intent: The executable round-trips UTF-8 source, per INSTRUCTIONS.md.
+Encoding: utf-8
+
+source = &quot;café\n&quot;
+result = subprocess.run(
+    [&quot;./program&quot;], input=source, capture_output=True, text=True, encoding=&quot;utf-8&quot;
+)
+assert result.returncode == 0
+assert source.strip() in result.stdout
+=== END AC runtime-utf8 ===
+```
+
+`Encoding:` is a declaration of deliberate intent, reviewable as such. Absent it, ASCII.
+
+**Every check is standalone.** Drydock writes each fenced block to its own script and runs it in
+its own process from the build directory. Checks in the same file share no imports, no variables,
+and no execution order. A snippet that reads a name another snippet bound raises `NameError` on
+every run — it reports UNVERIFIED rather than failing the build, which means it verifies nothing
+and buys nothing. Each snippet imports what it uses and binds every name it reads.
+
+**A check that shells out prints what it captured before it asserts.** `capture_output=True`
+routes the runner&#x27;s tally and its failing cases into a variable; asserting on the exit code alone
+then discards them, and the failure reports the assertion with no evidence of what went wrong.
+Print the captured `stdout` and `stderr` first, so the console, the evidence file, and the repair
+pass all carry the runner&#x27;s own account of the failure. Printing is for diagnosis; it is never the
+oracle.
+
+```markdown
+## Programmatic Acceptance
+
+=== AC health-check ===
+Intent: The health endpoint returns an OK response.
+
+from app import create_app
+
+client = create_app().test_client()
+response = client.get(&quot;/health&quot;)
+assert response.status_code == 200
+assert response.get_json()[&quot;status&quot;] == &quot;ok&quot;
+=== END AC health-check ===
+
+=== AC suite-conformance ===
+Intent: The implementation passes the conformance sections this story owns.
+Suite: scoped
+
+import subprocess
+import sys
+
+result = subprocess.run(
+    [sys.executable, &quot;tests/run_suite.py&quot;, &quot;--sections&quot;, &quot;headings,lists&quot;],
+    capture_output=True, text=True,
+)
+print(result.stdout)
+print(result.stderr, file=sys.stderr)
+assert result.returncode == 0
+=== END AC suite-conformance ===
+```
+
+`User Acceptance` contains only Commander-observed checks that cannot be honestly automated,
+such as look-and-feel or subjective workflow acceptance. Do not place deterministic behavior in
+`User Acceptance`.
+
+Do not tag an assertion with a project-acceptance ID. Sea Trials flow into planning as context for
+authoring acceptance; nothing points back at them. Project acceptance is settled at `score release`
+by observing the finished tree, never by looking up which assertion claimed which criterion.
+
+**Programmatic acceptance is the story&#x27;s definition of done, and a deterministic definition of
+done is never sampled.** Drydock builds each block in a single pass with no iterate loop, so the
+acceptance you author *is* the objective handed to the builder: sample the checks and the builder
+builds to the sample. When an authoritative, externally-authored test suite already defines
+&quot;correct&quot; for what a story builds — an imported conformance suite and its runner (for example a
+specification&#x27;s example suite plus a `*_tests.py` runner) — the acceptance runs that suite and
+requires a full pass over the story&#x27;s scope, never a hand-picked subset. A feature story binds to
+the sections it owns and declares `Suite: scoped`; a terminal verification story gates on the whole
+suite and declares `Suite: full`. The marker is one of the block&#x27;s declaration lines and tells the
+runner the check gates on the whole test suite rather than a story-scoped sample.
+
+**A scoped selector must select something.** A check that runs a suite with a section filter
+matching no cases exits zero and reports a pass while proving nothing. Select on a heading that
+actually owns cases, never on a chapter title that merely contains such headings. Drydock fails a
+criterion that is already green before the story&#x27;s code exists.
+**The runner&#x27;s exit status is the verdict, and it is the whole verdict.** A conformance runner
+already decides pass or fail and reports it the one way a caller can rely on. Asserting on its
+printed summary as well adds no information and adds a failure mode: the case count belongs to the
+installed suite rather than to the specification, and runners column-align their summaries
+(`valid tests: 205 passed,  0 failed` carries two spaces), so a literal such as
+`assert &quot;valid tests: 210 passed, 0 failed&quot; in result.stdout` is false on correct code and no
+implementation can move it. The same holds for tallies of errors, skips, and warnings: a runner
+with none of them commonly prints no such line at all, so requiring one is false on a clean run.
+
+Print the captured output for diagnosis, assert `result.returncode == 0`, and stop there. This
+holds for both `Suite: scoped` and `Suite: full`.
+
+Place a whole-project deterministic suite on the story that **completes the runnable capability**
+— never on a foundation step that cannot yet run it, where it would fail vacuously. Naming the suite file or asserting it is staged (`Path(...).is_file()`)
+is staging, not testing: a stubbed or absent definition of done for an available suite is a defect,
+not an acceptable check.
+
+An assertion that invokes a staged asset obeys that asset&#x27;s own documented interface. Read the
+asset before writing the call. Every environment variable it declares required is supplied, and it
+is supplied by extending the inherited environment — `env={**os.environ, &quot;NAME&quot;: value}`. Never
+write `env={&quot;NAME&quot;: value}`: that replaces the environment, leaving the child with no `PATH`, so
+nothing it invokes resolves and the assertion fails at every level of implementation quality. Never
+repair a staged asset&#x27;s interface by editing the asset; it is restored before grading, so the edit
+is reported as tampering rather than honored.
+
+An assertion that feeds input to a program passes it through `subprocess` `input=` rather than a
+shell. When a shell is unavoidable, `printf &#x27;%s&#x27;` copies its argument verbatim: `\n` reaches the
+program as a backslash and a letter, not a newline, so the program is graded on input the author
+never wrote. Use `printf &#x27;%b&#x27;` or a real line break.
+
+`COMPASS.md` uses `## Compass`, `## Constraints`, and `## Guardrails` as its body sections.
+Success criteria belong in `SEA_TRIALS.md`; open questions in spike questionnaires. Do not add
+those sections to `COMPASS.md`.
+
+---
+
+---
+
+## Acceptance Criteria Files
+
+**Naming rule:** any file where `AC` is a whole word in the filename is an acceptance criteria
+file. `AC` must be delimited by `-`, `_`, or file boundaries — not embedded in another word.
+Examples: `AC-001-login.md`, `FEATURE-LOGIN-AC.md`, `AC-NAVIGATION.md`.
+`ACCEPTANCE_CRITERIA.md` does NOT follow this standard (AC is not a standalone word).
+
+AC files enable test-driven design and a way to enforce specific behaviors without polluting the
+parent specification.
+
+**Two types of AC statements:**
+
+| Type | Example | Rule |
+|------|---------|------|
+| Positive assertion | &quot;The status badge color is red&quot; | Reconcile into parent spec, then archive this entry |
+| Negative/guardrail | &quot;Field X must not appear on this screen&quot; | Keep permanently in AC — these guard against model hallucination, not spec omission |
+
+**Reconciliation:** When a positive AC fact has been implemented and verified, move it to the
+parent spec body and delete the AC entry. Negative guardrails are permanent — never move them to
+the spec.
+
+**AC file format:**
+
+```markdown
+# AC: {ObjectName}
+
+| Field       | Value |
+|-------------|-------|
+| Version     | YYYYMMDD V1 |
+| Description | Acceptance criteria for {ObjectName}. |
+| Parent      | FEATURE-{Name}.md |
+
+## Guardrails
+
+- Field X must not appear on this screen.
+- The delete button must not be shown to read-only users.
+
+## Assertions
+
+- The status badge is rendered in red when severity is HIGH.
+```
+
+**Standard AC filename forms:**
+- `AC-NNN-{Name}.md` — numbered sequential acceptance-criteria ticket (authored)
+- `{Parent}-AC.md` — paired directly with a spec file (e.g. `FEATURE-LOGIN-AC.md`)
+- `AC-{Topic}.md` — topic-scoped AC file (e.g. `AC-NAVIGATION.md`)
+
+**All fix and change tickets use AC naming** — `AC` as a whole word in the filename. A targeted
+bug fix is expressed as a testable acceptance criterion.
+
+---
+
+## Dependency Declarations
+
+`drydock plan create` scans spec file headers to populate `Depends On` and `Provides`. The
+following conventions apply automatically without explicit header declaration:
+
+| Convention | Rule |
+|------------|------|
+| `SCREEN-*.md` → `UI-GENERAL.md` | All screens depend on shared UI patterns |
+| `DATABASE.md` → Phase 1 | Always first phase; always base context |
+| `ARCHITECTURE.md` → base context | Included in every phase prompt |
+| `FEATURE-*.md` providing routes → listed in `Provides` | Extracted from route tables in file |
+| `SCREEN-*.md` using a route → depends on providing `FEATURE` | Matched from route references in body |
+
+The `Depends On` and `Provides` fields form a simple directed dependency graph. `drydock plan
+create` traverses this graph to assign phases, assign build order, and compute context sizes.
+A file can only be built in a phase after all its `Depends On` files are built.
+
+---
+
+## Persistence Encapsulation (DATABASE.md scope)
+
+`DATABASE.md` is the project&#x27;s persistence contract — not SQL schema alone. It documents every
+persistent store and the typed class that encapsulates it:
+
+- **Relational tables** — schema plus the row dataclass / CRUD class / composing `Database` class.
+- **Config / `.env`** — required keys and the typed `Config` class.
+- **File stores** — directories and the `FileStore` class.
+- **External services** — the service contract and its wrapper.
+
+Application code reaches each store only through its class. A storage change that leaves the
+interface unchanged does not invalidate downstream features.
+
+Every `DATABASE.md` includes `## Access Patterns` and `## Persistence Interfaces` before schema
+details. Access patterns name the caller, operation, store, and interface method. Persistence
+interfaces name the store, public interface, module location, allowed callers, and notes.
+
+`ARCHITECTURE.md` includes a module ownership table for persistence, configuration, file-store, and
+external-service boundaries. It states which module owns each boundary and which low-level APIs that
+module may access.
+
+Any Manifest story that implements `DATABASE.md` includes `persistence.md` in `stack:` plus the
+selected backend stack file such as `sqlite.md`, `postgres.md`, or `aws-dynamodb.md`.
+
+---
+
+## METADATA.md — Service Identity Fields
+
+In addition to standard project fields, service repositories should declare:
+
+```
+service_name:      Platform        # top-level service grouping (e.g. Platform, Analytics, Tools)
+service_component: GAME            # component name within the service (matches directory name)
+```
+
+These fields are used by build-time service registration artifacts and by GAME&#x27;s service registry
+scanner to group related repositories under a named service.
+
+---
+
+## Authoring Conventions
+
+**Authoring phase:** all unresolved product decisions go in `DECISIONS.json`. Do not create
+`MANIFEST.md` or numbered ticket files while authoring.
+
+**Build phase:** run `drydock plan create` once the specification is ready. Use `drydock status`
+to check for spec errors and staleness before building. After a build, fold changes back by editing
+the specification and re-applying with `drydock refit`.
+
+**Spikes:** a spike is a runnable investigation. Results feed future iterations. When run, the
+finding is written into the named file, resolving the matching `## Open Question` in place.
+
+**Feature specifications:** all feature purpose, status, triggers, sequences, routes, reads,
+writes, acceptance criteria, and guardrails belong in individual `FEATURE-*.md` files. README,
+METADATA, and generated files do not contain feature specifications.</code></pre>
+<p>&lt;/pblock&gt;</p>
+<p>&lt;pblock label=&quot;Imported source file header&quot; kind=&quot;section&quot;&gt;</p>
+<h2>Imported source files</h2>
+<p>&lt;/pblock&gt;</p>
+<p>&lt;pblock filename=&quot;sources/INSTRUCTIONS.md&quot; role=&quot;source file&quot; path=&quot;/mnt/c/Users/barlo/projects/drydock/uat/Toml/runs/20260814.050011/workspace/targets/toml/blueprint/sources/INSTRUCTIONS.md&quot; guidance=&quot;Raw User Source&quot;&gt;</p>
+<pre><code># Build Instructions: TOML 1.0.0 Parser
+
+## Objective
+
+Build a TOML v1.0.0 parser that conforms to the specification in
+`sources/toml-v1.0.0.md`. Correctness is measured by the upstream `toml-test`
+conformance suite. The goal is to pass every valid and every invalid case the
+installed suite supplies, with no case failed, errored, or skipped. The suite&#x27;s
+size is a property of the version `setup_harness.sh` installs; never assert a
+case count.
+
+Rejecting invalid input is scored as heavily as accepting valid input. A parser
+that is merely permissive fails roughly 70 percent of the suite.
+
+The implementation language is Go, fixed by this Target&#x27;s `TECHNOLOGY_STACK.md`
+and governed by `stack/go.md`. The conformance harness itself is written in Go
+but is a scoring instrument, not part of the deliverable.
+
+## Run Harness
+
+`sources/full_test.sh` is the single scoring entry point. It is supplied, not
+authored: it is staged verbatim into the build directory alongside the other
+imported assets, and `drydock uat` runs `sh sources/full_test.sh` from the
+completed application root and takes its exit code and output as the score. It
+reads:
+
+```sh
+#!/bin/sh
+# full_test.sh — scoring entry point. Do not filter, skip, or reinterpret.
+set -eu
+go build -o toml-decoder ./cmd/toml-decoder
+DECODER=&quot;$PWD/toml-decoder&quot; exec sh sources/run_conformance.sh
+```
+
+The build step is deliberately separate from the scoring step so that a
+compilation failure and a conformance failure are distinguishable in the
+evidence. `DECODER` is the harness&#x27;s only knowledge of the implementation
+language; the harness itself is language-neutral.
+
+**The scoring assets are read-only.** `sources/full_test.sh`,
+`sources/run_conformance.sh`, and `sources/setup_harness.sh` are hash-verified
+against the import and restored before grading, so a modification is reported as
+tampering rather than honored. Do not write to them. Build `cmd/toml-decoder` so
+that the supplied entry point succeeds; changing the entry point is not a
+repair.
+
+## Interface Contract
+
+The program is a filter: read TOML from **stdin**, write tagged JSON to
+**stdout**, exit `0`. On invalid TOML, write a diagnostic to **stderr** and exit
+non-zero. No arguments, no config, no side effects.
+
+Minimal shape (`cmd/toml-decoder/main.go`):
+
+```go
+package main
+
+import (
+	&quot;encoding/json&quot;
+	&quot;fmt&quot;
+	&quot;io&quot;
+	&quot;os&quot;
+
+	&quot;github.com/owner/toml-decoder/internal/toml&quot;
+)
+
+func main() {
+	input, err := io.ReadAll(os.Stdin)
+	if err != nil {
+		fmt.Fprintln(os.Stderr, err)
+		os.Exit(1)
+	}
+	tagged, err := toml.Decode(string(input))
+	if err != nil {
+		fmt.Fprintln(os.Stderr, err)
+		os.Exit(1)
+	}
+	if err := json.NewEncoder(os.Stdout).Encode(tagged); err != nil {
+		fmt.Fprintln(os.Stderr, err)
+		os.Exit(1)
+	}
+}
+```
+
+The parser lives in `internal/toml`; `main` reads, delegates, and encodes. See
+`stack/go.md` for the module layout and the toolchain floor.
+
+### Tagged JSON encoding
+
+- TOML tables become JSON objects. Empty tables become `{}`.
+- TOML arrays become JSON arrays. Empty arrays become `[]`.
+- Every TOML **value** becomes `{&quot;type&quot;: &quot;&lt;TOML_TYPE&gt;&quot;, &quot;value&quot;: &quot;&lt;TOML_VALUE&gt;&quot;}`.
+- `TOML_VALUE` is always a JSON string, including for integers, floats, and booleans.
+- `TOML_TYPE` is one of: `string`, `integer`, `float`, `bool`, `datetime`,
+  `datetime-local`, `date-local`, `time-local`.
+- Offset datetimes are encoded as RFC 3339. Local datetimes are RFC 3339 without
+  the offset. Local dates are the date part; local times are the time part.
+
+| TOML | JSON |
+|---|---|
+| `a = 42` | `{&quot;a&quot;: {&quot;type&quot;: &quot;integer&quot;, &quot;value&quot;: &quot;42&quot;}}` |
+| `a = true` | `{&quot;a&quot;: {&quot;type&quot;: &quot;bool&quot;, &quot;value&quot;: &quot;true&quot;}}` |
+| `a = [&quot;a&quot;, 2]` | `{&quot;a&quot;: [{&quot;type&quot;:&quot;string&quot;,&quot;value&quot;:&quot;a&quot;}, {&quot;type&quot;:&quot;integer&quot;,&quot;value&quot;:&quot;2&quot;}]}` |
+| `[tbl]`&lt;br&gt;`a = 42` | `{&quot;tbl&quot;: {&quot;a&quot;: {&quot;type&quot;: &quot;integer&quot;, &quot;value&quot;: &quot;42&quot;}}}` |
+
+## Test / Verification Process
+
+The imported source files are placed in a `sources/` subdirectory of the
+application directory. Install the harness once (network required, one time
+only):
+
+```bash
+sh sources/setup_harness.sh
+```
+
+Then run the suite from the application directory. `DECODER` is required — the
+harness has no default implementation language:
+
+```bash
+go build -o toml-decoder ./cmd/toml-decoder
+DECODER=&quot;$PWD/toml-decoder&quot; sh sources/run_conformance.sh
+```
+
+During development, `sh sources/full_test.sh` does both steps and is the same
+command the score is taken from.
+
+Mechanics: `toml-test` holds the corpus internally. For each valid case it pipes
+TOML into the decoder on stdin and compares the emitted tagged JSON against the
+expected description. For each invalid case it requires a non-zero exit. The
+summary is:
+
+```
+  valid tests: NNN passed,  N failed
+invalid tests: NNN passed,  N failed
+```
+
+The passed counts are the correctness score. Exit code is non-zero while any
+test fails.
+
+### Useful flags
+
+Flags pass straight through `sources/run_conformance.sh` to `toml-test test`.
+
+- `-run &#x27;valid/string/*&#x27;` — run one feature group. Use this to develop one
+  construct at a time.
+- `-run=valid/string-empty,valid/string-nl` — run named cases.
+- `-skip &#x27;invalid/datetime/*&#x27;` — exclude a group.
+- `-json` — machine-readable report instead of text.
+- `-v` — list passing tests as well as failures.
+- `-script` — emit a shell script of `-skip` flags for the current failures,
+  which is the fastest way to snapshot known failures between passes.
+
+Feature groups available to `-run`:
+
+- valid: `array bool comment datetime float inline-table integer key spec-1.0.0 string table`
+- invalid: the above plus `control encoding local-date local-datetime local-time`
+
+## Suggested Implementation Order
+
+TOML parsing is lexically simple and structurally fussy. The difficulty is in
+key/table semantics and in rejecting malformed input, not in the grammar.
+
+1. **Scaffolding** — line handling, comments, whitespace, the stdin/stdout/exit
+   contract, tagged JSON emission.
+2. **Scalars** — booleans, integers (including `0x`, `0o`, `0b`, underscores),
+   floats (including `inf`, `nan`, exponents), basic and literal strings, then
+   multi-line strings with their line-ending backslash and trimming rules.
+3. **Keys** — bare, quoted, and dotted keys; the redefinition rules.
+4. **Tables** — `[table]`, `[a.b.c]` implicit creation, `[[array of tables]]`,
+   and the rules governing which of these may follow which.
+5. **Inline tables and arrays** — including nesting and the TOML 1.0 restriction
+   that inline tables are closed to later extension.
+6. **Datetimes** — offset, local datetime, local date, local time.
+7. **Invalid-input hardening** — control characters, bad UTF-8, duplicate keys,
+   redefinition after an inline table, unterminated constructs. This is where
+   most of the remaining score lives.
+
+The specification is normative and short. Follow it directly.
+
+## Files the LLM Needs
+
+- `sources/toml-v1.0.0.md` — the specification. Primary input. Required.
+- `sources/full_test.sh` — the supplied scoring entry point.
+- `sources/run_conformance.sh` — the conformance harness it invokes.
+- `sources/setup_harness.sh` — one-time harness installation.
+
+## Definition of Done
+
+- `sh sources/full_test.sh` runs cleanly with zero errors and exits zero.
+- The program satisfies the stdin → tagged-JSON → exit-code contract.
+- Every supplied valid and invalid case passes: the failed, errored, and skipped
+  counts are all zero. The harness exit status is the verdict and the whole
+  verdict — assert `returncode == 0` and stop there. Do not assert on the text
+  of the summary line at all: the case totals belong to the installed suite, and
+  a check that reads a runner&#x27;s printed output is measuring the runner rather
+  than the parser.
+- The parser is written from the specification. **Every third-party TOML module is
+  forbidden** — `github.com/BurntSushi/toml`, `github.com/pelletier/go-toml`,
+  `github.com/naoina/toml`, and any other. `BurntSushi/toml` scores near-perfectly
+  on this suite, so importing it makes the exercise meaningless.
+- `go.mod` declares no `require` dependencies. The standard library is sufficient:
+  `encoding/json`, `strconv`, `strings`, `unicode`, `unicode/utf8`, `time`, `math`,
+  `fmt`, `io`, `os`, `errors`.
+- No network access at test time after `setup_harness.sh` has run once.</code></pre>
+<p>&lt;/pblock&gt;</p>
+<p>&lt;pblock filename=&quot;sources/full_test.sh&quot; role=&quot;source file&quot; path=&quot;/mnt/c/Users/barlo/projects/drydock/uat/Toml/runs/20260814.050011/workspace/targets/toml/blueprint/sources/full_test.sh&quot;&gt;</p>
+<pre><code>#!/bin/sh
+# full_test.sh — scoring entry point. Do not filter, skip, or reinterpret.
+set -eu
+# The version setup_harness.sh installs. run_conformance.sh refuses a different one, so a
+# passing verdict names a specific exam rather than whichever harness was on PATH.
+TOML_TEST_VERSION=&quot;${TOML_TEST_VERSION:-v2.2.0}&quot;
+export TOML_TEST_VERSION
+go build -o toml-decoder ./cmd/toml-decoder
+DECODER=&quot;$PWD/toml-decoder&quot; exec sh sources/run_conformance.sh</code></pre>
+<p>&lt;/pblock&gt;</p>
+<p>&lt;pblock filename=&quot;sources/run_conformance.sh&quot; role=&quot;source file&quot; path=&quot;/mnt/c/Users/barlo/projects/drydock/uat/Toml/runs/20260814.050011/workspace/targets/toml/blueprint/sources/run_conformance.sh&quot;&gt;</p>
+<pre><code>#!/bin/sh
+# Run the upstream toml-test conformance suite against the built decoder.
+#
+# Imported sources land in sources/ inside the application directory, so this is
+# normally invoked as `sh sources/run_conformance.sh` from that directory.
+#
+# Usage:
+#   DECODER=./toml-decoder sh sources/run_conformance.sh                        # full suite
+#   DECODER=./toml-decoder sh sources/run_conformance.sh -run &#x27;valid/string/*&#x27;  # one group
+#   DECODER=./toml-decoder sh sources/run_conformance.sh -json                  # machine-readable
+#
+# Environment:
+#   DECODER    decoder command. Required — this harness is language-neutral and
+#              deliberately has no default implementation language.
+#   TOML_TEST  absolute path to the toml-test binary (default: found on PATH)
+#
+# Exit code is the harness exit code: 0 only when every test passes.
+
+set -u
+
+if [ -z &quot;${DECODER:-}&quot; ]; then
+    echo &quot;error: DECODER is not set; give the command that runs your decoder.&quot; &gt;&amp;2
+    exit 2
+fi
+
+if [ -n &quot;${TOML_TEST:-}&quot; ] &amp;&amp; [ -x &quot;${TOML_TEST}&quot; ]; then
+    HARNESS=&quot;${TOML_TEST}&quot;
+elif command -v toml-test &gt;/dev/null 2&gt;&amp;1; then
+    HARNESS=&quot;$(command -v toml-test)&quot;
+else
+    cat &gt;&amp;2 &lt;&lt;&#x27;EOF&#x27;
+error: toml-test not found.
+
+Install the harness once:
+
+    sh sources/setup_harness.sh
+
+or set TOML_TEST to an existing binary:
+
+    TOML_TEST=/path/to/toml-test sh sources/run_conformance.sh
+EOF
+    exit 127
+fi
+
+# The suite&#x27;s identity is part of the verdict. Without this, &quot;the authoritative suite passed&quot;
+# names no particular suite: whichever toml-test happened to be on PATH decided the run, and a
+# different version on a different machine is a different exam. Recorded always, and enforced
+# when the caller states which version it expects.
+HARNESS_VERSION=&quot;$(&quot;${HARNESS}&quot; version 2&gt;/dev/null | head -n 1 || true)&quot;
+echo &quot;harness: ${HARNESS} ${HARNESS_VERSION:-(version unknown)}&quot; &gt;&amp;2
+if [ -n &quot;${TOML_TEST_VERSION:-}&quot; ] &amp;&amp; [ -n &quot;${HARNESS_VERSION}&quot; ]; then
+    case &quot;${HARNESS_VERSION}&quot; in
+        *&quot;${TOML_TEST_VERSION}&quot;*) ;;
+        *)
+            echo &quot;error: harness is ${HARNESS_VERSION}, expected ${TOML_TEST_VERSION}.&quot; &gt;&amp;2
+            echo &quot;Run: sh sources/setup_harness.sh&quot; &gt;&amp;2
+            exit 2
+            ;;
+    esac
+fi
+
+NO_COLOR=1 exec &quot;${HARNESS}&quot; test -toml 1.0 -decoder &quot;${DECODER}&quot; &quot;$@&quot;</code></pre>
+<p>&lt;/pblock&gt;</p>
+<p>&lt;pblock filename=&quot;sources/setup_harness.sh&quot; role=&quot;source file&quot; path=&quot;/mnt/c/Users/barlo/projects/drydock/uat/Toml/runs/20260814.050011/workspace/targets/toml/blueprint/sources/setup_harness.sh&quot;&gt;</p>
+<pre><code>#!/bin/sh
+# One-time installation of the upstream toml-test conformance harness.
+#
+# Requires network access and a Go toolchain of at least 1.22 — the same floor
+# stack/go.md sets for the deliverable. The Go shipped by apt on Debian and
+# Ubuntu is frequently older and will fail; install the official tarball instead:
+#
+#     curl -sL https://go.dev/dl/go1.24.6.linux-amd64.tar.gz -o go.tgz
+#     sudo tar -C /usr/local -xzf go.tgz
+#     export PATH=/usr/local/go/bin:$PATH
+#
+# Usage:
+#   sh sources/setup_harness.sh              # install to $HOME/.local/bin
+#   GOBIN=/usr/local/bin sh sources/setup_harness.sh
+
+set -eu
+
+TOML_TEST_VERSION=v2.2.0
+GOBIN=&quot;${GOBIN:-$HOME/.local/bin}&quot;
+
+if ! command -v go &gt;/dev/null 2&gt;&amp;1; then
+    echo &quot;error: no go toolchain on PATH; see the header of this script&quot; &gt;&amp;2
+    exit 1
+fi
+
+echo &quot;go:      $(go version)&quot;
+echo &quot;target:  ${GOBIN}/toml-test&quot;
+echo &quot;version: ${TOML_TEST_VERSION}&quot;
+
+mkdir -p &quot;${GOBIN}&quot;
+GOBIN=&quot;${GOBIN}&quot; go install \
+    &quot;github.com/toml-lang/toml-test/v2/cmd/toml-test@${TOML_TEST_VERSION}&quot;
+
+echo
+&quot;${GOBIN}/toml-test&quot; version
+
+case &quot;:${PATH}:&quot; in
+    *&quot;:${GOBIN}:&quot;*) ;;
+    *) echo
+       echo &quot;warning: ${GOBIN} is not on PATH. Add it, or export&quot;
+       echo &quot;         TOML_TEST=${GOBIN}/toml-test before running the suite.&quot; ;;
+esac</code></pre>
+<p>&lt;/pblock&gt;</p>
+<p>&lt;pblock filename=&quot;sources/stage_test.sh&quot; role=&quot;source file&quot; path=&quot;/mnt/c/Users/barlo/projects/drydock/uat/Toml/runs/20260814.050011/workspace/targets/toml/blueprint/sources/stage_test.sh&quot;&gt;</p>
+<pre><code>#!/bin/sh
+# stage_test.sh — governed stage gate. Runs one slice of the authoritative suite.
+#
+# Same contract as full_test.sh, scoped to the cases a single story owns: build the decoder,
+# then run the installed toml-test suite over the pattern given as $1. Exit status is the
+# verdict and the whole verdict. Do not filter, skip, or reinterpret.
+set -eu
+if [ $# -ne 1 ]; then
+  echo &quot;usage: stage_test.sh &lt;toml-test -run pattern&gt;&quot; &gt;&amp;2
+  exit 2
+fi
+TOML_TEST_VERSION=&quot;${TOML_TEST_VERSION:-v2.2.0}&quot;
+export TOML_TEST_VERSION
+go build -o toml-decoder ./cmd/toml-decoder
+DECODER=&quot;$PWD/toml-decoder&quot; exec sh sources/run_conformance.sh -run &quot;$1&quot;</code></pre>
+<p>&lt;/pblock&gt;</p>
+<p>&lt;pblock filename=&quot;sources/toml-v1.0.0.md&quot; role=&quot;source file&quot; path=&quot;/mnt/c/Users/barlo/projects/drydock/uat/Toml/runs/20260814.050011/workspace/targets/toml/blueprint/sources/toml-v1.0.0.md&quot; guidance=&quot;Raw User Source&quot;&gt;</p>
+<pre><code>![TOML Logo](logos/toml-200.png)
+
+TOML v1.0.0
+===========
+
+Tom&#x27;s Obvious, Minimal Language.
+
+By Tom Preston-Werner, Pradyun Gedam, et al.
+
+Objectives
+----------
+
+TOML aims to be a minimal configuration file format that&#x27;s easy to read due to
+obvious semantics. TOML is designed to map unambiguously to a hash table. TOML
+should be easy to parse into data structures in a wide variety of languages.
+
+Table of contents
+-----------------
+
+- [Spec](#spec)
+- [Comment](#comment)
+- [Key/Value Pair](#keyvalue-pair)
+- [Keys](#keys)
+- [String](#string)
+- [Integer](#integer)
+- [Float](#float)
+- [Boolean](#boolean)
+- [Offset Date-Time](#offset-date-time)
+- [Local Date-Time](#local-date-time)
+- [Local Date](#local-date)
+- [Local Time](#local-time)
+- [Array](#array)
+- [Table](#table)
+- [Inline Table](#inline-table)
+- [Array of Tables](#array-of-tables)
+- [Filename Extension](#filename-extension)
+- [MIME Type](#mime-type)
+- [ABNF Grammar](#abnf-grammar)
+
+Spec
+----
+
+* TOML is case-sensitive.
+* A TOML file must be a valid UTF-8 encoded Unicode document.
+* Whitespace means tab (0x09) or space (0x20).
+* Newline means LF (0x0A) or CRLF (0x0D 0x0A).
+
+Comment
+-------
+
+A hash symbol marks the rest of the line as a comment, except when inside a
+string.
+
+```toml
+# This is a full-line comment
+key = &quot;value&quot;  # This is a comment at the end of a line
+another = &quot;# This is not a comment&quot;
+```
+
+Control characters other than tab (U+0000 to U+0008, U+000A to U+001F, U+007F)
+are not permitted in comments.
+
+Key/Value Pair
+--------------
+
+The primary building block of a TOML document is the key/value pair.
+
+Keys are on the left of the equals sign and values are on the right. Whitespace
+is ignored around key names and values. The key, equals sign, and value must be
+on the same line (though some values can be broken over multiple lines).
+
+```toml
+key = &quot;value&quot;
+```
+
+Values must have one of the following types.
+
+- [String](#string)
+- [Integer](#integer)
+- [Float](#float)
+- [Boolean](#boolean)
+- [Offset Date-Time](#offset-date-time)
+- [Local Date-Time](#local-date-time)
+- [Local Date](#local-date)
+- [Local Time](#local-time)
+- [Array](#array)
+- [Inline Table](#inline-table)
+
+Unspecified values are invalid.
+
+```toml
+key = # INVALID
+```
+
+There must be a newline (or EOF) after a key/value pair. (See [Inline
+Table](#inline-table) for exceptions.)
+
+```
+first = &quot;Tom&quot; last = &quot;Preston-Werner&quot; # INVALID
+```
+
+Keys
+----
+
+A key may be either bare, quoted, or dotted.
+
+**Bare keys** may only contain ASCII letters, ASCII digits, underscores, and
+dashes (`A-Za-z0-9_-`). Note that bare keys are allowed to be composed of only
+ASCII digits, e.g. `1234`, but are always interpreted as strings.
+
+```toml
+key = &quot;value&quot;
+bare_key = &quot;value&quot;
+bare-key = &quot;value&quot;
+1234 = &quot;value&quot;
+```
+
+**Quoted keys** follow the exact same rules as either basic strings or literal
+strings and allow you to use a much broader set of key names. Best practice is
+to use bare keys except when absolutely necessary.
+
+```toml
+&quot;127.0.0.1&quot; = &quot;value&quot;
+&quot;character encoding&quot; = &quot;value&quot;
+&quot;ʎǝʞ&quot; = &quot;value&quot;
+&#x27;key2&#x27; = &quot;value&quot;
+&#x27;quoted &quot;value&quot;&#x27; = &quot;value&quot;
+```
+
+A bare key must be non-empty, but an empty quoted key is allowed (though
+discouraged).
+
+```toml
+= &quot;no key name&quot;  # INVALID
+&quot;&quot; = &quot;blank&quot;     # VALID but discouraged
+&#x27;&#x27; = &#x27;blank&#x27;     # VALID but discouraged
+```
+
+**Dotted keys** are a sequence of bare or quoted keys joined with a dot. This
+allows for grouping similar properties together:
+
+```toml
+name = &quot;Orange&quot;
+physical.color = &quot;orange&quot;
+physical.shape = &quot;round&quot;
+site.&quot;google.com&quot; = true
+```
+
+In JSON land, that would give you the following structure:
+
+```json
+{
+  &quot;name&quot;: &quot;Orange&quot;,
+  &quot;physical&quot;: {
+    &quot;color&quot;: &quot;orange&quot;,
+    &quot;shape&quot;: &quot;round&quot;
+  },
+  &quot;site&quot;: {
+    &quot;google.com&quot;: true
+  }
+}
+```
+
+For details regarding the tables that dotted keys define, refer to the
+[Table](#table) section below.
+
+Whitespace around dot-separated parts is ignored. However, best practice is to
+not use any extraneous whitespace.
+
+```toml
+fruit.name = &quot;banana&quot;     # this is best practice
+fruit. color = &quot;yellow&quot;    # same as fruit.color
+fruit . flavor = &quot;banana&quot;   # same as fruit.flavor
+```
+
+Indentation is treated as whitespace and ignored.
+
+Defining a key multiple times is invalid.
+
+```
+# DO NOT DO THIS
+name = &quot;Tom&quot;
+name = &quot;Pradyun&quot;
+```
+
+Note that bare keys and quoted keys are equivalent:
+
+```
+# THIS WILL NOT WORK
+spelling = &quot;favorite&quot;
+&quot;spelling&quot; = &quot;favourite&quot;
+```
+
+As long as a key hasn&#x27;t been directly defined, you may still write to it and
+to names within it.
+
+```
+# This makes the key &quot;fruit&quot; into a table.
+fruit.apple.smooth = true
+
+# So then you can add to the table &quot;fruit&quot; like so:
+fruit.orange = 2
+```
+
+```
+# THE FOLLOWING IS INVALID
+
+# This defines the value of fruit.apple to be an integer.
+fruit.apple = 1
+
+# But then this treats fruit.apple like it&#x27;s a table.
+# You can&#x27;t turn an integer into a table.
+fruit.apple.smooth = true
+```
+
+Defining dotted keys out-of-order is discouraged.
+
+```toml
+# VALID BUT DISCOURAGED
+
+apple.type = &quot;fruit&quot;
+orange.type = &quot;fruit&quot;
+
+apple.skin = &quot;thin&quot;
+orange.skin = &quot;thick&quot;
+
+apple.color = &quot;red&quot;
+orange.color = &quot;orange&quot;
+```
+
+```toml
+# RECOMMENDED
+
+apple.type = &quot;fruit&quot;
+apple.skin = &quot;thin&quot;
+apple.color = &quot;red&quot;
+
+orange.type = &quot;fruit&quot;
+orange.skin = &quot;thick&quot;
+orange.color = &quot;orange&quot;
+```
+
+Since bare keys can be composed of only ASCII integers, it is possible to write
+dotted keys that look like floats but are 2-part dotted keys. Don&#x27;t do this
+unless you have a good reason to (you probably don&#x27;t).
+
+```toml
+3.14159 = &quot;pi&quot;
+```
+
+The above TOML maps to the following JSON.
+
+```json
+{ &quot;3&quot;: { &quot;14159&quot;: &quot;pi&quot; } }
+```
+
+String
+------
+
+There are four ways to express strings: basic, multi-line basic, literal, and
+multi-line literal. All strings must contain only valid UTF-8 characters.
+
+**Basic strings** are surrounded by quotation marks (`&quot;`). Any Unicode character
+may be used except those that must be escaped: quotation mark, backslash, and
+the control characters other than tab (U+0000 to U+0008, U+000A to U+001F,
+U+007F).
+
+```toml
+str = &quot;I&#x27;m a string. \&quot;You can quote me\&quot;. Name\tJos\u00E9\nLocation\tSF.&quot;
+```
+
+For convenience, some popular characters have a compact escape sequence.
+
+```
+\b         - backspace       (U+0008)
+\t         - tab             (U+0009)
+\n         - linefeed        (U+000A)
+\f         - form feed       (U+000C)
+\r         - carriage return (U+000D)
+\&quot;         - quote           (U+0022)
+\\         - backslash       (U+005C)
+\uXXXX     - unicode         (U+XXXX)
+\UXXXXXXXX - unicode         (U+XXXXXXXX)
+```
+
+Any Unicode character may be escaped with the `\uXXXX` or `\UXXXXXXXX` forms.
+The escape codes must be valid Unicode [scalar
+values](https://unicode.org/glossary/#unicode_scalar_value).
+
+All other escape sequences not listed above are reserved; if they are used, TOML
+should produce an error.
+
+Sometimes you need to express passages of text (e.g. translation files) or would
+like to break up a very long string into multiple lines. TOML makes this easy.
+
+**Multi-line basic strings** are surrounded by three quotation marks on each
+side and allow newlines. A newline immediately following the opening delimiter
+will be trimmed. All other whitespace and newline characters remain intact.
+
+```toml
+str1 = &quot;&quot;&quot;
+Roses are red
+Violets are blue&quot;&quot;&quot;
+```
+
+TOML parsers should feel free to normalize newline to whatever makes sense for
+their platform.
+
+```toml
+# On a Unix system, the above multi-line string will most likely be the same as:
+str2 = &quot;Roses are red\nViolets are blue&quot;
+
+# On a Windows system, it will most likely be equivalent to:
+str3 = &quot;Roses are red\r\nViolets are blue&quot;
+```
+
+For writing long strings without introducing extraneous whitespace, use a &quot;line
+ending backslash&quot;. When the last non-whitespace character on a line is an
+unescaped `\`, it will be trimmed along with all whitespace (including newlines)
+up to the next non-whitespace character or closing delimiter. All of the escape
+sequences that are valid for basic strings are also valid for multi-line basic
+strings.
+
+```toml
+# The following strings are byte-for-byte equivalent:
+str1 = &quot;The quick brown fox jumps over the lazy dog.&quot;
+
+str2 = &quot;&quot;&quot;
+The quick brown \
+
+
+  fox jumps over \
+    the lazy dog.&quot;&quot;&quot;
+
+str3 = &quot;&quot;&quot;\
+       The quick brown \
+       fox jumps over \
+       the lazy dog.\
+       &quot;&quot;&quot;
+```
+
+Any Unicode character may be used except those that must be escaped: backslash
+and the control characters other than tab, line feed, and carriage return
+(U+0000 to U+0008, U+000B, U+000C, U+000E to U+001F, U+007F).
+
+You can write a quotation mark, or two adjacent quotation marks, anywhere inside
+a multi-line basic string. They can also be written just inside the delimiters.
+
+```toml
+str4 = &quot;&quot;&quot;Here are two quotation marks: &quot;&quot;. Simple enough.&quot;&quot;&quot;
+# str5 = &quot;&quot;&quot;Here are three quotation marks: &quot;&quot;&quot;.&quot;&quot;&quot;  # INVALID
+str5 = &quot;&quot;&quot;Here are three quotation marks: &quot;&quot;\&quot;.&quot;&quot;&quot;
+str6 = &quot;&quot;&quot;Here are fifteen quotation marks: &quot;&quot;\&quot;&quot;&quot;\&quot;&quot;&quot;\&quot;&quot;&quot;\&quot;&quot;&quot;\&quot;.&quot;&quot;&quot;
+
+# &quot;This,&quot; she said, &quot;is just a pointless statement.&quot;
+str7 = &quot;&quot;&quot;&quot;This,&quot; she said, &quot;is just a pointless statement.&quot;&quot;&quot;&quot;
+```
+
+If you&#x27;re a frequent specifier of Windows paths or regular expressions, then
+having to escape backslashes quickly becomes tedious and error-prone. To help,
+TOML supports literal strings which do not allow escaping at all.
+
+**Literal strings** are surrounded by single quotes. Like basic strings, they
+must appear on a single line:
+
+```toml
+# What you see is what you get.
+winpath  = &#x27;C:\Users\nodejs\templates&#x27;
+winpath2 = &#x27;\\ServerX\admin$\system32\&#x27;
+quoted   = &#x27;Tom &quot;Dubs&quot; Preston-Werner&#x27;
+regex    = &#x27;&lt;\i\c*\s*&gt;&#x27;
+```
+
+Since there is no escaping, there is no way to write a single quote inside a
+literal string enclosed by single quotes. Luckily, TOML supports a multi-line
+version of literal strings that solves this problem.
+
+**Multi-line literal strings** are surrounded by three single quotes on each
+side and allow newlines. Like literal strings, there is no escaping whatsoever.
+A newline immediately following the opening delimiter will be trimmed. All other
+content between the delimiters is interpreted as-is without modification.
+
+```toml
+regex2 = &#x27;&#x27;&#x27;I [dw]on&#x27;t need \d{2} apples&#x27;&#x27;&#x27;
+lines  = &#x27;&#x27;&#x27;
+The first newline is
+trimmed in raw strings.
+   All other whitespace
+   is preserved.
+&#x27;&#x27;&#x27;
+```
+
+You can write 1 or 2 single quotes anywhere within a multi-line literal string,
+but sequences of three or more single quotes are not permitted.
+
+```toml
+quot15 = &#x27;&#x27;&#x27;Here are fifteen quotation marks: &quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&#x27;&#x27;&#x27;
+
+# apos15 = &#x27;&#x27;&#x27;Here are fifteen apostrophes: &#x27;&#x27;&#x27;&#x27;&#x27;&#x27;&#x27;&#x27;&#x27;&#x27;&#x27;&#x27;&#x27;&#x27;&#x27;&#x27;&#x27;&#x27;  # INVALID
+apos15 = &quot;Here are fifteen apostrophes: &#x27;&#x27;&#x27;&#x27;&#x27;&#x27;&#x27;&#x27;&#x27;&#x27;&#x27;&#x27;&#x27;&#x27;&#x27;&quot;
+
+# &#x27;That,&#x27; she said, &#x27;is still pointless.&#x27;
+str = &#x27;&#x27;&#x27;&#x27;That,&#x27; she said, &#x27;is still pointless.&#x27;&#x27;&#x27;&#x27;
+```
+
+Control characters other than tab are not permitted in a literal string. Thus,
+for binary data, it is recommended that you use Base64 or another suitable ASCII
+or UTF-8 encoding. The handling of that encoding will be application-specific.
+
+Integer
+-------
+
+Integers are whole numbers. Positive numbers may be prefixed with a plus sign.
+Negative numbers are prefixed with a minus sign.
+
+```toml
+int1 = +99
+int2 = 42
+int3 = 0
+int4 = -17
+```
+
+For large numbers, you may use underscores between digits to enhance
+readability. Each underscore must be surrounded by at least one digit on each
+side.
+
+```toml
+int5 = 1_000
+int6 = 5_349_221
+int7 = 53_49_221  # Indian number system grouping
+int8 = 1_2_3_4_5  # VALID but discouraged
+```
+
+Leading zeros are not allowed. Integer values `-0` and `+0` are valid and
+identical to an unprefixed zero.
+
+Non-negative integer values may also be expressed in hexadecimal, octal, or
+binary. In these formats, leading `+` is not allowed and leading zeros are
+allowed (after the prefix). Hex values are case-insensitive. Underscores are
+allowed between digits (but not between the prefix and the value).
+
+```toml
+# hexadecimal with prefix `0x`
+hex1 = 0xDEADBEEF
+hex2 = 0xdeadbeef
+hex3 = 0xdead_beef
+
+# octal with prefix `0o`
+oct1 = 0o01234567
+oct2 = 0o755 # useful for Unix file permissions
+
+# binary with prefix `0b`
+bin1 = 0b11010110
+```
+
+Arbitrary 64-bit signed integers (from −2^63 to 2^63−1) should be accepted and
+handled losslessly. If an integer cannot be represented losslessly, an error
+must be thrown.
+
+Float
+-----
+
+Floats should be implemented as IEEE 754 binary64 values.
+
+A float consists of an integer part (which follows the same rules as decimal
+integer values) followed by a fractional part and/or an exponent part. If both a
+fractional part and exponent part are present, the fractional part must precede
+the exponent part.
+
+```toml
+# fractional
+flt1 = +1.0
+flt2 = 3.1415
+flt3 = -0.01
+
+# exponent
+flt4 = 5e+22
+flt5 = 1e06
+flt6 = -2E-2
+
+# both
+flt7 = 6.626e-34
+```
+
+A fractional part is a decimal point followed by one or more digits.
+
+An exponent part is an E (upper or lower case) followed by an integer part
+(which follows the same rules as decimal integer values but may include leading
+zeros).
+
+The decimal point, if used, must be surrounded by at least one digit on each
+side.
+
+```
+# INVALID FLOATS
+invalid_float_1 = .7
+invalid_float_2 = 7.
+invalid_float_3 = 3.e+20
+```
+
+Similar to integers, you may use underscores to enhance readability. Each
+underscore must be surrounded by at least one digit.
+
+```toml
+flt8 = 224_617.445_991_228
+```
+
+Float values `-0.0` and `+0.0` are valid and should map according to IEEE 754.
+
+Special float values can also be expressed. They are always lowercase.
+
+```toml
+# infinity
+sf1 = inf  # positive infinity
+sf2 = +inf # positive infinity
+sf3 = -inf # negative infinity
+
+# not a number
+sf4 = nan  # actual sNaN/qNaN encoding is implementation-specific
+sf5 = +nan # same as `nan`
+sf6 = -nan # valid, actual encoding is implementation-specific
+```
+
+Boolean
+-------
+
+Booleans are just the tokens you&#x27;re used to. Always lowercase.
+
+```toml
+bool1 = true
+bool2 = false
+```
+
+Offset Date-Time
+----------------
+
+To unambiguously represent a specific instant in time, you may use an [RFC
+3339](https://tools.ietf.org/html/rfc3339) formatted date-time with offset.
+
+```toml
+odt1 = 1979-05-27T07:32:00Z
+odt2 = 1979-05-27T00:32:00-07:00
+odt3 = 1979-05-27T00:32:00.999999-07:00
+```
+
+For the sake of readability, you may replace the T delimiter between date and
+time with a space character (as permitted by RFC 3339 section 5.6).
+
+```toml
+odt4 = 1979-05-27 07:32:00Z
+```
+
+Millisecond precision is required. Further precision of fractional seconds is
+implementation-specific. If the value contains greater precision than the
+implementation can support, the additional precision must be truncated, not
+rounded.
+
+Local Date-Time
+---------------
+
+If you omit the offset from an [RFC 3339](https://tools.ietf.org/html/rfc3339)
+formatted date-time, it will represent the given date-time without any relation
+to an offset or timezone. It cannot be converted to an instant in time without
+additional information. Conversion to an instant, if required, is
+implementation-specific.
+
+```toml
+ldt1 = 1979-05-27T07:32:00
+ldt2 = 1979-05-27T00:32:00.999999
+```
+
+Millisecond precision is required. Further precision of fractional seconds is
+implementation-specific. If the value contains greater precision than the
+implementation can support, the additional precision must be truncated, not
+rounded.
+
+Local Date
+----------
+
+If you include only the date portion of an
+[RFC 3339](https://tools.ietf.org/html/rfc3339) formatted date-time, it will
+represent that entire day without any relation to an offset or timezone.
+
+```toml
+ld1 = 1979-05-27
+```
+
+Local Time
+----------
+
+If you include only the time portion of an [RFC
+3339](https://tools.ietf.org/html/rfc3339) formatted date-time, it will
+represent that time of day without any relation to a specific day or any offset
+or timezone.
+
+```toml
+lt1 = 07:32:00
+lt2 = 00:32:00.999999
+```
+
+Millisecond precision is required. Further precision of fractional seconds is
+implementation-specific. If the value contains greater precision than the
+implementation can support, the additional precision must be truncated, not
+rounded.
+
+Array
+-----
+
+Arrays are square brackets with values inside. Whitespace is ignored. Elements
+are separated by commas. Arrays can contain values of the same data types as
+allowed in key/value pairs. Values of different types may be mixed.
+
+```toml
+integers = [ 1, 2, 3 ]
+colors = [ &quot;red&quot;, &quot;yellow&quot;, &quot;green&quot; ]
+nested_arrays_of_ints = [ [ 1, 2 ], [3, 4, 5] ]
+nested_mixed_array = [ [ 1, 2 ], [&quot;a&quot;, &quot;b&quot;, &quot;c&quot;] ]
+string_array = [ &quot;all&quot;, &#x27;strings&#x27;, &quot;&quot;&quot;are the same&quot;&quot;&quot;, &#x27;&#x27;&#x27;type&#x27;&#x27;&#x27; ]
+
+# Mixed-type arrays are allowed
+numbers = [ 0.1, 0.2, 0.5, 1, 2, 5 ]
+contributors = [
+  &quot;Foo Bar &lt;foo@example.com&gt;&quot;,
+  { name = &quot;Baz Qux&quot;, email = &quot;bazqux@example.com&quot;, url = &quot;https://example.com/bazqux&quot; }
+]
+```
+
+Arrays can span multiple lines. A terminating comma (also called a trailing
+comma) is permitted after the last value of the array. Any number of newlines
+and comments may precede values, commas, and the closing bracket. Indentation
+between array values and commas is treated as whitespace and ignored.
+
+```toml
+integers2 = [
+  1, 2, 3
+]
+
+integers3 = [
+  1,
+  2, # this is ok
+]
+```
+
+Table
+-----
+
+Tables (also known as hash tables or dictionaries) are collections of key/value
+pairs. They are defined by headers, with square brackets on a line by
+themselves. You can tell headers apart from arrays because arrays are only ever
+values.
+
+```toml
+[table]
+```
+
+Under that, and until the next header or EOF, are the key/values of that table.
+Key/value pairs within tables are not guaranteed to be in any specific order.
+
+```toml
+[table-1]
+key1 = &quot;some string&quot;
+key2 = 123
+
+[table-2]
+key1 = &quot;another string&quot;
+key2 = 456
+```
+
+Naming rules for tables are the same as for keys (see definition of
+[Keys](#keys) above).
+
+```toml
+[dog.&quot;tater.man&quot;]
+type.name = &quot;pug&quot;
+```
+
+In JSON land, that would give you the following structure:
+
+```json
+{ &quot;dog&quot;: { &quot;tater.man&quot;: { &quot;type&quot;: { &quot;name&quot;: &quot;pug&quot; } } } }
+```
+
+Whitespace around the key is ignored. However, best practice is to not use any
+extraneous whitespace.
+
+```toml
+[a.b.c]            # this is best practice
+[ d.e.f ]          # same as [d.e.f]
+[ g .  h  . i ]    # same as [g.h.i]
+[ j . &quot;ʞ&quot; . &#x27;l&#x27; ]  # same as [j.&quot;ʞ&quot;.&#x27;l&#x27;]
+```
+
+Indentation is treated as whitespace and ignored.
+
+You don&#x27;t need to specify all the super-tables if you don&#x27;t want to. TOML knows
+how to do it for you.
+
+```toml
+# [x] you
+# [x.y] don&#x27;t
+# [x.y.z] need these
+[x.y.z.w] # for this to work
+
+[x] # defining a super-table afterward is ok
+```
+
+Empty tables are allowed and simply have no key/value pairs within them.
+
+Like keys, you cannot define a table more than once. Doing so is invalid.
+
+```
+# DO NOT DO THIS
+
+[fruit]
+apple = &quot;red&quot;
+
+[fruit]
+orange = &quot;orange&quot;
+```
+
+```
+# DO NOT DO THIS EITHER
+
+[fruit]
+apple = &quot;red&quot;
+
+[fruit.apple]
+texture = &quot;smooth&quot;
+```
+
+Defining tables out-of-order is discouraged.
+
+```toml
+# VALID BUT DISCOURAGED
+[fruit.apple]
+[animal]
+[fruit.orange]
+```
+
+```toml
+# RECOMMENDED
+[fruit.apple]
+[fruit.orange]
+[animal]
+```
+
+The top-level table, also called the root table, starts at the beginning of the
+document and ends just before the first table header (or EOF). Unlike other
+tables, it is nameless and cannot be relocated.
+
+```toml
+# Top-level table begins.
+name = &quot;Fido&quot;
+breed = &quot;pug&quot;
+
+# Top-level table ends.
+[owner]
+name = &quot;Regina Dogman&quot;
+member_since = 1999-08-04
+```
+
+Dotted keys create and define a table for each key part before the last one,
+provided that such tables were not previously created.
+
+```toml
+fruit.apple.color = &quot;red&quot;
+# Defines a table named fruit
+# Defines a table named fruit.apple
+
+fruit.apple.taste.sweet = true
+# Defines a table named fruit.apple.taste
+# fruit and fruit.apple were already created
+```
+
+Since tables cannot be defined more than once, redefining such tables using a
+`[table]` header is not allowed. Likewise, using dotted keys to redefine tables
+already defined in `[table]` form is not allowed. The `[table]` form can,
+however, be used to define sub-tables within tables defined via dotted keys.
+
+```toml
+[fruit]
+apple.color = &quot;red&quot;
+apple.taste.sweet = true
+
+# [fruit.apple]  # INVALID
+# [fruit.apple.taste]  # INVALID
+
+[fruit.apple.texture]  # you can add sub-tables
+smooth = true
+```
+
+Inline Table
+------------
+
+Inline tables provide a more compact syntax for expressing tables. They are
+especially useful for grouped data that can otherwise quickly become verbose.
+Inline tables are fully defined within curly braces: `{` and `}`. Within the
+braces, zero or more comma-separated key/value pairs may appear. Key/value pairs
+take the same form as key/value pairs in standard tables. All value types are
+allowed, including inline tables.
+
+Inline tables are intended to appear on a single line. A terminating comma (also
+called trailing comma) is not permitted after the last key/value pair in an
+inline table. No newlines are allowed between the curly braces unless they are
+valid within a value. Even so, it is strongly discouraged to break an inline
+table onto multiples lines. If you find yourself gripped with this desire, it
+means you should be using standard tables.
+
+```toml
+name = { first = &quot;Tom&quot;, last = &quot;Preston-Werner&quot; }
+point = { x = 1, y = 2 }
+animal = { type.name = &quot;pug&quot; }
+```
+
+The inline tables above are identical to the following standard table
+definitions:
+
+```toml
+[name]
+first = &quot;Tom&quot;
+last = &quot;Preston-Werner&quot;
+
+[point]
+x = 1
+y = 2
+
+[animal]
+type.name = &quot;pug&quot;
+```
+
+Inline tables are fully self-contained and define all keys and sub-tables within
+them. Keys and sub-tables cannot be added outside the braces.
+
+```toml
+[product]
+type = { name = &quot;Nail&quot; }
+# type.edible = false  # INVALID
+```
+
+Similarly, inline tables cannot be used to add keys or sub-tables to an
+already-defined table.
+
+```toml
+[product]
+type.name = &quot;Nail&quot;
+# type = { edible = false }  # INVALID
+```
+
+Array of Tables
+---------------
+
+The last syntax that has not yet been described allows writing arrays of tables.
+These can be expressed by using a header with a name in double brackets. The
+first instance of that header defines the array and its first table element, and
+each subsequent instance creates and defines a new table element in that array.
+The tables are inserted into the array in the order encountered.
+
+```toml
+[[products]]
+name = &quot;Hammer&quot;
+sku = 738594937
+
+[[products]]  # empty table within the array
+
+[[products]]
+name = &quot;Nail&quot;
+sku = 284758393
+
+color = &quot;gray&quot;
+```
+
+In JSON land, that would give you the following structure.
+
+```json
+{
+  &quot;products&quot;: [
+    { &quot;name&quot;: &quot;Hammer&quot;, &quot;sku&quot;: 738594937 },
+    { },
+    { &quot;name&quot;: &quot;Nail&quot;, &quot;sku&quot;: 284758393, &quot;color&quot;: &quot;gray&quot; }
+  ]
+}
+```
+
+Any reference to an array of tables points to the most recently defined table
+element of the array. This allows you to define sub-tables, and even sub-arrays
+of tables, inside the most recent table.
+
+```toml
+[[fruits]]
+name = &quot;apple&quot;
+
+[fruits.physical]  # subtable
+color = &quot;red&quot;
+shape = &quot;round&quot;
+
+[[fruits.varieties]]  # nested array of tables
+name = &quot;red delicious&quot;
+
+[[fruits.varieties]]
+name = &quot;granny smith&quot;
+
+
+[[fruits]]
+name = &quot;banana&quot;
+
+[[fruits.varieties]]
+name = &quot;plantain&quot;
+```
+
+The above TOML maps to the following JSON.
+
+```json
+{
+  &quot;fruits&quot;: [
+    {
+      &quot;name&quot;: &quot;apple&quot;,
+      &quot;physical&quot;: {
+        &quot;color&quot;: &quot;red&quot;,
+        &quot;shape&quot;: &quot;round&quot;
+      },
+      &quot;varieties&quot;: [
+        { &quot;name&quot;: &quot;red delicious&quot; },
+        { &quot;name&quot;: &quot;granny smith&quot; }
+      ]
+    },
+    {
+      &quot;name&quot;: &quot;banana&quot;,
+      &quot;varieties&quot;: [
+        { &quot;name&quot;: &quot;plantain&quot; }
+      ]
+    }
+  ]
+}
+```
+
+If the parent of a table or array of tables is an array element, that element
+must already have been defined before the child can be defined. Attempts to
+reverse that ordering must produce an error at parse time.
+
+```
+# INVALID TOML DOC
+[fruit.physical]  # subtable, but to which parent element should it belong?
+color = &quot;red&quot;
+shape = &quot;round&quot;
+
+[[fruit]]  # parser must throw an error upon discovering that &quot;fruit&quot; is
+           # an array rather than a table
+name = &quot;apple&quot;
+```
+
+Attempting to append to a statically defined array, even if that array is empty,
+must produce an error at parse time.
+
+```
+# INVALID TOML DOC
+fruits = []
+
+[[fruits]] # Not allowed
+```
+
+Attempting to define a normal table with the same name as an already established
+array must produce an error at parse time. Attempting to redefine a normal table
+as an array must likewise produce a parse-time error.
+
+```
+# INVALID TOML DOC
+[[fruits]]
+name = &quot;apple&quot;
+
+[[fruits.varieties]]
+name = &quot;red delicious&quot;
+
+# INVALID: This table conflicts with the previous array of tables
+[fruits.varieties]
+name = &quot;granny smith&quot;
+
+[fruits.physical]
+color = &quot;red&quot;
+shape = &quot;round&quot;
+
+# INVALID: This array of tables conflicts with the previous table
+[[fruits.physical]]
+color = &quot;green&quot;
+```
+
+You may also use inline tables where appropriate:
+
+```toml
+points = [ { x = 1, y = 2, z = 3 },
+           { x = 7, y = 8, z = 9 },
+           { x = 2, y = 4, z = 8 } ]
+```
+
+Filename Extension
+------------------
+
+TOML files should use the extension `.toml`.
+
+MIME Type
+---------
+
+When transferring TOML files over the internet, the appropriate MIME type is
+`application/toml`.
+
+ABNF Grammar
+------------
+
+A formal description of TOML&#x27;s syntax is available, as a separate [ABNF file][abnf].
+
+[abnf]: https://github.com/toml-lang/toml/blob/1.0.0/toml.abnf</code></pre>
+<p>&lt;/pblock&gt;</p>
+<p>&lt;pblock label=&quot;Persistent Plan feedback&quot; kind=&quot;feedback&quot;&gt;</p>
+<h2>Commander decisions</h2>
+<p>Apply these decisions as constraints; do not recreate them as questions.</p>
+<h3>analyze-display_name</h3>
+<ul><li>Title: Display Name</li><li>Decision: TOML 1.0.0 Parser</li><li>Severity: material</li><li>Blueprint: ARCHITECTURE.md</li></ul>
+<h3>analyze-short_description</h3>
+<ul><li>Title: Short Description</li><li>Decision: A Go command-line parser that converts TOML 1.0.0 from stdin into tagged JSON and rejects invalid documents.</li><li>Severity: material</li><li>Blueprint: ARCHITECTURE.md</li></ul>
+<p>&lt;/pblock&gt;</p>
+<h1>Agent Task</h1>
+<h1>Agent for: planning session synthesis</h1>
+<p>Map each required technical or behavioral ID in structured <code>SEA_TRIALS.md</code> into the implementing story&#x27;s <code>accepts:</code> field. Never invent or rename Sea Trial IDs. Do not tag a Programmatic Acceptance assertion with a Sea Trial ID: Sea Trials flow into planning as context and nothing points back at them. Project acceptance is settled at <code>score release</code>, by observing the finished tree. Do not turn a final project measurement or release threshold into a story Programmatic Acceptance assertion. Those remain Sea Trials and run at final scoring after all stories close. The one terminal <code>Suite: full</code> assertion is the exception: it runs the supplied suite and requires success. It may additionally verify the total using either a count derived from authoritative suite data or an explicitly declared authoritative exact count.</p>
+<p><code>accepts:</code> is human-readable traceability, not a child acceptance command and not a gate. A story that stages or implements the capability exercised by a final Sea Trial still names that trial in <code>accepts:</code> even when the Sea Trial command itself must not run during the story. <code>TOPOLOGY.md</code> is emitted in Stage 1 before any Blueprint, so settle the complete story set and its acceptance before emitting anything.</p>
+<p>You represent an <strong>Agile Scrum Development Team</strong> and follow Agile best practices.</p>
+<p>You have received the outputs of <code>drydock analyze</code> plus the imported source material and planning decisions. Your job is to turn that reviewed planning basis into a <strong>Blueprint</strong>: authored Typed Specification files under <code>blueprint/</code> and the topology declaration (<code>TOPOLOGY.md</code>) that Drydock serializes into <code>MANIFEST.md</code>, the single work graph carrying build order, grouping, and per-step prompt-assembly fields.</p>
+<p>The core elements are defined below.</p>
+<hr>
+<h2>Planning Objective</h2>
+<p>Your goal is to convert the analysis artifacts into a build-ready Drydock Blueprint.</p>
+<p>The analyze step identified story candidates, blockers, questions, and strategic direction. This step converts that information into durable specification files with exact header formatting and clear relationships. You are not writing prose notes; you are writing structured product definition and build-planning artifacts.</p>
+<p>The primary outputs are:</p>
+<ul><li>Typed Specification files such as <code>ARCHITECTURE.md</code>, <code>FEATURE-*.md</code>, <code>SCREEN-*.md</code>,</li></ul>
+<p><code>DATABASE.md</code>, <code>UI-GENERAL.md</code>, and AC files where warranted.</p>
+<ul><li><code>TOPOLOGY.md</code> — the declared work graph: one story declaration per governed specification, typed</li></ul>
+<p><code>foundational</code>, <code>service</code>, or <code>feature</code>. Drydock verifies it, computes build order and block grouping, and serializes <code>MANIFEST.md</code> from it.</p>
+<p><strong>This planning step is a test-driven-development review, not only a decomposition.</strong> Weight the authoring of executable acceptance as heavily as the decomposition itself. Every buildable story carries several concrete Python assertions in the <code>## Programmatic Acceptance</code> sections of the specs it implements, so that <code>drydock build</code> has a failing test to satisfy for each behavior before the code exists. A plan that decomposes cleanly but ships specs with empty acceptance has failed this step. Assertion authoring is mandatory-or-justified: a spec&#x27;s acceptance is <code>- None.</code> only when the item genuinely has no programmatic surface, and then the reason is stated inline.</p>
+<p>This step must produce <strong>decomposed specifications with solid header relationships</strong>:</p>
+<ul><li>every authored spec file uses the Drydock typed header format</li><li><code>Depends On</code>, <code>Provides</code>, and <code>Consumes</code> are declared consistently across the emitted Blueprint</li><li>story declarations in <code>TOPOLOGY.md</code> point at real emitted spec files</li><li>the runnable frontier implied by the Manifest is coherent</li></ul>
+<p>Treat the Story List and Story Realization Map in <code>ANALYSIS.md</code> as the completed planning decomposition and the default work breakdown. Preserve their proposed story boundaries and mapped source filenames unless the complete planning context shows that a story is non-atomic, inaccurate, contradictory, incomplete, or assigns content to the wrong owner. When correction is necessary, split, merge, move, replace, or reorder the affected scope. Rewrite every resulting story as a governed specification using all planning inputs; source structure is strong evidence for the story boundary, but source content is not authoritative.</p>
+<p>When the analysis is too coarse, refine it into smaller spec scopes. When it is too fine, merge it into the smallest durable spec structure that preserves correctness and clear ownership. The Analyze story list is the Team Lead&#x27;s expert proposal, not an immutable work breakdown. Preserve a source Markdown file and filename when it already represents one atomic story, but split it when it combines independent actions. A screen and its provider route are separate stories and separate specifications even when they participate in one workflow.</p>
+<hr>
+<h2>Inputs</h2>
+<p>The job block injects the following. <code>SYSTEM_SHAPE</code> and <code>ANALYSIS_QUALITY</code> are stated directly in the job block; the rest are fenced sections.</p>
+<ul><li><strong>Plan feedback (standing directive)</strong> — <code>PLAN_COMPASS.md</code>, persistent human direction</li></ul>
+<p>injected near the top of this prompt when present. Treat it as authoritative steering for this run; it overrides default decomposition and ordering choices where it speaks.</p>
+<ul><li><strong><code>ANALYSIS.md</code></strong> — the Team Lead&#x27;s reviewed proposal: quality signal, candidate story/file map,</li></ul>
+<p>open questions, tuning options, expectations, and notes. Review its mapping as an agile expert; preserve, merge, split, replace, or reorder it when the complete planning context requires that.</p>
+<ul><li><strong><code>## Surfaced Acceptance Criteria</code></strong> in <code>ANALYSIS.md</code> — additional criteria analyze derived per</li></ul>
+<p>story; fold each row into the <code>## Programmatic Acceptance</code> or <code>## User Acceptance</code> section of the spec file implementing its Story ID.</p>
+<ul><li><strong><code>## Relationship Model</code></strong> and <strong><code>## Planning Instructions</code></strong> in <code>ANALYSIS.md</code> — primary</li></ul>
+<p>Analyze-to-Plan handoff. Honor the Story Realization Map when selecting durable Blueprint scopes; carry the stated sequencing/dependency model into Manifest ordering and <code>depends:</code>; embed cited interfaces, workflows, test-kit behavior, and acceptance in the matching specs. Every readable imported source is available below. Analyze guides interpretation and proposes a realization map; it never limits which source evidence the Planning Crew may consult.</p>
+<ul><li><strong><code>SYSTEM_SHAPE</code></strong> — the determined project type (<code>web|api|cli|library|pipeline|event-driven</code>),</li></ul>
+<p>parsed from the analysis. Drives the default decomposition table below.</p>
+<ul><li><strong><code>SEA_TRIALS.md</code></strong> and <strong><code>SOUNDINGS.md</code></strong> — product objectives and acceptance milestones from</li></ul>
+<p>analyze. Use these as planning context; do not overwrite their intent.</p>
+<ul><li><strong>Answered questionnaires</strong> (<code>discovery-*.json</code>) — settled human-owned decisions on intent and</li></ul>
+<p>guardrails. Do not re-raise a question that a questionnaire has already answered. Drydock preflight guarantees that every Analyze question marked <code>required_before_plan</code> is answered before this prompt runs. Questionnaires never carry technology-stack decisions.</p>
+<ul><li><strong><code>TECHNOLOGY_STACK.md</code></strong> — the Commander-owned technology decisions of record: one row per</li></ul>
+<p>technology, with the Rigging file that governs building it or <code>—</code> when none exists. This is the sole authority on the stack. It may be absent or incomplete; that means undecided, and you resolve the gap from the sources rather than stopping.</p>
+<ul><li><strong><code>COMPASS.md</code></strong> — existing product intent if already present; otherwise derive emitted content</li></ul>
+<p>from the analysis and sources. It does not carry technology choices.</p>
+<h3>Precedence</h3>
+<p>When authoritative inputs disagree, apply this order and proceed. Do not stop on a disagreement that this order resolves:</p>
+<ol><li><code>PLAN_COMPASS.md</code> <strong>Commander Direction</strong></li><li>Answered questionnaires and Commander-directed <code>DECISIONS.json</code> items (<code>commander_direction</code> or</li></ol>
+<p><code>override_text</code> set)</p>
+<ol><li><code>TECHNOLOGY_STACK.md</code> (technology questions only)</li><li><code>COMPASS.md</code></li><li>Imported source files and <code>ANALYSIS.md</code></li></ol>
+<p><strong>Absence is never prohibition.</strong> An item missing from <code>TECHNOLOGY_STACK.md</code>, unselected in a questionnaire, or unmentioned in <code>COMPASS.md</code> is undecided, not forbidden. Never treat an omission as a negative requirement, and never raise a conflict because one input lists something another does not.</p>
+<h3>Conflict Scope</h3>
+<ul><li>SQS, S3, databases, logs, and Marina/application-managed files are distinct from repository</li></ul>
+<p>checkout content.</p>
+<ul><li>“Project file” and “project-associated file” do not imply a file inside a Git checkout.</li><li>A repository-write guardrail applies only to destinations explicitly located in the repository.</li><li>A guardrail scoped to discovery or registration does not govern runtime processing unless an</li></ul>
+<p>authoritative source explicitly extends it to runtime.</p>
+<ul><li>Missing detail is not a conflict. Use a conservative reasonable interpretation unless</li></ul>
+<p>authoritative inputs contain mutually exclusive requirements.</p>
+<ul><li>Error Mode must cite the exact files, clauses, and scopes that conflict and explain why the</li></ul>
+<p>Precedence order cannot resolve them.</p>
+<ul><li><strong><code>MANIFEST_CONTRACT.md</code></strong> and <strong><code>BLUEPRINTS_CONTRACT.md</code></strong> — authoritative format and field</li></ul>
+<p>contracts for the outputs.</p>
+<ul><li><strong>Imported source files</strong> — all readable material under <code>blueprint/sources/</code>, injected below.</li></ul>
+<p>It is unconstrained Commander input, not governed Blueprint syntax. Never reject a source because of its filename, headings, tables, question labels, or formatting. Authored Markdown specs are a structured interpretation. Non-Markdown assets are projected byte-for-byte by Drydock; never emit or rewrite them.</p>
+<p>If <code>ANALYSIS_QUALITY</code> is <code>Blocked</code>, planning must not proceed. Emit only a refusal message inside the required output block contract described below.</p>
+<hr>
+<h2>Story and Task Criteria</h2>
+<p>Decomposition is <strong>Agile feature and story decomposition</strong>. Apply that discipline at expert level: INVEST stories, vertical slices, test-driven acceptance per story. The rules below are the criteria, not a substitute for that judgement.</p>
+<ul><li>A <strong>story</strong> delivers one observable behavior or capability slice. It is independently buildable,</li></ul>
+<p>independently verifiable, and carries its own acceptance gate. The story is the unit Drydock gates, builds, and attributes failure to.</p>
+<ul><li>A <strong>task</strong> is a technical sub-step of a story — add a helper, refactor a module, wire a parameter.</li></ul>
+<p>A task is never a <code>story</code> block and never becomes a Blueprint file. Instructions inside a story may describe its tasks.</p>
+<ul><li>Prefer <strong>more, smaller stories</strong> over fewer large ones. Distinctness is the limit: each story owns</li></ul>
+<p>its behavior alone, and no two stories own the same behavior.</p>
+<ul><li>Story size in Drydock is the token and context size of the build step. A story whose build step</li></ul>
+<p>would not fit comfortably in one build prompt is too large. Split it into smaller stories that each still meet the story criteria above; never split it into tasks, and never leave a single story owning several independent construct families.</p>
+<ul><li>When the source material is short or names few features, keep the story set lined up with the</li></ul>
+<p>source&#x27;s own shape. Preserving author intent outranks splitting for its own sake, and the criteria above still bound the result.</p>
+<hr>
+<h2>Decomposition Method</h2>
+<p>Execute in order. Do not skip a step.</p>
+<p><strong>1. Review the planning basis.</strong></p>
+<ul><li><em>Consumes:</em> imported sources, <code>ANALYSIS.md</code>, <code>PLAN_COMPASS.md</code> direction, answered questionnaires.</li><li><em>Emits:</em> working understanding of the project shape, stack, constraints, and unanswered items.</li></ul>
+<p><strong>2. Confirm the decomposition shape.</strong></p>
+<ul><li><em>Consumes:</em> the analysis story list, project type signals, and source structure.</li><li><em>Emits:</em> one authored Blueprint file per story-sized capability, per the story criteria above.</li></ul>
+<p>Fewest <em>file kinds</em>, not fewest stories: use only the spec kinds the project needs, then decompose within them.</p>
+<p>Default decomposition rules:</p>
+<div class="scroll"><table><thead><tr><th>System shape</th><th>Durable authored files</th></tr></thead><tbody><tr><td><code>web</code></td><td><code>ARCHITECTURE.md</code>, <code>UI-GENERAL.md</code> if shared UI exists, one <code>FEATURE-*.md</code> per route/service workflow, one <code>SCREEN-*.md</code> per user-facing screen, <code>DATABASE.md</code> if persistence exists</td></tr><tr><td><code>api</code></td><td><code>ARCHITECTURE.md</code>, one <code>FEATURE-*.md</code> per endpoint/capability cluster, <code>DATABASE.md</code> if persistence exists</td></tr><tr><td><code>cli</code></td><td><code>ARCHITECTURE.md</code>, one <code>FEATURE-*.md</code> per command/capability cluster</td></tr><tr><td><code>library</code></td><td><code>ARCHITECTURE.md</code>, one <code>FEATURE-*.md</code> per public module or service area, <code>DATABASE.md</code> only if stateful</td></tr><tr><td><code>pipeline</code></td><td><code>ARCHITECTURE.md</code>, one <code>FEATURE-*.md</code> per pipeline stage or major dataset transformation, <code>DATABASE.md</code> only if persistent stores exist</td></tr><tr><td><code>event-driven</code></td><td><code>ARCHITECTURE.md</code>, one <code>FEATURE-*.md</code> per handler or event workflow cluster</td></tr></tbody></table></div>
+<p>Use <code>SCREEN-*.md</code> only for actual user-facing screens. Use <code>DATABASE.md</code> only when persistent state or external stored state exists. Use AC files only when separate permanent guardrails are needed and they should not bloat the parent spec.</p>
+<p><strong>3. Map analysis stories to authored spec scopes.</strong></p>
+<ul><li><em>Consumes:</em> <code>ANALYSIS.md ## Story List</code>.</li><li><em>Emits:</em> a mapping from analyzed stories to emitted files.</li></ul>
+<p>Rules:</p>
+<ul><li>Each emitted authored spec file must represent one durable capability boundary.</li><li>The <code>## Story Realization Map</code> in <code>ANALYSIS.md</code> is a proposed partition. Keep a row that names a</li></ul>
+<p>distinct, atomic capability scope unless complete planning context supports a better partition.</p>
+<ul><li>Two analysis stories collapse into one authored file only when both describe the <strong>same</strong></li></ul>
+<p>behavior <em>and</em> the merged unit still satisfies the story criteria above. Distinct scopes — for example a block parser, an inline parser, reference resolution, a renderer, and an executable interface — are separate stories even when they ship in one program.</p>
+<ul><li>One analysis story may expand into several authored spec files when the boundary naturally</li></ul>
+<p>separates into screen, feature, architecture, or persistence contracts, or when the single story is too large to build in one step.</p>
+<ul><li>Record the mapping in the Manifest: each story&#x27;s <code>covers:</code> field names the <code>ANALYSIS.md</code> Story IDs</li></ul>
+<p>it delivers. Every Story ID in the analysis is covered by <strong>exactly one</strong> story. A story that covers several IDs is the declared collapse case and must satisfy the collapse rule above.</p>
+<ul><li>When one analysis story expands into several stories, exactly one of them carries its ID in</li></ul>
+<p><code>covers:</code> — the story that delivers the analyzed behavior, whatever its <code>type:</code>. A <code>foundational</code> persistence or architecture story that realizes an analyzed story still covers it; <code>type:</code> never decides ownership.</p>
+<ul><li>A plan-introduced story with no analyzed counterpart — an architecture boundary, a scaffold, a</li></ul>
+<p>test-harness story — omits <code>covers:</code> entirely. Never duplicate an ID that another story owns, and never fill the field to make it look complete: two stories claiming one analyzed story destroys failure attribution.</p>
+<ul><li>Every important user-facing screen named in analysis must land in a <code>SCREEN-*.md</code>.</li><li>Every important route, capability, interface, dataset, topic, or command named in analysis must</li></ul>
+<p>be represented in one or more <code>FEATURE-*.md</code> files, with <code>ARCHITECTURE.md</code> and <code>DATABASE.md</code> carrying shared technical structure where needed.</p>
+<ul><li>Drydock deterministically injects <code>ARCHITECTURE_compact.md</code> and <code>DATABASE_compact.md</code> into</li></ul>
+<p><code>FEATURE-*</code> build steps when those source files exist. Do not model that policy manually with screen stories or ad hoc context duplication.</p>
+<p><strong>4. Write authored specification content.</strong></p>
+<ul><li><em>Consumes:</em> the file mapping and all planning inputs.</li><li><em>Emits:</em> complete authored spec markdown with exact header format and required terminal sections.</li></ul>
+<p>Each authored file must be build-usable. Write concrete sections, not placeholders, unless the source material genuinely leaves an item open; then put it under <code>## Questions</code>.</p>
+<p><strong>5. Author programmatic acceptance (test-driven).</strong></p>
+<ul><li><em>Consumes:</em> each authored spec&#x27;s routes, interfaces, reads, writes, guardrails, any tests</li></ul>
+<p>carried in the imported source material, and any <code>ANALYSIS.md ## Surfaced Acceptance Criteria</code> rows tied to this spec&#x27;s Story ID.</p>
+<ul><li><em>Emits:</em> the <code>## Programmatic Acceptance</code> section of every authored spec, as concrete Python</li></ul>
+<p>assertions.</p>
+<p>Rules:</p>
+<ul><li>Treat this as writing the failing tests first. For every story, the specs it implements together</li></ul>
+<p>carry <strong>several</strong> executable assertions — generally one per distinct observable behavior, route, invariant, or error mode described in that spec. A single assertion for a multi-behavior spec is insufficient.</p>
+<ul><li>Every split story owns its own assertions in the spec it implements. Splitting must never leave a</li></ul>
+<p>story gated by another story&#x27;s acceptance, and never leave two stories asserting one behavior.</p>
+<ul><li>Assertions are concrete and executable from the build directory: assert a route responds, a</li></ul>
+<p>record is written with the expected keys, an invariant holds, a guardrail rejects, an error type is raised. Cover the ordinary &quot;the thing exists and responds&quot; checks explicitly (for a route, that it is reachable and returns the expected status) — do not assume they are obvious.</p>
+<ul><li>Route coverage is enforced: a SCREEN spec&#x27;s assertions must literally call every route in its</li></ul>
+<p><code>Provides</code> and <code>Consumes</code> (the plan is rejected otherwise); a FEATURE spec&#x27;s assertions must exercise every route and interface it provides, naming each literal route path in at least one assertion.</p>
+<ul><li>Imported test material is <strong>input, not output — with one exception.</strong> Ad hoc tests, test</li></ul>
+<p>scripts, or a prose <code>## Test</code> section: review them and re-express the intended checks as Drydock Programmatic Acceptance assertions in the spec; do not trust their format, copy them verbatim, or point at that script. <strong>The exception is an authoritative conformance suite</strong> — an externally-authored, executable suite whose runner <em>defines</em> &quot;correct&quot; for the capability (for example a specification&#x27;s example set plus its <code>*_tests.py</code> runner). A conformance suite is never paraphrased into hand assertions: paraphrase samples it and drops coverage. Its acceptance <strong>invokes the imported runner</strong> over the scope the spec owns and asserts a full pass of that scope, per the suite-binding rule below.</p>
+<ul><li><strong>Act on the system. Read the state back. Compare to expected.</strong> The assertion reads <em>state</em> —</li></ul>
+<p>a return value, parsed JSON, a status code, a stored row, file contents read back, an exit status. It never reads a substring of captured stdout or stderr, a test-runner tally, or a log line. A state oracle cannot pass against a stub and cannot fail because a runner printed the word &quot;warning&quot;; a text oracle can do both. Print captured output for diagnosis, never assert on it.</p>
+<ul><li>Write the check in the project&#x27;s own language, using that language&#x27;s libraries. An in-language</li></ul>
+<p>HTTP client yields a status code and a parsed body, which is state; <code>curl</code> yields stdout, which is text to scrape. Reaching for an external executable is the exception and belongs in Rigging.</p>
+<ul><li>Prefer the round trip for anything that stores, mutates, or removes state: act, then read back</li></ul>
+<p>through the public interface and assert the resulting state. A write that returns a plausible object while persisting nothing must fail. Enumerate coverage from the interface — every route and method, every subcommand and behavior-changing flag, every exported function — rather than sampling it. Assert declared failure signals on negative paths, never message wording.</p>
+<ul><li><strong>Never type an expected value twice. Bind it to a name and use the name on both sides.</strong> You</li></ul>
+<p>are authoring before the code exists, so a hand-typed expectation is a prediction about bytes you have not seen; when the prediction is wrong the criterion fails a correct implementation and nothing downstream can tell that from a real defect. Legal expected values: a name bound to the input the criterion supplied, a status code or count, a contract token read off a declared interface (<code>&quot;integer&quot;</code>, <code>&quot;application/json&quot;</code>), a staged suite&#x27;s exit status. Illegal: a string literal you typed out as the expected result. Drydock judges this mechanically — a string expectation carrying anything escapable that the criterion did not also supply as input — and a criterion that breaks the rule settles <code>DISPUTED</code>, gating nothing and buying its story no coverage. Write <code>raw = &quot;C:\\Users\\nodejs&quot;; source = f&quot;raw = &#x27;{raw}&#x27;\n&quot;; ... assert decoded[&quot;raw&quot;][&quot;value&quot;] == raw</code>, never a second spelling of the same value.</p>
+<ul><li>Where a transform&#x27;s output cannot be derived from its input — a renderer turning <code># h</code> into</li></ul>
+<p><code>&lt;h1&gt;h&lt;/h1&gt;</code> — do not hand-write the expectation. Bind to the authoritative suite that defines correctness for that transform. Where no such suite exists, leave the case to the project&#x27;s own test suite, which the implementer writes against real output.</p>
+<ul><li>Write <code>- None.</code> only when the item genuinely has no programmatic surface (pure visual/manual</li></ul>
+<p>UI, or a Commander-observed check). State the reason on the same line, e.g. <code>- None. Visual-only screen; behavior covered by its backing FEATURE spec.</code> Bare <code>- None.</code> on a spec that declares any <code>Provides</code> entry is a defect.</p>
+<p><strong>6. Declare relationships.</strong></p>
+<ul><li><em>Consumes:</em> the authored spec set as a whole.</li><li><em>Emits:</em> <code>Depends On</code>, <code>Provides</code>, and <code>Consumes</code> in each Blueprint header.</li></ul>
+<p>Rules:</p>
+<ul><li><code>Depends On</code> names the files or interface points required before this file can be implemented.</li><li><code>Provides</code> names routes, commands, API symbols, datasets, queues, or event types this file</li></ul>
+<p>defines.</p>
+<ul><li><code>Consumes</code> lists the interface points this file calls. A SCREEN lists the routes it calls.</li><li>A SCREEN route must be backed by a provider in some FEATURE or service definition.</li><li>Do not leave relationship fields contradictory across files. State what each file requires and</li></ul>
+<p>provides; Drydock derives the rest.</p>
+<p><strong>7. Declare the topology.</strong></p>
+<ul><li><em>Consumes:</em> the authored spec set and its declared relationships.</li><li><em>Emits:</em> <code>TOPOLOGY.md</code> — one declaration per authored specification, carrying declarations only.</li></ul>
+<p>These seven jobs are the order you <em>think</em> in, not the order you <em>emit</em> in. Settle all seven first. Stage 1 then emits the complete <code>TOPOLOGY.md</code> declaration and <code>DECISIONS.json</code> only. Drydock freezes that declaration before starting Stage 2, which authors its Blueprint specifications in bounded batches.</p>
+<p>You author judgment. Drydock computes everything positional. <strong>Do not emit <code>MANIFEST.md</code>. Do not sort the stories, do not group them, do not assign <code>block:</code> or <code>stack_mode:</code>, and do not reason about a story&#x27;s position in an order you have not computed.</strong> Declare the stories in any order that is convenient; Drydock verifies the graph, orders it, packs it into blocks, and serializes <code>MANIFEST.md</code> itself. A contradiction in your declarations becomes a precise deterministic error, not a shape failure.</p>
+<p><code>TOPOLOGY.md</code> is a flat declaration. One <code>## story &lt;id&gt;</code> heading per governed specification, followed by <code>field: value</code> lines. There is no <code>id:</code> line — the heading carries the id. There is no <code>block:</code>, no <code>stack_mode:</code>, no <code>state:</code>, no numbering, and no ordering of any kind:</p>
+<pre><code>## story catalog-service
+summary:      Serve the catalog read API.
+type:         service
+kind:         capability
+phase:        1
+implements:   FEATURE-Catalog.md
+covers:       CATALOG-001
+context:      DATABASE.md
+stack:        common.md, python.md, fastapi.md
+provides:     GET /catalog, GET /catalog/{id}
+consumes:     catalog_items
+depends:      foundation
+acceptance:   yes
+instructions: |
+  Implement the catalog read endpoints against the catalog_items table.
+
+  Return 404 for an unknown id.</code></pre>
+<p>Declare, per story:</p>
+<ul><li><code>summary</code>, <code>implements</code> (exactly one governed specification), <code>instructions</code></li><li><code>type</code> — <code>foundational</code>, <code>service</code>, or <code>feature</code>, per <code>MANIFEST_CONTRACT.md</code></li><li><code>kind</code> — <code>capability</code>, <code>integration</code>, <code>migration</code>, or <code>test harness</code></li><li><code>phase</code> — the high-level topology: Commander build sequencing, <em>build Feature X then Feature Y</em>.</li></ul>
+<p>It is not a layer chain: the layer stack repeats inside each phase rather than running once across the project. Weigh Commander ordering direction as input when assigning it.</p>
+<ul><li><code>depends</code> — the actual topology: the genuine input requirements of this story, by story id. A</li></ul>
+<p><code>feature</code> story depends on its member stories.</p>
+<ul><li><code>provides</code> / <code>consumes</code> — what this story defines and calls, comma-separated</li><li><code>stack</code> — the Rigging stack files this story builds with</li><li><code>acceptance</code> — <code>yes</code> when the story has real acceptance to honor</li><li><code>covers</code>, <code>accepts</code>, <code>context</code>, <code>rules</code>, <code>copy</code>, <code>scope</code>, <code>feedback</code> when applicable</li></ul>
+<p><code>instructions</code> uses the <code>|</code> block form shown above: every body line is indented, and the body ends at the first unindented line. Every other field is one line.</p>
+<p>The two topologies must agree: a story in phase 2 cannot depend on a story in phase 3. Drydock checks this and rejects the plan when they disagree.</p>
+<p>For every injected Persistent Plan feedback decision, add one line to a <code>planning_feedback: |</code> block at the very top of <code>TOPOLOGY.md</code>, before the first <code>## story</code> heading: <code>&lt;decision-id&gt; applied &lt;Blueprint path&gt;</code>, <code>&lt;decision-id&gt; retained</code>, or <code>&lt;decision-id&gt; retired &lt;scope-change reason&gt;</code>. A renamed file is never a retirement reason. Put applied decisions into normal Blueprint content and list their ids in the owning story&#x27;s <code>feedback:</code> field.</p>
+<hr>
+<h2>Typed Specification Format</h2>
+<p>For every authored Blueprint file except <code>METADATA.md</code> and <code>README.md</code>, use this exact header shape:</p>
+<pre><code># {FileType}: {ObjectName}
+
+| Field       | Value |
+|-------------|-------|
+| Version     | YYYYMMDD V1 |
+| Description | One sentence summary. |
+| Depends On  | FEATURE-SERVICE-CATALOG.md, UI-GENERAL.md |
+| Provides    | GET /welcome, GET /welcome/summary |
+| Consumes    | GET /api/welcome-summary |</code></pre>
+<p><code>Phase</code> is <strong>not</strong> a Blueprint header field. It describes when a file is built, not the file, so it is declared in <code>TOPOLOGY.md</code> only.</p>
+<p>SCREEN files may also include:</p>
+<pre><code>| Route       | /welcome |
+| Parent      | Main |
+| Main Menu   | Welcome (1) |
+| Sub Menu    | Summary (1) |
+| Tab Order   | 1 |</code></pre>
+<p>Required rules:</p>
+<ul><li><code>Version</code> must use the current job date and start at <code>V1</code> for new files.</li><li><code>Description</code> is one sentence.</li><li>Preserve exact field names and table formatting.</li><li>Use <code>COMPASS</code>, <code>SCREEN</code>, <code>FEATURE</code>, <code>DATABASE</code>, <code>UI-GENERAL</code>, <code>ARCHITECTURE</code>, <code>HOMEPAGE</code>,</li></ul>
+<p>or <code>AC</code> as the <code>FileType</code>, as applicable.</p>
+<ul><li>Do not invent a new typed file category.</li></ul>
+<p>Every authored Specification file places <code>## Questions</code> immediately after the typed metadata table. Use <code>- None.</code> when no human-owned unknown remains. Otherwise use the exact record contract from <code>BLUEPRINTS_CONTRACT.md</code>. The file then ends with these sections:</p>
+<pre><code>## Programmatic Acceptance
+
+- None.
+
+## User Acceptance
+
+- None.
+
+## Guardrails
+
+- None.
+</code></pre>
+<p>Use <code>- None.</code> only when that section is truly empty, and for <code>## Programmatic Acceptance</code> state the reason inline (see below).</p>
+<p>Additional body guidance:</p>
+<ul><li><code>COMPASS.md</code> body uses <code>## Compass</code>, <code>## Constraints</code>, and <code>## Guardrails</code>.</li><li><code>ARCHITECTURE.md</code> captures modules, boundaries, route groupings, interfaces, technical</li></ul>
+<p>decisions, and a module ownership table for persistence/config/file/service boundaries.</p>
+<ul><li><code>ARCHITECTURE.md</code> carries a <code>## Technology Stack</code> section derived from <code>TECHNOLOGY_STACK.md</code>:</li></ul>
+<p>the technologies in use and where each applies. It is derived prose, not the decision of record — never contradict <code>TECHNOLOGY_STACK.md</code> and never introduce a technology it does not list.</p>
+<ul><li><code>DATABASE.md</code> defines access patterns, stores, typed persistence interfaces, schemas,</li></ul>
+<p>migrations, config, file stores, and external services; no raw-storage access outside the encapsulation boundary.</p>
+<ul><li><code>FEATURE-*.md</code> defines the workflow, trigger, routes or interface points, reads, writes, and</li></ul>
+<p>operational behavior.</p>
+<ul><li><code>SCREEN-*.md</code> defines the route, layout, controls, interactions, and user-visible behaviors.</li><li><code>Programmatic Acceptance</code> defines Python assertions that Drydock runs from the build directory</li></ul>
+<p>after the implementing story completes. It is mandatory: every spec with a programmatic surface (any <code>Provides</code> entry, route, interface, read, or write) carries <strong>several</strong> concrete executable assertions covering its distinct behaviors, invariants, and error modes — including the basic reachability/existence checks. This is the test-driven contract the build must satisfy. Never substitute prose, a <code>## Test</code> narrative, or an external script reference for the assertions. Emit <code>- None.</code> only for a genuine non-programmatic item, with the reason stated on the same line.</p>
+<ul><li>Declare every external Python package and executable used directly or indirectly by each</li></ul>
+<p>Programmatic Acceptance mechanism using repeated <code>Requires: &lt;kind&gt;=&lt;name&gt;; scope=&lt;scope&gt;</code> lines. Include framework test-client dependencies such as <code>httpx</code>. Never install or silently assume an undeclared tool. Permission-bearing tooling choices belong in the Blueprint <code>## Questions</code>, not only in <code>DECISIONS.json</code>; Drydock projects the canonical blocking question deterministically.</p>
+<ul><li>An assertion that invokes a staged asset obeys that asset&#x27;s documented interface, supplies every</li></ul>
+<p>environment variable it declares required, and extends the inherited environment rather than replacing it. See the staged-asset invocation rules in <code>BLUEPRINTS_CONTRACT.md</code>.</p>
+<ul><li><code>User Acceptance</code> contains only Commander-observed checks that cannot be honestly automated.</li></ul>
+<hr>
+<h2>Manifest Construction Rules</h2>
+<p>Derive the Manifest from the authored specs, not directly from the imported source text.</p>
+<p><strong>Story types</strong></p>
+<ul><li>One story per governed specification: <code>implements:</code> names exactly one spec file, and every</li></ul>
+<p>authored spec file is implemented by exactly one story. The story is the atomic build primitive.</p>
+<ul><li><code>foundational</code> — structure and scaffolding. Standing up S3 and proving the connection is</li></ul>
+<p>architecture. Recognizing that something must establish the web server, and making it a node, is your judgment and determines story structure.</p>
+<ul><li><code>service</code> — everything that does work. Much of what source material labels architecture is</li></ul>
+<p>service work: the web server and the database are foundation; a voice service interpreter is a service wearing an architecture filename.</p>
+<ul><li><code>feature</code> — an assembly story. It depends on its member stories, carries acceptance criteria, and</li></ul>
+<p>carries assembly and intent instructions instead of implementation instructions. It is not a grouping construct and it is not a batching unit.</p>
+<ul><li>There is no fourth type, and no <code>spike</code> or <code>ac</code> story type. A research question becomes a</li></ul>
+<p>questionnaire before Plan or a <code>DECISIONS.json</code> record after.</p>
+<p><strong>Story sizing</strong></p>
+<ul><li>A story is a normal Agile story: <strong>1 to 5 story points</strong>. Never a half point — that is a task,</li></ul>
+<p>and a task is folded into the story it serves. Never twelve — that is split.</p>
+<ul><li>A story does one thing completely, carries test criteria, and is releasable on its own. A task is</li></ul>
+<p>not releasable and is therefore not a story.</p>
+<ul><li>Size by that judgement alone. A story has no token dimension: token cost is a property of the</li></ul>
+<p>block a story is built in, not of the story.</p>
+<ul><li>Story count is not capped, and it is an output of correct decomposition rather than a target.</li></ul>
+<p>Never collapse distinct behaviors to reduce the count, and never split one behavior to raise it.</p>
+<p><strong>Stack</strong></p>
+<ul><li>Draw <code>stack:</code> values from the Rigging column of <code>TECHNOLOGY_STACK.md</code>: give each story the files</li></ul>
+<p>for the technologies it actually builds with, and no others. A technology whose Rigging cell is <code>—</code> contributes no <code>stack:</code> entry. When <code>TECHNOLOGY_STACK.md</code> is absent or silent on a technology the story needs, choose the conventional Rigging file for it.</p>
+<ul><li>Never emit <code>stack_mode:</code>. Drydock assigns builder/consumer from first use in the order it</li></ul>
+<p>computes.</p>
+<ul><li>Any story that implements <code>DATABASE.md</code> must include <code>persistence.md</code> in <code>stack:</code> plus the</li></ul>
+<p>selected backend stack file such as <code>sqlite.md</code>, <code>postgres.md</code>, or <code>aws-dynamodb.md</code>.</p>
+<p><strong>Context</strong></p>
+<ul><li>Use <code>context:</code> only for genuine read-only support files.</li><li>For context files classified in <code>ANALYSIS.md</code> <code>## Source Roles</code>, preserve their source role in</li></ul>
+<p>a <code>context_roles: |</code> mapping (<code>&lt;path&gt;: &lt;role&gt;</code>). Key it by the promoted Blueprint name, never a <code>sources/...</code> path. A test suite or harness is <code>context</code>, never <code>implements</code>.</p>
+<ul><li>A file the Analysis marks <code>stage</code> is present in the build directory at <code>sources/&lt;name&gt;</code>.</li></ul>
+<p>Reference it by that build-relative path in Programmatic Acceptance. Never reference a <code>blueprint/</code> path or an absolute path, and never author, rewrite, or trim a staged asset.</p>
+<p><strong>Decisions</strong></p>
+<ul><li>Where the Blueprint, guardrails, or stack declaration are silent on a needed decision, decide:</li></ul>
+<p>pick the option that most reduces rework risk, proceed as if it were chosen, and disclose it as a <code>DECISIONS.json</code> item (see Significant Design Decisions below). Ordinary design choices never enter Blueprint <code>## Questions</code>; permission-bearing acceptance tooling requirements do, and gate only their owning story. Assign <code>low</code>, <code>material</code>, or <code>blocking</code> severity. Ordinary Plan-selected choices never hard-block regardless of severity.</p>
+<ul><li>Treat counts, summaries, indexes, and other derived metadata as subordinate to the detailed</li></ul>
+<p>records from which they are computed. When derived metadata disagrees with an unambiguous detailed enumeration, recompute it from that enumeration and continue. This is neither a product question nor Error Mode. Do not require the Commander to correct a stale derived total.</p>
+<p><strong>Acceptance</strong></p>
+<ul><li>Durable behavioral acceptance lives in the implemented spec&#x27;s <code>Programmatic Acceptance</code>: a SCREEN</li></ul>
+<p>spec&#x27;s assertions call every route the screen provides and consumes; a FEATURE spec&#x27;s assertions exercise every route, interface, read, and write it provides.</p>
+<ul><li>Do not copy Sea Trial commands into ordinary story acceptance or execute them while planning.</li><li>When the Analysis states a terminal verification story, that one story gates on the complete</li></ul>
+<p>suite: its <code>Programmatic Acceptance</code> assertion declares <code>Suite: full</code> as one of the block&#x27;s declaration lines, and it <code>depends</code> on every implementation story. Without that declaration a full-suite run is rejected. <strong>Only the terminal story runs the whole suite.</strong></p>
+<ul><li>A harness staging or integration story — one that runs the imported runner only to prove it is</li></ul>
+<p>staged and executes, not to gate correctness — must bound its invocation with the runner&#x27;s <code>--pattern</code>/<code>--number</code> selector. An unbounded run of the suite from any non-terminal story, without <code>Suite: full</code>, is rejected.</p>
+<ul><li>When an authoritative conformance suite is imported (a specification&#x27;s example set plus its</li></ul>
+<p>runner), <strong>every implementing feature story binds its acceptance to that suite over the sections it owns</strong>, never to a hand-written sample. The assertion invokes the imported runner limited to the feature&#x27;s sections and asserts a full pass of that slice; it declares <code>Suite: scoped</code> on its own line so the check receives the suite timeout. Partition the suite&#x27;s sections so each is owned by exactly one <strong>story</strong>; the union of the story slices plus the terminal <code>Suite: full</code> story reproduces the whole suite. One story owning every section is an under-decomposed plan. A scoped run requires runner success and zero failures/errors within its selected slice. It must not require <code>0 skipped</code>: tests outside that slice are expected to be reported as skipped. Only the terminal <code>Suite: full</code> assertion may require zero skipped tests.</p>
+<ul><li>Absent such a suite, every non-terminal story stays bounded — a hand sample proves a unit works,</li></ul>
+<p>never that the project is correct.</p>
+<p><strong>Ordering and grouping — not yours</strong></p>
+<ul><li>Do not sort the stories. Do not compute a topological order. Do not group them into batches.</li><li>Do not emit <code>block:</code>. Blocks are ephemeral context-optimization groups computed by Drydock: one</li></ul>
+<p>topology type per block, never crossing a phase boundary, never violating the edges, packed to amortize stack-file cost across one build pass. Context economy comes from blocks, not from feature grouping.</p>
+<ul><li>Declare <code>depends:</code> as genuine input requirements only. An entry that is decoration rather than a</li></ul>
+<p>real prerequisite corrupts the order Drydock computes from it.</p>
+<hr>
+<h2>Significant Design Decisions</h2>
+<p>Significant Design Decisions not specified by the Blueprint. Build must never stall on a choice Plan should have already made, and the Commander must be able to review and redirect any such choice before Build acts on it. Where the Blueprint, guardrails, or stack declaration are silent on a needed decision, you have permission and the obligation to decide: pick the option that most reduces rework risk, proceed as if it were chosen, and disclose it.</p>
+<p>Ask the way you&#x27;d ask a colleague mid-task — state the decision, name the options you weighed, give your pick, own it. Not an exhaustive survey.</p>
+<p>Assigning blueprint: name the one Blueprint file the decision belongs to — the service or screen it governs. If it belongs to neither, name <code>ARCHITECTURE.md</code>.</p>
+<p>Emit every decision as <code>DECISIONS.json</code>, using the standard file delimiters. Emit <code>[]</code> when there are no decisions — never a silent decision with nothing recorded.</p>
+<pre><code>=== BEGIN ARTIFACT DECISIONS.json ===
+[
+  {
+    &quot;id&quot;:            &quot;string, e.g. Q-001&quot;,
+    &quot;type&quot;:          &quot;choice | text&quot;,
+    &quot;severity&quot;:      &quot;low | material | blocking&quot;,
+    &quot;blueprint&quot;:     &quot;string — the Blueprint filename this decision belongs to&quot;,
+    &quot;story&quot;:         &quot;string | null&quot;,
+    &quot;title&quot;:         &quot;string&quot;,
+    &quot;description&quot;:   &quot;string&quot;,
+    &quot;options&quot;:       [ { &quot;value&quot;: &quot;string&quot;, &quot;label&quot;: &quot;string&quot; } ],
+    &quot;system_choice&quot;: &quot;string&quot;
+  }
+]
+=== END ARTIFACT ===</code></pre>
+<p><code>type: &quot;text&quot;</code> decisions set <code>options</code> to <code>[]</code> and put the resolution in <code>system_choice</code>. Do not include <code>commander_direction</code>, <code>override_text</code>, <code>status</code>, <code>origin</code>, or <code>archived</code> — those are Commander/QuarterDeck-owned and never emitted by Plan.</p>
+<p><code>DECISIONS.json</code> never gates Build regardless of severity, and it is never a Blueprint <code>## Questions</code> record. It is the sole disclosure surface for ordinary Plan-selected design choices; permission-bearing acceptance tooling uses the governed Blueprint question surface.</p>
+<hr>
+<h2>Output Contract</h2>
+<p>Emit exactly one response mode. <strong>Nothing outside the blocks</strong> — no preamble, no explanation, no commentary, no tool calls, no <code>&lt;invoke&gt;</code> or <code>&lt;function_calls&gt;</code> XML. Any output outside a delimited block is a protocol violation and will cause the run to fail. Start your response with the first <code>=== BEGIN ARTIFACT ... ===</code> block.</p>
+<p>The response is processed by a deterministic parser. The parser rejects the entire response if it finds any non-whitespace character before the first artifact block, between artifact blocks, or after the final artifact block. A rejected response writes no Blueprint files and no <code>MANIFEST.md</code>.</p>
+<p>Do not emit transition or completion text such as <code>Now the Manifest.</code>, <code>Next file:</code>, <code>Here is the completed Blueprint.</code>, or <code>Done.</code> After <code>=== END ARTIFACT ===</code>, emit only whitespace followed immediately by the next <code>=== BEGIN ARTIFACT &lt;name&gt; ===</code> delimiter, or end the response.</p>
+<h3>Success Mode</h3>
+<p>Use Success Mode whenever the product basis is sufficient to declare an internally consistent Blueprint and Manifest.</p>
+<p>Stage 1 emits exactly two blocks: the complete <code>TOPOLOGY.md</code> first and <code>DECISIONS.json</code> second. Do not emit any Blueprint specification in this response. Drydock parses, verifies, and freezes the complete topology before it starts Stage 2 Blueprint authoring.</p>
+<p>Declaring first is a hard requirement, not a stylistic one. <code>TOPOLOGY.md</code> is the plan; the spec files implement it. Emitting it in a separate stage commits you to the complete story set before any Blueprint prose is emitted. A response whose declaration never arrives is unrecoverable.</p>
+<p>Every <code>implements:</code> filename in <code>TOPOLOGY.md</code> must name exactly one Blueprint file that Stage 2 will author, or an authored Blueprint spec file that already exists in the input context.</p>
+<p>Wrap both Stage 1 files in matching open/END delimiter pairs:</p>
+<pre><code>=== BEGIN ARTIFACT relative/path/from/blueprint/or/target ===
+{full file contents}
+=== END ARTIFACT ===</code></pre>
+<p>The <code>=== END ARTIFACT ===</code> line is mandatory for every file, not only for <code>TOPOLOGY.md</code>. The closing delimiter is that constant token and nothing else: it never carries the file name, the file&#x27;s title, or any heading from the file&#x27;s content. The name is typed once, at the open. Never separate files with a bare opening delimiter, and never emit two consecutive <code>=== END ARTIFACT ===</code> lines. Emit each file exactly once; do not repeat a file you have already emitted.</p>
+<p>The complete Stage 1 response is:</p>
+<pre><code>=== BEGIN ARTIFACT TOPOLOGY.md ===
+{the story declarations}
+=== END ARTIFACT ===
+=== BEGIN ARTIFACT DECISIONS.json ===
+[]
+=== END ARTIFACT ===</code></pre>
+<p><code>DECISIONS.json</code> is emitted once after the topology — per §Significant Design Decisions. Emit <code>[]</code> when there are no decisions to disclose. Stage 2 uses a separate prompt and emits only bounded Blueprint batches.</p>
+<p>Never emit a <code>MANIFEST.md</code> block. Drydock serializes the Manifest from your declaration.</p>
+<h3>Blocked Mode</h3>
+<p>Use Blocked Mode only when <code>ANALYSIS_QUALITY</code> is <code>Blocked</code>. Emit only:</p>
+<pre><code>=== BEGIN ARTIFACT PLAN_CREATE_BLOCKED.txt ===
+Planning cannot proceed because ANALYSIS.md is Blocked.
+Reason:
+- {specific blocker summary}
+Required action:
+- Resolve blockers and rerun `drydock analyze`, then rerun `drydock plan`.
+=== END ARTIFACT ===</code></pre>
+<h3>Error Mode</h3>
+<p>Use Error Mode only for an unresolvable <strong>product</strong> question — one the Precedence order above cannot settle and no reasonable assumption can bridge. Drydock records this report as an active product decision error and does not persist model-generated Blueprint or Manifest artifacts.</p>
+<p>A mismatch between derived summary metadata and its unambiguous detailed records is never Error Mode. Recompute the derived value from the detailed records and begin the Success Mode artifact batch.</p>
+<p>Available response length is never Error Mode. Stage 1 emits only the complete topology and decisions. Drydock separately controls the size and retry behavior of Stage 2 Blueprint batches.</p>
+<p>A technology-stack disagreement is never Error Mode. Resolve it by Precedence, plan on the winning choice, and record the variance as a <code>Note:</code> line in the Manifest preamble.</p>
+<p>Emit only:</p>
+<pre><code>=== BEGIN ARTIFACT PLAN_CREATE_ERROR.txt ===
+Planning output was not produced.
+Error type: {format|missing-input|conflict|insufficient-specification|other}
+Reason:
+- {exact conflicting files, clauses, and scopes; why precedence cannot resolve them}
+Required action:
+- {specific product decision or source correction required}
+=== END ARTIFACT ===</code></pre>
+<hr>
+<h2>Hard Rules</h2>
+<ul><li>Nothing outside the required output blocks — no preamble, no summary, no prose, no tool calls, no <code>&lt;invoke&gt;</code> or <code>&lt;function_calls&gt;</code> XML.</li><li>Never emit <code>MANIFEST.md</code>; Drydock serializes it from <code>TOPOLOGY.md</code>.</li><li>In Success Mode <code>TOPOLOGY.md</code> is the first block, <code>DECISIONS.json</code> is the second block, and no</li></ul>
+<p>Blueprint specification is emitted during Stage 1.</p>
+<ul><li>Never emit <code>TOPOLOGY.md</code> in Error Mode or Blocked Mode.</li><li>Never emit partial Blueprint files in Error Mode or Blocked Mode.</li><li>Do not emit a file that violates <code>BLUEPRINTS_CONTRACT.md</code> or <code>MANIFEST_CONTRACT.md</code>.</li><li>Every <code>implements:</code> entry in <code>TOPOLOGY.md</code> names a Blueprint file Stage 2 will author or an</li></ul>
+<p>authored spec file that already exists in the input Blueprint.</p>
+<ul><li>Stories and governed specifications are one-to-one: each story&#x27;s <code>implements:</code> names exactly one</li></ul>
+<p>spec file, and every authored spec file is implemented by exactly one story.</p>
+<ul><li>Never emit <code>AGENTS.md</code>. AGENTS.md is not a Blueprint file and is distributed with rigging at build time.</li><li>Every emitted authored spec file except <code>METADATA.md</code> and <code>README.md</code> uses the exact typed header</li></ul>
+<p>table and ends with <code>## Programmatic Acceptance</code>, <code>## User Acceptance</code>, and <code>## Guardrails</code>, with <code>## Questions</code> immediately after the header table.</p>
+<ul><li>Emit <code>DECISIONS.json</code> once, in Success Mode only, immediately after <code>TOPOLOGY.md</code>. Never</li></ul>
+<p>put a Plan decision in a Blueprint <code>## Questions</code> section.</p>
+<ul><li><code>Phase</code> is never a Blueprint header field; declare it in <code>TOPOLOGY.md</code> only.</li><li>Never emit <code>block:</code> or <code>stack_mode:</code>; both are computed by Drydock.</li><li>Every spec that declares a <code>Provides</code> entry (or any route, interface, read, or write) carries</li></ul>
+<p>several concrete Python assertions under <code>## Programmatic Acceptance</code>. <code>- None.</code> there is allowed only for a genuinely non-programmatic item and must state its reason inline.</p>
+<ul><li>A SCREEN spec&#x27;s Programmatic Acceptance must literally call every route in its <code>Provides</code> and</li></ul>
+<p><code>Consumes</code>; a plan whose SCREEN acceptance skips a route is rejected.</p>
+<ul><li>Do not invent interfaces, routes, datasets, commands, or capabilities that the sources and</li></ul>
+<p>analysis do not support.</p>
+<ul><li>Do not leave user-facing screens without backing providers.</li><li>Do not emit placeholder phrases like <code>TBD</code>, <code>fill later</code>, <code>to be determined</code>, or</li></ul>
+<p><code>implementation details here</code>; unresolved items belong in <code>## Questions</code>.</p>
+<ul><li>Do not emit empty authored files.</li><li>Keep the Blueprint authoritative and durable; keep execution state in <code>MANIFEST.md</code>.</li></ul>
+<p>Do not audit your own output for delimiter balance, block completeness, topological consistency, or frontier non-emptiness. Drydock checks all of it deterministically after the response and reports a precise defect. Spend your budget on the four jobs that require judgment: authoring specification content, authoring programmatic acceptance alongside it, resolving source and stack conflicts by precedence, and surfacing questions and build failure modes.</p>
+<p>The governing contracts, planning artifacts, and source materials follow below.</p>
+<p>&lt;pblock label=&quot;Frozen Stage 1 output&quot; kind=&quot;frozen-stage&quot;&gt;</p>
+<h1>Frozen Stage 1 Output</h1>
+<p>The following topology and decisions are the exact accepted Stage 1 output. Author the current Blueprint batch from them; do not reconstruct or amend them.</p>
+<h2>TOPOLOGY.md</h2>
+<p>planning_feedback: | analyze-display_name applied ARCHITECTURE.md analyze-short_description applied ARCHITECTURE.md</p>
+<h2>story architecture</h2>
+<p>summary:      Define the Go parser modules, command boundary, tagged JSON contract, and standard-library constraints. type:         foundational kind:         capability phase:        1 implements:   ARCHITECTURE.md stack:        go.md, common.md provides:     parser module boundary, decoder command boundary, tagged JSON contract consumes: acceptance:   yes scope:        both instructions: | Establish the Go module layout, the internal TOML parser boundary, the cmd/toml-decoder stdin/stdout/stderr process contract, tagged JSON value representation, and standard-library-only dependency policy. Add focused tests for the declared boundaries. accepts:       st-001</p>
+<h2>story decoder-contract</h2>
+<p>summary:      Build the stdin-to-tagged-JSON decoder command. type:         service kind:         capability phase:        1 implements:   FEATURE-Decoder-Contract.md covers:       DECODER-001 stack:        go.md, common.md context:      sources/INSTRUCTIONS.md context_roles: | sources/INSTRUCTIONS.md: compass provides:     cmd/toml-decoder consumes:     parser module boundary, tagged JSON contract depends:       architecture acceptance:   yes scope:        both instructions: | Implement cmd/toml-decoder as an argument-free stdin filter. Read all TOML from stdin, delegate parsing to internal/toml, encode the tagged result as JSON on stdout, and report operational failures on stderr with a non-zero exit status. Add process-level tests for valid stdin, stdout JSON, argument rejection, and absence of configuration or side effects.</p>
+<h2>story decoder-invalid-input</h2>
+<p>summary:      Report invalid TOML through the decoder process boundary. type:         service kind:         capability phase:        1 implements:   FEATURE-Decoder-Invalid-Input.md covers:       DECODER-002 stack:        go.md, common.md context:      sources/INSTRUCTIONS.md context_roles: | sources/INSTRUCTIONS.md: compass provides:     invalid-input diagnostic boundary consumes:     cmd/toml-decoder, parser error boundary depends:       decoder-contract acceptance:   yes scope:        both instructions: | Ensure malformed TOML produces no successful JSON result, writes a diagnostic to stderr, and exits non-zero. Keep diagnostics outside the stdout contract and add process-level tests that assert only exit status and stream separation.</p>
+<h2>story decoder-tagged-json</h2>
+<p>summary:      Encode parsed TOML values using the required tagged JSON representation. type:         service kind:         capability phase:        1 implements:   FEATURE-Tagged-JSON.md covers:       DECODER-003 stack:        go.md, common.md context:      sources/INSTRUCTIONS.md context_roles: | sources/INSTRUCTIONS.md: compass provides:     tagged JSON encoding consumes:     parser value model, cmd/toml-decoder depends:       decoder-contract acceptance:   yes scope:        both instructions: | Implement JSON encoding for tables, arrays, and scalar values. Every TOML value uses the required type and string-valued payload, while tables and arrays retain their structural JSON forms. Add tests for empty structures, nested structures, and every declared scalar type.</p>
+<h2>story lexical-strings</h2>
+<p>summary:      Parse TOML basic, multiline basic, literal, and multiline literal strings. type:         service kind:         capability phase:        2 implements:   FEATURE-Lexical-Strings.md covers:       LEXICAL-001 stack:        go.md, common.md context:      sources/toml-v1.0.0.md, sources/stage_test.sh context_roles: | sources/toml-v1.0.0.md: context sources/stage_test.sh: stage provides:     TOML string values consumes:     parser module boundary depends:       architecture acceptance:   yes scope:        both instructions: | Implement all TOML 1.0.0 string forms, escape sequences, UTF-8 validation, multiline trimming and continuation rules, literal preservation, and prohibited-control validation. Bind acceptance to the authoritative string conformance slice.</p>
+<h2>story lexical-numbers</h2>
+<p>summary:      Parse TOML integers, floating-point values, special floats, and booleans. type:         service kind:         capability phase:        2 implements:   FEATURE-Lexical-Numbers.md covers:       LEXICAL-002 stack:        go.md, common.md context:      sources/toml-v1.0.0.md, sources/stage_test.sh context_roles: | sources/toml-v1.0.0.md: context sources/stage_test.sh: stage provides:     TOML integer values, TOML float values, TOML boolean values consumes:     parser module boundary depends:       architecture acceptance:   yes scope:        both instructions: | Implement decimal, hexadecimal, octal, binary, floating-point, exponent, inf, nan, and boolean syntax with underscore validation and lossless signed 64-bit integer handling. Bind acceptance to the authoritative integer, float, and bool conformance slices.</p>
+<h2>story lexical-datetime</h2>
+<p>summary:      Parse offset datetime, local datetime, local date, and local time values. type:         service kind:         capability phase:        2 implements:   FEATURE-Lexical-Datetime.md covers:       LEXICAL-003 stack:        go.md, common.md context:      sources/toml-v1.0.0.md, sources/stage_test.sh context_roles: | sources/toml-v1.0.0.md: context sources/stage_test.sh: stage provides:     TOML datetime values consumes:     parser module boundary depends:       architecture acceptance:   yes scope:        both instructions: | Implement recognition and tagged representation of offset datetimes, local datetimes, local dates, and local times, including permitted separators, fractional precision, and truncation behavior. Bind acceptance to the authoritative datetime conformance slice.</p>
+<h2>story lexical-whitespace-comments</h2>
+<p>summary:      Process TOML whitespace, comments, line endings, continuations, and encoding rules. type:         service kind:         capability phase:        2 implements:   FEATURE-Lexical-Whitespace-Comments.md covers:       LEXICAL-004 stack:        go.md, common.md context:      sources/toml-v1.0.0.md, sources/stage_test.sh context_roles: | sources/toml-v1.0.0.md: context sources/stage_test.sh: stage provides:     TOML document lexical boundaries consumes:     parser module boundary depends:       architecture acceptance:   yes scope:        both instructions: | Implement whitespace and comment handling, LF and CRLF processing, multiline continuation behavior, valid UTF-8 enforcement, and prohibited control-character rejection. Bind acceptance to the authoritative comment, control, and encoding conformance slices.</p>
+<h2>story keys-forms</h2>
+<p>summary:      Parse bare, quoted, and dotted TOML keys. type:         service kind:         capability phase:        3 implements:   FEATURE-Key-Forms.md covers:       KEYS-001 stack:        go.md, common.md context:      sources/toml-v1.0.0.md, sources/stage_test.sh context_roles: | sources/toml-v1.0.0.md: context sources/stage_test.sh: stage provides:     TOML key paths consumes:     TOML string values, parser module boundary depends:       lexical-strings, lexical-whitespace-comments acceptance:   yes scope:        both instructions: | Implement bare, quoted, and dotted key parsing, including whitespace around dotted components and nested object creation. Bind acceptance to the authoritative key conformance slice.</p>
+<h2>story keys-semantics</h2>
+<p>summary:      Enforce TOML key uniqueness and scalar-to-table definition rules. type:         service kind:         capability phase:        3 implements:   FEATURE-Key-Semantics.md covers:       KEYS-002 stack:        go.md, common.md context:      sources/toml-v1.0.0.md, sources/stage_test.sh context_roles: | sources/toml-v1.0.0.md: context sources/stage_test.sh: stage provides:     key-definition validation consumes:     TOML key paths, parser value model depends:       keys-forms, lexical-numbers, lexical-datetime acceptance:   yes scope:        both instructions: | Track defined keys and implicit tables so duplicate definitions, invalid keys, scalar extension, and closed-structure extension are rejected. Bind acceptance to the relevant authoritative valid and invalid key cases.</p>
+<h2>story structures-arrays</h2>
+<p>summary:      Parse TOML arrays and nested array values. type:         service kind:         capability phase:        3 implements:   FEATURE-Arrays.md covers:       STRUCTURES-001 stack:        go.md, common.md context:      sources/toml-v1.0.0.md, sources/stage_test.sh context_roles: | sources/toml-v1.0.0.md: context sources/stage_test.sh: stage provides:     TOML arrays consumes:     TOML scalar values, TOML key paths depends:       lexical-strings, lexical-numbers, lexical-datetime, keys-forms acceptance:   yes scope:        both instructions: | Implement empty, nested, mixed-type, multiline, commented, and trailing-comma arrays, preserving order and recursively parsing values. Bind acceptance to the authoritative array conformance slice.</p>
+<h2>story structures-inline-tables</h2>
+<p>summary:      Parse TOML inline tables and nested inline-table keys. type:         service kind:         capability phase:        3 implements:   FEATURE-Inline-Tables.md covers:       STRUCTURES-002 stack:        go.md, common.md context:      sources/toml-v1.0.0.md, sources/stage_test.sh context_roles: | sources/toml-v1.0.0.md: context sources/stage_test.sh: stage provides:     TOML inline tables consumes:     TOML scalar values, TOML key paths depends:       lexical-strings, lexical-numbers, lexical-datetime, keys-forms acceptance:   yes scope:        both instructions: | Implement single-line inline tables, nested inline tables, dotted keys within inline tables, and all permitted value forms. Reject multiline and trailing-comma violations. Bind acceptance to the authoritative inline-table conformance slice.</p>
+<h2>story structures-inline-table-closure</h2>
+<p>summary:      Enforce closure of TOML inline tables. type:         service kind:         capability phase:        3 implements:   FEATURE-Inline-Table-Closure.md covers:       STRUCTURES-003 stack:        go.md, common.md context:      sources/toml-v1.0.0.md, sources/stage_test.sh context_roles: | sources/toml-v1.0.0.md: context sources/stage_test.sh: stage provides:     inline-table immutability validation consumes:     TOML inline tables, TOML key paths depends:       structures-inline-tables, keys-semantics acceptance:   yes scope:        both instructions: | Mark inline tables and their descendants as closed after definition. Reject later key or subtable additions through dotted keys and table headers. Bind acceptance to the authoritative invalid inline-table cases.</p>
+<h2>story tables-standard</h2>
+<p>summary:      Parse standard TOML table headers and implicit tables. type:         service kind:         capability phase:        3 implements:   FEATURE-Standard-Tables.md covers:       TABLES-001 stack:        go.md, common.md context:      sources/toml-v1.0.0.md, sources/stage_test.sh context_roles: | sources/toml-v1.0.0.md: context sources/stage_test.sh: stage provides:     TOML standard tables consumes:     TOML key paths, key-definition validation depends:       keys-semantics, structures-inline-table-closure acceptance:   yes scope:        both instructions: | Implement standard table headers, nested and implicitly created tables, empty tables, and root-table behavior. Bind acceptance to the authoritative table conformance slice.</p>
+<h2>story tables-redefinition</h2>
+<p>summary:      Enforce standard-table redefinition and structure-conflict rules. type:         service kind:         capability phase:        3 implements:   FEATURE-Table-Redefinition.md covers:       TABLES-002 stack:        go.md, common.md context:      sources/toml-v1.0.0.md, sources/stage_test.sh context_roles: | sources/toml-v1.0.0.md: context sources/stage_test.sh: stage provides:     table-definition validation consumes:     TOML standard tables, key-definition validation depends:       tables-standard, keys-semantics acceptance:   yes scope:        both instructions: | Reject duplicate table headers and conflicts among scalar values, standard tables, inline tables, and arrays. Bind acceptance to the authoritative invalid table cases.</p>
+<h2>story tables-arrays</h2>
+<p>summary:      Parse arrays of TOML tables and nested table elements. type:         service kind:         capability phase:        3 implements:   FEATURE-Arrays-of-Tables.md covers:       TABLES-003 stack:        go.md, common.md context:      sources/toml-v1.0.0.md, sources/stage_test.sh context_roles: | sources/toml-v1.0.0.md: context sources/stage_test.sh: stage provides:     TOML arrays of tables consumes:     TOML standard tables, TOML key paths, TOML arrays depends:       tables-standard, structures-arrays acceptance:   yes scope:        both instructions: | Implement array-of-table headers, ordered elements, nested standard tables, nested arrays of tables, and current-element targeting. Bind acceptance to the authoritative table conformance slice.</p>
+<h2>story tables-arrays-ordering</h2>
+<p>summary:      Enforce array-of-table ordering and conflict rules. type:         service kind:         capability phase:        3 implements:   FEATURE-Arrays-of-Tables-Ordering.md covers:       TABLES-004 stack:        go.md, common.md context:      sources/toml-v1.0.0.md, sources/stage_test.sh context_roles: | sources/toml-v1.0.0.md: context sources/stage_test.sh: stage provides:     array-of-table ordering validation consumes:     TOML arrays of tables, table-definition validation depends:       tables-arrays, tables-redefinition acceptance:   yes scope:        both instructions: | Reject reversed parent ordering, appends to statically defined arrays, and conflicts between arrays of tables and normal tables or arrays. Bind acceptance to the authoritative invalid table cases.</p>
+<h2>story conformance</h2>
+<p>summary:      Run the complete pinned TOML 1.0.0 conformance suite. type:         service kind:         test harness phase:        4 implements:   FEATURE-Conformance.md covers:       CONFORMANCE-001 accepts:       st-001 stack:        go.md, common.md context:      sources/full_test.sh, sources/run_conformance.sh, sources/setup_harness.sh context_roles: | sources/full_test.sh: stage sources/run_conformance.sh: context sources/setup_harness.sh: stage provides:     complete TOML 1.0.0 conformance verdict consumes:     cmd/toml-decoder, TOML parser depends:       decoder-invalid-input, decoder-tagged-json, lexical-strings, lexical-numbers, lexical-datetime, lexical-whitespace-comments, keys-forms, keys-semantics, structures-arrays, structures-inline-tables, structures-inline-table-closure, tables-standard, tables-redefinition, tables-arrays, tables-arrays-ordering acceptance:   yes scope:        target instructions: | Build the decoder and invoke sources/full_test.sh unfiltered against the installed toml-test v2.2.0 suite. Treat the supplied script exit status as the complete acceptance verdict and preserve the supplied harness assets unchanged.</p>
+<h2>DECISIONS.json</h2>
+<p>[ { &quot;id&quot;: &quot;Q-001&quot;, &quot;type&quot;: &quot;choice&quot;, &quot;severity&quot;: &quot;low&quot;, &quot;blueprint&quot;: &quot;ARCHITECTURE.md&quot;, &quot;story&quot;: &quot;architecture&quot;, &quot;title&quot;: &quot;Parser value representation&quot;, &quot;description&quot;: &quot;Represent parsed values with explicit internal value kinds and ordered containers before tagged JSON encoding.&quot;, &quot;options&quot;: [ { &quot;value&quot;: &quot;explicit-kinds&quot;, &quot;label&quot;: &quot;Explicit value kinds&quot; }, { &quot;value&quot;: &quot;generic-interface&quot;, &quot;label&quot;: &quot;Generic interfaces&quot; } ], &quot;system_choice&quot;: &quot;explicit-kinds&quot; }, { &quot;id&quot;: &quot;Q-002&quot;, &quot;type&quot;: &quot;choice&quot;, &quot;severity&quot;: &quot;low&quot;, &quot;blueprint&quot;: &quot;ARCHITECTURE.md&quot;, &quot;story&quot;: &quot;architecture&quot;, &quot;title&quot;: &quot;Parser implementation boundary&quot;, &quot;description&quot;: &quot;Keep lexical parsing, structural state, semantic validation, and JSON encoding in separate internal responsibilities.&quot;, &quot;options&quot;: [ { &quot;value&quot;: &quot;separated-responsibilities&quot;, &quot;label&quot;: &quot;Separated responsibilities&quot; }, { &quot;value&quot;: &quot;single-parser-module&quot;, &quot;label&quot;: &quot;Single parser module&quot; } ], &quot;system_choice&quot;: &quot;separated-responsibilities&quot; } ] &lt;/pblock&gt;</p>
+<p>&lt;pblock label=&quot;Plan continuation&quot; kind=&quot;continuation&quot;&gt;</p>
+<h1>Continuation</h1>
+<p>Stage 1 is complete. Drydock accepted and froze the complete <code>TOPOLOGY.md</code> declaration before starting this Blueprint-authoring stage. The full planning context above remains authoritative.</p>
+<p>The ledger below states exactly what Drydock accepted, what is still missing, and what came back defective. Treat it as fact.</p>
+<h2>Your job</h2>
+<p>Emit <strong>exactly</strong> the artifacts in the ledger&#x27;s <strong>Current batch</strong>, in the stated order. Nothing else.</p>
+<ul><li>Do not re-emit an accepted artifact. Its content is already held and will not be read again.</li><li>Do not emit a deferred artifact. Drydock supplies it in a later bounded batch.</li><li>Do not emit or amend <code>TOPOLOGY.md</code>; Stage 1 is complete and frozen.</li><li>Do not emit <code>DECISIONS.json</code>; it was captured with the topology in Stage 1.</li><li>Do not restate your plan, summarize progress, apologize, or explain the interruption.</li><li>Do not emit <code>MANIFEST.md</code>; Drydock serializes it from the declaration.</li><li>Use exactly the same delimited block format as before, including the mandatory</li></ul>
+<p><code>=== END ARTIFACT ===</code> line for every file. The name is typed once, at the open; the closing delimiter is that constant token and never carries the name.</p>
+<ul><li>An artifact listed as defective must be emitted again in full, corrected. A partial or patched</li></ul>
+<p>version is not accepted.</p>
+<ul><li>Emit each missing artifact under the exact filename the ledger names. A filename that does not</li></ul>
+<p>match its declaration cannot be accepted.</p>
+<h2>Budget</h2>
+<p>Author the Current batch one Blueprint at a time. For each Blueprint, emit its opening delimiter, its complete file body, and its matching closing delimiter. Only after the closing delimiter is written may the next Blueprint&#x27;s opening delimiter be emitted.</p>
+<p>A whole artifact is progress; a truncated one is not. Never pre-emit opening delimiters, outline several files at once, nest one artifact inside another, or use one closing delimiter for several files. If the whole Current batch cannot fit, finish and close the current artifact, then end the response. Drydock retries every unproduced artifact from the same batch.</p>
+<p>The only legal sequence is:</p>
+<pre><code>=== BEGIN ARTIFACT FIRST-NAME ===
+{complete first file}
+=== END ARTIFACT ===
+=== BEGIN ARTIFACT SECOND-NAME ===
+{complete second file}
+=== END ARTIFACT ===</code></pre>
+<h2>Ledger</h2>
+<p>Accepted (0) — already held, do not re-emit: (none)</p>
+<p>Current batch (5) — emit exactly these, in this order: architecture -&gt; ARCHITECTURE.md decoder-contract -&gt; FEATURE-Decoder-Contract.md decoder-invalid-input -&gt; FEATURE-Decoder-Invalid-Input.md decoder-tagged-json -&gt; FEATURE-Tagged-JSON.md lexical-strings -&gt; FEATURE-Lexical-Strings.md</p>
+<p>Deferred (13) — Drydock will provide later batches; do not emit them now. &lt;/pblock&gt;</p></article>
+</main>
+</body>
+</html>

@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>workspace/targets/toml/blueprint/FEATURE-Lexical-Strings.md</title>
+<link rel="stylesheet" href="../../../../../assets/kit.css">
+</head>
+<body>
+<main>
+<header class="fileheader"><div class="kind">Run artifact</div><h1>workspace/targets/toml/blueprint/FEATURE-Lexical-Strings.md</h1><div class="filenav"><a href="../../../../../index.html">&larr; Report</a><a href="../../../../../workspace/targets/toml/blueprint/FEATURE-Lexical-Strings.md">Raw file</a></div></header>
+<article class="doc"><h1>FEATURE: Lexical Strings</h1>
+<div class="scroll"><table><thead><tr><th>Field</th><th>Value</th></tr></thead><tbody><tr><td>Version</td><td>20260814 V1</td></tr><tr><td>Description</td><td>Defines TOML 1.0.0 basic, multiline, literal, and multiline literal string parsing.</td></tr><tr><td>Depends On</td><td>ARCHITECTURE.md</td></tr><tr><td>Provides</td><td>TOML string values</td></tr><tr><td>Consumes</td><td>parser module boundary</td></tr></tbody></table></div>
+<h2>String Forms</h2>
+<p>The parser supports basic strings, multiline basic strings, literal strings, and multiline literal strings. Basic strings implement the TOML escape sequences for control characters, quotes, backslashes, and Unicode scalar values. Literal strings preserve content without escape processing.</p>
+<p>Multiline strings trim the first newline after the opening delimiter. Multiline basic strings support line-ending backslash continuation and valid TOML escapes. Multiline literal strings preserve content without escaping and reject prohibited control characters.</p>
+<p>All string forms require valid UTF-8 and reject prohibited control characters. String values may be used as keys as well as values.</p>
+<h2>Conformance Scope</h2>
+<p>The authoritative acceptance scope is the supplied <code>toml-test</code> string suite. The stage runner selects the <code>valid/string/*</code> cases and the complete invalid string cases without asserting on runner output.</p>
+<h2>Guardrails</h2>
+<ul><li>Invalid escape sequences are rejected.</li><li>Unterminated strings are rejected.</li><li>Literal strings do not interpret backslashes as escapes.</li><li>Prohibited control characters are rejected.</li><li>String conformance is measured by the supplied suite.</li></ul>
+<h2>Programmatic Acceptance</h2>
+<p>=== AC strings-conformance ===<br>Intent: The implementation passes the authoritative TOML 1.0.0 string conformance slice.<br>Suite: scoped import os import subprocess</p>
+<p>result = subprocess.run( [&quot;sh&quot;, &quot;sources/stage_test.sh&quot;, &quot;valid/string/*&quot;], capture_output=True, text=True, env={**os.environ}, ) print(result.stdout) print(result.stderr) assert result.returncode == 0 === END AC strings-conformance ===</p>
+<p>=== AC strings-invalid-conformance ===<br>Intent: The implementation rejects the authoritative invalid string cases.<br>Suite: scoped import os import subprocess</p>
+<p>result = subprocess.run( [&quot;sh&quot;, &quot;sources/stage_test.sh&quot;, &quot;invalid/string/*&quot;], capture_output=True, text=True, env={**os.environ}, ) print(result.stdout) print(result.stderr) assert result.returncode == 0 === END AC strings-invalid-conformance ===</p>
+<p>=== AC strings-process ===<br>Intent: A basic string is accepted through the decoder process boundary. import json import subprocess</p>
+<p>value = &quot;line\nvalue&quot; source = &#x27;text = &quot;line\\nvalue&quot;\n&#x27; result = subprocess.run( [&quot;./toml-decoder&quot;], input=source, capture_output=True, text=True, ) decoded = json.loads(result.stdout) assert result.returncode == 0 assert decoded[&quot;text&quot;][&quot;type&quot;] == &quot;string&quot; assert decoded[&quot;text&quot;][&quot;value&quot;] == value === END AC strings-process ===</p>
+<p>=== AC strings-literal ===<br>Intent: A literal string preserves its backslashes as supplied input. import json import subprocess</p>
+<p>value = r&quot;C:\Users\nodejs&quot; source = f&quot;text = &#x27;{value}&#x27;\n&quot; result = subprocess.run( [&quot;./toml-decoder&quot;], input=source, capture_output=True, text=True, ) decoded = json.loads(result.stdout) assert result.returncode == 0 assert decoded[&quot;text&quot;][&quot;type&quot;] == &quot;string&quot; assert decoded[&quot;text&quot;][&quot;value&quot;] == value === END AC strings-literal ===</p>
+<h2>User Acceptance</h2>
+<ul><li>None.</li></ul>
+<h2>Guardrails</h2>
+<ul><li>None.</li></ul></article>
+</main>
+</body>
+</html>

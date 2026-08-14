@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>workspace/targets/toml/blueprint/FEATURE-Table-Redefinition.md</title>
+<link rel="stylesheet" href="../../../../../assets/kit.css">
+</head>
+<body>
+<main>
+<header class="fileheader"><div class="kind">Run artifact</div><h1>workspace/targets/toml/blueprint/FEATURE-Table-Redefinition.md</h1><div class="filenav"><a href="../../../../../index.html">&larr; Report</a><a href="../../../../../workspace/targets/toml/blueprint/FEATURE-Table-Redefinition.md">Raw file</a></div></header>
+<article class="doc"><h1>FEATURE: Table Redefinition</h1>
+<div class="scroll"><table><thead><tr><th>Field</th><th>Value</th></tr></thead><tbody><tr><td>Version</td><td>20260814 V1</td></tr><tr><td>Description</td><td>Rejects conflicting redefinitions among TOML values, standard tables, inline tables, and arrays.</td></tr><tr><td>Depends On</td><td>FEATURE-Standard-Tables.md, FEATURE-Key-Semantics.md</td></tr><tr><td>Provides</td><td>table-definition validation</td></tr><tr><td>Consumes</td><td>TOML standard tables, key-definition validation</td></tr></tbody></table></div>
+<h2>Behavior</h2>
+<p>The parser tracks each table and value definition. It rejects duplicate standard-table headers and conflicts that attempt to reinterpret a scalar, inline table, standard table, or array as another structure.</p>
+<h2>Programmatic Acceptance</h2>
+<p>Requires: executable=sh; scope=test</p>
+<p>=== AC table-redefinition-invalid ===<br>Intent: The implementation rejects every authoritative invalid table-redefinition case.<br>Suite: scoped</p>
+<p>import subprocess</p>
+<p>result = subprocess.run( [&quot;sh&quot;, &quot;sources/stage_test.sh&quot;, &quot;invalid/table/*&quot;], capture_output=True, text=True, ) print(result.stdout) print(result.stderr) assert result.returncode == 0 === END AC table-redefinition-invalid ===</p>
+<p>=== AC table-redefinition-valid ===<br>Intent: The implementation preserves all valid standard-table definitions while enforcing redefinition rules.<br>Suite: scoped</p>
+<p>import subprocess</p>
+<p>result = subprocess.run( [&quot;sh&quot;, &quot;sources/stage_test.sh&quot;, &quot;valid/table/*&quot;], capture_output=True, text=True, ) print(result.stdout) print(result.stderr) assert result.returncode == 0 === END AC table-redefinition-valid ===</p>
+<h2>User Acceptance</h2>
+<ul><li>None.</li></ul>
+<h2>Guardrails</h2>
+<ul><li>Duplicate table definitions are rejected.</li><li>Scalar values cannot be converted into tables.</li><li>Structure conflicts produce a non-successful parse.</li></ul></article>
+</main>
+</body>
+</html>

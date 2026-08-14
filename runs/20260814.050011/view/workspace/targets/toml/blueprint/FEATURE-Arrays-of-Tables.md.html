@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>workspace/targets/toml/blueprint/FEATURE-Arrays-of-Tables.md</title>
+<link rel="stylesheet" href="../../../../../assets/kit.css">
+</head>
+<body>
+<main>
+<header class="fileheader"><div class="kind">Run artifact</div><h1>workspace/targets/toml/blueprint/FEATURE-Arrays-of-Tables.md</h1><div class="filenav"><a href="../../../../../index.html">&larr; Report</a><a href="../../../../../workspace/targets/toml/blueprint/FEATURE-Arrays-of-Tables.md">Raw file</a></div></header>
+<article class="doc"><h1>FEATURE: Arrays of Tables</h1>
+<div class="scroll"><table><thead><tr><th>Field</th><th>Value</th></tr></thead><tbody><tr><td>Version</td><td>20260814 V1</td></tr><tr><td>Description</td><td>Defines ordered TOML arrays of tables and nested table elements.</td></tr><tr><td>Depends On</td><td>FEATURE-Standard-Tables.md, FEATURE-Key-Forms.md, FEATURE-Arrays.md</td></tr><tr><td>Provides</td><td>TOML arrays of tables</td></tr><tr><td>Consumes</td><td>TOML standard tables, TOML key paths, TOML arrays</td></tr></tbody></table></div>
+<h2>Purpose</h2>
+<p>The parser recognizes <code>[[table]]</code> headers and creates ordered table elements. Each subsequent key/value pair applies to the newest element. Nested standard tables and nested arrays of tables target the current enclosing element.</p>
+<h2>Behavior</h2>
+<ul><li>The first array-of-table header creates an array and its first table element.</li><li>Repeated headers append elements in source order.</li><li>Empty elements remain represented as empty objects.</li><li>Nested tables and nested arrays of tables attach to the current element.</li><li>Array elements retain their document order.</li><li>Parsed values use the tagged JSON representation defined by <code>ARCHITECTURE.md</code>.</li></ul>
+<h2>Programmatic Acceptance</h2>
+<p>Requires: executable=go; scope=test<br>Requires: executable=sh; scope=test</p>
+<p>=== AC arrays-of-tables-conformance ===<br>Intent: The implementation passes the authoritative TOML table conformance slice owned by this story.<br>Suite: scoped</p>
+<p>import os import subprocess</p>
+<p>result = subprocess.run( [&quot;sh&quot;, &quot;sources/stage_test.sh&quot;, &quot;valid/table/*&quot;], capture_output=True, text=True, env={**os.environ, &quot;TOML_TEST_VERSION&quot;: &quot;v2.2.0&quot;}, ) print(result.stdout) print(result.stderr, file=<strong>import</strong>(&quot;sys&quot;).stderr) assert result.returncode == 0 === END AC arrays-of-tables-conformance ===</p>
+<p>=== AC arrays-of-tables-build ===<br>Intent: The decoder builds successfully after array-of-table support is implemented.</p>
+<p>import subprocess</p>
+<p>result = subprocess.run([&quot;go&quot;, &quot;build&quot;, &quot;./cmd/toml-decoder&quot;], capture_output=True, text=True) print(result.stdout) print(result.stderr, file=<strong>import</strong>(&quot;sys&quot;).stderr) assert result.returncode == 0 === END AC arrays-of-tables-build ===</p>
+<h2>User Acceptance</h2>
+<ul><li>None.</li></ul>
+<h2>Guardrails</h2>
+<ul><li>The parser preserves array-of-table element order.</li><li>The parser does not replace an array element with a later element.</li></ul></article>
+</main>
+</body>
+</html>

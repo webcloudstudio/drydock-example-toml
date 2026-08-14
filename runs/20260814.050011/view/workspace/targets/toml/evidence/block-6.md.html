@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>workspace/targets/toml/evidence/block-6.md</title>
+<link rel="stylesheet" href="../../../../../assets/kit.css">
+</head>
+<body>
+<main>
+<header class="fileheader"><div class="kind">Run artifact</div><h1>workspace/targets/toml/evidence/block-6.md</h1><div class="filenav"><a href="../../../../../index.html">&larr; Report</a><a href="../../../../../workspace/targets/toml/evidence/block-6.md">Raw file</a></div></header>
+<article class="doc"><h1>Evidence: Block 6 · Service (block-6)</h1>
+<ul><li>block type: block</li><li>date: 2026-08-14</li><li>resulting state: closed/verified</li><li>story points (combined assembled cost): 8955</li><li>execution id: 20260814.052805.919Z-3c07ffab</li></ul>
+<h2>Stories built</h2>
+<ul><li>Parse TOML integers, floating-point values, special floats, and booleans. (lexical-numbers) [story]</li><li>Parse offset datetime, local datetime, local date, and local time values. (lexical-datetime) [story]</li></ul>
+<h2>Missing context</h2>
+<ul><li>context: toml-v1.0.0.md</li></ul>
+<h2>Stacked context</h2>
+<ul><li>compass: COMPASS.md (SP 2629)</li><li>implements: FEATURE-Lexical-Numbers.md (SP 612)</li><li>context: stage_test.sh (SP 161)</li><li>context: ARCHITECTURE_compact.md (SP 108)</li><li>stack: go.md (SP 3646)</li><li>stack: common_compact.md (SP 1179)</li><li>implements: FEATURE-Lexical-Datetime.md (SP 491)</li></ul>
+<h2>Build directory changes</h2>
+<ul><li>internal/toml/decode.go</li><li>internal/toml/value_test.go</li><li>toml-decoder</li></ul>
+<h2>Pre-build acceptance observation</h2>
+<ul><li>RED: lexical-numbers-integer (FEATURE-Lexical-Numbers.md)</li></ul>
+<p>intent: The implementation passes the authoritative TOML integer conformance slice. return code: 1 stdout: FAIL valid/integer/long Values for key &quot;int64-max-neg&quot; don&#x27;t match:<br>Expected:     -9223372036854775808<br>Your encoder: -9223372036854775807</p>
+<p>input sent to parser-cmd (PID 772794): 1 │[0m # int64 &quot;should&quot; be supported, but is not mandatory. It&#x27;s fine to skip this 2 │[0m # test. 3 │[0m int64-max     = 9223372036854775807 4 │[0m int64-max-neg = -9223372036854775808</p>
+<p>output from parser-cmd (PID 772794) (stdout): 1 │[0m { 2 │[0m   &quot;int64-max&quot;:     {&quot;type&quot;: &quot;integer&quot;, &quot;value&quot;: &quot;9223372036854775807&quot;}, 3 │[0m   &quot;int64-max-neg&quot;: {&quot;type&quot;: &quot;integer&quot;, &quot;value&quot;: &quot;-9223372036854775807&quot;} 4 │[0m }</p>
+<p>want: 1 │[0m { 2 │[0m     &quot;int64-max&quot;:     {&quot;type&quot;: &quot;integer&quot;, &quot;value&quot;: &quot;9223372036854775807&quot;}, 3 │[0m     &quot;int64-max-neg&quot;: {&quot;type&quot;: &quot;integer&quot;, &quot;value&quot;: &quot;-9223372036854775808&quot;} 4 │[0m }</p>
+<p>toml-test v2.2.0 [/mnt/c/Users/barlo/projects/drydock/uat/Toml/runs/20260814.050011/build/toml/toml-decoder] [no encoder] skipped tests: 878 valid tests:   5 passed,  1 failed encoder tests: no encoder command given invalid tests:   0 passed,  0 failed stderr: harness: /home/barlo/.local/bin/toml-test toml-test v2.2.0; go1.24.6 linux/amd64; race=false; cgo=true</p>
+<p>Traceback (most recent call last): File &quot;lexical-numbers-integer.py&quot;, line 12, in &lt;module&gt; assert result.returncode == 0 ^^^^^^^^^^^^^^^^^^^^^^ AssertionError</p>
+<ul><li>RED: lexical-numbers-float (FEATURE-Lexical-Numbers.md)</li></ul>
+<p>intent: The implementation passes the authoritative TOML float conformance slice. return code: 1 stdout: FAIL valid/float/inf-and-nan Values for key &quot;infinity_neg&quot; don&#x27;t match:<br>Expected:     -Inf<br>Your encoder: +Inf</p>
+<p>input sent to parser-cmd (PID 773011): 1 │[0m # We don&#x27;t encode +nan and -nan back with the signs; many languages don&#x27;t 2 │[0m # support a sign on NaN (it doesn&#x27;t really make much sense). 3 │[0m nan = nan 4 │[0m nan_neg = -nan 5 │[0m nan_plus = +nan 6 │[0m infinity = inf 7 │[0m infinity_neg = -inf 8 │[0m infinity_plus = +inf</p>
+<p>output from parser-cmd (PID 773011) (stdout): 1 │[0m { 2 │[0m   &quot;infinity&quot;:      {&quot;type&quot;: &quot;float&quot;, &quot;value&quot;: &quot;inf&quot;}, 3 │[0m   &quot;infinity_neg&quot;:  {&quot;type&quot;: &quot;float&quot;, &quot;value&quot;: &quot;inf&quot;}, 4 │[0m   &quot;infinity_plus&quot;: {&quot;type&quot;: &quot;float&quot;, &quot;value&quot;: &quot;inf&quot;}, 5 │[0m   &quot;nan&quot;:           {&quot;type&quot;: &quot;float&quot;, &quot;value&quot;: &quot;nan&quot;}, 6 │[0m   &quot;nan_neg&quot;:       {&quot;type&quot;: &quot;float&quot;, &quot;value&quot;: &quot;nan&quot;}, 7 │[0m   &quot;nan_plus&quot;:      {&quot;type&quot;: &quot;float&quot;, &quot;value&quot;: &quot;nan&quot;} 8 │[0m }</p>
+<p>want: 1 │[0m { 2 │[0m     &quot;infinity&quot;:      {&quot;type&quot;: &quot;float&quot;, &quot;value&quot;: &quot;inf&quot;}, 3 │[0m     &quot;infinity_neg&quot;:  {&quot;type&quot;: &quot;float&quot;, &quot;value&quot;: &quot;-inf&quot;}, 4 │[0m     &quot;infinity_plus&quot;: {&quot;type&quot;: &quot;float&quot;, &quot;value&quot;: &quot;inf&quot;}, 5 │[0m     &quot;nan&quot;:           {&quot;type&quot;: &quot;float&quot;, &quot;value&quot;: &quot;nan&quot;}, 6 │[0m     &quot;nan_neg&quot;:       {&quot;type&quot;: &quot;float&quot;, &quot;value&quot;: &quot;nan&quot;}, 7 │[0m     &quot;nan_plus&quot;:      {&quot;type&quot;: &quot;float&quot;, &quot;value&quot;: &quot;nan&quot;} 8 │[0m }</p>
+<p>toml-test v2.2.0 [/mnt/c/Users/barlo/projects/drydock/uat/Toml/runs/20260814.050011/build/toml/toml-decoder] [no encoder] skipped tests: 877 valid tests:   6 passed,  1 failed encoder tests: no encoder command given invalid tests:   0 passed,  0 failed stderr: harness: /home/barlo/.local/bin/toml-test toml-test v2.2.0; go1.24.6 linux/amd64; race=false; cgo=true</p>
+<p>Traceback (most recent call last): File &quot;lexical-numbers-float.py&quot;, line 13, in &lt;module&gt; assert result.returncode == 0 ^^^^^^^^^^^^^^^^^^^^^^ AssertionError</p>
+<ul><li>GREEN (prepassed): lexical-numbers-bool (FEATURE-Lexical-Numbers.md)</li></ul>
+<p>intent: The implementation passes the authoritative TOML boolean conformance slice. return code: 0 stdout: toml-test v2.2.0 [/mnt/c/Users/barlo/projects/drydock/uat/Toml/runs/20260814.050011/build/toml/toml-decoder] [no encoder] skipped tests: 883 valid tests:   1 passed,  0 failed encoder tests: no encoder command given invalid tests:   0 passed,  0 failed stderr: harness: /home/barlo/.local/bin/toml-test toml-test v2.2.0; go1.24.6 linux/amd64; race=false; cgo=true</p>
+<ul><li>RED: lexical-datetime-valid (FEATURE-Lexical-Datetime.md)</li></ul>
+<p>intent: The implementation passes the authoritative valid TOML datetime conformance slice. return code: 1 stdout: FAIL valid/datetime/datetime line 4: invalid value &quot;1987-07-05t17:45:00z&quot;</p>
+<p>Exit 1</p>
+<p>input sent to parser-cmd (PID 773414): 1 │[0m space = 1987-07-05 17:45:00Z 2 │[0m 3 │[0m # ABNF is case-insensitive, both &quot;Z&quot; and &quot;z&quot; must be supported. 4 │[0m lower = 1987-07-05t17:45:00z</p>
+<p>output from parser-cmd (PID 773414) (stderr): 1 │[0m line 4: invalid value &quot;1987-07-05t17:45:00z&quot; 2 │[0m 3 │[0m Exit 1</p>
+<p>want: &lt;empty&gt;</p>
+<p>toml-test v2.2.0 [/mnt/c/Users/barlo/projects/drydock/uat/Toml/runs/20260814.050011/build/toml/toml-decoder] [no encoder] skipped tests: 875 valid tests:   8 passed,  1 failed encoder tests: no encoder command given invalid tests:   0 passed,  0 failed stderr: harness: /home/barlo/.local/bin/toml-test toml-test v2.2.0; go1.24.6 linux/amd64; race=false; cgo=true</p>
+<p>Traceback (most recent call last): File &quot;lexical-datetime-valid.py&quot;, line 13, in &lt;module&gt; assert result.returncode == 0 ^^^^^^^^^^^^^^^^^^^^^^ AssertionError</p>
+<ul><li>RED: lexical-datetime-invalid (FEATURE-Lexical-Datetime.md)</li></ul>
+<p>intent: The implementation rejects the authoritative invalid TOML datetime conformance slice. return code: 1 stdout: FAIL invalid/datetime/offset-overflow-minute Expected an error, but no error was reported.</p>
+<p>input sent to parser-cmd (PID 773712): 1 │[0m d = 1985-06-18 17:04:07+12:60</p>
+<p>output from parser-cmd (PID 773712) (stdout): 1 │[0m { 2 │[0m   &quot;d&quot;: {&quot;type&quot;: &quot;datetime&quot;, &quot;value&quot;: &quot;1985-06-18 17:04:07+12:60&quot;} 3 │[0m }</p>
+<p>want: Exit code 1</p>
+<p>FAIL invalid/datetime/time-no-leads Expected an error, but no error was reported.</p>
+<p>input sent to parser-cmd (PID 773721): 1 │[0m # Leading 0 is always required. 2 │[0m d = 2023-10-01T1:32:00Z</p>
+<p>output from parser-cmd (PID 773721) (stdout): 1 │[0m { 2 │[0m   &quot;d&quot;: {&quot;type&quot;: &quot;datetime&quot;, &quot;value&quot;: &quot;2023-10-01T1:32:00Z&quot;} 3 │[0m }</p>
+<p>want: Exit code 1</p>
+<p>toml-test v2.2.0 [/mnt/c/Users/barlo/projects/drydock/uat/Toml/runs/20260814.050011/build/toml/toml-decoder] [no encoder] skipped tests: 849 valid tests:   0 passed,  0 failed encoder tests: no encoder command given invalid tests:  33 passed,  2 failed stderr: harness: /home/barlo/.local/bin/toml-test toml-test v2.2.0; go1.24.6 linux/amd64; race=false; cgo=true</p>
+<p>Traceback (most recent call last): File &quot;lexical-datetime-invalid.py&quot;, line 13, in &lt;module&gt; assert result.returncode == 0 ^^^^^^^^^^^^^^^^^^^^^^ AssertionError</p>
+<h2>Post-build programmatic acceptance</h2>
+<ul><li>PASS: lexical-numbers-integer (FEATURE-Lexical-Numbers.md)</li></ul>
+<p>intent: The implementation passes the authoritative TOML integer conformance slice. target interpreter: /mnt/c/Users/barlo/projects/drydock/.venv/bin/python3 provisioning: not required return code: 0 stdout: toml-test v2.2.0 [/mnt/c/Users/barlo/projects/drydock/uat/Toml/runs/20260814.050011/build/toml/toml-decoder] [no encoder] skipped tests: 878 valid tests:   6 passed,  0 failed encoder tests: no encoder command given invalid tests:   0 passed,  0 failed stderr: harness: /home/barlo/.local/bin/toml-test toml-test v2.2.0; go1.24.6 linux/amd64; race=false; cgo=true</p>
+<ul><li>PASS: lexical-numbers-float (FEATURE-Lexical-Numbers.md)</li></ul>
+<p>intent: The implementation passes the authoritative TOML float conformance slice. target interpreter: /mnt/c/Users/barlo/projects/drydock/.venv/bin/python3 provisioning: not required return code: 0 stdout: toml-test v2.2.0 [/mnt/c/Users/barlo/projects/drydock/uat/Toml/runs/20260814.050011/build/toml/toml-decoder] [no encoder] skipped tests: 877 valid tests:   7 passed,  0 failed encoder tests: no encoder command given invalid tests:   0 passed,  0 failed stderr: harness: /home/barlo/.local/bin/toml-test toml-test v2.2.0; go1.24.6 linux/amd64; race=false; cgo=true</p>
+<ul><li>PASS: lexical-numbers-bool (FEATURE-Lexical-Numbers.md)</li></ul>
+<p>intent: The implementation passes the authoritative TOML boolean conformance slice. target interpreter: /mnt/c/Users/barlo/projects/drydock/.venv/bin/python3 provisioning: not required return code: 0 stdout: toml-test v2.2.0 [/mnt/c/Users/barlo/projects/drydock/uat/Toml/runs/20260814.050011/build/toml/toml-decoder] [no encoder] skipped tests: 883 valid tests:   1 passed,  0 failed encoder tests: no encoder command given invalid tests:   0 passed,  0 failed stderr: harness: /home/barlo/.local/bin/toml-test toml-test v2.2.0; go1.24.6 linux/amd64; race=false; cgo=true</p>
+<ul><li>PASS: lexical-datetime-valid (FEATURE-Lexical-Datetime.md)</li></ul>
+<p>intent: The implementation passes the authoritative valid TOML datetime conformance slice. target interpreter: /mnt/c/Users/barlo/projects/drydock/.venv/bin/python3 provisioning: not required return code: 0 stdout: toml-test v2.2.0 [/mnt/c/Users/barlo/projects/drydock/uat/Toml/runs/20260814.050011/build/toml/toml-decoder] [no encoder] skipped tests: 875 valid tests:   9 passed,  0 failed encoder tests: no encoder command given invalid tests:   0 passed,  0 failed stderr: harness: /home/barlo/.local/bin/toml-test toml-test v2.2.0; go1.24.6 linux/amd64; race=false; cgo=true</p>
+<ul><li>PASS: lexical-datetime-invalid (FEATURE-Lexical-Datetime.md)</li></ul>
+<p>intent: The implementation rejects the authoritative invalid TOML datetime conformance slice. target interpreter: /mnt/c/Users/barlo/projects/drydock/.venv/bin/python3 provisioning: not required return code: 0 stdout: toml-test v2.2.0 [/mnt/c/Users/barlo/projects/drydock/uat/Toml/runs/20260814.050011/build/toml/toml-decoder] [no encoder] skipped tests: 849 valid tests:   0 passed,  0 failed encoder tests: no encoder command given invalid tests:  35 passed,  0 failed stderr: harness: /home/barlo/.local/bin/toml-test toml-test v2.2.0; go1.24.6 linux/amd64; race=false; cgo=true</p>
+<h2>Build summary</h2>
+<p>RESULT: SUCCESS</p>
+<p>FILES CHANGED:</p>
+<ul><li>internal/toml/decode.go</li><li>internal/toml/value_test.go</li></ul>
+<p>SUMMARY: Implemented strict TOML numeric, boolean, and datetime lexing with lossless int64 handling, special floats, separators, fractional truncation, and validation. All declared acceptance slices, tests, and <code>go vet</code> pass.</p>
+<p>BLOCKERS:</p>
+<ul><li>Full suite still has failures in out-of-scope key, table, string, and inline-table behavior.</li></ul></article>
+</main>
+</body>
+</html>

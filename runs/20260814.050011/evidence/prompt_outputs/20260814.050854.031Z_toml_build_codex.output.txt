@@ -1,0 +1,18 @@
+<reusable-compact filename="ARCHITECTURE.md">
+Go module `github.com/owner/toml-decoder` uses standard library only. `cmd/toml-decoder` reads TOML from stdin, emits tagged JSON to stdout, reports invalid input on stderr, and exits non-zero. `internal/toml` owns parsing and explicit value kinds while preserving integer lexemes.
+</reusable-compact>
+
+RESULT: SUCCESS
+
+FILES CHANGED:
+- go.mod
+- cmd/toml-decoder/main.go
+- internal/toml/value.go
+- internal/toml/decode.go
+- internal/toml/value_test.go
+
+SUMMARY:
+Implemented the dependency-free Go module, parser boundary, decoder command, tagged JSON model, and focused tests. Go tests, vet, formatting, build, and all architecture acceptance checks pass.
+
+BLOCKERS:
+- None

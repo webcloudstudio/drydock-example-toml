@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>workspace/targets/toml/evidence/block-13.md</title>
+<link rel="stylesheet" href="../../../../../assets/kit.css">
+</head>
+<body>
+<main>
+<header class="fileheader"><div class="kind">Run artifact</div><h1>workspace/targets/toml/evidence/block-13.md</h1><div class="filenav"><a href="../../../../../index.html">&larr; Report</a><a href="../../../../../workspace/targets/toml/evidence/block-13.md">Raw file</a></div></header>
+<article class="doc"><h1>Evidence: Block 13 · Service (block-13)</h1>
+<ul><li>block type: block</li><li>date: 2026-08-14</li><li>resulting state: closed/verified</li><li>story points (combined assembled cost): 9099</li><li>execution id: 20260814.055941.201Z-4b157393</li></ul>
+<h2>Stories built</h2>
+<ul><li>Run the complete pinned TOML 1.0.0 conformance suite. (conformance) [story]</li></ul>
+<h2>Stacked context</h2>
+<ul><li>compass: COMPASS.md (SP 2629)</li><li>implements: FEATURE-Conformance.md (SP 468)</li><li>context: full_test.sh (SP 113)</li><li>context: run_conformance.sh (SP 575)</li><li>context: setup_harness.sh (SP 323)</li><li>context: ARCHITECTURE_compact.md (SP 108)</li><li>stack: go.md (SP 3646)</li><li>stack: common_compact.md (SP 1179)</li></ul>
+<h2>Build directory changes</h2>
+<ul><li>internal/toml/decode.go</li><li>toml-decoder</li></ul>
+<h2>Pre-build acceptance observation</h2>
+<ul><li>RED: complete-conformance (FEATURE-Conformance.md)</li></ul>
+<p>intent: The completed decoder passes the complete pinned TOML 1.0.0 conformance suite. return code: 1 stdout: FAIL valid/spec-1.0.0/string-4 line 7: unterminated multiline string</p>
+<p>Exit 1</p>
+<p>input sent to parser-cmd (PID 888242): 1 │[0m str4 = &quot;&quot;&quot;Here are two quotation marks: &quot;&quot;. Simple enough.&quot;&quot;&quot; 2 │[0m # str5 = &quot;&quot;&quot;Here are three quotation marks: &quot;&quot;&quot;.&quot;&quot;&quot;  # INVALID 3 │[0m str5 = &quot;&quot;&quot;Here are three quotation marks: &quot;&quot;\&quot;.&quot;&quot;&quot; 4 │[0m str6 = &quot;&quot;&quot;Here are fifteen quotation marks: &quot;&quot;\&quot;&quot;&quot;\&quot;&quot;&quot;\&quot;&quot;&quot;\&quot;&quot;&quot;\&quot;.&quot;&quot;&quot; 5 │[0m 6 │[0m # &quot;This,&quot; she said, &quot;is just a pointless statement.&quot; 7 │[0m str7 = &quot;&quot;&quot;&quot;This,&quot; she said, &quot;is just a pointless statement.&quot;&quot;&quot;&quot;</p>
+<p>output from parser-cmd (PID 888242) (stderr): 1 │[0m line 7: unterminated multiline string 2 │[0m 3 │[0m Exit 1</p>
+<p>want: &lt;empty&gt;</p>
+<p>FAIL valid/spec-1.0.0/string-7 line 7: unterminated multiline string</p>
+<p>Exit 1</p>
+<p>input sent to parser-cmd (PID 888269): 1 │[0m quot15 = &#x27;&#x27;&#x27;Here are fifteen quotation marks: &quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&#x27;&#x27;&#x27; 2 │[0m 3 │[0m # apos15 = &#x27;&#x27;&#x27;Here are fifteen apostrophes: &#x27;&#x27;&#x27;&#x27;&#x27;&#x27;&#x27;&#x27;&#x27;&#x27;&#x27;&#x27;&#x27;&#x27;&#x27;&#x27;&#x27;&#x27;  # INVALID 4 │[0m apos15 = &quot;Here are fifteen apostrophes: &#x27;&#x27;&#x27;&#x27;&#x27;&#x27;&#x27;&#x27;&#x27;&#x27;&#x27;&#x27;&#x27;&#x27;&#x27;&quot; 5 │[0m 6 │[0m # &#x27;That,&#x27; she said, &#x27;is still pointless.&#x27; 7 │[0m str = &#x27;&#x27;&#x27;&#x27;That,&#x27; she said, &#x27;is still pointless.&#x27;&#x27;&#x27;&#x27;</p>
+<p>output from parser-cmd (PID 888269) (stderr): 1 │[0m line 7: unterminated multiline string 2 │[0m 3 │[0m Exit 1</p>
+<p>want: &lt;empty&gt;</p>
+<p>FAIL valid/string/multiline-quotes line 4: unterminated multiline string</p>
+<p>Exit 1</p>
+<p>input sent to parser-cmd (PID 888431): 1 │[0m # Make sure that quotes inside multiline strings are allowed, including right 2 │[0m # after the opening &#x27;&#x27;&#x27;/&quot;&quot;&quot; and before the closing &#x27;&#x27;&#x27;/&quot;&quot;&quot; 3 │[0m 4 │[0m lit_one = &#x27;&#x27;&#x27;&#x27;one quote&#x27;&#x27;&#x27;&#x27; 5 │[0m lit_two = &#x27;&#x27;&#x27;&#x27;&#x27;two quotes&#x27;&#x27;&#x27;&#x27;&#x27; 6 │[0m lit_one_space = &#x27;&#x27;&#x27; &#x27;one quote&#x27; &#x27;&#x27;&#x27; 7 │[0m lit_two_space = &#x27;&#x27;&#x27; &#x27;&#x27;two quotes&#x27;&#x27; &#x27;&#x27;&#x27; 8 │[0m 9 │[0m one = &quot;&quot;&quot;&quot;one quote&quot;&quot;&quot;&quot; 10 │[0m two = &quot;&quot;&quot;&quot;&quot;two quotes&quot;&quot;&quot;&quot;&quot; 11 │[0m one_space = &quot;&quot;&quot; &quot;one quote&quot; &quot;&quot;&quot; 12 │[0m two_space = &quot;&quot;&quot; &quot;&quot;two quotes&quot;&quot; &quot;&quot;&quot; 13 │[0m 14 │[0m mismatch1 = &quot;&quot;&quot;aaa&#x27;&#x27;&#x27;bbb&quot;&quot;&quot; 15 │[0m mismatch2 = &#x27;&#x27;&#x27;aaa&quot;&quot;&quot;bbb&#x27;&#x27;&#x27; 16 │[0m 17 │[0m # Three opening &quot;&quot;&quot;, then one escaped &quot;, then two &quot;&quot; (allowed), and then three 18 │[0m # closing &quot;&quot;&quot; 19 │[0m escaped = &quot;&quot;&quot;lol\&quot;&quot;&quot;&quot;&quot;&quot; 20 │[0m 21 │[0m five-quotes = &quot;&quot;&quot; 22 │[0m Closing with five quotes 23 │[0m &quot;&quot;&quot;&quot;&quot; 24 │[0m four-quotes = &quot;&quot;&quot; 25 │[0m Closing with four quotes 26 │[0m &quot;&quot;&quot;&quot;</p>
+<p>output from parser-cmd (PID 888431) (stderr): 1 │[0m line 4: unterminated multiline string 2 │[0m 3 │[0m Exit 1</p>
+<p>want: &lt;empty&gt;</p>
+<p>FAIL valid/string/raw-multiline line 13: unterminated multiline string</p>
+<p>Exit 1</p>
+<p>input sent to parser-cmd (PID 888436): 1 │[0m # Single &#x27; should be allowed. 2 │[0m oneline = &#x27;&#x27;&#x27;This string has a &#x27; quote character.&#x27;&#x27;&#x27; 3 │[0m 4 │[0m # A newline immediately following the opening delimiter will be trimmed. 5 │[0m firstnl = &#x27;&#x27;&#x27; 6 │[0m This string has a &#x27; quote character.&#x27;&#x27;&#x27; 7 │[0m 8 │[0m # All other whitespace and newline characters remain intact. 9 │[0m multiline = &#x27;&#x27;&#x27; 10 │[0m This string 11 │[0m has &#x27; a quote character 12 │[0m and more than 13 │[0m one newline 14 │[0m in it.&#x27;&#x27;&#x27; 15 │[0m 16 │[0m # Tab character in literal string does not need to be escaped 17 │[0m multiline_with_tab = &#x27;&#x27;&#x27;First line 18 │[0m 	 Followed by a tab&#x27;&#x27;&#x27; 19 │[0m 20 │[0m this-str-has-apostrophes=&#x27;&#x27;&#x27;&#x27; there&#x27;s one already 21 │[0m &#x27;&#x27; two more 22 │[0m &#x27;&#x27;&#x27;&#x27;&#x27;</p>
+<p>output from parser-cmd (PID 888436) (stderr): 1 │[0m line 13: unterminated multiline string 2 │[0m 3 │[0m Exit 1</p>
+<p>want: &lt;empty&gt;</p>
+<p>FAIL invalid/float/exp-dot-02 Expected an error, but no error was reported.</p>
+<p>input sent to parser-cmd (PID 889197): 1 │[0m exp-dot-02 = 1.e2</p>
+<p>output from parser-cmd (PID 889197) (stdout): 1 │[0m { 2 │[0m   &quot;exp-dot-02&quot;: {&quot;type&quot;: &quot;float&quot;, &quot;value&quot;: &quot;1.e2&quot;} 3 │[0m }</p>
+<p>want: Exit code 1</p>
+<p>FAIL invalid/float/exp-dot-03 Expected an error, but no error was reported.</p>
+<p>input sent to parser-cmd (PID 889199): 1 │[0m exp-dot-03 = 3.e+20</p>
+<p>output from parser-cmd (PID 889199) (stdout): 1 │[0m { 2 │[0m   &quot;exp-dot-03&quot;: {&quot;type&quot;: &quot;float&quot;, &quot;value&quot;: &quot;3.e+20&quot;} 3 │[0m }</p>
+<p>want: Exit code 1</p>
+<p>FAIL invalid/float/leading-dot Expected an error, but no error was reported.</p>
+<p>input sent to parser-cmd (PID 889294): 1 │[0m leading-dot = .12345</p>
+<p>output from parser-cmd (PID 889294) (stdout): 1 │[0m { 2 │[0m   &quot;leading-dot&quot;: {&quot;type&quot;: &quot;float&quot;, &quot;value&quot;: &quot;.12345&quot;} 3 │[0m }</p>
+<p>want: Exit code 1</p>
+<p>FAIL invalid/float/leading-dot-neg Expected an error, but no error was reported.</p>
+<p>input sent to parser-cmd (PID 889283): 1 │[0m leading-dot-neg = -.12345</p>
+<p>output from parser-cmd (PID 889283) (stdout): 1 │[0m { 2 │[0m   &quot;leading-dot-neg&quot;: {&quot;type&quot;: &quot;float&quot;, &quot;value&quot;: &quot;-.12345&quot;} 3 │[0m }</p>
+<p>want: Exit code 1</p>
+<p>FAIL invalid/float/leading-dot-plus Expected an error, but no error was reported.</p>
+<p>input sent to parser-cmd (PID 889284): 1 │[0m leading-dot-plus = +.12345</p>
+<p>output from parser-cmd (PID 889284) (stdout): 1 │[0m { 2 │[0m   &quot;leading-dot-plus&quot;: {&quot;type&quot;: &quot;float&quot;, &quot;value&quot;: &quot;+.12345&quot;} 3 │[0m }</p>
+<p>want: Exit code 1</p>
+<p>FAIL invalid/float/leading-zero Expected an error, but no error was reported.</p>
+<p>input sent to parser-cmd (PID 889321): 1 │[0m leading-zero = 03.14</p>
+<p>output from parser-cmd (PID 889321) (stdout): 1 │[0m { 2 │[0m   &quot;leading-zero&quot;: {&quot;type&quot;: &quot;float&quot;, &quot;value&quot;: &quot;03.14&quot;} 3 │[0m }</p>
+<p>want: Exit code 1</p>
+<p>FAIL invalid/float/leading-zero-neg Expected an error, but no error was reported.</p>
+<p>input sent to parser-cmd (PID 889317): 1 │[0m leading-zero-neg = -03.14</p>
+<p>output from parser-cmd (PID 889317) (stdout): 1 │[0m { 2 │[0m   &quot;leading-zero-neg&quot;: {&quot;type&quot;: &quot;float&quot;, &quot;value&quot;: &quot;-03.14&quot;} 3 │[0m }</p>
+<p>want: Exit code 1</p>
+<p>FAIL invalid/float/leading-zero-plus Expected an error, but no error was reported.</p>
+<p>input sent to parser-cmd (PID 889318): 1 │[0m leading-zero-plus = +03.14</p>
+<p>output from parser-cmd (PID 889318) (stdout): 1 │[0m { 2 │[0m   &quot;leading-zero-plus&quot;: {&quot;type&quot;: &quot;float&quot;, &quot;value&quot;: &quot;+03.14&quot;} 3 │[0m }</p>
+<p>want: Exit code 1</p>
+<p>FAIL invalid/float/trailing-dot Expected an error, but no error was reported.</p>
+<p>input sent to parser-cmd (PID 889384): 1 │[0m trailing-dot = 1.</p>
+<p>output from parser-cmd (PID 889384) (stdout): 1 │[0m { 2 │[0m   &quot;trailing-dot&quot;: {&quot;type&quot;: &quot;float&quot;, &quot;value&quot;: &quot;1.&quot;} 3 │[0m }</p>
+<p>want: Exit code 1</p>
+<p>FAIL invalid/float/trailing-dot-01 Expected an error, but no error was reported.</p>
+<p>input sent to parser-cmd (PID 889356): 1 │[0m trailing-point = 1.</p>
+<p>output from parser-cmd (PID 889356) (stdout): 1 │[0m { 2 │[0m   &quot;trailing-point&quot;: {&quot;type&quot;: &quot;float&quot;, &quot;value&quot;: &quot;1.&quot;} 3 │[0m }</p>
+<p>want: Exit code 1</p>
+<p>FAIL invalid/float/trailing-dot-02 Expected an error, but no error was reported.</p>
+<p>input sent to parser-cmd (PID 889357): 1 │[0m a = 1. 2 │[0m b = 2</p>
+<p>output from parser-cmd (PID 889357) (stdout): 1 │[0m { 2 │[0m   &quot;a&quot;: {&quot;type&quot;: &quot;float&quot;, &quot;value&quot;: &quot;1.&quot;}, 3 │[0m   &quot;b&quot;: {&quot;type&quot;: &quot;integer&quot;, &quot;value&quot;: &quot;2&quot;} 4 │[0m }</p>
+<p>want: Exit code 1</p>
+<p>FAIL invalid/float/trailing-dot-min Expected an error, but no error was reported.</p>
+<p>input sent to parser-cmd (PID 889359): 1 │[0m trailing-dot-min = -1.</p>
+<p>output from parser-cmd (PID 889359) (stdout): 1 │[0m { 2 │[0m   &quot;trailing-dot-min&quot;: {&quot;type&quot;: &quot;float&quot;, &quot;value&quot;: &quot;-1.&quot;} 3 │[0m }</p>
+<p>want: Exit code 1</p>
+<p>FAIL invalid/float/trailing-dot-plus Expected an error, but no error was reported.</p>
+<p>input sent to parser-cmd (PID 889435): 1 │[0m trailing-dot-plus = +1.</p>
+<p>output from parser-cmd (PID 889435) (stdout): 1 │[0m { 2 │[0m   &quot;trailing-dot-plus&quot;: {&quot;type&quot;: &quot;float&quot;, &quot;value&quot;: &quot;+1.&quot;} 3 │[0m }</p>
+<p>want: Exit code 1</p>
+<p>FAIL invalid/integer/negative-bin Expected an error, but no error was reported.</p>
+<p>input sent to parser-cmd (PID 889663): 1 │[0m negative-bin = -0b11010110</p>
+<p>output from parser-cmd (PID 889663) (stdout): 1 │[0m { 2 │[0m   &quot;negative-bin&quot;: {&quot;type&quot;: &quot;integer&quot;, &quot;value&quot;: &quot;-214&quot;} 3 │[0m }</p>
+<p>want: Exit code 1</p>
+<p>FAIL invalid/integer/negative-hex Expected an error, but no error was reported.</p>
+<p>input sent to parser-cmd (PID 889665): 1 │[0m negative-hex = -0xff</p>
+<p>output from parser-cmd (PID 889665) (stdout): 1 │[0m { 2 │[0m   &quot;negative-hex&quot;: {&quot;type&quot;: &quot;integer&quot;, &quot;value&quot;: &quot;-255&quot;} 3 │[0m }</p>
+<p>want: Exit code 1</p>
+<p>FAIL invalid/integer/negative-oct Expected an error, but no error was reported.</p>
+<p>input sent to parser-cmd (PID 889667): 1 │[0m negative-oct = -0o755</p>
+<p>output from parser-cmd (PID 889667) (stdout): 1 │[0m { 2 │[0m   &quot;negative-oct&quot;: {&quot;type&quot;: &quot;integer&quot;, &quot;value&quot;: &quot;-493&quot;} 3 │[0m }</p>
+<p>want: Exit code 1</p>
+<p>FAIL invalid/integer/positive-bin Expected an error, but no error was reported.</p>
+<p>input sent to parser-cmd (PID 889690): 1 │[0m positive-bin = +0b11010110</p>
+<p>output from parser-cmd (PID 889690) (stdout): 1 │[0m { 2 │[0m   &quot;positive-bin&quot;: {&quot;type&quot;: &quot;integer&quot;, &quot;value&quot;: &quot;214&quot;} 3 │[0m }</p>
+<p>want: Exit code 1</p>
+<p>FAIL invalid/integer/positive-hex Expected an error, but no error was reported.</p>
+<p>input sent to parser-cmd (PID 889695): 1 │[0m positive-hex = +0xff</p>
+<p>output from parser-cmd (PID 889695) (stdout): 1 │[0m { 2 │[0m   &quot;positive-hex&quot;: {&quot;type&quot;: &quot;integer&quot;, &quot;value&quot;: &quot;255&quot;} 3 │[0m }</p>
+<p>want: Exit code 1</p>
+<p>FAIL invalid/integer/positive-oct Expected an error, but no error was reported.</p>
+<p>input sent to parser-cmd (PID 889713): 1 │[0m positive-oct = +0o755</p>
+<p>output from parser-cmd (PID 889713) (stdout): 1 │[0m { 2 │[0m   &quot;positive-oct&quot;: {&quot;type&quot;: &quot;integer&quot;, &quot;value&quot;: &quot;493&quot;} 3 │[0m }</p>
+<p>want: Exit code 1</p>
+<p>toml-test v2.2.0 [/mnt/c/Users/barlo/projects/drydock/uat/Toml/runs/20260814.050011/build/toml/toml-decoder] [no encoder] valid tests: 201 passed,  4 failed encoder tests: no encoder command given invalid tests: 455 passed, 19 failed stderr: harness: /home/barlo/.local/bin/toml-test toml-test v2.2.0; go1.24.6 linux/amd64; race=false; cgo=true</p>
+<p>Traceback (most recent call last): File &quot;complete-conformance.py&quot;, line 13, in &lt;module&gt; assert result.returncode == 0 ^^^^^^^^^^^^^^^^^^^^^^ AssertionError</p>
+<h2>Post-build programmatic acceptance</h2>
+<ul><li>PASS: complete-conformance (FEATURE-Conformance.md)</li></ul>
+<p>intent: The completed decoder passes the complete pinned TOML 1.0.0 conformance suite. target interpreter: /mnt/c/Users/barlo/projects/drydock/.venv/bin/python3 provisioning: not required return code: 0 stdout: toml-test v2.2.0 [/mnt/c/Users/barlo/projects/drydock/uat/Toml/runs/20260814.050011/build/toml/toml-decoder] [no encoder] valid tests: 205 passed,  0 failed encoder tests: no encoder command given invalid tests: 474 passed,  0 failed stderr: harness: /home/barlo/.local/bin/toml-test toml-test v2.2.0; go1.24.6 linux/amd64; race=false; cgo=true</p>
+<h2>Build summary</h2>
+<p>RESULT: SUCCESS</p>
+<p>FILES CHANGED:</p>
+<ul><li>internal/toml/decode.go</li></ul>
+<p>SUMMARY: Full pinned TOML 1.0.0 conformance passed:</p>
+<ul><li>Valid: 205/205</li><li>Invalid: 474/474</li></ul>
+<p>Also passed <code>go test -race ./...</code>, <code>go vet ./...</code>, and <code>go build ./...</code>.</p>
+<p>BLOCKERS:</p>
+<ul><li>None</li></ul></article>
+</main>
+</body>
+</html>

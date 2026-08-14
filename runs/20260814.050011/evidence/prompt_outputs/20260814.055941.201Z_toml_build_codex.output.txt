@@ -1,0 +1,14 @@
+RESULT: SUCCESS
+
+FILES CHANGED:
+- internal/toml/decode.go
+
+SUMMARY:
+Full pinned TOML 1.0.0 conformance passed:
+- Valid: 205/205
+- Invalid: 474/474
+
+Also passed `go test -race ./...`, `go vet ./...`, and `go build ./...`.
+
+BLOCKERS:
+- None

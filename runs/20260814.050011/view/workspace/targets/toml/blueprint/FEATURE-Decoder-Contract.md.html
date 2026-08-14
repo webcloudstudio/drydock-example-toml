@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>workspace/targets/toml/blueprint/FEATURE-Decoder-Contract.md</title>
+<link rel="stylesheet" href="../../../../../assets/kit.css">
+</head>
+<body>
+<main>
+<header class="fileheader"><div class="kind">Run artifact</div><h1>workspace/targets/toml/blueprint/FEATURE-Decoder-Contract.md</h1><div class="filenav"><a href="../../../../../index.html">&larr; Report</a><a href="../../../../../workspace/targets/toml/blueprint/FEATURE-Decoder-Contract.md">Raw file</a></div></header>
+<article class="doc"><h1>FEATURE: Decoder Contract</h1>
+<div class="scroll"><table><thead><tr><th>Field</th><th>Value</th></tr></thead><tbody><tr><td>Version</td><td>20260814 V1</td></tr><tr><td>Description</td><td>Defines the argument-free stdin-to-tagged-JSON decoder command contract.</td></tr><tr><td>Depends On</td><td>ARCHITECTURE.md</td></tr><tr><td>Provides</td><td>cmd/toml-decoder</td></tr><tr><td>Consumes</td><td>parser module boundary, tagged JSON contract</td></tr></tbody></table></div>
+<h2>Workflow</h2>
+<p>The <code>cmd/toml-decoder</code> executable reads one TOML document from standard input and delegates parsing to <code>internal/toml</code>. For valid input it writes the encoded tagged JSON document to standard output and exits successfully. It accepts no command-line arguments, configuration, or alternate input source.</p>
+<h2>Output Behavior</h2>
+<p>Tables and arrays retain their JSON structure. Scalar values use the tagged representation defined by <code>ARCHITECTURE.md</code>. The command does not write files, contact external services, or emit diagnostics for successful input.</p>
+<h2>Guardrails</h2>
+<ul><li>The command accepts no arguments.</li><li>TOML is read only from stdin.</li><li>Successful output is written only to stdout.</li><li>The command has no configuration or persistent side effects.</li><li>Invalid-input handling is implemented by the decoder error boundary.</li></ul>
+<h2>Programmatic Acceptance</h2>
+<p>=== AC decoder-valid-stdin ===<br>Intent: A valid TOML document is accepted through stdin and produces a JSON object. import json import subprocess</p>
+<p>source = &#x27;answer = 42\n&#x27; result = subprocess.run( [&quot;./toml-decoder&quot;], input=source, capture_output=True, text=True, ) decoded = json.loads(result.stdout) assert result.returncode == 0 assert isinstance(decoded, dict) === END AC decoder-valid-stdin ===</p>
+<p>=== AC decoder-argument-free ===<br>Intent: Supplying an argument is rejected by the argument-free command contract. import subprocess</p>
+<p>result = subprocess.run( [&quot;./toml-decoder&quot;, &quot;--help&quot;], input=&quot;&quot;, capture_output=True, text=True, ) assert result.returncode != 0 === END AC decoder-argument-free ===</p>
+<p>=== AC decoder-stream-separation ===<br>Intent: Successful decoding does not write diagnostics to stderr. import subprocess</p>
+<p>source = &#x27;enabled = true\n&#x27; result = subprocess.run( [&quot;./toml-decoder&quot;], input=source, capture_output=True, text=True, ) assert result.returncode == 0 assert result.stderr == &quot;&quot; === END AC decoder-stream-separation ===</p>
+<h2>User Acceptance</h2>
+<ul><li>None.</li></ul>
+<h2>Guardrails</h2>
+<ul><li>None.</li></ul></article>
+</main>
+</body>
+</html>

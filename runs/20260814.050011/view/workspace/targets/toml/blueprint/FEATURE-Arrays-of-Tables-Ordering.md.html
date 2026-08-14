@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>workspace/targets/toml/blueprint/FEATURE-Arrays-of-Tables-Ordering.md</title>
+<link rel="stylesheet" href="../../../../../assets/kit.css">
+</head>
+<body>
+<main>
+<header class="fileheader"><div class="kind">Run artifact</div><h1>workspace/targets/toml/blueprint/FEATURE-Arrays-of-Tables-Ordering.md</h1><div class="filenav"><a href="../../../../../index.html">&larr; Report</a><a href="../../../../../workspace/targets/toml/blueprint/FEATURE-Arrays-of-Tables-Ordering.md">Raw file</a></div></header>
+<article class="doc"><h1>FEATURE: Arrays of Tables Ordering</h1>
+<div class="scroll"><table><thead><tr><th>Field</th><th>Value</th></tr></thead><tbody><tr><td>Version</td><td>20260814 V1</td></tr><tr><td>Description</td><td>Rejects invalid ordering and structural conflicts involving TOML arrays of tables.</td></tr><tr><td>Depends On</td><td>FEATURE-Arrays-of-Tables.md, FEATURE-Table-Redefinition.md</td></tr><tr><td>Provides</td><td>array-of-table ordering validation</td></tr><tr><td>Consumes</td><td>TOML arrays of tables, table-definition validation</td></tr></tbody></table></div>
+<h2>Purpose</h2>
+<p>The parser enforces TOML 1.0.0 ordering and conflict rules for arrays of tables.</p>
+<h2>Behavior</h2>
+<ul><li>A child table or child array cannot precede creation of its parent array element.</li><li>A statically defined array cannot later be extended with an array-of-table header.</li><li>An array of tables cannot be redefined as a normal table.</li><li>A normal table cannot be redefined as an array of tables.</li><li>Conflicting nested table and array-of-table declarations are rejected.</li><li>Invalid documents produce a non-zero decoder exit status.</li></ul>
+<h2>Programmatic Acceptance</h2>
+<p>Requires: executable=go; scope=test<br>Requires: executable=sh; scope=test</p>
+<p>=== AC arrays-of-tables-ordering-conformance ===<br>Intent: The implementation rejects the authoritative invalid table-ordering and conflict cases.<br>Suite: scoped</p>
+<p>import os import subprocess import sys</p>
+<p>result = subprocess.run( [&quot;sh&quot;, &quot;sources/stage_test.sh&quot;, &quot;invalid/table/*&quot;], capture_output=True, text=True, env={**os.environ, &quot;TOML_TEST_VERSION&quot;: &quot;v2.2.0&quot;}, ) print(result.stdout) print(result.stderr, file=sys.stderr) assert result.returncode == 0 === END AC arrays-of-tables-ordering-conformance ===</p>
+<p>=== AC arrays-of-tables-ordering-exit ===<br>Intent: An invalid array-of-table ordering document exits unsuccessfully.</p>
+<p>source = &quot;[fruit.physical]\ncolor = \&quot;red\&quot;\n[[fruit]]\nname = \&quot;apple\&quot;\n&quot; result = subprocess.run( [&quot;go&quot;, &quot;run&quot;, &quot;./cmd/toml-decoder&quot;], input=source, capture_output=True, text=True, ) assert result.returncode != 0 === END AC arrays-of-tables-ordering-exit ===</p>
+<h2>User Acceptance</h2>
+<ul><li>None.</li></ul>
+<h2>Guardrails</h2>
+<ul><li>The parser rejects invalid ordering rather than assigning ambiguous parent elements.</li><li>The parser does not silently reinterpret conflicting table kinds.</li></ul></article>
+</main>
+</body>
+</html>

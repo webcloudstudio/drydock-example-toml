@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>workspace/logs/20260814.052011.978Z_toml_build_codex.stderr.log</title>
+<link rel="stylesheet" href="../../../assets/kit.css">
+</head>
+<body>
+<main>
+<header class="fileheader"><div class="kind">Run artifact</div><h1>workspace/logs/20260814.052011.978Z_toml_build_codex.stderr.log</h1><div class="filenav"><a href="../../../index.html">&larr; Report</a><a href="../../../workspace/logs/20260814.052011.978Z_toml_build_codex.stderr.log">Raw file</a></div></header>
+<article class="doc"><pre>2026-08-14T05:23:15.616962Z ERROR codex_core::tools::router: error=apply_patch verification failed: invalid hunk at line 2, Update file hunk for path &#x27;/mnt/c/Users/barlo/projects/drydock/uat/Toml/runs/20260814.050011/build/toml/internal/toml/internal/toml/decode.go&#x27; is empty
+2026-08-14T05:25:32.558876Z ERROR codex_core::tools::router: error=apply_patch verification failed: Failed to find expected lines in /mnt/c/Users/barlo/projects/drydock/uat/Toml/runs/20260814.050011/build/toml/internal/toml/value_test.go:
+		&quot;multiline = \&quot;\&quot;\&quot;\nfirst \\\n-+second\&quot;\&quot;\&quot;\n&quot; +
+2026-08-14T05:25:37.882122Z ERROR codex_core::tools::router: error=apply_patch verification failed: Failed to find expected lines in /mnt/c/Users/barlo/projects/drydock/uat/Toml/runs/20260814.050011/build/toml/internal/toml/value_test.go:
+		&quot;multiline = \&quot;\&quot;\&quot;\nfirst \\\n-+second\&quot;\&quot;\&quot;\n&quot; +
+2026-08-14T05:25:44.365905Z ERROR codex_core::tools::router: error=apply_patch verification failed: Failed to find expected lines in /mnt/c/Users/barlo/projects/drydock/uat/Toml/runs/20260814.050011/build/toml/internal/toml/value_test.go:
+func TestDecodeStringForms(t *testing.T) {
+	input := &quot;basic = \&quot;line\\nvalue\&quot;\n&quot; +
+		&quot;literal = &#x27;C:\\\\Users\\\\nodejs&#x27;\n&quot; +
+		&quot;multiline = \&quot;\&quot;\&quot;\nfirst \\\n-+second\&quot;\&quot;\&quot;\n&quot; +
+		&quot;multiline-literal = &#x27;&#x27;&#x27;\nraw\\nvalue&#x27;&#x27;&#x27;\n&quot;
+2026-08-14T05:26:24.793689Z ERROR codex_core::tools::router: error=apply_patch verification failed: Failed to find expected lines in /mnt/c/Users/barlo/projects/drydock/uat/Toml/runs/20260814.050011/build/toml/internal/toml/value_test.go:
+		&quot;multiline = \&quot;\&quot;\&quot;\nfirst \\\n-+&quot; + &quot;second\&quot;\&quot;\&quot;\n&quot; +
+2026-08-14T05:26:32.318778Z ERROR codex_core::tools::router: error=apply_patch verification failed: Failed to find expected lines in /mnt/c/Users/barlo/projects/drydock/uat/Toml/runs/20260814.050011/build/toml/internal/toml/value_test.go:
+func TestDecodeStringForms(t *testing.T) {
+	input := &quot;basic = \&quot;line\\nvalue\&quot;\n&quot; +
+		&quot;literal = &#x27;C:\\\\Users\\\\nodejs&#x27;\n&quot; +
+		&quot;multiline = \&quot;\&quot;\&quot;\nfirst \\\n-+&quot; + &quot;second\&quot;\&quot;\&quot;\n&quot; +
+		&quot;multiline-literal = &#x27;&#x27;&#x27;\nraw\\nvalue&#x27;&#x27;&#x27;\n&quot;
+</pre></article>
+</main>
+</body>
+</html>

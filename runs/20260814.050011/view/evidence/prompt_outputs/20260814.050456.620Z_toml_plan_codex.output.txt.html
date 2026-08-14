@@ -1,0 +1,344 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>evidence/prompt_outputs/20260814.050456.620Z_toml_plan_codex.output.txt</title>
+<link rel="stylesheet" href="../../../assets/kit.css">
+</head>
+<body>
+<main>
+<header class="fileheader"><div class="kind">Run artifact</div><h1>evidence/prompt_outputs/20260814.050456.620Z_toml_plan_codex.output.txt</h1><div class="filenav"><a href="../../../index.html">&larr; Report</a><a href="../../../evidence/prompt_outputs/20260814.050456.620Z_toml_plan_codex.output.txt">Raw file</a></div></header>
+<article class="doc"><pre>=== BEGIN ARTIFACT FEATURE-Arrays.md ===
+# FEATURE: TOML Arrays
+
+| Field       | Value |
+|-------------|-------|
+| Version     | 20260814 V1 |
+| Description | Parses TOML arrays, including nested, mixed-type, multiline, commented, and trailing-comma arrays. |
+| Depends On  | FEATURE-Lexical-Strings.md, FEATURE-Lexical-Numbers.md, FEATURE-Lexical-Datetime.md, FEATURE-Key-Forms.md |
+| Provides    | TOML arrays |
+| Consumes    | TOML scalar values, TOML key paths |
+
+## Questions
+
+- None.
+
+## Behavior
+
+Arrays are ordered collections enclosed in square brackets. They may be empty, nested, multiline, mixed-type, commented, and terminated by a trailing comma. Each element uses the TOML value grammar and preserves its tagged representation.
+
+## Programmatic Acceptance
+
+Requires: executable=sh; scope=test
+
+=== AC arrays-valid ===
+Intent: The implementation passes the authoritative valid TOML array conformance slice.
+Suite: scoped
+
+import subprocess
+
+result = subprocess.run(
+    [&quot;sh&quot;, &quot;sources/stage_test.sh&quot;, &quot;valid/array/*&quot;],
+    capture_output=True,
+    text=True,
+)
+print(result.stdout)
+print(result.stderr)
+assert result.returncode == 0
+=== END AC arrays-valid ===
+
+=== AC arrays-invalid ===
+Intent: The implementation rejects every invalid TOML array case in the authoritative suite.
+Suite: scoped
+
+import subprocess
+
+result = subprocess.run(
+    [&quot;sh&quot;, &quot;sources/stage_test.sh&quot;, &quot;invalid/array/*&quot;],
+    capture_output=True,
+    text=True,
+)
+print(result.stdout)
+print(result.stderr)
+assert result.returncode == 0
+=== END AC arrays-invalid ===
+
+## User Acceptance
+
+- None.
+
+## Guardrails
+
+- Array order is preserved.
+- Trailing commas are accepted only where TOML 1.0.0 permits them.
+- Invalid array syntax is rejected.
+
+=== END ARTIFACT ===
+=== BEGIN ARTIFACT FEATURE-Inline-Tables.md ===
+# FEATURE: TOML Inline Tables
+
+| Field       | Value |
+|-------------|-------|
+| Version     | 20260814 V1 |
+| Description | Parses TOML inline tables, nested inline tables, and dotted keys within inline tables. |
+| Depends On  | FEATURE-Lexical-Strings.md, FEATURE-Lexical-Numbers.md, FEATURE-Lexical-Datetime.md, FEATURE-Key-Forms.md |
+| Provides    | TOML inline tables |
+| Consumes    | TOML scalar values, TOML key paths |
+
+## Questions
+
+- None.
+
+## Behavior
+
+Inline tables are self-contained table values enclosed in braces. They support comma-separated key/value pairs, nested inline tables, dotted keys, and all TOML value types. They remain single-line structures and do not permit trailing commas or prohibited newlines.
+
+## Programmatic Acceptance
+
+Requires: executable=sh; scope=test
+
+=== AC inline-tables-valid ===
+Intent: The implementation passes the authoritative valid TOML inline-table conformance slice.
+Suite: scoped
+
+import subprocess
+
+result = subprocess.run(
+    [&quot;sh&quot;, &quot;sources/stage_test.sh&quot;, &quot;valid/inline-table/*&quot;],
+    capture_output=True,
+    text=True,
+)
+print(result.stdout)
+print(result.stderr)
+assert result.returncode == 0
+=== END AC inline-tables-valid ===
+
+=== AC inline-tables-invalid ===
+Intent: The implementation rejects every invalid TOML inline-table case in the authoritative suite.
+Suite: scoped
+
+import subprocess
+
+result = subprocess.run(
+    [&quot;sh&quot;, &quot;sources/stage_test.sh&quot;, &quot;invalid/inline-table/*&quot;],
+    capture_output=True,
+    text=True,
+)
+print(result.stdout)
+print(result.stderr)
+assert result.returncode == 0
+=== END AC inline-tables-invalid ===
+
+## User Acceptance
+
+- None.
+
+## Guardrails
+
+- Inline tables cannot contain trailing commas.
+- Inline tables cannot be extended across physical lines except through valid multiline values.
+- Every inline-table key is defined within the table&#x27;s braces.
+
+=== END ARTIFACT ===
+=== BEGIN ARTIFACT FEATURE-Inline-Table-Closure.md ===
+# FEATURE: Inline-Table Closure
+
+| Field       | Value |
+|-------------|-------|
+| Version     | 20260814 V1 |
+| Description | Prevents keys and subtables from being added after an inline table is defined. |
+| Depends On  | FEATURE-Inline-Tables.md, FEATURE-Key-Semantics.md |
+| Provides    | inline-table immutability validation |
+| Consumes    | TOML inline tables, TOML key paths |
+
+## Questions
+
+- None.
+
+## Behavior
+
+An inline table and every table established within it become closed when the inline table is parsed. Later dotted keys and table headers cannot add or redefine content beneath that closed structure.
+
+## Programmatic Acceptance
+
+Requires: executable=sh; scope=test
+
+=== AC inline-closure-invalid ===
+Intent: The implementation rejects authoritative invalid cases that extend or redefine inline tables.
+Suite: scoped
+
+import subprocess
+
+result = subprocess.run(
+    [&quot;sh&quot;, &quot;sources/stage_test.sh&quot;, &quot;invalid/inline-table/*&quot;],
+    capture_output=True,
+    text=True,
+)
+print(result.stdout)
+print(result.stderr)
+assert result.returncode == 0
+=== END AC inline-closure-invalid ===
+
+=== AC inline-closure-boundary ===
+Intent: The implementation passes the authoritative valid inline-table cases while preserving inline-table closure semantics.
+Suite: scoped
+
+import subprocess
+
+result = subprocess.run(
+    [&quot;sh&quot;, &quot;sources/stage_test.sh&quot;, &quot;valid/inline-table/*&quot;],
+    capture_output=True,
+    text=True,
+)
+print(result.stdout)
+print(result.stderr)
+assert result.returncode == 0
+=== END AC inline-closure-boundary ===
+
+## User Acceptance
+
+- None.
+
+## Guardrails
+
+- A closed inline table cannot receive later keys.
+- A closed inline table cannot receive later subtables.
+- Closure validation must not reject valid inline-table documents.
+
+=== END ARTIFACT ===
+=== BEGIN ARTIFACT FEATURE-Standard-Tables.md ===
+# FEATURE: Standard Tables
+
+| Field       | Value |
+|-------------|-------|
+| Version     | 20260814 V1 |
+| Description | Parses standard TOML table headers, implicit tables, nested tables, empty tables, and root-table content. |
+| Depends On  | FEATURE-Key-Semantics.md, FEATURE-Inline-Table-Closure.md |
+| Provides    | TOML standard tables |
+| Consumes    | TOML key paths, key-definition validation |
+
+## Questions
+
+- None.
+
+## Behavior
+
+Standard table headers select the table receiving subsequent key/value pairs. The parser creates permitted implicit parent tables, supports nested and empty tables, and treats the nameless root table as the document&#x27;s initial table.
+
+## Programmatic Acceptance
+
+Requires: executable=sh; scope=test
+
+=== AC standard-tables-valid ===
+Intent: The implementation passes the authoritative valid TOML standard-table conformance slice.
+Suite: scoped
+
+import subprocess
+
+result = subprocess.run(
+    [&quot;sh&quot;, &quot;sources/stage_test.sh&quot;, &quot;valid/table/*&quot;],
+    capture_output=True,
+    text=True,
+)
+print(result.stdout)
+print(result.stderr)
+assert result.returncode == 0
+=== END AC standard-tables-valid ===
+
+=== AC standard-tables-invalid ===
+Intent: The implementation rejects invalid standard-table header and hierarchy cases in the authoritative suite.
+Suite: scoped
+
+import subprocess
+
+result = subprocess.run(
+    [&quot;sh&quot;, &quot;sources/stage_test.sh&quot;, &quot;invalid/table/*&quot;],
+    capture_output=True,
+    text=True,
+)
+print(result.stdout)
+print(result.stderr)
+assert result.returncode == 0
+=== END AC standard-tables-invalid ===
+
+## User Acceptance
+
+- None.
+
+## Guardrails
+
+- A standard table cannot be defined more than once.
+- Implicit parent tables are created only when permitted by TOML semantics.
+- Header key syntax follows the TOML key grammar.
+
+=== END ARTIFACT ===
+=== BEGIN ARTIFACT FEATURE-Table-Redefinition.md ===
+# FEATURE: Table Redefinition
+
+| Field       | Value |
+|-------------|-------|
+| Version     | 20260814 V1 |
+| Description | Rejects conflicting redefinitions among TOML values, standard tables, inline tables, and arrays. |
+| Depends On  | FEATURE-Standard-Tables.md, FEATURE-Key-Semantics.md |
+| Provides    | table-definition validation |
+| Consumes    | TOML standard tables, key-definition validation |
+
+## Questions
+
+- None.
+
+## Behavior
+
+The parser tracks each table and value definition. It rejects duplicate standard-table headers and conflicts that attempt to reinterpret a scalar, inline table, standard table, or array as another structure.
+
+## Programmatic Acceptance
+
+Requires: executable=sh; scope=test
+
+=== AC table-redefinition-invalid ===
+Intent: The implementation rejects every authoritative invalid table-redefinition case.
+Suite: scoped
+
+import subprocess
+
+result = subprocess.run(
+    [&quot;sh&quot;, &quot;sources/stage_test.sh&quot;, &quot;invalid/table/*&quot;],
+    capture_output=True,
+    text=True,
+)
+print(result.stdout)
+print(result.stderr)
+assert result.returncode == 0
+=== END AC table-redefinition-invalid ===
+
+=== AC table-redefinition-valid ===
+Intent: The implementation preserves all valid standard-table definitions while enforcing redefinition rules.
+Suite: scoped
+
+import subprocess
+
+result = subprocess.run(
+    [&quot;sh&quot;, &quot;sources/stage_test.sh&quot;, &quot;valid/table/*&quot;],
+    capture_output=True,
+    text=True,
+)
+print(result.stdout)
+print(result.stderr)
+assert result.returncode == 0
+=== END AC table-redefinition-valid ===
+
+## User Acceptance
+
+- None.
+
+## Guardrails
+
+- Duplicate table definitions are rejected.
+- Scalar values cannot be converted into tables.
+- Structure conflicts produce a non-successful parse.
+
+=== END ARTIFACT ===</pre></article>
+</main>
+</body>
+</html>

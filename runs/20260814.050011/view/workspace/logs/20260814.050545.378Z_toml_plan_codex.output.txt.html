@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>workspace/logs/20260814.050545.378Z_toml_plan_codex.output.txt</title>
+<link rel="stylesheet" href="../../../assets/kit.css">
+</head>
+<body>
+<main>
+<header class="fileheader"><div class="kind">Run artifact</div><h1>workspace/logs/20260814.050545.378Z_toml_plan_codex.output.txt</h1><div class="filenav"><a href="../../../index.html">&larr; Report</a><a href="../../../workspace/logs/20260814.050545.378Z_toml_plan_codex.output.txt">Raw file</a></div></header>
+<article class="doc"><pre>=== BEGIN ARTIFACT FEATURE-Arrays-of-Tables.md ===
+# FEATURE: Arrays of Tables
+
+| Field       | Value |
+|-------------|-------|
+| Version     | 20260814 V1 |
+| Description | Defines ordered TOML arrays of tables and nested table elements. |
+| Depends On  | FEATURE-Standard-Tables.md, FEATURE-Key-Forms.md, FEATURE-Arrays.md |
+| Provides    | TOML arrays of tables |
+| Consumes    | TOML standard tables, TOML key paths, TOML arrays |
+
+## Questions
+
+- None.
+
+## Purpose
+
+The parser recognizes `[[table]]` headers and creates ordered table elements. Each subsequent key/value pair applies to the newest element. Nested standard tables and nested arrays of tables target the current enclosing element.
+
+## Behavior
+
+- The first array-of-table header creates an array and its first table element.
+- Repeated headers append elements in source order.
+- Empty elements remain represented as empty objects.
+- Nested tables and nested arrays of tables attach to the current element.
+- Array elements retain their document order.
+- Parsed values use the tagged JSON representation defined by `ARCHITECTURE.md`.
+
+## Programmatic Acceptance
+
+Requires: executable=go; scope=test
+Requires: executable=sh; scope=test
+
+=== AC arrays-of-tables-conformance ===
+Intent: The implementation passes the authoritative TOML table conformance slice owned by this story.
+Suite: scoped
+
+import os
+import subprocess
+
+result = subprocess.run(
+    [&quot;sh&quot;, &quot;sources/stage_test.sh&quot;, &quot;valid/table/*&quot;],
+    capture_output=True,
+    text=True,
+    env={**os.environ, &quot;TOML_TEST_VERSION&quot;: &quot;v2.2.0&quot;},
+)
+print(result.stdout)
+print(result.stderr, file=__import__(&quot;sys&quot;).stderr)
+assert result.returncode == 0
+=== END AC arrays-of-tables-conformance ===
+
+=== AC arrays-of-tables-build ===
+Intent: The decoder builds successfully after array-of-table support is implemented.
+
+import subprocess
+
+result = subprocess.run([&quot;go&quot;, &quot;build&quot;, &quot;./cmd/toml-decoder&quot;], capture_output=True, text=True)
+print(result.stdout)
+print(result.stderr, file=__import__(&quot;sys&quot;).stderr)
+assert result.returncode == 0
+=== END AC arrays-of-tables-build ===
+
+## User Acceptance
+
+- None.
+
+## Guardrails
+
+- The parser preserves array-of-table element order.
+- The parser does not replace an array element with a later element.
+=== END ARTIFACT ===
+=== BEGIN ARTIFACT FEATURE-Arrays-of-Tables-Ordering.md ===
+# FEATURE: Arrays of Tables Ordering
+
+| Field       | Value |
+|-------------|-------|
+| Version     | 20260814 V1 |
+| Description | Rejects invalid ordering and structural conflicts involving TOML arrays of tables. |
+| Depends On  | FEATURE-Arrays-of-Tables.md, FEATURE-Table-Redefinition.md |
+| Provides    | array-of-table ordering validation |
+| Consumes    | TOML arrays of tables, table-definition validation |
+
+## Questions
+
+- None.
+
+## Purpose
+
+The parser enforces TOML 1.0.0 ordering and conflict rules for arrays of tables.
+
+## Behavior
+
+- A child table or child array cannot precede creation of its parent array element.
+- A statically defined array cannot later be extended with an array-of-table header.
+- An array of tables cannot be redefined as a normal table.
+- A normal table cannot be redefined as an array of tables.
+- Conflicting nested table and array-of-table declarations are rejected.
+- Invalid documents produce a non-zero decoder exit status.
+
+## Programmatic Acceptance
+
+Requires: executable=go; scope=test
+Requires: executable=sh; scope=test
+
+=== AC arrays-of-tables-ordering-conformance ===
+Intent: The implementation rejects the authoritative invalid table-ordering and conflict cases.
+Suite: scoped
+
+import os
+import subprocess
+import sys
+
+result = subprocess.run(
+    [&quot;sh&quot;, &quot;sources/stage_test.sh&quot;, &quot;invalid/table/*&quot;],
+    capture_output=True,
+    text=True,
+    env={**os.environ, &quot;TOML_TEST_VERSION&quot;: &quot;v2.2.0&quot;},
+)
+print(result.stdout)
+print(result.stderr, file=sys.stderr)
+assert result.returncode == 0
+=== END AC arrays-of-tables-ordering-conformance ===
+
+=== AC arrays-of-tables-ordering-exit ===
+Intent: An invalid array-of-table ordering document exits unsuccessfully.
+
+source = &quot;[fruit.physical]\ncolor = \&quot;red\&quot;\n[[fruit]]\nname = \&quot;apple\&quot;\n&quot;
+result = subprocess.run(
+    [&quot;go&quot;, &quot;run&quot;, &quot;./cmd/toml-decoder&quot;],
+    input=source,
+    capture_output=True,
+    text=True,
+)
+assert result.returncode != 0
+=== END AC arrays-of-tables-ordering-exit ===
+
+## User Acceptance
+
+- None.
+
+## Guardrails
+
+- The parser rejects invalid ordering rather than assigning ambiguous parent elements.
+- The parser does not silently reinterpret conflicting table kinds.
+=== END ARTIFACT ===
+=== BEGIN ARTIFACT FEATURE-Conformance.md ===
+# FEATURE: Complete TOML Conformance
+
+| Field       | Value |
+|-------------|-------|
+| Version     | 20260814 V1 |
+| Description | Verifies the completed decoder against the pinned TOML 1.0.0 conformance suite. |
+| Depends On  | FEATURE-Decoder-Invalid-Input.md, FEATURE-Tagged-JSON.md, FEATURE-Lexical-Strings.md, FEATURE-Lexical-Numbers.md, FEATURE-Lexical-Datetime.md, FEATURE-Lexical-Whitespace-Comments.md, FEATURE-Key-Forms.md, FEATURE-Key-Semantics.md, FEATURE-Arrays.md, FEATURE-Inline-Tables.md, FEATURE-Inline-Table-Closure.md, FEATURE-Standard-Tables.md, FEATURE-Table-Redefinition.md, FEATURE-Arrays-of-Tables.md, FEATURE-Arrays-of-Tables-Ordering.md |
+| Provides    | complete TOML 1.0.0 conformance verdict |
+| Consumes    | cmd/toml-decoder, TOML parser |
+
+## Questions
+
+- None.
+
+## Purpose
+
+The completed Go decoder passes every valid and invalid case in the installed `toml-test` v2.2.0 TOML 1.0 suite.
+
+## Verification
+
+The supplied `sources/full_test.sh` builds `cmd/toml-decoder`, invokes the pinned harness without filters, and uses the harness exit status as the acceptance verdict. The supplied scoring assets remain unchanged.
+
+## Programmatic Acceptance
+
+Requires: executable=go; scope=test
+Requires: executable=sh; scope=test
+
+=== AC complete-conformance ===
+Intent: The completed decoder passes the complete pinned TOML 1.0.0 conformance suite.
+Suite: full
+
+import os
+import subprocess
+import sys
+
+result = subprocess.run(
+    [&quot;sh&quot;, &quot;sources/full_test.sh&quot;],
+    capture_output=True,
+    text=True,
+    env={**os.environ, &quot;TOML_TEST_VERSION&quot;: &quot;v2.2.0&quot;},
+)
+print(result.stdout)
+print(result.stderr, file=sys.stderr)
+assert result.returncode == 0
+=== END AC complete-conformance ===
+
+## User Acceptance
+
+- None.
+
+## Guardrails
+
+- The full suite runs unfiltered.
+- The harness exit status is the sole acceptance verdict.
+- The supplied scoring scripts are not modified.
+=== END ARTIFACT ===</pre></article>
+</main>
+</body>
+</html>

@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>workspace/targets/toml/evidence/block-12.md</title>
+<link rel="stylesheet" href="../../../../../assets/kit.css">
+</head>
+<body>
+<main>
+<header class="fileheader"><div class="kind">Run artifact</div><h1>workspace/targets/toml/evidence/block-12.md</h1><div class="filenav"><a href="../../../../../index.html">&larr; Report</a><a href="../../../../../workspace/targets/toml/evidence/block-12.md">Raw file</a></div></header>
+<article class="doc"><h1>Evidence: Block 12 · Service (block-12)</h1>
+<ul><li>block type: block</li><li>date: 2026-08-14</li><li>resulting state: closed/verified</li><li>story points (combined assembled cost): 8313</li><li>execution id: 20260814.055701.009Z-c7e9a43b</li></ul>
+<h2>Stories built</h2>
+<ul><li>Enforce array-of-table ordering and conflict rules. (tables-arrays-ordering) [story]</li></ul>
+<h2>Missing context</h2>
+<ul><li>context: toml-v1.0.0.md</li></ul>
+<h2>Stacked context</h2>
+<ul><li>compass: COMPASS.md (SP 2629)</li><li>implements: FEATURE-Arrays-of-Tables-Ordering.md (SP 541)</li><li>context: stage_test.sh (SP 161)</li><li>context: ARCHITECTURE_compact.md (SP 108)</li><li>stack: go.md (SP 3646)</li><li>stack: common_compact.md (SP 1179)</li></ul>
+<h2>Build directory changes</h2>
+<ul><li>internal/toml/decode.go</li><li>internal/toml/value_test.go</li><li>toml-decoder</li></ul>
+<h2>Pre-build acceptance observation</h2>
+<ul><li>GREEN (prepassed): arrays-of-tables-ordering-conformance (FEATURE-Arrays-of-Tables-Ordering.md)</li></ul>
+<p>intent: The implementation rejects the authoritative invalid table-ordering and conflict cases. return code: 0 stdout: toml-test v2.2.0 [/mnt/c/Users/barlo/projects/drydock/uat/Toml/runs/20260814.050011/build/toml/toml-decoder] [no encoder] skipped tests: 822 valid tests:   0 passed,  0 failed encoder tests: no encoder command given invalid tests:  62 passed,  0 failed stderr: harness: /home/barlo/.local/bin/toml-test toml-test v2.2.0; go1.24.6 linux/amd64; race=false; cgo=true</p>
+<ul><li>UNVERIFIED: arrays-of-tables-ordering-exit (FEATURE-Arrays-of-Tables-Ordering.md)</li></ul>
+<p>intent: An invalid array-of-table ordering document exits unsuccessfully. return code: 1 error: malformed check: the assertion itself raised NameError (name &#x27;subprocess&#x27; is not defined. Did you forget to import &#x27;subprocess&#x27;?) in its own frame, before reaching the code under test. No implementation can satisfy it. Each check runs as its own script in its own process, so a name bound by another check is not in scope. Repair the assertion in the Blueprint specification. stderr: Traceback (most recent call last): File &quot;arrays-of-tables-ordering-exit.py&quot;, line 2, in &lt;module&gt; result = subprocess.run( ^^^^^^^^^^<br>NameError: name &#x27;subprocess&#x27; is not defined. Did you forget to import &#x27;subprocess&#x27;?</p>
+<h2>Post-build programmatic acceptance</h2>
+<ul><li>PASS: arrays-of-tables-ordering-conformance (FEATURE-Arrays-of-Tables-Ordering.md)</li></ul>
+<p>intent: The implementation rejects the authoritative invalid table-ordering and conflict cases. target interpreter: /mnt/c/Users/barlo/projects/drydock/.venv/bin/python3 provisioning: not required return code: 0 stdout: toml-test v2.2.0 [/mnt/c/Users/barlo/projects/drydock/uat/Toml/runs/20260814.050011/build/toml/toml-decoder] [no encoder] skipped tests: 822 valid tests:   0 passed,  0 failed encoder tests: no encoder command given invalid tests:  62 passed,  0 failed stderr: harness: /home/barlo/.local/bin/toml-test toml-test v2.2.0; go1.24.6 linux/amd64; race=false; cgo=true</p>
+<ul><li>UNVERIFIED: arrays-of-tables-ordering-exit (FEATURE-Arrays-of-Tables-Ordering.md)</li></ul>
+<p>intent: An invalid array-of-table ordering document exits unsuccessfully. target interpreter: /mnt/c/Users/barlo/projects/drydock/.venv/bin/python3 provisioning: not required return code: 1 error: malformed check: the assertion itself raised NameError (name &#x27;subprocess&#x27; is not defined. Did you forget to import &#x27;subprocess&#x27;?) in its own frame, before reaching the code under test. No implementation can satisfy it. Each check runs as its own script in its own process, so a name bound by another check is not in scope. Repair the assertion in the Blueprint specification. stderr: Traceback (most recent call last): File &quot;arrays-of-tables-ordering-exit.py&quot;, line 2, in &lt;module&gt; result = subprocess.run( ^^^^^^^^^^<br>NameError: name &#x27;subprocess&#x27; is not defined. Did you forget to import &#x27;subprocess&#x27;?</p>
+<h2>Build summary</h2>
+<p>RESULT: SUCCESS</p>
+<p>FILES CHANGED:</p>
+<ul><li>internal/toml/decode.go</li><li>internal/toml/value_test.go</li></ul>
+<p>SUMMARY: Added static-array ancestor validation for nested array-of-table headers and regression tests for ordering/conflict rules. Scoped suite: 62/62 invalid cases passed. Go tests, race tests, vet, and build passed.</p>
+<p>BLOCKERS:</p>
+<ul><li>Full suite retains unrelated pre-existing failures in multiline strings and numeric validation.</li></ul></article>
+</main>
+</body>
+</html>

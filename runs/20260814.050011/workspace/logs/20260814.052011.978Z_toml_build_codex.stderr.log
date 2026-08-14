@@ -1,0 +1,19 @@
+2026-08-14T05:23:15.616962Z ERROR codex_core::tools::router: error=apply_patch verification failed: invalid hunk at line 2, Update file hunk for path '/mnt/c/Users/barlo/projects/drydock/uat/Toml/runs/20260814.050011/build/toml/internal/toml/internal/toml/decode.go' is empty
+2026-08-14T05:25:32.558876Z ERROR codex_core::tools::router: error=apply_patch verification failed: Failed to find expected lines in /mnt/c/Users/barlo/projects/drydock/uat/Toml/runs/20260814.050011/build/toml/internal/toml/value_test.go:
+		"multiline = \"\"\"\nfirst \\\n-+second\"\"\"\n" +
+2026-08-14T05:25:37.882122Z ERROR codex_core::tools::router: error=apply_patch verification failed: Failed to find expected lines in /mnt/c/Users/barlo/projects/drydock/uat/Toml/runs/20260814.050011/build/toml/internal/toml/value_test.go:
+		"multiline = \"\"\"\nfirst \\\n-+second\"\"\"\n" +
+2026-08-14T05:25:44.365905Z ERROR codex_core::tools::router: error=apply_patch verification failed: Failed to find expected lines in /mnt/c/Users/barlo/projects/drydock/uat/Toml/runs/20260814.050011/build/toml/internal/toml/value_test.go:
+func TestDecodeStringForms(t *testing.T) {
+	input := "basic = \"line\\nvalue\"\n" +
+		"literal = 'C:\\\\Users\\\\nodejs'\n" +
+		"multiline = \"\"\"\nfirst \\\n-+second\"\"\"\n" +
+		"multiline-literal = '''\nraw\\nvalue'''\n"
+2026-08-14T05:26:24.793689Z ERROR codex_core::tools::router: error=apply_patch verification failed: Failed to find expected lines in /mnt/c/Users/barlo/projects/drydock/uat/Toml/runs/20260814.050011/build/toml/internal/toml/value_test.go:
+		"multiline = \"\"\"\nfirst \\\n-+" + "second\"\"\"\n" +
+2026-08-14T05:26:32.318778Z ERROR codex_core::tools::router: error=apply_patch verification failed: Failed to find expected lines in /mnt/c/Users/barlo/projects/drydock/uat/Toml/runs/20260814.050011/build/toml/internal/toml/value_test.go:
+func TestDecodeStringForms(t *testing.T) {
+	input := "basic = \"line\\nvalue\"\n" +
+		"literal = 'C:\\\\Users\\\\nodejs'\n" +
+		"multiline = \"\"\"\nfirst \\\n-+" + "second\"\"\"\n" +
+		"multiline-literal = '''\nraw\\nvalue'''\n"

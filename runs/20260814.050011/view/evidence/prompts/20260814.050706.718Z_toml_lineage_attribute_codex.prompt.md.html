@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>evidence/prompts/20260814.050706.718Z_toml_lineage_attribute_codex.prompt.md</title>
+<link rel="stylesheet" href="../../../assets/kit.css">
+</head>
+<body>
+<main>
+<header class="fileheader"><div class="kind">Run artifact</div><h1>evidence/prompts/20260814.050706.718Z_toml_lineage_attribute_codex.prompt.md</h1><div class="filenav"><a href="../../../index.html">&larr; Report</a><a href="../../../evidence/prompts/20260814.050706.718Z_toml_lineage_attribute_codex.prompt.md">Raw file</a></div></header>
+<article class="doc"><h1>Attribute Stories to Source Requirements</h1>
+<p>You are the lineage attribution agent. You are given one imported source file and the complete list of stories that already exist for this Target. Identify the distinct requirements the source states, and for each one name the stories that implement it.</p>
+<p>This is a matching task against a closed set. Every story you may name is listed in <code>&lt;stories&gt;</code>. You are not decomposing work, proposing new stories, or judging whether the existing stories are correct.</p>
+<h2>Method</h2>
+<ol><li>Read the source and identify each distinct requirement it states. A requirement is a thing the</li></ol>
+<p>system must do, at whatever granularity the author wrote it. One sentence may state one requirement that several stories implement — for example &quot;add a table and show it on screen&quot; is one requirement implemented by a schema story, a route story, and a view story. Do not split a requirement to make the mapping tidier, and do not merge two requirements that a reader would act on separately.</p>
+<ol><li>Give each requirement a short kebab-case name that describes it. The name is an identifier, not</li></ol>
+<p>a summary: <code>mark-book-read</code>, not <code>the-reader-can-mark-a-book-as-read</code>.</p>
+<ol><li>For each requirement, list every story that implements any part of it. A story may implement</li></ol>
+<p>more than one requirement; a requirement may need more than one story.</p>
+<ol><li>List any story that implements no requirement in the source as <code>&lt;unattached&gt;</code>. This is expected</li></ol>
+<p>and correct for foundational work — application scaffolding, configuration, shared UI framing, test harnesses — that the author never asked for by name. Do not force such a story onto an unrelated requirement.</p>
+<h2>Rules</h2>
+<ul><li>Use only story ids that appear in <code>&lt;stories&gt;</code>. Never invent one.</li><li>Every story must appear exactly once, either inside a <code>stories</code> attribute or as <code>&lt;unattached&gt;</code>.</li><li>Quote the requirement text verbatim from the source in the tag body. Do not paraphrase it.</li><li>Emit nothing but the tags below. No preamble, no commentary, no explanation.</li></ul>
+<h2>Output</h2>
+<pre><code>&lt;requirement name=&quot;add-remove-books&quot; stories=&quot;add-book,remove-book,database&quot;&gt;
+The reader can add a book with a title and author, view the books in the order added, and remove a book.
+&lt;/requirement&gt;
+&lt;requirement name=&quot;reject-empty-fields&quot; stories=&quot;validate-book&quot;&gt;
+An empty title or author is rejected with a clear error message.
+&lt;/requirement&gt;
+&lt;unattached story=&quot;architecture&quot;/&gt;
+&lt;unattached story=&quot;ui-general&quot;/&gt;</code></pre>
+<h1>Attribution job</h1>
+<p>&lt;source name=&quot;full_test.sh&quot;&gt; #!/bin/sh</p>
+<h1>full_test.sh — scoring entry point. Do not filter, skip, or reinterpret.</h1>
+<p>set -eu</p>
+<h1>The version setup_harness.sh installs. run_conformance.sh refuses a different one, so a</h1>
+<h1>passing verdict names a specific exam rather than whichever harness was on PATH.</h1>
+<p>TOML_TEST_VERSION=&quot;${TOML_TEST_VERSION:-v2.2.0}&quot; export TOML_TEST_VERSION go build -o toml-decoder ./cmd/toml-decoder DECODER=&quot;$PWD/toml-decoder&quot; exec sh sources/run_conformance.sh &lt;/source&gt;</p>
+<p>&lt;stories&gt; &lt;story id=&quot;architecture&quot; implements=&quot;ARCHITECTURE.md&quot;&gt;Define the Go parser modules, command boundary, tagged JSON contract, and standard-library constraints.&lt;/story&gt; &lt;story id=&quot;decoder-contract&quot; implements=&quot;FEATURE-Decoder-Contract.md&quot;&gt;Build the stdin-to-tagged-JSON decoder command.&lt;/story&gt; &lt;story id=&quot;decoder-invalid-input&quot; implements=&quot;FEATURE-Decoder-Invalid-Input.md&quot;&gt;Report invalid TOML through the decoder process boundary.&lt;/story&gt; &lt;story id=&quot;decoder-tagged-json&quot; implements=&quot;FEATURE-Tagged-JSON.md&quot;&gt;Encode parsed TOML values using the required tagged JSON representation.&lt;/story&gt; &lt;story id=&quot;lexical-strings&quot; implements=&quot;FEATURE-Lexical-Strings.md&quot;&gt;Parse TOML basic, multiline basic, literal, and multiline literal strings.&lt;/story&gt; &lt;story id=&quot;lexical-numbers&quot; implements=&quot;FEATURE-Lexical-Numbers.md&quot;&gt;Parse TOML integers, floating-point values, special floats, and booleans.&lt;/story&gt; &lt;story id=&quot;lexical-datetime&quot; implements=&quot;FEATURE-Lexical-Datetime.md&quot;&gt;Parse offset datetime, local datetime, local date, and local time values.&lt;/story&gt; &lt;story id=&quot;lexical-whitespace-comments&quot; implements=&quot;FEATURE-Lexical-Whitespace-Comments.md&quot;&gt;Process TOML whitespace, comments, line endings, continuations, and encoding rules.&lt;/story&gt; &lt;story id=&quot;keys-forms&quot; implements=&quot;FEATURE-Key-Forms.md&quot;&gt;Parse bare, quoted, and dotted TOML keys.&lt;/story&gt; &lt;story id=&quot;structures-arrays&quot; implements=&quot;FEATURE-Arrays.md&quot;&gt;Parse TOML arrays and nested array values.&lt;/story&gt; &lt;story id=&quot;keys-semantics&quot; implements=&quot;FEATURE-Key-Semantics.md&quot;&gt;Enforce TOML key uniqueness and scalar-to-table definition rules.&lt;/story&gt; &lt;story id=&quot;structures-inline-tables&quot; implements=&quot;FEATURE-Inline-Tables.md&quot;&gt;Parse TOML inline tables and nested inline-table keys.&lt;/story&gt; &lt;story id=&quot;structures-inline-table-closure&quot; implements=&quot;FEATURE-Inline-Table-Closure.md&quot;&gt;Enforce closure of TOML inline tables.&lt;/story&gt; &lt;story id=&quot;tables-standard&quot; implements=&quot;FEATURE-Standard-Tables.md&quot;&gt;Parse standard TOML table headers and implicit tables.&lt;/story&gt; &lt;story id=&quot;tables-redefinition&quot; implements=&quot;FEATURE-Table-Redefinition.md&quot;&gt;Enforce standard-table redefinition and structure-conflict rules.&lt;/story&gt; &lt;story id=&quot;tables-arrays&quot; implements=&quot;FEATURE-Arrays-of-Tables.md&quot;&gt;Parse arrays of TOML tables and nested table elements.&lt;/story&gt; &lt;story id=&quot;tables-arrays-ordering&quot; implements=&quot;FEATURE-Arrays-of-Tables-Ordering.md&quot;&gt;Enforce array-of-table ordering and conflict rules.&lt;/story&gt; &lt;story id=&quot;conformance&quot; implements=&quot;FEATURE-Conformance.md&quot;&gt;Run the complete pinned TOML 1.0.0 conformance suite.&lt;/story&gt; &lt;/stories&gt;</p></article>
+</main>
+</body>
+</html>

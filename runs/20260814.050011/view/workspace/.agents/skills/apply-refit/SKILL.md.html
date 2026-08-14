@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>workspace/.agents/skills/apply-refit/SKILL.md</title>
+<link rel="stylesheet" href="../../../../../assets/kit.css">
+</head>
+<body>
+<main>
+<header class="fileheader"><div class="kind">Run artifact</div><h1>workspace/.agents/skills/apply-refit/SKILL.md</h1><div class="filenav"><a href="../../../../../index.html">&larr; Report</a><a href="../../../../../workspace/.agents/skills/apply-refit/SKILL.md">Raw file</a></div></header>
+<article class="doc"><hr>
+<p>name: apply-refit description: Surface impl:unimplemented (code) and spec:approved (doc) items from a refit notes file as a selectable list, then implement the chosen ones. Invoke with &quot;/apply-refit &lt;subject&gt;&quot; (e.g. &quot;/apply-refit analyze&quot; or a feature name). Use when the user is ready to implement decisions captured in a /refit (thinkthrough) notes file. Trigger: &quot;/apply-refit&quot;, &quot;/apply-notes&quot;, &quot;apply refit for &lt;X&gt;&quot;, &quot;apply notes for &lt;X&gt;&quot;, &quot;implement from notes&quot;. version: 2.0.0</p>
+<hr>
+<h1>apply-refit — implement decisions from a refit notes file</h1>
+<p>Read the notes file for the given subject, surface all flagged items as a selectable numbered list, wait for the user to choose, then implement the selected items.</p>
+<p>The argument after <code>/apply-refit</code> is the subject. Resolve the notes file the same way as <code>/refit</code>: <code>targets/&lt;Target&gt;/notes_&lt;feature&gt;.md</code> when the subject is a feature of a Drydock-managed project (<code>$DRYDOCK_WORKSPACE/targets/&lt;Target&gt;/</code>), otherwise <code>notes/notes_&lt;subject&gt;.md</code>.</p>
+<p><strong>Drydock-managed projects:</strong> when the notes file lives in a Target directory, selected CODE items are not implemented by direct code edits. Instead, write one change ticket per selected item into the Target&#x27;s <code>blueprint/changes/</code> directory so <code>drydock refit</code> can conform it to the build process. DOC items amend the Target&#x27;s Blueprint the same way.</p>
+<hr>
+<h2>On invocation (first turn only)</h2>
+<ol><li><strong>Retire terminal sections</strong> — before surfacing any items, scan <code>notes/notes_&lt;subject&gt;.md</code></li></ol>
+<p>for sections in terminal state: both <code>impl</code> and <code>spec</code> flags are done (<code>impl:implemented</code> or <code>impl:na</code>, <strong>and</strong> <code>spec:applied</code> or <code>spec:na</code>).</p>
+<ul><li>If any terminal sections exist, move them (append) to <code>notes/notes_&lt;subject&gt;_done.md</code>,</li></ul>
+<p>preserving their full <code>### Section</code> block verbatim.</p>
+<ul><li>Remove those sections from <code>notes/notes_&lt;subject&gt;.md</code>.</li><li>Update the header counts (<code>Pending spec</code>, <code>Pending impl</code>) in <code>notes/notes_&lt;subject&gt;.md</code></li></ul>
+<p>to reflect the removals.</p>
+<ul><li>If <code>notes/notes_&lt;subject&gt;_done.md</code> does not exist, create it with a minimal header:</li></ul>
+<p><code># DONE: &lt;subject&gt;</code> and today&#x27;s date.</p>
+<ul><li>Report how many sections were retired before proceeding (e.g. &quot;Retired 3 completed</li></ul>
+<p>sections to notes_&lt;subject&gt;_done.md.&quot;). If none, say nothing and continue.</p>
+<ol><li><strong>Read</strong> <code>notes/notes_&lt;subject&gt;.md</code>. If it does not exist, stop and say so.</li></ol>
+<ol><li><strong>Extract flagged sections</strong> — scan every <code>### Section</code> block for its flag line</li></ol>
+<p>(<code>`YYYY-MM-DD` · `spec:X` · `impl:Y`</code>):</p>
+<ul><li><strong>CODE items</strong>: sections where <code>impl:unimplemented</code></li><li><strong>DOC items</strong>: sections where <code>spec:approved</code></li><li>A section can appear in both lists.</li></ul>
+<ol><li><strong>Surface as a numbered list</strong> — two groups, CODE first:</li></ol>
+<pre><code>   CODE CHANGES  (impl:unimplemented)
+   ───────────────────────────────────
+   1. [Section title] — one-line summary of what needs to be built
+   2. ...
+
+   DOC CHANGES  (spec:approved — reconcile into Drydock_Specification.md)
+   ──────────────────────────────────────────────────────────────────────────
+   A. [Section title] — one-line summary of the spec change needed
+   B. ...
+
+   Reply with the numbers/letters to implement, or &quot;all code&quot;, &quot;all docs&quot;, &quot;all&quot;.</code></pre>
+<ol><li><strong>Wait for the user&#x27;s selection.</strong> Do not implement anything yet.</li></ol>
+<hr>
+<h2>On selection</h2>
+<p>The user replies with numbers, letters, ranges, or keywords (<code>all code</code>, <code>all docs</code>, <code>all</code>).</p>
+<p><strong>For each selected CODE item:</strong></p>
+<ul><li>Read the relevant source files (use the notes section content to identify what to change).</li><li>Implement the behavior described in the section.</li><li>Follow all rules in <code>AGENTS.md</code> (LLM-assisted command pattern, test requirements, etc.).</li><li>After implementing, flip the section&#x27;s flag in the notes file from <code>impl:unimplemented</code></li></ul>
+<p>to <code>impl:implemented</code> and update the <code>Pending impl</code> count in the header.</p>
+<p><strong>For each selected DOC item:</strong></p>
+<ul><li>Propose the exact replacement or addition text for <code>docs/Drydock_Specification.md</code>.</li><li>Do NOT edit the spec without explicit confirmation — show the diff first and ask.</li></ul>
+<p>(The spec has one active writer at a time per AGENTS.md.)</p>
+<ul><li>After confirmation and edit, flip <code>spec:approved</code> to <code>spec:applied</code> in the notes</li></ul>
+<p>file and update the <code>Pending spec</code> count in the header.</p>
+<p><strong>After all selected items are implemented:</strong></p>
+<ul><li>Run <code>ruff check src/ tests/</code> and <code>python -m pytest</code> (or <code>bash bin/test.sh</code>).</li><li>Update tests and user-facing repository documentation for any capability whose state changed.</li><li>Commit with a descriptive message per AGENTS.md rules.</li><li>Report: files changed, tests passed, residual risk.</li></ul>
+<hr>
+<h2>Rules</h2>
+<ul><li>Never implement an item that was not selected.</li><li>Never edit <code>docs/Drydock_Specification.md</code> without showing the diff and getting confirmation.</li><li>Always implement CODE before DOC in the same selection — code is ground truth.</li><li>After each item, update the flag in the notes file immediately (don&#x27;t batch flag updates).</li><li>If an item depends on another unimplemented item, say so before starting.</li><li>If the notes file references files that don&#x27;t exist yet (e.g. a new Rigging template),</li></ul>
+<p>create them.</p></article>
+</main>
+</body>
+</html>

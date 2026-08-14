@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>workspace/targets/toml/evidence/block-3.md</title>
+<link rel="stylesheet" href="../../../../../assets/kit.css">
+</head>
+<body>
+<main>
+<header class="fileheader"><div class="kind">Run artifact</div><h1>workspace/targets/toml/evidence/block-3.md</h1><div class="filenav"><a href="../../../../../index.html">&larr; Report</a><a href="../../../../../workspace/targets/toml/evidence/block-3.md">Raw file</a></div></header>
+<article class="doc"><h1>Evidence: Block 3 · Service (block-3)</h1>
+<ul><li>block type: block</li><li>date: 2026-08-14</li><li>resulting state: closed/verified</li><li>story points (combined assembled cost): 8169</li><li>execution id: 20260814.051622.557Z-0ad1458e</li></ul>
+<h2>Stories built</h2>
+<ul><li>Report invalid TOML through the decoder process boundary. (decoder-invalid-input) [story]</li></ul>
+<h2>Stacked context</h2>
+<ul><li>compass: COMPASS.md (SP 2629)</li><li>implements: FEATURE-Decoder-Invalid-Input.md (SP 548)</li><li>context: ARCHITECTURE_compact.md (SP 108)</li><li>stack: go.md (SP 3646)</li><li>stack: common_compact.md (SP 1179)</li></ul>
+<h2>Build directory changes</h2>
+<ul><li>cmd/toml-decoder/main_test.go</li></ul>
+<h2>Pre-build acceptance observation</h2>
+<ul><li>GREEN (prepassed): invalid-exit-status (FEATURE-Decoder-Invalid-Input.md)</li></ul>
+<p>intent: Malformed TOML exits non-zero. return code: 0</p>
+<ul><li>GREEN (prepassed): invalid-diagnostic-stream (FEATURE-Decoder-Invalid-Input.md)</li></ul>
+<p>intent: Malformed TOML produces a non-empty diagnostic on stderr. return code: 0</p>
+<ul><li>GREEN (prepassed): invalid-no-success-result (FEATURE-Decoder-Invalid-Input.md)</li></ul>
+<p>intent: Malformed TOML does not produce a successful JSON result on stdout. return code: 0</p>
+<h2>Post-build programmatic acceptance</h2>
+<ul><li>PASS: invalid-exit-status (FEATURE-Decoder-Invalid-Input.md)</li></ul>
+<p>intent: Malformed TOML exits non-zero. target interpreter: /mnt/c/Users/barlo/projects/drydock/.venv/bin/python3 provisioning: not required return code: 0</p>
+<ul><li>PASS: invalid-diagnostic-stream (FEATURE-Decoder-Invalid-Input.md)</li></ul>
+<p>intent: Malformed TOML produces a non-empty diagnostic on stderr. target interpreter: /mnt/c/Users/barlo/projects/drydock/.venv/bin/python3 provisioning: not required return code: 0</p>
+<ul><li>PASS: invalid-no-success-result (FEATURE-Decoder-Invalid-Input.md)</li></ul>
+<p>intent: Malformed TOML does not produce a successful JSON result on stdout. target interpreter: /mnt/c/Users/barlo/projects/drydock/.venv/bin/python3 provisioning: not required return code: 0</p>
+<h2>Agent self-report (advisory)</h2>
+<p>The build agent declared a failure. This is advisory only; the programmatic acceptance above is the authority for this block&#x27;s outcome.</p>
+<ul><li>summary: Full conformance suite remains incomplete.</li><li>detail:</li></ul>
+<p>Existing parser behavior fails unrelated TOML syntax and semantic cases; broader parser implementation is required before the full-suite gate can pass.</p>
+<h2>Build summary</h2>
+<p>RESULT: FAILED</p>
+<p>FILES CHANGED:</p>
+<ul><li>cmd/toml-decoder/main_test.go</li></ul>
+<p>SUMMARY: Added process-level coverage proving malformed TOML exits non-zero, writes stderr diagnostics, and emits no stdout. Targeted tests, race tests, vet, formatting, and direct acceptance checks pass.</p>
+<p>BLOCKERS:</p>
+<ul><li>Full toml-test v2.2.0 suite fails: 47 valid and 129 invalid cases failed.</li></ul>
+<p>FAILURE_SUMMARY: Full conformance suite remains incomplete.<br>FAILURE_DETAIL: Existing parser behavior fails unrelated TOML syntax and semantic cases; broader parser implementation is required before the full-suite gate can pass.</p></article>
+</main>
+</body>
+</html>

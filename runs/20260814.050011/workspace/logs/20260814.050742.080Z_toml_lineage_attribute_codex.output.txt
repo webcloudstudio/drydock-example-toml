@@ -1,0 +1,25 @@
+<requirement name="install-conformance-harness" stories="conformance">
+# One-time installation of the upstream toml-test conformance harness.
+...
+GOBIN="${GOBIN:-$HOME/.local/bin}"
+...
+GOBIN="${GOBIN}" go install \
+    "github.com/toml-lang/toml-test/v2/cmd/toml-test@${TOML_TEST_VERSION}"
+</requirement>
+<unattached story="architecture"/>
+<unattached story="decoder-contract"/>
+<unattached story="decoder-invalid-input"/>
+<unattached story="decoder-tagged-json"/>
+<unattached story="lexical-strings"/>
+<unattached story="lexical-numbers"/>
+<unattached story="lexical-datetime"/>
+<unattached story="lexical-whitespace-comments"/>
+<unattached story="keys-forms"/>
+<unattached story="structures-arrays"/>
+<unattached story="keys-semantics"/>
+<unattached story="structures-inline-tables"/>
+<unattached story="structures-inline-table-closure"/>
+<unattached story="tables-standard"/>
+<unattached story="tables-redefinition"/>
+<unattached story="tables-arrays"/>
+<unattached story="tables-arrays-ordering"/>

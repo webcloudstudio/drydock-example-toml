@@ -1,0 +1,38 @@
+{
+  "full": [
+    "sh",
+    "sources/full_test.sh"
+  ],
+  "stages": {
+    "parser-arrays-inline": [
+      "sh",
+      "sources/stage_test.sh",
+      "valid/array/**|valid/inline-table/**|invalid/array/**|invalid/inline-table/**"
+    ],
+    "parser-datetimes": [
+      "sh",
+      "sources/stage_test.sh",
+      "valid/datetime/**|invalid/datetime/**"
+    ],
+    "parser-keys": [
+      "sh",
+      "sources/stage_test.sh",
+      "valid/key/**|invalid/key/**"
+    ],
+    "parser-lexical-scalars": [
+      "sh",
+      "sources/stage_test.sh",
+      "valid/bool/**|valid/integer/**|valid/float/**|invalid/bool/**|invalid/integer/**|invalid/float/**"
+    ],
+    "parser-strings": [
+      "sh",
+      "sources/stage_test.sh",
+      "valid/string/**|invalid/string/**|invalid/control/**"
+    ],
+    "parser-tables": [
+      "sh",
+      "sources/stage_test.sh",
+      "valid/table/**|invalid/table/**"
+    ]
+  }
+}

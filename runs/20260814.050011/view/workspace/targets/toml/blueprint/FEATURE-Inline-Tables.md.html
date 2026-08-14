@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>workspace/targets/toml/blueprint/FEATURE-Inline-Tables.md</title>
+<link rel="stylesheet" href="../../../../../assets/kit.css">
+</head>
+<body>
+<main>
+<header class="fileheader"><div class="kind">Run artifact</div><h1>workspace/targets/toml/blueprint/FEATURE-Inline-Tables.md</h1><div class="filenav"><a href="../../../../../index.html">&larr; Report</a><a href="../../../../../workspace/targets/toml/blueprint/FEATURE-Inline-Tables.md">Raw file</a></div></header>
+<article class="doc"><h1>FEATURE: TOML Inline Tables</h1>
+<div class="scroll"><table><thead><tr><th>Field</th><th>Value</th></tr></thead><tbody><tr><td>Version</td><td>20260814 V1</td></tr><tr><td>Description</td><td>Parses TOML inline tables, nested inline tables, and dotted keys within inline tables.</td></tr><tr><td>Depends On</td><td>FEATURE-Lexical-Strings.md, FEATURE-Lexical-Numbers.md, FEATURE-Lexical-Datetime.md, FEATURE-Key-Forms.md</td></tr><tr><td>Provides</td><td>TOML inline tables</td></tr><tr><td>Consumes</td><td>TOML scalar values, TOML key paths</td></tr></tbody></table></div>
+<h2>Behavior</h2>
+<p>Inline tables are self-contained table values enclosed in braces. They support comma-separated key/value pairs, nested inline tables, dotted keys, and all TOML value types. They remain single-line structures and do not permit trailing commas or prohibited newlines.</p>
+<h2>Programmatic Acceptance</h2>
+<p>Requires: executable=sh; scope=test</p>
+<p>=== AC inline-tables-valid ===<br>Intent: The implementation passes the authoritative valid TOML inline-table conformance slice.<br>Suite: scoped</p>
+<p>import subprocess</p>
+<p>result = subprocess.run( [&quot;sh&quot;, &quot;sources/stage_test.sh&quot;, &quot;valid/inline-table/*&quot;], capture_output=True, text=True, ) print(result.stdout) print(result.stderr) assert result.returncode == 0 === END AC inline-tables-valid ===</p>
+<p>=== AC inline-tables-invalid ===<br>Intent: The implementation rejects every invalid TOML inline-table case in the authoritative suite.<br>Suite: scoped</p>
+<p>import subprocess</p>
+<p>result = subprocess.run( [&quot;sh&quot;, &quot;sources/stage_test.sh&quot;, &quot;invalid/inline-table/*&quot;], capture_output=True, text=True, ) print(result.stdout) print(result.stderr) assert result.returncode == 0 === END AC inline-tables-invalid ===</p>
+<h2>User Acceptance</h2>
+<ul><li>None.</li></ul>
+<h2>Guardrails</h2>
+<ul><li>Inline tables cannot contain trailing commas.</li><li>Inline tables cannot be extended across physical lines except through valid multiline values.</li><li>Every inline-table key is defined within the table&#x27;s braces.</li></ul></article>
+</main>
+</body>
+</html>

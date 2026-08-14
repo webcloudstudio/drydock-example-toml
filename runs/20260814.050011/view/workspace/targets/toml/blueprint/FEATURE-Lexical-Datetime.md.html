@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>workspace/targets/toml/blueprint/FEATURE-Lexical-Datetime.md</title>
+<link rel="stylesheet" href="../../../../../assets/kit.css">
+</head>
+<body>
+<main>
+<header class="fileheader"><div class="kind">Run artifact</div><h1>workspace/targets/toml/blueprint/FEATURE-Lexical-Datetime.md</h1><div class="filenav"><a href="../../../../../index.html">&larr; Report</a><a href="../../../../../workspace/targets/toml/blueprint/FEATURE-Lexical-Datetime.md">Raw file</a></div></header>
+<article class="doc"><h1>FEATURE: Lexical Datetime</h1>
+<div class="scroll"><table><thead><tr><th>Field</th><th>Value</th></tr></thead><tbody><tr><td>Version</td><td>20260814 V1</td></tr><tr><td>Description</td><td>Parses TOML offset datetime, local datetime, local date, and local time values.</td></tr><tr><td>Depends On</td><td>ARCHITECTURE.md</td></tr><tr><td>Provides</td><td>TOML datetime values</td></tr><tr><td>Consumes</td><td>parser module boundary</td></tr></tbody></table></div>
+<h2>Behavior</h2>
+<p>The parser recognizes offset datetimes, local datetimes, local dates, and local times according to TOML 1.0.0. It accepts permitted <code>T</code>, <code>t</code>, and space separators, preserves local values without an offset, emits the required tagged representations, and truncates excess fractional precision rather than rounding it. Invalid date and time forms are rejected.</p>
+<h2>Programmatic Acceptance</h2>
+<p>Requires: executable=go; scope=test<br>Requires: executable=sh; scope=test</p>
+<p>=== AC lexical-datetime-valid ===<br>Intent: The implementation passes the authoritative valid TOML datetime conformance slice.<br>Suite: scoped</p>
+<p>import os import subprocess import sys</p>
+<p>result = subprocess.run( [&quot;sh&quot;, &quot;sources/stage_test.sh&quot;, &quot;valid/datetime/*&quot;], capture_output=True, text=True, env={**os.environ, &quot;TOML_TEST_VERSION&quot;: &quot;v2.2.0&quot;}, ) print(result.stdout) print(result.stderr, file=sys.stderr) assert result.returncode == 0 === END AC lexical-datetime-valid ===</p>
+<p>=== AC lexical-datetime-invalid ===<br>Intent: The implementation rejects the authoritative invalid TOML datetime conformance slice.<br>Suite: scoped</p>
+<p>import os import subprocess import sys</p>
+<p>result = subprocess.run( [&quot;sh&quot;, &quot;sources/stage_test.sh&quot;, &quot;invalid/datetime/*&quot;], capture_output=True, text=True, env={**os.environ, &quot;TOML_TEST_VERSION&quot;: &quot;v2.2.0&quot;}, ) print(result.stdout) print(result.stderr, file=sys.stderr) assert result.returncode == 0 === END AC lexical-datetime-invalid ===</p>
+<h2>User Acceptance</h2>
+<ul><li>None.</li></ul>
+<h2>Guardrails</h2>
+<ul><li>Local date and time values do not acquire an implicit timezone.</li><li>Fractional seconds beyond supported precision are truncated, not rounded.</li></ul></article>
+</main>
+</body>
+</html>

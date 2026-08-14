@@ -1,0 +1,3 @@
+2026-08-14T05:51:30.913915Z ERROR codex_core::tools::router: error=apply_patch verification failed: Failed to find expected lines in /mnt/c/Users/barlo/projects/drydock/uat/Toml/runs/20260814.050011/build/toml/internal/toml/decode.go:
+			obj, err := ensureTable(root, path, explicit, implicit, arrays)
+2026-08-14T05:52:49.871170Z ERROR codex_core::tools::router: error=apply_patch verification failed: invalid hunk at line 5, Expected update hunk to start with a @@ context marker, got: 'type.edible = false'

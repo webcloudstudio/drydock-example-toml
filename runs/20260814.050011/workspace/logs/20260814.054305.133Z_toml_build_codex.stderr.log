@@ -1,0 +1,7 @@
+2026-08-14T05:46:57.338113Z ERROR codex_core::tools::router: error=exec_command failed for `/bin/bash -lc "set -e
+TOML_TEST_VERSION=v2.2.0 sh sources/stage_test.sh 'valid/key/*'
+TOML_TEST_VERSION=v2.2.0 sh sources/stage_test.sh 'invalid/key/*'
+TOML_TEST_VERSION=v2.2.0 sh sources/stage_test.sh 'invalid/spec-1.0.0/*'
+TOML_TEST_VERSION=v2.2.0 sh sources/stage_test.sh 'valid/inline-table/*'
+TOML_TEST_VERSION=v2.2.0 sh sources/stage_test.sh 'invalid/inline-table/*'
+git diff --stat && git status --short"`: CreateProcess { message: "Rejected(\"Failed to create unified exec process: No such file or directory (os error 2)\")" }

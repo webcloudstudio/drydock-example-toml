@@ -1,0 +1,453 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>workspace/targets/toml/LINEAGE.json</title>
+<link rel="stylesheet" href="../../../../assets/kit.css">
+</head>
+<body>
+<main>
+<header class="fileheader"><div class="kind">Run artifact</div><h1>workspace/targets/toml/LINEAGE.json</h1><div class="filenav"><a href="../../../../index.html">&larr; Report</a><a href="../../../../workspace/targets/toml/LINEAGE.json">Raw file</a></div></header>
+<article class="doc"><pre>{
+  &quot;version&quot;: 1,
+  &quot;import&quot;: {
+    &quot;root&quot;: &quot;/mnt/c/Users/barlo/projects/drydock/uat/Toml/runs/20260814.050011/sources&quot;,
+    &quot;format&quot;: &quot;markdown&quot;
+  },
+  &quot;sources&quot;: {
+    &quot;INSTRUCTIONS.md&quot;: {
+      &quot;state&quot;: &quot;current&quot;,
+      &quot;versions&quot;: [
+        {
+          &quot;commit&quot;: null,
+          &quot;date&quot;: &quot;2026-08-14&quot;,
+          &quot;hash&quot;: &quot;35b5b0925e6b554446bab223fe23f35b3f6e392a929e91feddf2265b526a310a&quot;,
+          &quot;release&quot;: &quot;&quot;,
+          &quot;state&quot;: &quot;consumed&quot;,
+          &quot;via&quot;: &quot;plan&quot;,
+          &quot;ticket&quot;: null,
+          &quot;requirements&quot;: [
+            {
+              &quot;name&quot;: &quot;go-parser-architecture&quot;,
+              &quot;text&quot;: &quot;The implementation language is Go, fixed by this Target&#x27;s `TECHNOLOGY_STACK.md` and governed by `stack/go.md`.&quot;,
+              &quot;stories&quot;: [
+                &quot;architecture&quot;
+              ]
+            },
+            {
+              &quot;name&quot;: &quot;stdin-tagged-json-contract&quot;,
+              &quot;text&quot;: &quot;The program is a filter: read TOML from **stdin**, write tagged JSON to **stdout**, exit `0`.&quot;,
+              &quot;stories&quot;: [
+                &quot;decoder-contract&quot;
+              ]
+            },
+            {
+              &quot;name&quot;: &quot;reject-invalid-toml&quot;,
+              &quot;text&quot;: &quot;On invalid TOML, write a diagnostic to **stderr** and exit non-zero.&quot;,
+              &quot;stories&quot;: [
+                &quot;decoder-invalid-input&quot;
+              ]
+            },
+            {
+              &quot;name&quot;: &quot;tagged-json-encoding&quot;,
+              &quot;text&quot;: &quot;Every TOML **value** becomes `{\&quot;type\&quot;: \&quot;&lt;TOML_TYPE&gt;\&quot;, \&quot;value\&quot;: \&quot;&lt;TOML_VALUE&gt;\&quot;}`.&quot;,
+              &quot;stories&quot;: [
+                &quot;decoder-tagged-json&quot;
+              ]
+            },
+            {
+              &quot;name&quot;: &quot;parse-strings&quot;,
+              &quot;text&quot;: &quot;basic and literal strings, then multi-line strings with their line-ending backslash and trimming rules.&quot;,
+              &quot;stories&quot;: [
+                &quot;lexical-strings&quot;
+              ]
+            },
+            {
+              &quot;name&quot;: &quot;parse-scalars&quot;,
+              &quot;text&quot;: &quot;**Scalars** \u2014 booleans, integers (including `0x`, `0o`, `0b`, underscores), floats (including `inf`, `nan`, exponents), basic and literal strings, then&quot;,
+              &quot;stories&quot;: [
+                &quot;lexical-numbers&quot;
+              ]
+            },
+            {
+              &quot;name&quot;: &quot;parse-datetimes&quot;,
+              &quot;text&quot;: &quot;**Datetimes** \u2014 offset, local datetime, local date, local time.&quot;,
+              &quot;stories&quot;: [
+                &quot;lexical-datetime&quot;
+              ]
+            },
+            {
+              &quot;name&quot;: &quot;process-lexical-input&quot;,
+              &quot;text&quot;: &quot;**Scaffolding** \u2014 line handling, comments, whitespace, the stdin/stdout/exit\n   contract, tagged JSON emission.&quot;,
+              &quot;stories&quot;: [
+                &quot;lexical-whitespace-comments&quot;
+              ]
+            },
+            {
+              &quot;name&quot;: &quot;parse-key-forms&quot;,
+              &quot;text&quot;: &quot;**Keys** \u2014 bare, quoted, and dotted keys; the redefinition rules.&quot;,
+              &quot;stories&quot;: [
+                &quot;keys-forms&quot;
+              ]
+            },
+            {
+              &quot;name&quot;: &quot;parse-arrays&quot;,
+              &quot;text&quot;: &quot;**Inline tables and arrays** \u2014 including nesting and the TOML 1.0 restriction\n   that inline tables are closed to later extension.&quot;,
+              &quot;stories&quot;: [
+                &quot;structures-arrays&quot;
+              ]
+            },
+            {
+              &quot;name&quot;: &quot;enforce-key-semantics&quot;,
+              &quot;text&quot;: &quot;**Invalid-input hardening** \u2014 control characters, bad UTF-8, duplicate keys,\n   redefinition after an inline table, unterminated constructs.&quot;,
+              &quot;stories&quot;: [
+                &quot;keys-semantics&quot;
+              ]
+            },
+            {
+              &quot;name&quot;: &quot;parse-inline-tables&quot;,
+              &quot;text&quot;: &quot;**Inline tables and arrays** \u2014 including nesting and the TOML 1.0 restriction\n   that inline tables are closed to later extension.&quot;,
+              &quot;stories&quot;: [
+                &quot;structures-inline-tables&quot;
+              ]
+            },
+            {
+              &quot;name&quot;: &quot;close-inline-tables&quot;,
+              &quot;text&quot;: &quot;the TOML 1.0 restriction that inline tables are closed to later extension.&quot;,
+              &quot;stories&quot;: [
+                &quot;structures-inline-table-closure&quot;
+              ]
+            },
+            {
+              &quot;name&quot;: &quot;parse-standard-tables&quot;,
+              &quot;text&quot;: &quot;**Tables** \u2014 `[table]`, `[a.b.c]` implicit creation, `[[array of tables]]`,&quot;,
+              &quot;stories&quot;: [
+                &quot;tables-standard&quot;
+              ]
+            },
+            {
+              &quot;name&quot;: &quot;reject-table-redefinitions&quot;,
+              &quot;text&quot;: &quot;and the rules governing which of these may follow which.&quot;,
+              &quot;stories&quot;: [
+                &quot;tables-redefinition&quot;
+              ]
+            },
+            {
+              &quot;name&quot;: &quot;parse-arrays-of-tables&quot;,
+              &quot;text&quot;: &quot;`[[array of tables]]`&quot;,
+              &quot;stories&quot;: [
+                &quot;tables-arrays&quot;
+              ]
+            },
+            {
+              &quot;name&quot;: &quot;enforce-array-table-ordering&quot;,
+              &quot;text&quot;: &quot;the rules governing which of these may follow which.&quot;,
+              &quot;stories&quot;: [
+                &quot;tables-arrays-ordering&quot;
+              ]
+            },
+            {
+              &quot;name&quot;: &quot;pass-conformance-suite&quot;,
+              &quot;text&quot;: &quot;Every supplied valid and invalid case passes: the failed, errored, and skipped\ncounts are all zero.&quot;,
+              &quot;stories&quot;: [
+                &quot;conformance&quot;
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    &quot;full_test.sh&quot;: {
+      &quot;state&quot;: &quot;current&quot;,
+      &quot;versions&quot;: [
+        {
+          &quot;commit&quot;: null,
+          &quot;date&quot;: &quot;2026-08-14&quot;,
+          &quot;hash&quot;: &quot;54fcd3c5b0b92e31d7c4c90c3a04ff65617600dcd858947455cda8fbcb2800a6&quot;,
+          &quot;release&quot;: &quot;&quot;,
+          &quot;state&quot;: &quot;consumed&quot;,
+          &quot;via&quot;: &quot;plan&quot;,
+          &quot;ticket&quot;: null,
+          &quot;requirements&quot;: [
+            {
+              &quot;name&quot;: &quot;pin-test-version&quot;,
+              &quot;text&quot;: &quot;The version setup_harness.sh installs. run_conformance.sh refuses a different one, so a passing verdict names a specific exam rather than whichever harness was on PATH.&quot;,
+              &quot;stories&quot;: [
+                &quot;conformance&quot;
+              ]
+            },
+            {
+              &quot;name&quot;: &quot;build-decoder&quot;,
+              &quot;text&quot;: &quot;go build -o toml-decoder ./cmd/toml-decoder&quot;,
+              &quot;stories&quot;: [
+                &quot;decoder-contract&quot;
+              ]
+            },
+            {
+              &quot;name&quot;: &quot;run-conformance-suite&quot;,
+              &quot;text&quot;: &quot;DECODER=\&quot;$PWD/toml-decoder\&quot; exec sh sources/run_conformance.sh&quot;,
+              &quot;stories&quot;: [
+                &quot;conformance&quot;
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    &quot;run_conformance.sh&quot;: {
+      &quot;state&quot;: &quot;current&quot;,
+      &quot;versions&quot;: [
+        {
+          &quot;commit&quot;: null,
+          &quot;date&quot;: &quot;2026-08-14&quot;,
+          &quot;hash&quot;: &quot;08bc510bd052f639f3ea85afb174ad1774e6ba7541a262f146590a4ea92d0f86&quot;,
+          &quot;release&quot;: &quot;&quot;,
+          &quot;state&quot;: &quot;consumed&quot;,
+          &quot;via&quot;: &quot;plan&quot;,
+          &quot;ticket&quot;: null,
+          &quot;requirements&quot;: [
+            {
+              &quot;name&quot;: &quot;run-toml-conformance&quot;,
+              &quot;text&quot;: &quot;Run the upstream toml-test conformance suite against the built decoder.&quot;,
+              &quot;stories&quot;: [
+                &quot;conformance&quot;
+              ]
+            },
+            {
+              &quot;name&quot;: &quot;select-conformance-tests&quot;,
+              &quot;text&quot;: &quot;DECODER=./toml-decoder sh sources/run_conformance.sh -run &#x27;valid/string/*&#x27;  # one group\nDECODER=./toml-decoder sh sources/run_conformance.sh -json                  # machine-readable&quot;,
+              &quot;stories&quot;: [
+                &quot;conformance&quot;
+              ]
+            },
+            {
+              &quot;name&quot;: &quot;require-decoder-command&quot;,
+              &quot;text&quot;: &quot;DECODER    decoder command. Required \u2014 this harness is language-neutral and\n              deliberately has no default implementation language.&quot;,
+              &quot;stories&quot;: [
+                &quot;conformance&quot;
+              ]
+            },
+            {
+              &quot;name&quot;: &quot;resolve-test-harness&quot;,
+              &quot;text&quot;: &quot;TOML_TEST  absolute path to the toml-test binary (default: found on PATH)&quot;,
+              &quot;stories&quot;: [
+                &quot;conformance&quot;
+              ]
+            },
+            {
+              &quot;name&quot;: &quot;pin-harness-version&quot;,
+              &quot;text&quot;: &quot;The suite&#x27;s identity is part of the verdict.&quot;,
+              &quot;stories&quot;: [
+                &quot;conformance&quot;
+              ]
+            },
+            {
+              &quot;name&quot;: &quot;return-harness-verdict&quot;,
+              &quot;text&quot;: &quot;Exit code is the harness exit code: 0 only when every test passes.&quot;,
+              &quot;stories&quot;: [
+                &quot;conformance&quot;
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    &quot;setup_harness.sh&quot;: {
+      &quot;state&quot;: &quot;current&quot;,
+      &quot;versions&quot;: [
+        {
+          &quot;commit&quot;: null,
+          &quot;date&quot;: &quot;2026-08-14&quot;,
+          &quot;hash&quot;: &quot;a94f9cee6ae45b4265e244f40b882f9692f59c67aff16953d2db837fb3885a56&quot;,
+          &quot;release&quot;: &quot;&quot;,
+          &quot;state&quot;: &quot;consumed&quot;,
+          &quot;via&quot;: &quot;plan&quot;,
+          &quot;ticket&quot;: null,
+          &quot;requirements&quot;: [
+            {
+              &quot;name&quot;: &quot;install-conformance-harness&quot;,
+              &quot;text&quot;: &quot;# One-time installation of the upstream toml-test conformance harness.\n...\nGOBIN=\&quot;${GOBIN:-$HOME/.local/bin}\&quot;\n...\nGOBIN=\&quot;${GOBIN}\&quot; go install \\\n    \&quot;github.com/toml-lang/toml-test/v2/cmd/toml-test@${TOML_TEST_VERSION}\&quot;&quot;,
+              &quot;stories&quot;: [
+                &quot;conformance&quot;
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    &quot;stage_test.sh&quot;: {
+      &quot;state&quot;: &quot;current&quot;,
+      &quot;versions&quot;: [
+        {
+          &quot;commit&quot;: null,
+          &quot;date&quot;: &quot;2026-08-14&quot;,
+          &quot;hash&quot;: &quot;93254a9d7ac72f19345b48fc36faffb1dc79dcc66f55cf18fee48c2cdce988cd&quot;,
+          &quot;release&quot;: &quot;&quot;,
+          &quot;state&quot;: &quot;consumed&quot;,
+          &quot;via&quot;: &quot;plan&quot;,
+          &quot;ticket&quot;: null,
+          &quot;requirements&quot;: [
+            {
+              &quot;name&quot;: &quot;run-conformance-slice&quot;,
+              &quot;text&quot;: &quot;Same contract as full_test.sh, scoped to the cases a single story owns: build the decoder, then run the installed toml-test suite over the pattern given as $1.&quot;,
+              &quot;stories&quot;: [
+                &quot;decoder-contract&quot;,
+                &quot;conformance&quot;
+              ]
+            },
+            {
+              &quot;name&quot;: &quot;preserve-verdict&quot;,
+              &quot;text&quot;: &quot;Exit status is the verdict and the whole verdict. Do not filter, skip, or reinterpret.&quot;,
+              &quot;stories&quot;: [
+                &quot;conformance&quot;
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    &quot;toml-v1.0.0.md&quot;: {
+      &quot;state&quot;: &quot;current&quot;,
+      &quot;versions&quot;: [
+        {
+          &quot;commit&quot;: null,
+          &quot;date&quot;: &quot;2026-08-14&quot;,
+          &quot;hash&quot;: &quot;4cc2468f55b36a27660425430f19c3e63c9da492e6936aded2cf5eed9fcdce45&quot;,
+          &quot;release&quot;: &quot;&quot;,
+          &quot;state&quot;: &quot;consumed&quot;,
+          &quot;via&quot;: &quot;plan&quot;,
+          &quot;ticket&quot;: null,
+          &quot;requirements&quot;: [
+            {
+              &quot;name&quot;: &quot;document-lexing&quot;,
+              &quot;text&quot;: &quot;A TOML file must be a valid UTF-8 encoded Unicode document.&quot;,
+              &quot;stories&quot;: [
+                &quot;lexical-whitespace-comments&quot;
+              ]
+            },
+            {
+              &quot;name&quot;: &quot;comments&quot;,
+              &quot;text&quot;: &quot;A hash symbol marks the rest of the line as a comment, except when inside a string.&quot;,
+              &quot;stories&quot;: [
+                &quot;lexical-whitespace-comments&quot;
+              ]
+            },
+            {
+              &quot;name&quot;: &quot;key-forms&quot;,
+              &quot;text&quot;: &quot;A key may be either bare, quoted, or dotted.&quot;,
+              &quot;stories&quot;: [
+                &quot;keys-forms&quot;
+              ]
+            },
+            {
+              &quot;name&quot;: &quot;key-semantics&quot;,
+              &quot;text&quot;: &quot;Defining a key multiple times is invalid.&quot;,
+              &quot;stories&quot;: [
+                &quot;keys-semantics&quot;
+              ]
+            },
+            {
+              &quot;name&quot;: &quot;string-forms&quot;,
+              &quot;text&quot;: &quot;There are four ways to express strings: basic, multi-line basic, literal, and multi-line literal.&quot;,
+              &quot;stories&quot;: [
+                &quot;lexical-strings&quot;
+              ]
+            },
+            {
+              &quot;name&quot;: &quot;numeric-values&quot;,
+              &quot;text&quot;: &quot;Integers are whole numbers.&quot;,
+              &quot;stories&quot;: [
+                &quot;lexical-numbers&quot;
+              ]
+            },
+            {
+              &quot;name&quot;: &quot;floating-point-values&quot;,
+              &quot;text&quot;: &quot;Floats should be implemented as IEEE 754 binary64 values.&quot;,
+              &quot;stories&quot;: [
+                &quot;lexical-numbers&quot;
+              ]
+            },
+            {
+              &quot;name&quot;: &quot;boolean-values&quot;,
+              &quot;text&quot;: &quot;Booleans are just the tokens you&#x27;re used to. Always lowercase.&quot;,
+              &quot;stories&quot;: [
+                &quot;lexical-numbers&quot;
+              ]
+            },
+            {
+              &quot;name&quot;: &quot;date-time-values&quot;,
+              &quot;text&quot;: &quot;To unambiguously represent a specific instant in time, you may use an RFC 3339 formatted date-time with offset.&quot;,
+              &quot;stories&quot;: [
+                &quot;lexical-datetime&quot;
+              ]
+            },
+            {
+              &quot;name&quot;: &quot;arrays&quot;,
+              &quot;text&quot;: &quot;Arrays are square brackets with values inside.&quot;,
+              &quot;stories&quot;: [
+                &quot;structures-arrays&quot;
+              ]
+            },
+            {
+              &quot;name&quot;: &quot;standard-tables&quot;,
+              &quot;text&quot;: &quot;Tables (also known as hash tables or dictionaries) are collections of key/value pairs.&quot;,
+              &quot;stories&quot;: [
+                &quot;tables-standard&quot;
+              ]
+            },
+            {
+              &quot;name&quot;: &quot;table-redefinition&quot;,
+              &quot;text&quot;: &quot;Like keys, you cannot define a table more than once. Doing so is invalid.&quot;,
+              &quot;stories&quot;: [
+                &quot;tables-redefinition&quot;
+              ]
+            },
+            {
+              &quot;name&quot;: &quot;inline-tables&quot;,
+              &quot;text&quot;: &quot;Inline tables provide a more compact syntax for expressing tables.&quot;,
+              &quot;stories&quot;: [
+                &quot;structures-inline-tables&quot;
+              ]
+            },
+            {
+              &quot;name&quot;: &quot;inline-table-closure&quot;,
+              &quot;text&quot;: &quot;Inline tables are fully self-contained and define all keys and sub-tables within them. Keys and sub-tables cannot be added outside the braces.&quot;,
+              &quot;stories&quot;: [
+                &quot;structures-inline-table-closure&quot;
+              ]
+            },
+            {
+              &quot;name&quot;: &quot;arrays-of-tables&quot;,
+              &quot;text&quot;: &quot;The last syntax that has not yet been described allows writing arrays of tables.&quot;,
+              &quot;stories&quot;: [
+                &quot;tables-arrays&quot;
+              ]
+            },
+            {
+              &quot;name&quot;: &quot;arrays-of-tables-ordering&quot;,
+              &quot;text&quot;: &quot;If the parent of a table or array of tables is an array element, that element must already have been defined before the child can be defined.&quot;,
+              &quot;stories&quot;: [
+                &quot;tables-arrays-ordering&quot;
+              ]
+            },
+            {
+              &quot;name&quot;: &quot;filename-extension&quot;,
+              &quot;text&quot;: &quot;TOML files should use the extension `.toml`.&quot;,
+              &quot;stories&quot;: []
+            },
+            {
+              &quot;name&quot;: &quot;mime-type&quot;,
+              &quot;text&quot;: &quot;When transferring TOML files over the internet, the appropriate MIME type is `application/toml`.&quot;,
+              &quot;stories&quot;: []
+            }
+          ]
+        }
+      ]
+    }
+  }
+}
+</pre></article>
+</main>
+</body>
+</html>

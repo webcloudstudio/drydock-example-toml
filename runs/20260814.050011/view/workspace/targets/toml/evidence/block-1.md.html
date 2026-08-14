@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>workspace/targets/toml/evidence/block-1.md</title>
+<link rel="stylesheet" href="../../../../../assets/kit.css">
+</head>
+<body>
+<main>
+<header class="fileheader"><div class="kind">Run artifact</div><h1>workspace/targets/toml/evidence/block-1.md</h1><div class="filenav"><a href="../../../../../index.html">&larr; Report</a><a href="../../../../../workspace/targets/toml/evidence/block-1.md">Raw file</a></div></header>
+<article class="doc"><h1>Evidence: Block 1 · Foundational (block-1)</h1>
+<ul><li>block type: block</li><li>date: 2026-08-14</li><li>resulting state: closed/verified</li><li>story points (combined assembled cost): 9050</li><li>execution id: 20260814.050854.031Z-9dfacef7</li></ul>
+<h2>Stories built</h2>
+<ul><li>Define the Go parser modules, command boundary, tagged JSON contract, and standard-library constraints. (architecture) [story]</li></ul>
+<h2>Reusable compacts</h2>
+<ul><li>ARCHITECTURE_compact.md</li></ul>
+<h2>Stacked context</h2>
+<ul><li>compass: COMPASS.md (SP 2629)</li><li>implements: ARCHITECTURE.md (SP 905)</li><li>stack: go.md (SP 3646)</li><li>stack: common.md (SP 1807)</li></ul>
+<h2>Build directory changes</h2>
+<ul><li>cmd/toml-decoder/main.go</li><li>go.mod</li><li>internal/toml/decode.go</li><li>internal/toml/value.go</li><li>internal/toml/value_test.go</li></ul>
+<h2>Pre-build acceptance observation</h2>
+<ul><li>RED: architecture-module (ARCHITECTURE.md)</li></ul>
+<p>intent: The completed build contains the declared Go module and command boundary. return code: 1 stderr: Traceback (most recent call last): File &quot;architecture-module.py&quot;, line 6, in &lt;module&gt; assert module.is_file() ^^^^^^^^^^^^^^^^ AssertionError</p>
+<ul><li>RED: architecture-dependencies (ARCHITECTURE.md)</li></ul>
+<p>intent: The Go module has no third-party dependency declarations. return code: 1 stderr: Traceback (most recent call last): File &quot;architecture-dependencies.py&quot;, line 3, in &lt;module&gt; module_text = Path(&quot;go.mod&quot;).read_text(encoding=&quot;utf-8&quot;) ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ File &quot;/home/barlo/.local/share/uv/python/cpython-3.12.13-linux-x86_64-gnu/lib/python3.12/pathlib.py&quot;, line 1027, in read_text with self.open(mode=&#x27;r&#x27;, encoding=encoding, errors=errors) as f: ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ File &quot;/home/barlo/.local/share/uv/python/cpython-3.12.13-linux-x86_64-gnu/lib/python3.12/pathlib.py&quot;, line 1013, in open return io.open(self, mode, buffering, encoding, errors, newline) ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^<br>FileNotFoundError: [Errno 2] No such file or directory: &#x27;go.mod&#x27;</p>
+<ul><li>RED: architecture-command-build (ARCHITECTURE.md)</li></ul>
+<p>intent: The declared decoder command builds successfully. return code: 1 stdout: go: cannot find main module, but found .git/config in /mnt/c/Users/barlo/projects/drydock to create a module there, run: cd ../../../../../.. &amp;&amp; go mod init stderr: Traceback (most recent call last): File &quot;architecture-command-build.py&quot;, line 10, in &lt;module&gt; assert result.returncode == 0 ^^^^^^^^^^^^^^^^^^^^^^ AssertionError</p>
+<h2>Post-build programmatic acceptance</h2>
+<ul><li>PASS: architecture-module (ARCHITECTURE.md)</li></ul>
+<p>intent: The completed build contains the declared Go module and command boundary. target interpreter: /mnt/c/Users/barlo/projects/drydock/.venv/bin/python3 provisioning: not required return code: 0</p>
+<ul><li>PASS: architecture-dependencies (ARCHITECTURE.md)</li></ul>
+<p>intent: The Go module has no third-party dependency declarations. target interpreter: /mnt/c/Users/barlo/projects/drydock/.venv/bin/python3 provisioning: not required return code: 0</p>
+<ul><li>PASS: architecture-command-build (ARCHITECTURE.md)</li></ul>
+<p>intent: The declared decoder command builds successfully. target interpreter: /mnt/c/Users/barlo/projects/drydock/.venv/bin/python3 provisioning: not required return code: 0</p>
+<h2>Build summary</h2>
+<p>&lt;reusable-compact filename=&quot;ARCHITECTURE.md&quot;&gt; Go module <code>github.com/owner/toml-decoder</code> uses standard library only. <code>cmd/toml-decoder</code> reads TOML from stdin, emits tagged JSON to stdout, reports invalid input on stderr, and exits non-zero. <code>internal/toml</code> owns parsing and explicit value kinds while preserving integer lexemes. &lt;/reusable-compact&gt;</p>
+<p>RESULT: SUCCESS</p>
+<p>FILES CHANGED:</p>
+<ul><li>go.mod</li><li>cmd/toml-decoder/main.go</li><li>internal/toml/value.go</li><li>internal/toml/decode.go</li><li>internal/toml/value_test.go</li></ul>
+<p>SUMMARY: Implemented the dependency-free Go module, parser boundary, decoder command, tagged JSON model, and focused tests. Go tests, vet, formatting, build, and all architecture acceptance checks pass.</p>
+<p>BLOCKERS:</p>
+<ul><li>None</li></ul></article>
+</main>
+</body>
+</html>

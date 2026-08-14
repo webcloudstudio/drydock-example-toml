@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>workspace/targets/toml/blueprint/FEATURE-Inline-Table-Closure.md</title>
+<link rel="stylesheet" href="../../../../../assets/kit.css">
+</head>
+<body>
+<main>
+<header class="fileheader"><div class="kind">Run artifact</div><h1>workspace/targets/toml/blueprint/FEATURE-Inline-Table-Closure.md</h1><div class="filenav"><a href="../../../../../index.html">&larr; Report</a><a href="../../../../../workspace/targets/toml/blueprint/FEATURE-Inline-Table-Closure.md">Raw file</a></div></header>
+<article class="doc"><h1>FEATURE: Inline-Table Closure</h1>
+<div class="scroll"><table><thead><tr><th>Field</th><th>Value</th></tr></thead><tbody><tr><td>Version</td><td>20260814 V1</td></tr><tr><td>Description</td><td>Prevents keys and subtables from being added after an inline table is defined.</td></tr><tr><td>Depends On</td><td>FEATURE-Inline-Tables.md, FEATURE-Key-Semantics.md</td></tr><tr><td>Provides</td><td>inline-table immutability validation</td></tr><tr><td>Consumes</td><td>TOML inline tables, TOML key paths</td></tr></tbody></table></div>
+<h2>Behavior</h2>
+<p>An inline table and every table established within it become closed when the inline table is parsed. Later dotted keys and table headers cannot add or redefine content beneath that closed structure.</p>
+<h2>Programmatic Acceptance</h2>
+<p>Requires: executable=sh; scope=test</p>
+<p>=== AC inline-closure-invalid ===<br>Intent: The implementation rejects authoritative invalid cases that extend or redefine inline tables.<br>Suite: scoped</p>
+<p>import subprocess</p>
+<p>result = subprocess.run( [&quot;sh&quot;, &quot;sources/stage_test.sh&quot;, &quot;invalid/inline-table/*&quot;], capture_output=True, text=True, ) print(result.stdout) print(result.stderr) assert result.returncode == 0 === END AC inline-closure-invalid ===</p>
+<p>=== AC inline-closure-boundary ===<br>Intent: The implementation passes the authoritative valid inline-table cases while preserving inline-table closure semantics.<br>Suite: scoped</p>
+<p>import subprocess</p>
+<p>result = subprocess.run( [&quot;sh&quot;, &quot;sources/stage_test.sh&quot;, &quot;valid/inline-table/*&quot;], capture_output=True, text=True, ) print(result.stdout) print(result.stderr) assert result.returncode == 0 === END AC inline-closure-boundary ===</p>
+<h2>User Acceptance</h2>
+<ul><li>None.</li></ul>
+<h2>Guardrails</h2>
+<ul><li>A closed inline table cannot receive later keys.</li><li>A closed inline table cannot receive later subtables.</li><li>Closure validation must not reject valid inline-table documents.</li></ul></article>
+</main>
+</body>
+</html>

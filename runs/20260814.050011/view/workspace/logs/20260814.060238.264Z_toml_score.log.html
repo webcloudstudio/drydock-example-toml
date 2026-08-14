@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>workspace/logs/20260814.060238.264Z_toml_score.log</title>
+<link rel="stylesheet" href="../../../assets/kit.css">
+</head>
+<body>
+<main>
+<header class="fileheader"><div class="kind">Run artifact</div><h1>workspace/logs/20260814.060238.264Z_toml_score.log</h1><div class="filenav"><a href="../../../index.html">&larr; Report</a><a href="../../../workspace/logs/20260814.060238.264Z_toml_score.log">Raw file</a></div></header>
+<article class="doc"><pre>Drydock 0.1.8  Copyright (c) 2026 Web Cloud Studio. All rights reserved.
+
+Acceptance verification: toml  (2026-08-14T06:02:38+00:00)
+  PASS 20   FAIL 1   UNVERIFIED 0   PREPASSED 24   (45 AC)
+  24 criterion(s) were green before their block built. Either they do not exercise the story&#x27;s work,
+  or the deliverable already existed. Not counted as proven; the build is not blocked on them.
+
+  ✓ PASS        architecture-module                    architecture                     ARCHITECTURE.md
+  ✓ PASS        architecture-dependencies              architecture                     ARCHITECTURE.md
+  ✓ PASS        architecture-command-build             architecture                     ARCHITECTURE.md
+  ~ PREPASSED   decoder-valid-stdin                    decoder-contract                 FEATURE-Decoder-Contract.md
+        intent: A valid TOML document is accepted through stdin and produces a JSON object.
+        green at this block&#x27;s baseline too, before its code existed — confirm the criterion exercises the story&#x27;s work
+
+  ✓ PASS        decoder-argument-free                  decoder-contract                 FEATURE-Decoder-Contract.md
+  ~ PREPASSED   decoder-stream-separation              decoder-contract                 FEATURE-Decoder-Contract.md
+        intent: Successful decoding does not write diagnostics to stderr.
+        green at this block&#x27;s baseline too, before its code existed — confirm the criterion exercises the story&#x27;s work
+
+  ~ PREPASSED   invalid-exit-status                    decoder-invalid-input            FEATURE-Decoder-Invalid-Input.md
+        intent: Malformed TOML exits non-zero.
+        green at this block&#x27;s baseline too, before its code existed — confirm the criterion exercises the story&#x27;s work
+
+  ~ PREPASSED   invalid-diagnostic-stream              decoder-invalid-input            FEATURE-Decoder-Invalid-Input.md
+        intent: Malformed TOML produces a non-empty diagnostic on stderr.
+        green at this block&#x27;s baseline too, before its code existed — confirm the criterion exercises the story&#x27;s work
+
+  ~ PREPASSED   invalid-no-success-result              decoder-invalid-input            FEATURE-Decoder-Invalid-Input.md
+        intent: Malformed TOML does not produce a successful JSON result on stdout.
+        green at this block&#x27;s baseline too, before its code existed — confirm the criterion exercises the story&#x27;s work
+
+  ~ PREPASSED   tagged-scalars                         decoder-tagged-json              FEATURE-Tagged-JSON.md
+        intent: Scalar TOML values are emitted with type names and string payloads.
+        green at this block&#x27;s baseline too, before its code existed — confirm the criterion exercises the story&#x27;s work
+
+  ~ PREPASSED   tagged-structures                      decoder-tagged-json              FEATURE-Tagged-JSON.md
+        intent: Tables and arrays retain structural JSON forms while their scalar members remain tagged.
+        green at this block&#x27;s baseline too, before its code existed — confirm the criterion exercises the story&#x27;s work
+
+  ~ PREPASSED   tagged-empty-containers                decoder-tagged-json              FEATURE-Tagged-JSON.md
+        intent: Empty arrays and tables encode as empty JSON containers.
+        green at this block&#x27;s baseline too, before its code existed — confirm the criterion exercises the story&#x27;s work
+
+  ~ PREPASSED   tagged-datetime-types                  decoder-tagged-json              FEATURE-Tagged-JSON.md
+        intent: Date and time values use the distinct required tagged type names.
+        green at this block&#x27;s baseline too, before its code existed — confirm the criterion exercises the story&#x27;s work
+
+  ✓ PASS        strings-conformance                    lexical-strings                  FEATURE-Lexical-Strings.md
+  ✓ PASS        strings-invalid-conformance            lexical-strings                  FEATURE-Lexical-Strings.md
+  ~ PREPASSED   strings-process                        lexical-strings                  FEATURE-Lexical-Strings.md
+        intent: A basic string is accepted through the decoder process boundary.
+        green at this block&#x27;s baseline too, before its code existed — confirm the criterion exercises the story&#x27;s work
+
+  ~ PREPASSED   strings-literal                        lexical-strings                  FEATURE-Lexical-Strings.md
+        intent: A literal string preserves its backslashes as supplied input.
+        green at this block&#x27;s baseline too, before its code existed — confirm the criterion exercises the story&#x27;s work
+
+  ✓ PASS        lexical-numbers-integer                lexical-numbers                  FEATURE-Lexical-Numbers.md
+  ✓ PASS        lexical-numbers-float                  lexical-numbers                  FEATURE-Lexical-Numbers.md
+  ~ PREPASSED   lexical-numbers-bool                   lexical-numbers                  FEATURE-Lexical-Numbers.md
+        intent: The implementation passes the authoritative TOML boolean conformance slice.
+        green at this block&#x27;s baseline too, before its code existed — confirm the criterion exercises the story&#x27;s work
+
+  ✓ PASS        lexical-datetime-valid                 lexical-datetime                 FEATURE-Lexical-Datetime.md
+  ✓ PASS        lexical-datetime-invalid               lexical-datetime                 FEATURE-Lexical-Datetime.md
+  ✓ PASS        lexical-whitespace-comments-valid      lexical-whitespace-comments      FEATURE-Lexical-Whitespace-Comments.md
+  ✓ PASS        lexical-whitespace-comments-control    lexical-whitespace-comments      FEATURE-Lexical-Whitespace-Comments.md
+  ✓ PASS        lexical-whitespace-comments-encoding   lexical-whitespace-comments      FEATURE-Lexical-Whitespace-Comments.md
+  ✓ PASS        key-forms-valid                        keys-forms                       FEATURE-Key-Forms.md
+  ~ PREPASSED   key-forms-invalid                      keys-forms                       FEATURE-Key-Forms.md
+        intent: The implementation rejects malformed key forms in the authoritative suite.
+        green at this block&#x27;s baseline too, before its code existed — confirm the criterion exercises the story&#x27;s work
+
+  ~ PREPASSED   arrays-valid                           structures-arrays                FEATURE-Arrays.md
+        intent: The implementation passes the authoritative valid TOML array conformance slice.
+        green at this block&#x27;s baseline too, before its code existed — confirm the criterion exercises the story&#x27;s work
+
+  ✓ PASS        arrays-invalid                         structures-arrays                FEATURE-Arrays.md
+  ~ PREPASSED   key-semantics-valid                    keys-semantics                   FEATURE-Key-Semantics.md
+        intent: The implementation passes the authoritative valid TOML key and specification conformance slices.
+        green at this block&#x27;s baseline too, before its code existed — confirm the criterion exercises the story&#x27;s work
+
+  ~ PREPASSED   key-semantics-invalid                  keys-semantics                   FEATURE-Key-Semantics.md
+        intent: The implementation rejects duplicate and structurally invalid key definitions in the authoritative suite.
+        green at this block&#x27;s baseline too, before its code existed — confirm the criterion exercises the story&#x27;s work
+
+  ✓ PASS        key-semantics-boundary                 keys-semantics                   FEATURE-Key-Semantics.md
+  ~ PREPASSED   inline-tables-valid                    structures-inline-tables         FEATURE-Inline-Tables.md
+        intent: The implementation passes the authoritative valid TOML inline-table conformance slice.
+        green at this block&#x27;s baseline too, before its code existed — confirm the criterion exercises the story&#x27;s work
+
+  ✓ PASS        inline-tables-invalid                  structures-inline-tables         FEATURE-Inline-Tables.md
+  ~ PREPASSED   inline-closure-invalid                 structures-inline-table-closure  FEATURE-Inline-Table-Closure.md
+        intent: The implementation rejects authoritative invalid cases that extend or redefine inline tables.
+        green at this block&#x27;s baseline too, before its code existed — confirm the criterion exercises the story&#x27;s work
+
+  ~ PREPASSED   inline-closure-boundary                structures-inline-table-closure  FEATURE-Inline-Table-Closure.md
+        intent: The implementation passes the authoritative valid inline-table cases while preserving inline-table closure semantics.
+        green at this block&#x27;s baseline too, before its code existed — confirm the criterion exercises the story&#x27;s work
+
+  ✓ PASS        standard-tables-valid                  tables-standard                  FEATURE-Standard-Tables.md
+  ✓ PASS        standard-tables-invalid                tables-standard                  FEATURE-Standard-Tables.md
+  ~ PREPASSED   table-redefinition-invalid             tables-redefinition              FEATURE-Table-Redefinition.md
+        intent: The implementation rejects every authoritative invalid table-redefinition case.
+        green at this block&#x27;s baseline too, before its code existed — confirm the criterion exercises the story&#x27;s work
+
+  ~ PREPASSED   table-redefinition-valid               tables-redefinition              FEATURE-Table-Redefinition.md
+        intent: The implementation preserves all valid standard-table definitions while enforcing redefinition rules.
+        green at this block&#x27;s baseline too, before its code existed — confirm the criterion exercises the story&#x27;s work
+
+  ~ PREPASSED   arrays-of-tables-conformance           tables-arrays                    FEATURE-Arrays-of-Tables.md
+        intent: The implementation passes the authoritative TOML table conformance slice owned by this story.
+        green at this block&#x27;s baseline too, before its code existed — confirm the criterion exercises the story&#x27;s work
+
+  ~ PREPASSED   arrays-of-tables-build                 tables-arrays                    FEATURE-Arrays-of-Tables.md
+        intent: The decoder builds successfully after array-of-table support is implemented.
+        green at this block&#x27;s baseline too, before its code existed — confirm the criterion exercises the story&#x27;s work
+
+  ~ PREPASSED   arrays-of-tables-ordering-conformance  tables-arrays-ordering           FEATURE-Arrays-of-Tables-Ordering.md
+        intent: The implementation rejects the authoritative invalid table-ordering and conflict cases.
+        green at this block&#x27;s baseline too, before its code existed — confirm the criterion exercises the story&#x27;s work
+
+  ✗ FAIL        arrays-of-tables-ordering-exit         tables-arrays-ordering           FEATURE-Arrays-of-Tables-Ordering.md
+        intent: An invalid array-of-table ordering document exits unsuccessfully.
+        malformed check: the assertion itself raised NameError (name &#x27;subprocess&#x27; is not defined. Did you forget to import &#x27;subprocess&#x27;?) in its own frame, before reaching the code under test. No implementation can satisfy it. Each check runs as its own script in its own process, so a name bound by another check is not in scope. Repair the assertion in the Blueprint specification.
+
+  ✓ PASS        complete-conformance                   conformance                      FEATURE-Conformance.md
+
+Soundings: /mnt/c/Users/barlo/projects/drydock/uat/Toml/runs/20260814.050011/workspace/targets/toml/SOUNDINGS.md
+</pre></article>
+</main>
+</body>
+</html>

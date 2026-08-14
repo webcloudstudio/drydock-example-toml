@@ -1,0 +1,69 @@
+{
+  "schema_version": 5,
+  "recorded_at": "2026-08-14T06:04:22+00:00",
+  "target": "toml",
+  "verdict": "PASSED",
+  "verdict_line": "toml: PASSED \u2014 1 of 1",
+  "statement": "toml: PASSED \u2014 1 of 1\n\n  st-001  MET       sh sources/full_test.sh returned code 0; toml-test reported 205 valid tests passed and 474 invalid tests passed",
+  "complete": true,
+  "governed_gate": {
+    "name": "full",
+    "outcome": "PASS",
+    "argv": [
+      "sh",
+      "sources/full_test.sh"
+    ],
+    "return_code": 0,
+    "duration_ms": 3058,
+    "detail": "",
+    "timed_out": false,
+    "build_identity": "df8a498648648188",
+    "stdout": "toml-test v2.2.0 [/mnt/c/Users/barlo/projects/drydock/uat/Toml/runs/20260814.050011/build/toml/toml-decoder] [no encoder]\n  valid tests: 205 passed,  0 failed\nencoder tests: no encoder command given\ninvalid tests: 474 passed,  0 failed\n",
+    "stderr": "harness: /home/barlo/.local/bin/toml-test toml-test v2.2.0; go1.24.6 linux/amd64; race=false; cgo=true\n"
+  },
+  "criteria": [
+    {
+      "criterion_id": "st-001",
+      "verdict": "MET",
+      "rationale": "The supplied scoring script exited zero with all 205 valid and 474 invalid tests passing.",
+      "evidence": [
+        "sh sources/full_test.sh returned code 0",
+        "toml-test reported 205 valid tests passed and 474 invalid tests passed"
+      ]
+    }
+  ],
+  "guardrail_ids": [],
+  "observations": [],
+  "blockers": [],
+  "attestations": [],
+  "kit_faults": [],
+  "warnings": [],
+  "improvements": [],
+  "identities": {
+    "code": "9af06df538d12e55ae5132a2a7c19a48e5416397",
+    "sea_trials": "30b259abc2d3688f5186ceaae44c6fcba1c044dc48d139e573917222ba90b90a",
+    "blueprint": {
+      "ARCHITECTURE.md": "87d3e8f16f04cd340948533f7dcb38d62908346d19b3ce7ae5e181b29422e39e",
+      "ARCHITECTURE_compact.md": "28b5f087c7d4d76e6135a937bd2e02e7023dfe57e8b5ae6088cce32e3efd4deb",
+      "FEATURE-Arrays-of-Tables-Ordering.md": "1ecca8377f3d0fe1053e2b4c0654685939f5403b43b21e6dc6949c2fc2d6a9c3",
+      "FEATURE-Arrays-of-Tables.md": "3383426d8d0ec379e25ab8b87d39239c90bda1026aee087f914ac303869a2e72",
+      "FEATURE-Arrays.md": "9b558a222ca22e36fbc41dc19a8605f99c74cc07692e9232b9dee70382b4a520",
+      "FEATURE-Conformance.md": "054e272fca817c4a94f2382b73e22cb17debb31f3a20770039f11742a4bf8d7c",
+      "FEATURE-Decoder-Contract.md": "7bb2fc7dbc6bbb738da4e842b6f6d9ad664532aafa7c573aa048ba79812d3735",
+      "FEATURE-Decoder-Invalid-Input.md": "8d0ee80bbd9daf67b1702c50cbccaa2cce055b0e7182282938f63f113513e206",
+      "FEATURE-Inline-Table-Closure.md": "1121e31067e94ad0d7af4dfed42e7fb76dee145b07d08cfc3f065bf2864ba826",
+      "FEATURE-Inline-Tables.md": "8d26a79413a5a350ab3a589577c6f0c49d27d50ed20459f57a223c5e6b27164c",
+      "FEATURE-Key-Forms.md": "e640c5db6c40327e1ff9a0bc486cf49511e69b883a385684491bbfb72f9be5d8",
+      "FEATURE-Key-Semantics.md": "b4db96d061beeb1e246d9508cc5ec8d47e3de7caa8ae91d2d29d6bca55327066",
+      "FEATURE-Lexical-Datetime.md": "2e4c02d8794b27683a5e486a77bf8ea9465006333c54601d57d59cc0b8c44ecc",
+      "FEATURE-Lexical-Numbers.md": "d561933867ba30dc8bce1a7bb04a0ce3dc28ccfdc04db3974b8d69297818f155",
+      "FEATURE-Lexical-Strings.md": "ebafd8a7d389471c603c2a2df71bde7a3082879a6521f4e2fe4fd0e00541a253",
+      "FEATURE-Lexical-Whitespace-Comments.md": "0951b23ba99d2a0382ace0fe63afc72b6eecdc57f5d5cdd598490879fcc6a096",
+      "FEATURE-Standard-Tables.md": "5c2146af80ec6f173372bcb11ecac30e953c2db09da91c78123fce89eb039b64",
+      "FEATURE-Table-Redefinition.md": "071b8659c50e8a6328ace49e6239ae218597834f9bbefecde301cd52557d36f7",
+      "FEATURE-Tagged-JSON.md": "2001c22117022c67fa8ccbfc6b8768bf0627a932bbf326ff394c23e1a6eb394e",
+      "stage_test_compact.md": "dfaaf058ab868e0549dce3c8595395535cc3d4b99a231d100bf1e5dbf74600dc"
+    }
+  },
+  "execution_id": "20260814.060416.486Z-8a7b08af"
+}
