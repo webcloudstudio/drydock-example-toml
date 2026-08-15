@@ -14,7 +14,9 @@
 #              deliberately has no default implementation language.
 #   TOML_TEST  absolute path to the toml-test binary (default: found on PATH)
 #
-# Exit code is the harness exit code: 0 only when every test passes.
+# Exit code follows the harness exit-status standard in prompts/UAT_SETUP_INSTRUCTIONS.md:
+# 0 only when every test passes, 2 when this harness could not run at all, and any other nonzero
+# when it ran and the decoder failed. A precondition of the harness is never charged to the build.
 
 set -u
 
@@ -39,7 +41,9 @@ or set TOML_TEST to an existing binary:
 
     TOML_TEST=/path/to/toml-test sh sources/run_conformance.sh
 EOF
-    exit 127
+    # 2, not the shell's own 127: an uninstalled harness says nothing about the decoder, and 127
+    # would be read as an ordinary nonzero exit and charged against the build as a product FAIL.
+    exit 2
 fi
 
 # The suite's identity is part of the verdict. Without this, "the authoritative suite passed"
