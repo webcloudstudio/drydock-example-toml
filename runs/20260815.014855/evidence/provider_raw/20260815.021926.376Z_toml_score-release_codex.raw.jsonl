@@ -1,0 +1,4 @@
+{"type":"thread.started","thread_id":"01a00337-8a9b-70f2-a95b-1ff00b5d80e6"}
+{"type":"turn.started"}
+{"type":"item.completed","item":{"id":"item_0","type":"agent_message","text":"{\"criteria\":[{\"id\":\"st-001\",\"verdict\":\"MET\",\"rationale\":\"The governed scoring script exited zero and passed all supplied valid and invalid parser tests.\",\"evidence\":[\"sh sources/full_test.sh returned code 0\",\"205 valid tests passed and 474 invalid tests passed\"]}],\"improvements\":[]}"}}
+{"type":"turn.completed","usage":{"input_tokens":13262,"cached_input_tokens":8960,"cache_write_input_tokens":0,"output_tokens":131,"reasoning_output_tokens":61}}

@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>workspace/logs/20260815.020701.947Z_toml_build_codex.stderr.log</title>
+<link rel="stylesheet" href="../../../assets/kit.css">
+</head>
+<body>
+<main>
+<header class="fileheader"><div class="kind">Run artifact</div><h1>workspace/logs/20260815.020701.947Z_toml_build_codex.stderr.log</h1><div class="filenav"><a href="../../../index.html">&larr; Report</a><a href="../../../workspace/logs/20260815.020701.947Z_toml_build_codex.stderr.log">Raw file</a></div></header>
+<article class="doc"><pre>2026-08-15T02:11:42.788472Z ERROR codex_core::tools::router: error=apply_patch verification failed: Failed to find expected lines in /mnt/c/Users/barlo/projects/drydock/uat/Toml/runs/20260815.014855/build/toml/internal/toml/toml.go:
+	defined   map[string]bool
+2026-08-15T02:13:00.917495Z ERROR codex_core::tools::router: error=apply_patch verification failed: Failed to find expected lines in /mnt/c/Users/barlo/projects/drydock/uat/Toml/runs/20260815.014855/build/toml/internal/toml/toml.go:
+			for assigned := range p.assigned {
+				parts := strings.Split(assigned, &quot;\x00&quot;)
+				if len(parts) &gt; len(path) &amp;&amp; pathString(parts[:len(path)]) == key {
+2026-08-15T02:14:52.031572Z ERROR codex_core::tools::router: error=apply_patch verification failed: Failed to find expected lines in /mnt/c/Users/barlo/projects/drydock/uat/Toml/runs/20260815.014855/build/toml/internal/toml/toml.go:
+	var b strings.Builder
+	for i &lt; len(s) {
+		if strings.HasPrefix(s[i:], strings.Repeat(string(q), 3)) {
+			return b.String(), i + 3, nil
+		}
+		if q == &#x27;&quot;&#x27; &amp;&amp; s[i] == &#x27;\\&#x27; &amp;&amp; i+1 &lt; len(s) &amp;&amp; s[i+1] == &#x27;\n&#x27; {
+			i += 2
+			for i &lt; len(s) &amp;&amp; (s[i] == &#x27; &#x27; || s[i] == &#x27;\t&#x27; || s[i] == &#x27;\n&#x27;) { i++ }
+			continue
+		}
+		b.WriteByte(s[i]); i++
+2026-08-15T02:16:16.579358Z ERROR codex_core::tools::router: error=apply_patch verification failed: Failed to find expected lines in /mnt/c/Users/barlo/projects/drydock/uat/Toml/runs/20260815.014855/build/toml/internal/toml/toml.go:
+			n, ok := base[key]
+</pre></article>
+</main>
+</body>
+</html>

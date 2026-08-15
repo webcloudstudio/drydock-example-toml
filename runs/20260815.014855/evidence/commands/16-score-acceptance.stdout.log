@@ -1,0 +1,55 @@
+Drydock 0.1.8  Copyright (c) 2026 Web Cloud Studio. All rights reserved.
+
+Acceptance verification: toml  (2026-08-15T02:18:54+00:00)
+  PASS 2   FAIL 0   UNVERIFIED 0   PREPASSED 11   (13 AC)
+  11 criterion(s) were green before their block built. Either they do not exercise the story's work,
+  or the deliverable already existed. Not counted as proven; the build is not blocked on them.
+
+  ✓ PASS        architecture-module                    architecture               ARCHITECTURE.md
+  ✓ PASS        architecture-parser-boundary           architecture               ARCHITECTURE.md
+  ~ PREPASSED   decoder-valid-contract                 decoder-contract           FEATURE-Decoder-Contract.md
+        intent: A valid TOML document produces tagged JSON on stdout without stderr diagnostics.
+        green at this block's baseline too, before its code existed — confirm the criterion exercises the story's work
+
+  ~ PREPASSED   decoder-invalid-contract               decoder-contract           FEATURE-Decoder-Contract.md
+        intent: Malformed TOML produces a non-zero exit, stderr diagnostics, and no stdout document.
+        green at this block's baseline too, before its code existed — confirm the criterion exercises the story's work
+
+  ~ PREPASSED   decoder-stage-contract                 decoder-contract           FEATURE-Decoder-Contract.md
+        intent: The supplied decoder contract gate passes for valid and malformed stdin documents.
+        green at this block's baseline too, before its code existed — confirm the criterion exercises the story's work
+
+  ~ PREPASSED   parser-strings-conformance             parser-strings             FEATURE-Parser-Strings.md
+        intent: The authoritative TOML conformance suite passes every valid and invalid string case owned by this story.
+        green at this block's baseline too, before its code existed — confirm the criterion exercises the story's work
+
+  ~ PREPASSED   parser-lexical-scalars-conformance     parser-lexical-scalars     FEATURE-Parser-Lexical-Scalars.md
+        intent: The authoritative TOML conformance suite passes every valid and invalid boolean, integer, and float case owned by this story.
+        green at this block's baseline too, before its code existed — confirm the criterion exercises the story's work
+
+  ~ PREPASSED   parser-lexical-boundaries-conformance  parser-lexical-boundaries  FEATURE-Parser-Lexical-Boundaries.md
+        intent: The authoritative TOML conformance suite passes every valid comment and invalid control-character and encoding case owned by this story.
+        green at this block's baseline too, before its code existed — confirm the criterion exercises the story's work
+
+  ~ PREPASSED   parser-keys-conformance                parser-keys                FEATURE-Parser-Keys.md
+        intent: The implementation passes the complete authoritative key conformance slice.
+        green at this block's baseline too, before its code existed — confirm the criterion exercises the story's work
+
+  ~ PREPASSED   parser-tables-conformance              parser-tables              FEATURE-Parser-Tables.md
+        intent: The implementation passes the complete authoritative table conformance slice.
+        green at this block's baseline too, before its code existed — confirm the criterion exercises the story's work
+
+  ~ PREPASSED   parser-datetimes-conformance           parser-datetimes           FEATURE-Parser-Datetimes.md
+        intent: The implementation passes the complete authoritative date/time conformance slice.
+        green at this block's baseline too, before its code existed — confirm the criterion exercises the story's work
+
+  ~ PREPASSED   parser-arrays-inline-conformance       parser-arrays-inline       FEATURE-Parser-Arrays-Inline.md
+        intent: The implementation passes the complete authoritative array and inline-table conformance slice.
+        green at this block's baseline too, before its code existed — confirm the criterion exercises the story's work
+
+  ~ PREPASSED   complete-conformance                   conformance                FEATURE-Conformance.md
+        intent: The completed implementation passes the complete authoritative TOML v1.0.0 conformance suite.
+        green at this block's baseline too, before its code existed — confirm the criterion exercises the story's work
+
+
+Soundings: /mnt/c/Users/barlo/projects/drydock/uat/Toml/runs/20260815.014855/workspace/targets/toml/SOUNDINGS.md

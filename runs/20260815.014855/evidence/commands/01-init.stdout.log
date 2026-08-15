@@ -1,0 +1,10 @@
+Drydock 0.1.8  Copyright (c) 2026 Web Cloud Studio. All rights reserved.
+Target: /mnt/c/Users/barlo/projects/drydock/uat/Toml/runs/20260815.014855/workspace/targets/toml
+  CREATED  METADATA.md
+  CREATED  QuarterDeck/console.yaml
+Skills: /mnt/c/Users/barlo/projects/drydock/uat/Toml/runs/20260815.014855/workspace/.claude/skills
+  INSTALLED  apply-refit
+  INSTALLED  refit
+Skills: /mnt/c/Users/barlo/projects/drydock/uat/Toml/runs/20260815.014855/workspace/.agents/skills
+  INSTALLED  apply-refit
+  INSTALLED  refit

@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>evidence/prompt_outputs/20260815.015300.989Z_toml_lineage_attribute_codex.output.txt</title>
+<link rel="stylesheet" href="../../../assets/kit.css">
+</head>
+<body>
+<main>
+<header class="fileheader"><div class="kind">Run artifact</div><h1>evidence/prompt_outputs/20260815.015300.989Z_toml_lineage_attribute_codex.output.txt</h1><div class="filenav"><a href="../../../index.html">&larr; Report</a><a href="../../../evidence/prompt_outputs/20260815.015300.989Z_toml_lineage_attribute_codex.output.txt">Raw file</a></div></header>
+<article class="doc"><pre>&lt;requirement name=&quot;go-module-command&quot; stories=&quot;architecture&quot;&gt;
+The implementation language is Go, fixed by this Target&#x27;s `TECHNOLOGY_STACK.md` and governed by `stack/go.md`.
+&lt;/requirement&gt;
+&lt;requirement name=&quot;decoder-contract&quot; stories=&quot;decoder-contract&quot;&gt;
+The program is a filter: read TOML from **stdin**, write tagged JSON to **stdout**, exit `0`.
+&lt;/requirement&gt;
+&lt;requirement name=&quot;parse-strings&quot; stories=&quot;parser-strings&quot;&gt;
+**Scalars** — booleans, integers (including `0x`, `0o`, `0b`, underscores), floats (including `inf`, `nan`, exponents), basic and literal strings, then multi-line strings with their line-ending backslash and trimming rules.
+&lt;/requirement&gt;
+&lt;requirement name=&quot;parse-lexical-scalars&quot; stories=&quot;parser-lexical-scalars&quot;&gt;
+**Scalars** — booleans, integers (including `0x`, `0o`, `0b`, underscores), floats (including `inf`, `nan`, exponents), basic and literal strings, then multi-line strings with their line-ending backslash and trimming rules.
+&lt;/requirement&gt;
+&lt;requirement name=&quot;enforce-lexical-boundaries&quot; stories=&quot;parser-lexical-boundaries&quot;&gt;
+**Invalid-input hardening** — control characters, bad UTF-8, duplicate keys, redefinition after an inline table, unterminated constructs.
+&lt;/requirement&gt;
+&lt;requirement name=&quot;parse-keys&quot; stories=&quot;parser-keys&quot;&gt;
+**Keys** — bare, quoted, and dotted keys; the redefinition rules.
+&lt;/requirement&gt;
+&lt;requirement name=&quot;parse-tables&quot; stories=&quot;parser-tables&quot;&gt;
+**Tables** — `[table]`, `[a.b.c]` implicit creation, `[[array of tables]]`, and the rules governing which of these may follow which.
+&lt;/requirement&gt;
+&lt;requirement name=&quot;parse-arrays-inline-tables&quot; stories=&quot;parser-arrays-inline&quot;&gt;
+**Inline tables and arrays** — including nesting and the TOML 1.0 restriction that inline tables are closed to later extension.
+&lt;/requirement&gt;
+&lt;requirement name=&quot;parse-datetimes&quot; stories=&quot;parser-datetimes&quot;&gt;
+**Datetimes** — offset, local datetime, local date, local time.
+&lt;/requirement&gt;
+&lt;requirement name=&quot;pass-conformance-suite&quot; stories=&quot;conformance&quot;&gt;
+The goal is to pass every valid and every invalid case the installed suite supplies, with no case failed, errored, or skipped.
+&lt;/requirement&gt;</pre></article>
+</main>
+</body>
+</html>

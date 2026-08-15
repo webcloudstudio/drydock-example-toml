@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>workspace/targets/toml/blueprint/FEATURE-Parser-Strings.md</title>
+<link rel="stylesheet" href="../../../../../assets/kit.css">
+</head>
+<body>
+<main>
+<header class="fileheader"><div class="kind">Run artifact</div><h1>workspace/targets/toml/blueprint/FEATURE-Parser-Strings.md</h1><div class="filenav"><a href="../../../../../index.html">&larr; Report</a><a href="../../../../../workspace/targets/toml/blueprint/FEATURE-Parser-Strings.md">Raw file</a></div></header>
+<article class="doc"><h1>FEATURE: Parser Strings</h1>
+<div class="scroll"><table><thead><tr><th>Field</th><th>Value</th></tr></thead><tbody><tr><td>Version</td><td>20260815 V1</td></tr><tr><td>Description</td><td>Defines TOML basic, literal, multiline-basic, and multiline-literal string parsing.</td></tr><tr><td>Depends On</td><td>FEATURE-Decoder-Contract.md</td></tr><tr><td>Provides</td><td>TOML basic, literal, multiline-basic, and multiline-literal string values</td></tr><tr><td>Consumes</td><td>stdin TOML decoder, tagged JSON output</td></tr></tbody></table></div>
+<h2>Behavior</h2>
+<p>The parser accepts all TOML v1.0.0 string forms and preserves their specified contents. Basic strings decode the permitted escape sequences and reject invalid escapes or invalid Unicode scalar values. Literal strings preserve backslashes without escape processing. Multiline strings support newline trimming, line-ending backslashes, embedded quotation rules, and the control-character restrictions defined by TOML v1.0.0.</p>
+<h2>Programmatic Acceptance</h2>
+<p>=== AC parser-strings-conformance ===<br>Intent: The authoritative TOML conformance suite passes every valid and invalid string case owned by this story.<br>Suite: scoped<br>Requires: executable=sh; scope=test<br>Requires: executable=go; scope=test</p>
+<p>import os import subprocess</p>
+<p>result = subprocess.run( [ &quot;sh&quot;, &quot;sources/stage_test.sh&quot;, &quot;valid/string/<strong>|invalid/string/</strong>&quot;, ], capture_output=True, text=True, env={**os.environ}, ) print(result.stdout) print(result.stderr) assert result.returncode == 0 === END AC parser-strings-conformance ===</p>
+<h2>User Acceptance</h2>
+<ul><li>None.</li></ul>
+<h2>Guardrails</h2>
+<ul><li>Preserve literal-string backslashes exactly.</li><li>Reject unsupported escapes, unterminated delimiters, invalid control characters, and invalid Unicode scalar values.</li><li>Do not accept permissive string syntax outside TOML v1.0.0.</li></ul></article>
+</main>
+</body>
+</html>

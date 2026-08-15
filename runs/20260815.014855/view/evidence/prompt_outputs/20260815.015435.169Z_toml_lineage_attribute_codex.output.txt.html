@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>evidence/prompt_outputs/20260815.015435.169Z_toml_lineage_attribute_codex.output.txt</title>
+<link rel="stylesheet" href="../../../assets/kit.css">
+</head>
+<body>
+<main>
+<header class="fileheader"><div class="kind">Run artifact</div><h1>evidence/prompt_outputs/20260815.015435.169Z_toml_lineage_attribute_codex.output.txt</h1><div class="filenav"><a href="../../../index.html">&larr; Report</a><a href="../../../evidence/prompt_outputs/20260815.015435.169Z_toml_lineage_attribute_codex.output.txt">Raw file</a></div></header>
+<article class="doc"><pre>&lt;requirement name=&quot;toml-document-basics&quot; stories=&quot;parser-lexical-boundaries&quot;&gt;
+* TOML is case-sensitive.
+* A TOML file must be a valid UTF-8 encoded Unicode document.
+* Whitespace means tab (0x09) or space (0x20).
+* Newline means LF (0x0A) or CRLF (0x0D 0x0A).
+
+A hash symbol marks the rest of the line as a comment, except when inside a
+string.
+&lt;/requirement&gt;
+&lt;requirement name=&quot;key-value-pairs&quot; stories=&quot;parser-keys&quot;&gt;
+The primary building block of a TOML document is the key/value pair.
+
+Keys are on the left of the equals sign and values are on the right. Whitespace
+is ignored around key names and values. The key, equals sign, and value must be
+on the same line (though some values can be broken over multiple lines).
+&lt;/requirement&gt;
+&lt;requirement name=&quot;strings&quot; stories=&quot;parser-strings&quot;&gt;
+There are four ways to express strings: basic, multi-line basic, literal, and
+multi-line literal. All strings must contain only valid UTF-8 characters.
+&lt;/requirement&gt;
+&lt;requirement name=&quot;scalar-values&quot; stories=&quot;parser-lexical-scalars&quot;&gt;
+Values must have one of the following types.
+
+- [String](#string)
+- [Integer](#integer)
+- [Float](#float)
+- [Boolean](#boolean)
+- [Offset Date-Time](#offset-date-time)
+- [Local Date-Time](#local-date-time)
+- [Local Date](#local-date)
+- [Local Time](#local-time)
+- [Array](#array)
+- [Inline Table](#inline-table)
+&lt;/requirement&gt;
+&lt;requirement name=&quot;dates-and-times&quot; stories=&quot;parser-datetimes&quot;&gt;
+To unambiguously represent a specific instant in time, you may use an [RFC
+3339](https://tools.ietf.org/html/rfc3339) formatted date-time with offset.
+
+If you omit the offset from an [RFC 3339](https://tools.ietf.org/html/rfc3339)
+formatted date-time, it will represent the given date-time without any relation
+to an offset or timezone.
+
+If you include only the date portion of an
+[RFC 3339](https://tools.ietf.org/html/rfc3339) formatted date-time, it will
+represent that entire day without any relation to an offset.
+
+If you include only the time portion of an [RFC
+3339](https://tools.ietf.org/html/rfc3339) formatted date-time, it will
+represent that time of day without any relation to a specific day or any offset
+or timezone.
+&lt;/requirement&gt;
+&lt;requirement name=&quot;arrays-and-inline-tables&quot; stories=&quot;parser-arrays-inline&quot;&gt;
+Arrays are square brackets with values inside. Whitespace is ignored. Elements
+are separated by commas. Arrays can contain values of the same data types as
+allowed in key/value pairs. Values of different types may be mixed.
+
+Inline tables provide a more compact syntax for expressing tables. They are
+especially useful for grouped data that can otherwise quickly become verbose.
+Inline tables are fully defined within curly braces: `{` and `}`. Within the
+braces, zero or more comma-separated key/value pairs may appear.
+&lt;/requirement&gt;
+&lt;requirement name=&quot;tables&quot; stories=&quot;parser-tables&quot;&gt;
+Tables (also known as hash tables or dictionaries) are collections of key/value
+pairs. They are defined by headers, with square brackets on a line by
+themselves.
+
+The last syntax that has not yet been described allows writing arrays of tables.
+These can be expressed by using a header with a name in double brackets. The
+first instance of that header defines the array and its first table element, and
+each subsequent instance creates and defines a new table element in that array.
+The tables are inserted into the array in the order encountered.
+&lt;/requirement&gt;
+&lt;requirement name=&quot;toml-file-metadata&quot; stories=&quot;conformance&quot;&gt;
+TOML files should use the extension `.toml`.
+
+When transferring TOML files over the internet, the appropriate MIME type is
+`application/toml`.
+&lt;/requirement&gt;
+&lt;unattached story=&quot;architecture&quot;/&gt;
+&lt;unattached story=&quot;decoder-contract&quot;/&gt;</pre></article>
+</main>
+</body>
+</html>

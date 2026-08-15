@@ -697,294 +697,9 @@
     ],
     "Workspace": [
       {
-        "bytes": 5275,
-        "path": "workspace/.agents/skills/apply-refit/SKILL.md",
-        "sha256": "488581b357a810477386b3a5f944e2301e7ebb3f22f4a456a9502f4f6c26eb85"
-      },
-      {
-        "bytes": 8893,
-        "path": "workspace/.agents/skills/refit/SKILL.md",
-        "sha256": "309a33595806437d19838bdbff72f4dd260bec32f4d2339bc5d1ce0518011452"
-      },
-      {
-        "bytes": 5275,
-        "path": "workspace/.claude/skills/apply-refit/SKILL.md",
-        "sha256": "488581b357a810477386b3a5f944e2301e7ebb3f22f4a456a9502f4f6c26eb85"
-      },
-      {
-        "bytes": 8893,
-        "path": "workspace/.claude/skills/refit/SKILL.md",
-        "sha256": "309a33595806437d19838bdbff72f4dd260bec32f4d2339bc5d1ce0518011452"
-      },
-      {
-        "bytes": 515,
-        "path": "workspace/logs/20260814.050012.468Z_toml_init.log",
-        "sha256": "8937ee360da3af66edf8bda2e3e58e02c5cb1113be599e088c3d2d8b6ffabc06"
-      },
-      {
-        "bytes": 365,
-        "path": "workspace/logs/20260814.050013.080Z_toml_import_codex.log",
-        "sha256": "4e2db23bd4fbe12192a6527fb6d7edfbc27535aa6bab2f76227775e7092ed831"
-      },
-      {
-        "bytes": 546,
-        "path": "workspace/logs/20260814.050013.833Z_toml_analyze_codex.log",
-        "sha256": "59002c031b3facf83e3758ece216231a5354e02bf4f470259086c69b076a8a0a"
-      },
-      {
-        "bytes": 13281,
-        "path": "workspace/logs/20260814.050014.274Z_toml_analyze_codex.output.txt",
-        "sha256": "a983d3da92102be742f7ac79c419ba26bdeb617f2307c92e2ade3922600093aa"
-      },
-      {
-        "bytes": 91819,
-        "path": "workspace/logs/20260814.050014.274Z_toml_analyze_codex.prompt.md",
-        "sha256": "eafdbae5a9b44a578575c6b7d5bc85748b5886e424b6aae3db4f9e826f009c51"
-      },
-      {
-        "bytes": 13945,
-        "path": "workspace/logs/20260814.050014.274Z_toml_analyze_codex.raw.jsonl",
-        "sha256": "3feaeb11cf2f4afefa48256fa8b7f3ee02cc5de465bd3a562d8892a9f25ab8ae"
-      },
-      {
-        "bytes": 2892,
-        "path": "workspace/logs/20260814.050124.378Z_toml_plan_codex.log",
-        "sha256": "23e73252bec3eca1f603df5d8221e97254526b91bf28b28428e4e2f8a2643c46"
-      },
-      {
-        "bytes": 16459,
-        "path": "workspace/logs/20260814.050125.006Z_toml_plan_codex.output.txt",
-        "sha256": "b244c45c4920db6106c416330da758015359c539e9c0d25ee1402738e3014d60"
-      },
-      {
-        "bytes": 151098,
-        "path": "workspace/logs/20260814.050125.006Z_toml_plan_codex.prompt.md",
-        "sha256": "70b5fb85f92512a54860030c0c30ed60f112564ffbec9d2de8dfe68e56af821b"
-      },
-      {
-        "bytes": 17343,
-        "path": "workspace/logs/20260814.050125.006Z_toml_plan_codex.raw.jsonl",
-        "sha256": "6a7179a5d81f56ee7b9c1a727c001c64f1f814ba6cfc44a032f4efaf54ad413b"
-      },
-      {
-        "bytes": 15522,
-        "path": "workspace/logs/20260814.050246.545Z_toml_plan_codex.output.txt",
-        "sha256": "d3024635d75f77fafef4b466c8e18c8e2dcfde1704e093153ce5103878e91f05"
-      },
-      {
-        "bytes": 170512,
-        "path": "workspace/logs/20260814.050246.545Z_toml_plan_codex.prompt.md",
-        "sha256": "c8fa7b235ffa4f6d579f911e544e0a6098f4de8d086b6acdd9037ad50e060e97"
-      },
-      {
-        "bytes": 16587,
-        "path": "workspace/logs/20260814.050246.545Z_toml_plan_codex.raw.jsonl",
-        "sha256": "df49cb37663c470d0d621455a1f028b869f8cf4f444da6cef28f195611f7717c"
-      },
-      {
-        "bytes": 11735,
-        "path": "workspace/logs/20260814.050356.281Z_toml_plan_codex.output.txt",
-        "sha256": "9e81597726d95b1b32be5b4f1d8038efe50c1ca8c426bb340bb493b8b0969fde"
-      },
-      {
-        "bytes": 170651,
-        "path": "workspace/logs/20260814.050356.281Z_toml_plan_codex.prompt.md",
-        "sha256": "ed6bfc18b96f9b6a89ae46f6052befa74631982d92a43e96df87791f584a5139"
-      },
-      {
-        "bytes": 12625,
-        "path": "workspace/logs/20260814.050356.281Z_toml_plan_codex.raw.jsonl",
-        "sha256": "d5a67e838811b09b1ba415381870a9e5fd63ccc81b15c6be4210605a8a624cc9"
-      },
-      {
-        "bytes": 9145,
-        "path": "workspace/logs/20260814.050456.620Z_toml_plan_codex.output.txt",
-        "sha256": "1aea9d6487cf2653329d70e0b0ec6d81382680ccda0e4081bc3c5efbda160a93"
-      },
-      {
-        "bytes": 170818,
-        "path": "workspace/logs/20260814.050456.620Z_toml_plan_codex.prompt.md",
-        "sha256": "b29c12a8b62f7ec90425f202f194d3a16d30c6d7d07ea99dd9263f651cb73048"
-      },
-      {
-        "bytes": 9881,
-        "path": "workspace/logs/20260814.050456.620Z_toml_plan_codex.raw.jsonl",
-        "sha256": "c13ac8d8180aaf6173a7d1a6d735eb3c2a7ff61c6abeca9465f4cf39f9da7385"
-      },
-      {
-        "bytes": 6506,
-        "path": "workspace/logs/20260814.050545.378Z_toml_plan_codex.output.txt",
-        "sha256": "197a625065b808fe30d8ed5501fa0b5de639286adff362f32f78e94f7d1f399d"
-      },
-      {
-        "bytes": 170844,
-        "path": "workspace/logs/20260814.050545.378Z_toml_plan_codex.prompt.md",
-        "sha256": "95937db6e51b35a3422dd5c42d08a77e1dba53f0ca3e70cbb7fd0120ec15b7ae"
-      },
-      {
-        "bytes": 7112,
-        "path": "workspace/logs/20260814.050545.378Z_toml_plan_codex.raw.jsonl",
-        "sha256": "83fe89f5eb0608751a176aa1fe2dc7ca990c55e7951fa32828bc324a944ded5f"
-      },
-      {
-        "bytes": 3189,
-        "path": "workspace/logs/20260814.050643.513Z_toml_lineage_attribute_codex.output.txt",
-        "sha256": "de514852d872883536bbd09942978a778e1f5ffab677728cb37ba1aa270c4f1e"
-      },
-      {
-        "bytes": 13404,
-        "path": "workspace/logs/20260814.050643.513Z_toml_lineage_attribute_codex.prompt.md",
-        "sha256": "fb5d8a3e65b941f12f1751048d405457a76bd2a18323572394afd8625c877570"
-      },
-      {
-        "bytes": 3674,
-        "path": "workspace/logs/20260814.050643.513Z_toml_lineage_attribute_codex.raw.jsonl",
-        "sha256": "48ce30037c56b9f7f8b87c286a6c0f42d0d6f5efd3164417fc4b9b3f7898e7e0"
-      },
-      {
-        "bytes": 1165,
-        "path": "workspace/logs/20260814.050706.718Z_toml_lineage_attribute_codex.output.txt",
-        "sha256": "11e676f8482e8bc17452d41fc902b37a968c692c930bead9d69e031f24373434"
-      },
-      {
-        "bytes": 5568,
-        "path": "workspace/logs/20260814.050706.718Z_toml_lineage_attribute_codex.prompt.md",
-        "sha256": "caa8929310e308a80a262a553673c368fe301cad3ce8e56038bc74a059a6515d"
-      },
-      {
-        "bytes": 1581,
-        "path": "workspace/logs/20260814.050706.718Z_toml_lineage_attribute_codex.raw.jsonl",
-        "sha256": "f6849e86e44a94d6bd0597f91946a72e6c98479bd413d0a3de1e79ae2ae8b06f"
-      },
-      {
-        "bytes": 1765,
-        "path": "workspace/logs/20260814.050723.758Z_toml_lineage_attribute_codex.output.txt",
-        "sha256": "611fce69b74b09ca9643cfb49410d8ab2864724da8a913b2e4295d2005de1c3e"
-      },
-      {
-        "bytes": 7422,
-        "path": "workspace/logs/20260814.050723.758Z_toml_lineage_attribute_codex.prompt.md",
-        "sha256": "01b63c88c20558168434cfe633cd68949ca886fcd520466cc2622ed9b45f8946"
-      },
-      {
-        "bytes": 2207,
-        "path": "workspace/logs/20260814.050723.758Z_toml_lineage_attribute_codex.raw.jsonl",
-        "sha256": "56bb720a309b4ce57da3ddfe4a51c43a7cb43285e6144f088583344384cc54db"
-      },
-      {
-        "bytes": 1001,
-        "path": "workspace/logs/20260814.050742.080Z_toml_lineage_attribute_codex.output.txt",
-        "sha256": "73522860956e7659835c8ba8d9974a6674b839c615fd096c37eec8906e5e51d9"
-      },
-      {
-        "bytes": 6415,
-        "path": "workspace/logs/20260814.050742.080Z_toml_lineage_attribute_codex.prompt.md",
-        "sha256": "0883dbb760c4f9a85eac74ed5b539ea4bbe478cd0102e423e0cdc80a25f3c87f"
-      },
-      {
-        "bytes": 1416,
-        "path": "workspace/logs/20260814.050742.080Z_toml_lineage_attribute_codex.raw.jsonl",
-        "sha256": "b0b178cc0aa6907faae1d405a582f6af04a81624e8767cbcfc95997ae872a4d2"
-      },
-      {
-        "bytes": 1076,
-        "path": "workspace/logs/20260814.050755.804Z_toml_lineage_attribute_codex.output.txt",
-        "sha256": "2f3f53d21f730e8820340797214dc820203ee4d9777af687acce94a90da2bb17"
-      },
-      {
-        "bytes": 5761,
-        "path": "workspace/logs/20260814.050755.804Z_toml_lineage_attribute_codex.prompt.md",
-        "sha256": "b6b9a78906cc2524f52782607ef86edeff9867da7340b620311c2eaabca9ca5a"
-      },
-      {
-        "bytes": 1483,
-        "path": "workspace/logs/20260814.050755.804Z_toml_lineage_attribute_codex.raw.jsonl",
-        "sha256": "b3fb8e06d3d59d9a4144aec8193e6987658764d185ac6f1801b9dba4df5e370f"
-      },
-      {
-        "bytes": 2987,
-        "path": "workspace/logs/20260814.050808.885Z_toml_lineage_attribute_codex.output.txt",
-        "sha256": "531448a23277b9d34fdf0f26e747c56c295018886d3e451bd81b97abc5778045"
-      },
-      {
-        "bytes": 30346,
-        "path": "workspace/logs/20260814.050808.885Z_toml_lineage_attribute_codex.prompt.md",
-        "sha256": "6cc1e750f4f418693fc2cc07e88925c5b468dd0e73771095ed8ba68210a8b011"
-      },
-      {
-        "bytes": 3475,
-        "path": "workspace/logs/20260814.050808.885Z_toml_lineage_attribute_codex.raw.jsonl",
-        "sha256": "620ce505bf881af32a2e8f1888c3d0a137dc6248008e58431d68ed7234305fe8"
-      },
-      {
-        "bytes": 3169,
-        "path": "workspace/logs/20260814.050849.604Z_toml_build.log",
-        "sha256": "e4a02f584f474b3c6f63194d82a44ba8cfb305601203ef988b7a69b9d9bc877c"
-      },
-      {
-        "bytes": 926,
-        "path": "workspace/logs/20260814.050850.623Z_toml_status.log",
-        "sha256": "b47de8b04b277eeeb755fc0e88493fb8eb1a2b52cbdb099324c0e21cc87f0b2c"
-      },
-      {
-        "bytes": 868,
-        "path": "workspace/logs/20260814.050851.480Z_status.log",
-        "sha256": "9d02eb82dd9b80845ac50739081b3960b8bc580bbea33e874b6b71337d4f6c12"
-      },
-      {
-        "bytes": 5721,
-        "path": "workspace/logs/20260814.050852.505Z_toml_build_codex.log",
-        "sha256": "7b1f5b265d87f66eabc6d6b913da0f6d1fe31ddaf35895bd842ac61e26e38052"
-      },
-      {
-        "bytes": 719,
-        "path": "workspace/logs/20260814.050854.031Z_toml_build_codex.output.txt",
-        "sha256": "4914389cd557e346c5a3acc60a0d7275b60a14b2292ca7de9da85abb37d9c86d"
-      },
-      {
-        "bytes": 50000,
-        "path": "workspace/logs/20260814.050854.031Z_toml_build_codex.prompt.md",
-        "sha256": "a325449ca94cba97fedb33fbe9be6a43ee415af470f1e2ad26928dca94647538"
-      },
-      {
-        "bytes": 8854,
-        "path": "workspace/logs/20260814.050854.031Z_toml_build_codex.raw.jsonl",
-        "sha256": "384d02aebeebad7b3ad17fe611858d92d952d6b0a2721dca86d2f6f2a0ef5a07"
-      },
-      {
         "bytes": 1746,
         "path": "workspace/logs/20260814.050854.031Z_toml_build_codex.stderr.log",
         "sha256": "7ecc994cc8abfb0685b904d72350d106ea37a7fc5b3f86abb156ee59b18cc4e5"
-      },
-      {
-        "bytes": 680,
-        "path": "workspace/logs/20260814.051109.985Z_toml_build_codex.output.txt",
-        "sha256": "7e4a7419cc05854a07ab0ac2b94a49fab654f764eee053a33848c045af434592"
-      },
-      {
-        "bytes": 46047,
-        "path": "workspace/logs/20260814.051109.985Z_toml_build_codex.prompt.md",
-        "sha256": "4da4c0ddb6a836f5c84c23d3a428e526049b2bb444a0181adf5998c1616447c4"
-      },
-      {
-        "bytes": 157504,
-        "path": "workspace/logs/20260814.051109.985Z_toml_build_codex.raw.jsonl",
-        "sha256": "07a11deedd2645a2217526dc1f03ed9e61e72b5fc90c02c4e9710077bb2e74a4"
-      },
-      {
-        "bytes": 584,
-        "path": "workspace/logs/20260814.051622.557Z_toml_build_codex.output.txt",
-        "sha256": "9202b6139d6600b2807bcde7d4260a3794a814dc29abf8641800ce36e7dee96f"
-      },
-      {
-        "bytes": 45844,
-        "path": "workspace/logs/20260814.051622.557Z_toml_build_codex.prompt.md",
-        "sha256": "f2e8459ec1c784dde193e8d97779cca93c32d2b49de5a012ff4f91a6ab56c0c2"
-      },
-      {
-        "bytes": 141544,
-        "path": "workspace/logs/20260814.051622.557Z_toml_build_codex.raw.jsonl",
-        "sha256": "8cf5f16214d770c56ee63ab9121f7fc4d1f0071b8c3b321556e8b52535d105b7"
       },
       {
         "bytes": 602,
@@ -992,54 +707,9 @@
         "sha256": "f1ecc02a7ffde69a976594ba7978de6164d31997b7e68dd37203dfdd4f93372c"
       },
       {
-        "bytes": 724,
-        "path": "workspace/logs/20260814.051752.394Z_toml_build_codex.output.txt",
-        "sha256": "3062bcd3372aae0aa39586948d05be1d1ff8e88140cee0a7ade6d1d03a4ec737"
-      },
-      {
-        "bytes": 47255,
-        "path": "workspace/logs/20260814.051752.394Z_toml_build_codex.prompt.md",
-        "sha256": "912c1fdbc9d741a1f94a68f96aa9045015a658daaaa049e26c0ef5097d595fc5"
-      },
-      {
-        "bytes": 164203,
-        "path": "workspace/logs/20260814.051752.394Z_toml_build_codex.raw.jsonl",
-        "sha256": "776150080524857e3e83a1a171b35f67d5dab23a5b6deb5bbc8664f75a55118c"
-      },
-      {
-        "bytes": 589,
-        "path": "workspace/logs/20260814.052011.978Z_toml_build_codex.output.txt",
-        "sha256": "8fe438bb29712f741ce74c1e4e31123d2b72d3e7924dda7ee6314cb7e4ad0e7e"
-      },
-      {
-        "bytes": 48822,
-        "path": "workspace/logs/20260814.052011.978Z_toml_build_codex.prompt.md",
-        "sha256": "3f736d1a71143012b36abb07d5b46e533dbcb1dfb609132b7a939c66a71206d8"
-      },
-      {
-        "bytes": 108341,
-        "path": "workspace/logs/20260814.052011.978Z_toml_build_codex.raw.jsonl",
-        "sha256": "0351f80879e68f3f8305abd26a5685145bec6b94951e4cbeba19791f3380ba17"
-      },
-      {
         "bytes": 2090,
         "path": "workspace/logs/20260814.052011.978Z_toml_build_codex.stderr.log",
         "sha256": "b39fc5869b658a38105841f517665bf534fa6b2f6b8fbc7e8ed6f90a66feb15a"
-      },
-      {
-        "bytes": 420,
-        "path": "workspace/logs/20260814.052805.919Z_toml_build_codex.output.txt",
-        "sha256": "5863abb8ba46cf3938387bf1ec09581fd964a47cc6cc842dd85bc1e203aa9059"
-      },
-      {
-        "bytes": 49898,
-        "path": "workspace/logs/20260814.052805.919Z_toml_build_codex.prompt.md",
-        "sha256": "2b59b95975abf3ff9e4ef819fbaac0fed9463898dc8f1188d5f9e68f6d0ec3c5"
-      },
-      {
-        "bytes": 129541,
-        "path": "workspace/logs/20260814.052805.919Z_toml_build_codex.raw.jsonl",
-        "sha256": "87ec67a15e9b897d17a2935b334350de7a2bf195416ea1bd83fe24dcaf07ee71"
       },
       {
         "bytes": 271,
@@ -1047,54 +717,9 @@
         "sha256": "8c321058cb4534fa47e494199018ca1090dc1f2cfe92a5e9a0e2d81759440cd7"
       },
       {
-        "bytes": 483,
-        "path": "workspace/logs/20260814.053413.450Z_toml_build_codex.output.txt",
-        "sha256": "d79f08427a710913fd2f4910e9f6c8d359f0d067900b8c75587fb794eca7f35c"
-      },
-      {
-        "bytes": 47233,
-        "path": "workspace/logs/20260814.053413.450Z_toml_build_codex.prompt.md",
-        "sha256": "1c33a04d596c4113b9ed4890fa4e4bf2f8d31edf5184732a4d469ad081aab9b6"
-      },
-      {
-        "bytes": 103863,
-        "path": "workspace/logs/20260814.053413.450Z_toml_build_codex.raw.jsonl",
-        "sha256": "b775d1d143df8313ae610269f33020bb9b3060133d3546e05d93381aae34818d"
-      },
-      {
-        "bytes": 561,
-        "path": "workspace/logs/20260814.053827.709Z_toml_build_codex.output.txt",
-        "sha256": "d53c65817b9ee64a50927fdfab268cc5709412ad398419f2bac014239522535c"
-      },
-      {
-        "bytes": 48629,
-        "path": "workspace/logs/20260814.053827.709Z_toml_build_codex.prompt.md",
-        "sha256": "13c25b62d352d9e413eef5b2f63b67905dd217ee30862a4959422b8ba9036753"
-      },
-      {
-        "bytes": 101988,
-        "path": "workspace/logs/20260814.053827.709Z_toml_build_codex.raw.jsonl",
-        "sha256": "1fdcc74f8dca25e792b92388cc91dd306c3c5e71a49ebdfbb9f5be841ddb0fc3"
-      },
-      {
         "bytes": 966,
         "path": "workspace/logs/20260814.053827.709Z_toml_build_codex.stderr.log",
         "sha256": "7fd558ee32dc0cb71db38d1ff7f72824e0250e5e72407d3029be201f9d50ddc8"
-      },
-      {
-        "bytes": 393,
-        "path": "workspace/logs/20260814.054305.133Z_toml_build_codex.output.txt",
-        "sha256": "ba9396238ccf9d95bbc3be66a7b23383a982361b39beb68b9a35b5b97e932477"
-      },
-      {
-        "bytes": 49721,
-        "path": "workspace/logs/20260814.054305.133Z_toml_build_codex.prompt.md",
-        "sha256": "6ac1ec305e9eea1dd7cd168cfd353f7f874dcbc4d578406c1b389834b969ce5c"
-      },
-      {
-        "bytes": 127764,
-        "path": "workspace/logs/20260814.054305.133Z_toml_build_codex.raw.jsonl",
-        "sha256": "2fa755d850d22ae4cc3cf768216b325be69473ea08e66ec4d6e5a8eb20fe1a95"
       },
       {
         "bytes": 627,
@@ -1102,54 +727,9 @@
         "sha256": "f161769a12dd7cff606005864e4a8717ab541e0228ecb2cd23d82779e1ad4abb"
       },
       {
-        "bytes": 510,
-        "path": "workspace/logs/20260814.054821.850Z_toml_build_codex.output.txt",
-        "sha256": "eeda96537544d3cc62f1c73e5400ed0bc7c50a9f89ac4441a00b7f00a04bcc18"
-      },
-      {
-        "bytes": 48730,
-        "path": "workspace/logs/20260814.054821.850Z_toml_build_codex.prompt.md",
-        "sha256": "f62fbdb3666a1a8dda18e01b2afaf954275b0b9875a3ca4f07173ef65fe57bb0"
-      },
-      {
-        "bytes": 152697,
-        "path": "workspace/logs/20260814.054821.850Z_toml_build_codex.raw.jsonl",
-        "sha256": "ee3023ddb9f70f7eaad2fdb3706542954cc7152c0659513de0bf19b20aa8245e"
-      },
-      {
         "bytes": 509,
         "path": "workspace/logs/20260814.054821.850Z_toml_build_codex.stderr.log",
         "sha256": "a3621629be75c4c0e21037bc7d50fdb906aa4838f180e052a12102e1fce3fb2a"
-      },
-      {
-        "bytes": 457,
-        "path": "workspace/logs/20260814.055428.590Z_toml_build_codex.output.txt",
-        "sha256": "3ed60f72cfe7dee57824727e79bb7b2738dedd84928a78712803467b5264041a"
-      },
-      {
-        "bytes": 49143,
-        "path": "workspace/logs/20260814.055428.590Z_toml_build_codex.prompt.md",
-        "sha256": "da94cc5c299c47515e2aded6e8c5946d56da86460a236d2ed538d444cee84c2c"
-      },
-      {
-        "bytes": 85823,
-        "path": "workspace/logs/20260814.055428.590Z_toml_build_codex.raw.jsonl",
-        "sha256": "7e5a47b950c67d9034075ffd857bc1899bdddb648321ef398d6a5f31a5e7f81e"
-      },
-      {
-        "bytes": 416,
-        "path": "workspace/logs/20260814.055701.009Z_toml_build_codex.output.txt",
-        "sha256": "503975b13b09e8014894c333de03b0807c089f698b14f28207a8eac678b66058"
-      },
-      {
-        "bytes": 46753,
-        "path": "workspace/logs/20260814.055701.009Z_toml_build_codex.prompt.md",
-        "sha256": "106dc79a7dfe0383d15dadbc8ba70baade2e3a1f683f01a01ffc913afb8ce6c9"
-      },
-      {
-        "bytes": 56294,
-        "path": "workspace/logs/20260814.055701.009Z_toml_build_codex.raw.jsonl",
-        "sha256": "2107a5193662ca0dfa847c2ec19199fa9bd9f789d414eff184869bc687d88151"
       },
       {
         "bytes": 546,
@@ -1157,84 +737,14 @@
         "sha256": "36e825ccd1843a5089b10ca670db68d2609495b23652f2f20d5e31a4aed0cde9"
       },
       {
-        "bytes": 238,
-        "path": "workspace/logs/20260814.055941.201Z_toml_build_codex.output.txt",
-        "sha256": "02bc1a6a7a964349702450496d5bfd680d32b0f62f4b1b2109800b18f4390d23"
-      },
-      {
-        "bytes": 50079,
-        "path": "workspace/logs/20260814.055941.201Z_toml_build_codex.prompt.md",
-        "sha256": "3536a4784b4496b9bbadc182cc1d54d951d99f1ab22fb6ec9b36d3751e75e8b1"
-      },
-      {
-        "bytes": 56577,
-        "path": "workspace/logs/20260814.055941.201Z_toml_build_codex.raw.jsonl",
-        "sha256": "c88e29baf1b33630f00a44ecbb2e0d9d99dd7f55ec0215fb67444cd3826e56f6"
-      },
-      {
         "bytes": 335,
         "path": "workspace/logs/20260814.055941.201Z_toml_build_codex.stderr.log",
         "sha256": "5badfd115754df8314bbcd43fe22cde43ada6c62bdcdaf73cb85988ac986ac7c"
       },
       {
-        "bytes": 57,
-        "path": "workspace/logs/20260814.060231.602Z_toml_status.log",
-        "sha256": "cd34e49f8c2a688b2fe4bea2e07cde9d893109a3039cd3b3ba4e7710393f97af"
-      },
-      {
-        "bytes": 3239,
-        "path": "workspace/logs/20260814.060231.970Z_toml_build.log",
-        "sha256": "28822c310866fd83ac4a70b4a34b9315ec865bea46b93fee8fd0d9bd63e4a8c1"
-      },
-      {
-        "bytes": 767,
-        "path": "workspace/logs/20260814.060232.526Z_toml_status.log",
-        "sha256": "81c46db1417c3df9bed18626a90fc1a5dca5327e1f6748cbf126ce0424b0e8ef"
-      },
-      {
-        "bytes": 693,
-        "path": "workspace/logs/20260814.060233.940Z_status.log",
-        "sha256": "647d0524c05fb79c7ca6e0573980fd7c072a03f2c1c9071b9a74b193304094b3"
-      },
-      {
-        "bytes": 11375,
-        "path": "workspace/logs/20260814.060238.264Z_toml_score.log",
-        "sha256": "5dc46891c637262b435c4d5847f1050334302133ad9322dde504ad8f3c0fb1a3"
-      },
-      {
-        "bytes": 2329,
-        "path": "workspace/logs/20260814.060410.829Z_build_score.log",
-        "sha256": "49d44a9d2ec98cfaec2103922b27451daa43b5eb1c2aef85ce03b7743734a333"
-      },
-      {
-        "bytes": 472,
-        "path": "workspace/logs/20260814.060411.873Z_toml_score_codex.log",
-        "sha256": "1735ebdb5c031bffd18b9ce01d7f425e0ccebda9b53181337251b3b47ac7c054"
-      },
-      {
-        "bytes": 296,
-        "path": "workspace/logs/20260814.060416.486Z_toml_score-release_codex.output.txt",
-        "sha256": "55a77e7c87cd0ee8b1e37cbe82d8f1c4fdce0dd21bb3d9ae0d3526c57ad0ad19"
-      },
-      {
-        "bytes": 6152,
-        "path": "workspace/logs/20260814.060416.486Z_toml_score-release_codex.prompt.md",
-        "sha256": "767875d069440789e3f89ee6dac3da2bdca86e0074d4305dd06176e21786965a"
-      },
-      {
-        "bytes": 663,
-        "path": "workspace/logs/20260814.060416.486Z_toml_score-release_codex.raw.jsonl",
-        "sha256": "d62f0db897d90f5043c3c619bf5851c5a8b82afbd54d20fe29cf20a7c6e87628"
-      },
-      {
         "bytes": 1147,
         "path": "workspace/logs/history.jsonl",
         "sha256": "ae838ebdd99d7c41dca87a3b9751c26bb5e7164fba452fc63a17d8f41082dfac"
-      },
-      {
-        "bytes": 128618,
-        "path": "workspace/logs/llm.jsonl",
-        "sha256": "2244041c48fc2196a85e850e74fc86a4b76144398ee5426e5c2086f5159b34e3"
       },
       {
         "bytes": 906,

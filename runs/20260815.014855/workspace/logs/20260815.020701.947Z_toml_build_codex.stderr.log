@@ -1,0 +1,20 @@
+2026-08-15T02:11:42.788472Z ERROR codex_core::tools::router: error=apply_patch verification failed: Failed to find expected lines in /mnt/c/Users/barlo/projects/drydock/uat/Toml/runs/20260815.014855/build/toml/internal/toml/toml.go:
+	defined   map[string]bool
+2026-08-15T02:13:00.917495Z ERROR codex_core::tools::router: error=apply_patch verification failed: Failed to find expected lines in /mnt/c/Users/barlo/projects/drydock/uat/Toml/runs/20260815.014855/build/toml/internal/toml/toml.go:
+			for assigned := range p.assigned {
+				parts := strings.Split(assigned, "\x00")
+				if len(parts) > len(path) && pathString(parts[:len(path)]) == key {
+2026-08-15T02:14:52.031572Z ERROR codex_core::tools::router: error=apply_patch verification failed: Failed to find expected lines in /mnt/c/Users/barlo/projects/drydock/uat/Toml/runs/20260815.014855/build/toml/internal/toml/toml.go:
+	var b strings.Builder
+	for i < len(s) {
+		if strings.HasPrefix(s[i:], strings.Repeat(string(q), 3)) {
+			return b.String(), i + 3, nil
+		}
+		if q == '"' && s[i] == '\\' && i+1 < len(s) && s[i+1] == '\n' {
+			i += 2
+			for i < len(s) && (s[i] == ' ' || s[i] == '\t' || s[i] == '\n') { i++ }
+			continue
+		}
+		b.WriteByte(s[i]); i++
+2026-08-15T02:16:16.579358Z ERROR codex_core::tools::router: error=apply_patch verification failed: Failed to find expected lines in /mnt/c/Users/barlo/projects/drydock/uat/Toml/runs/20260815.014855/build/toml/internal/toml/toml.go:
+			n, ok := base[key]

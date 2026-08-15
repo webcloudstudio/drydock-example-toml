@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>workspace/logs/20260815.015856.448Z_toml_build_codex.stderr.log</title>
+<link rel="stylesheet" href="../../../assets/kit.css">
+</head>
+<body>
+<main>
+<header class="fileheader"><div class="kind">Run artifact</div><h1>workspace/logs/20260815.015856.448Z_toml_build_codex.stderr.log</h1><div class="filenav"><a href="../../../index.html">&larr; Report</a><a href="../../../workspace/logs/20260815.015856.448Z_toml_build_codex.stderr.log">Raw file</a></div></header>
+<article class="doc"><pre>2026-08-15T02:02:57.560618Z ERROR codex_core::tools::router: error=apply_patch verification failed: Failed to find expected lines in /mnt/c/Users/barlo/projects/drydock/uat/Toml/runs/20260815.014855/build/toml/internal/toml/toml.go:
+func validUnderscores(s string) bool {
+	for i := 0; i &lt; len(s); i++ {
+		if s[i] == &#x27;_&#x27; &amp;&amp; (i == 0 || i+1 == len(s) || !isDigit(s[i-1]) || !isDigit(s[i+1])) {
+			return false
+		}
+	}
+	return true
+}
+
+func isDigit(c byte) bool { return c &gt;= &#x27;0&#x27; &amp;&amp; c &lt;= &#x27;9&#x27; }
+2026-08-15T02:03:14.316472Z ERROR codex_core::tools::router: error=apply_patch verification failed: invalid hunk at line 2, Update file hunk for path &#x27;/mnt/c/Users/barlo/projects/drydock/uat/Toml/runs/20260815.014855/build/toml/internal/toml/internal/toml.go&#x27; is empty
+2026-08-15T02:05:40.710464Z ERROR codex_core::tools::router: error=apply_patch verification failed: Failed to find expected lines in /mnt/c/Users/barlo/projects/drydock/uat/Toml/runs/20260815.014855/build/toml/internal/toml/toml_test.go:
+	got, err := Decode(&quot;basic = \&quot;a\\n\\u03bb\&quot;\nliteral = &#x27;a\\nb&#x27;\nmultibasic = \&quot;\&quot;\&quot;\nhello \\\n-+world\&quot;\&quot;\&quot;\nmultiliteral = &#x27;&#x27;&#x27;\nraw\\ntext&#x27;&#x27;&#x27;\n&quot;)
+2026-08-15T02:05:44.103643Z ERROR codex_core::tools::router: error=apply_patch verification failed: Failed to find expected lines in /mnt/c/Users/barlo/projects/drydock/uat/Toml/runs/20260815.014855/build/toml/internal/toml/toml_test.go:
++world\&quot;\&quot;\&quot;\nmultiliteral
+2026-08-15T02:05:50.062326Z ERROR codex_core::tools::router: error=apply_patch verification failed: Failed to find expected lines in /mnt/c/Users/barlo/projects/drydock/uat/Toml/runs/20260815.014855/build/toml/internal/toml/toml_test.go:
+func TestDecodeStringFormsAndEscapes(t *testing.T) {
+	got, err := Decode(&quot;basic = \&quot;a\\n\\u03bb\&quot;\nliteral = &#x27;a\\nb&#x27;\nmultibasic = \&quot;\&quot;\&quot;\nhello \\\n-+world\&quot;\&quot;\&quot;\nmultiliteral = &#x27;&#x27;&#x27;\nraw\\ntext&#x27;&#x27;&#x27;\n&quot;)
+2026-08-15T02:05:53.809358Z ERROR codex_core::tools::router: error=apply_patch verification failed: Failed to find expected lines in /mnt/c/Users/barlo/projects/drydock/uat/Toml/runs/20260815.014855/build/toml/internal/toml/toml_test.go:
++world\&quot;\&quot;\&quot;\nmultiliteral = &#x27;&#x27;&#x27;\nraw\\ntext&#x27;&#x27;&#x27;\n&quot;)
+</pre></article>
+</main>
+</body>
+</html>

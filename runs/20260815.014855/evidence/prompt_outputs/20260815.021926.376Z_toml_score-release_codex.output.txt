@@ -1,0 +1,1 @@
+{"criteria":[{"id":"st-001","verdict":"MET","rationale":"The governed scoring script exited zero and passed all supplied valid and invalid parser tests.","evidence":["sh sources/full_test.sh returned code 0","205 valid tests passed and 474 invalid tests passed"]}],"improvements":[]}

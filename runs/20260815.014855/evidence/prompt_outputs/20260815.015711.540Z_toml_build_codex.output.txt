@@ -1,0 +1,11 @@
+RESULT: SUCCESS
+
+FILES CHANGED:
+- cmd/toml-decoder/main.go
+- cmd/toml-decoder/main_test.go
+
+SUMMARY:
+Implemented and tested stdin decoding, tagged JSON output, diagnostics, and non-zero error behavior. `go test -race`, `go vet`, formatting, and `stage_contract.sh decoder` all pass.
+
+BLOCKERS:
+- None

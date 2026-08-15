@@ -92,6 +92,28 @@ table.tree td.name strong { font-weight: 700; }
 .tag.fail { color: var(--fail); }
 .tag.degraded { color: var(--warn); }
 .tag.raw { color: var(--muted); font-weight: 400; }
+.tag.unknown { color: var(--warn); }
+
+/* ── receipt ────────────────────────────────────────────────── */
+.receipt { border: 1px solid var(--hard); margin: 0 0 1.25rem; }
+.receipt > .caption {
+  display: flex; justify-content: space-between; align-items: baseline; gap: 1rem; flex-wrap: wrap;
+  background: var(--hard); color: var(--paper); padding: .35rem .6rem;
+  font-size: .74rem; text-transform: uppercase; letter-spacing: .18em; font-weight: 700;
+}
+.receipt > .caption .tally { letter-spacing: .1em; }
+.receipt .scroll { border: none; }
+.receipt table td:first-child { white-space: nowrap; font-weight: 700; }
+.receipt tbody tr.fail td:first-child { color: var(--fail); }
+.receipt tbody tr.unknown td:first-child { color: var(--warn); }
+.receipt td.detail { color: var(--muted); }
+
+/* ── guided path and limits ─────────────────────────────────── */
+ol.steps { margin: 0 0 1.25rem; padding-left: 1.5rem; font-size: .84rem; }
+ol.steps li { margin: .3rem 0; }
+ol.steps li .what { display: block; color: var(--muted); font-size: .8rem; }
+ul.limits { margin: 0 0 1.25rem; padding-left: 1.3rem; font-size: .82rem; color: var(--muted); }
+ul.limits li { margin: .2rem 0; }
 footer { margin-top: 2.5rem; padding-top: .75rem; border-top: 3px double var(--hard); color: var(--muted); font-size: .78rem; }
 
 /* ── artifact viewer ────────────────────────────────────────── */

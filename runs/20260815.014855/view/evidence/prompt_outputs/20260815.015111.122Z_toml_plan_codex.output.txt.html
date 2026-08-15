@@ -1,0 +1,377 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>evidence/prompt_outputs/20260815.015111.122Z_toml_plan_codex.output.txt</title>
+<link rel="stylesheet" href="../../../assets/kit.css">
+</head>
+<body>
+<main>
+<header class="fileheader"><div class="kind">Run artifact</div><h1>evidence/prompt_outputs/20260815.015111.122Z_toml_plan_codex.output.txt</h1><div class="filenav"><a href="../../../index.html">&larr; Report</a><a href="../../../evidence/prompt_outputs/20260815.015111.122Z_toml_plan_codex.output.txt">Raw file</a></div></header>
+<article class="doc"><pre>=== BEGIN ARTIFACT ARCHITECTURE.md ===
+# ARCHITECTURE: TOML Parser
+
+| Field       | Value |
+|-------------|-------|
+| Version     | 20260815 V1 |
+| Description | Standard-library-only Go architecture for a TOML v1.0.0 stdin decoder. |
+| Depends On  | — |
+| Provides    | Go module, cmd/toml-decoder build entry point, internal/toml parser boundary |
+| Consumes    | — |
+
+## Questions
+
+- None.
+
+## Intent
+
+The application is a command-line filter that reads one UTF-8 TOML document from standard input and emits a tagged JSON document. Parsing is owned by `internal/toml`; the fixed executable entry point is `cmd/toml-decoder`.
+
+## Module Boundaries
+
+| Module | Responsibility |
+|---|---|
+| `cmd/toml-decoder` | Read stdin, invoke the parser, encode tagged JSON, report errors, and set exit status. |
+| `internal/toml` | Lex and parse TOML v1.0.0 into the tagged document model. |
+| `sources/` | Supplied conformance and acceptance harness assets; read-only during implementation. |
+
+The command must not contain TOML grammar logic. The parser must not depend on command-line arguments, configuration, network access, or third-party packages.
+
+## Tagged Document Model
+
+Tables are JSON objects and arrays are JSON arrays. Every scalar TOML value is represented as an object with string fields:
+
+- `type`: one of `string`, `integer`, `float`, `bool`, `datetime`, `datetime-local`, `date-local`, or `time-local`.
+- `value`: the TOML value represented as a JSON string.
+
+## Technology Stack
+
+- Go 1.22 or newer, using only the standard library.
+- POSIX shell for supplied acceptance and conformance scripts.
+
+## Build and Runtime Constraints
+
+The module must compile with no `require` dependencies in `go.mod`. The executable reads only stdin, writes successful JSON only to stdout, writes diagnostics only to stderr, and exits non-zero for malformed TOML.
+
+## Programmatic Acceptance
+
+=== AC architecture-module ===
+Intent: The project has a standard-library-only Go module and the fixed decoder build entry point.
+
+import pathlib
+import subprocess
+
+root = pathlib.Path(&quot;.&quot;)
+go_mod = root / &quot;go.mod&quot;
+command = root / &quot;cmd&quot; / &quot;toml-decoder&quot;
+assert go_mod.is_file()
+assert command.is_dir()
+result = subprocess.run(
+    [&quot;sh&quot;, &quot;sources/stage_contract.sh&quot;, &quot;architecture&quot;],
+    capture_output=True,
+    text=True,
+)
+print(result.stdout)
+print(result.stderr)
+assert result.returncode == 0
+=== END AC architecture-module ===
+
+=== AC architecture-parser-boundary ===
+Intent: The decoder command and internal parser boundary compile together.
+
+import pathlib
+import subprocess
+
+parser = pathlib.Path(&quot;internal&quot;) / &quot;toml&quot;
+command = pathlib.Path(&quot;cmd&quot;) / &quot;toml-decoder&quot;
+assert parser.is_dir()
+assert command.is_dir()
+result = subprocess.run(
+    [&quot;go&quot;, &quot;build&quot;, &quot;./cmd/toml-decoder&quot;],
+    capture_output=True,
+    text=True,
+)
+print(result.stdout)
+print(result.stderr)
+assert result.returncode == 0
+=== END AC architecture-parser-boundary ===
+
+## User Acceptance
+
+- None.
+
+## Guardrails
+
+- Do not add a third-party TOML parser or any other third-party Go dependency.
+- Preserve `cmd/toml-decoder` as the build entry point.
+- Do not modify supplied scoring or conformance scripts.
+=== END ARTIFACT ===
+=== BEGIN ARTIFACT FEATURE-Decoder-Contract.md ===
+# FEATURE: Decoder Contract
+
+| Field       | Value |
+|-------------|-------|
+| Version     | 20260815 V1 |
+| Description | Defines the stdin, tagged-JSON, diagnostic, and exit-status contract for the decoder. |
+| Depends On  | ARCHITECTURE.md |
+| Provides    | stdin TOML decoder, tagged JSON output, invalid-input diagnostics |
+| Consumes    | Go module, cmd/toml-decoder build entry point, internal/toml parser boundary |
+
+## Questions
+
+- None.
+
+## Workflow
+
+The executable reads exactly one TOML document from standard input. For valid input it parses through `internal/toml` and emits one JSON document on stdout with no diagnostic output. For invalid input it emits a diagnostic on stderr, emits no JSON document on stdout, and exits non-zero. It accepts no arguments and performs no side effects.
+
+## Output Contract
+
+- Tables become JSON objects.
+- Arrays become JSON arrays.
+- Scalar values become `{&quot;type&quot;: &quot;&lt;TOML_TYPE&gt;&quot;, &quot;value&quot;: &quot;&lt;TOML_VALUE&gt;&quot;}`.
+- Scalar `value` fields are JSON strings, including integers, floats, and booleans.
+- Offset datetimes use RFC 3339 representation; local date/time values use their corresponding local representations.
+
+## Programmatic Acceptance
+
+=== AC decoder-valid-contract ===
+Intent: A valid TOML document produces tagged JSON on stdout without stderr diagnostics.
+
+import json
+import subprocess
+
+source = &quot;answer = 42\n&quot;
+result = subprocess.run(
+    [&quot;./toml-decoder&quot;],
+    input=source,
+    capture_output=True,
+    text=True,
+)
+print(result.stdout)
+print(result.stderr)
+assert result.returncode == 0
+decoded = json.loads(result.stdout)
+expected_key = &quot;answer&quot;
+expected_type = &quot;integer&quot;
+expected_value = &quot;42&quot;
+assert decoded[expected_key][&quot;type&quot;] == expected_type
+assert decoded[expected_key][&quot;value&quot;] == expected_value
+assert result.stderr == &quot;&quot;
+=== END AC decoder-valid-contract ===
+
+=== AC decoder-invalid-contract ===
+Intent: Malformed TOML produces a non-zero exit, stderr diagnostics, and no stdout document.
+
+import subprocess
+
+source = &quot;answer = [\n&quot;
+result = subprocess.run(
+    [&quot;./toml-decoder&quot;],
+    input=source,
+    capture_output=True,
+    text=True,
+)
+print(result.stdout)
+print(result.stderr)
+assert result.returncode != 0
+assert result.stdout == &quot;&quot;
+assert result.stderr != &quot;&quot;
+=== END AC decoder-invalid-contract ===
+
+=== AC decoder-stage-contract ===
+Intent: The supplied decoder contract gate passes for valid and malformed stdin documents.
+
+import os
+import subprocess
+
+result = subprocess.run(
+    [&quot;sh&quot;, &quot;sources/stage_contract.sh&quot;, &quot;decoder&quot;],
+    capture_output=True,
+    text=True,
+    env={**os.environ},
+)
+print(result.stdout)
+print(result.stderr)
+assert result.returncode == 0
+=== END AC decoder-stage-contract ===
+
+## User Acceptance
+
+- None.
+
+## Guardrails
+
+- Emit no diagnostics on stdout for valid input.
+- Reject malformed TOML rather than producing partial JSON.
+- Do not inspect command-line arguments or require configuration.
+=== END ARTIFACT ===
+=== BEGIN ARTIFACT FEATURE-Parser-Strings.md ===
+# FEATURE: Parser Strings
+
+| Field       | Value |
+|-------------|-------|
+| Version     | 20260815 V1 |
+| Description | Defines TOML basic, literal, multiline-basic, and multiline-literal string parsing. |
+| Depends On  | FEATURE-Decoder-Contract.md |
+| Provides    | TOML basic, literal, multiline-basic, and multiline-literal string values |
+| Consumes    | stdin TOML decoder, tagged JSON output |
+
+## Questions
+
+- None.
+
+## Behavior
+
+The parser accepts all TOML v1.0.0 string forms and preserves their specified contents. Basic strings decode the permitted escape sequences and reject invalid escapes or invalid Unicode scalar values. Literal strings preserve backslashes without escape processing. Multiline strings support newline trimming, line-ending backslashes, embedded quotation rules, and the control-character restrictions defined by TOML v1.0.0.
+
+## Programmatic Acceptance
+
+=== AC parser-strings-conformance ===
+Intent: The authoritative TOML conformance suite passes every valid and invalid string case owned by this story.
+Suite: scoped
+Requires: executable=sh; scope=test
+Requires: executable=go; scope=test
+
+import os
+import subprocess
+
+result = subprocess.run(
+    [
+        &quot;sh&quot;,
+        &quot;sources/stage_test.sh&quot;,
+        &quot;valid/string/**|invalid/string/**&quot;,
+    ],
+    capture_output=True,
+    text=True,
+    env={**os.environ},
+)
+print(result.stdout)
+print(result.stderr)
+assert result.returncode == 0
+=== END AC parser-strings-conformance ===
+
+## User Acceptance
+
+- None.
+
+## Guardrails
+
+- Preserve literal-string backslashes exactly.
+- Reject unsupported escapes, unterminated delimiters, invalid control characters, and invalid Unicode scalar values.
+- Do not accept permissive string syntax outside TOML v1.0.0.
+=== END ARTIFACT ===
+=== BEGIN ARTIFACT FEATURE-Parser-Lexical-Scalars.md ===
+# FEATURE: Parser Lexical Scalars
+
+| Field       | Value |
+|-------------|-------|
+| Version     | 20260815 V1 |
+| Description | Defines TOML boolean, integer, and floating-point scalar parsing. |
+| Depends On  | FEATURE-Parser-Strings.md |
+| Provides    | TOML boolean, integer, and float values |
+| Consumes    | stdin TOML decoder, tagged JSON output, TOML string lexer |
+
+## Questions
+
+- None.
+
+## Behavior
+
+The parser accepts lowercase booleans, signed decimal integers, hexadecimal, octal, and binary integers, valid underscore placement, signed 64-bit range boundaries, decimal fractions, exponents, special floats, and IEEE-754-compatible signed zero, infinity, and NaN forms. It rejects malformed digits, leading-zero decimal integers, invalid underscores, malformed fractions or exponents, unsupported special-float spellings, and out-of-range integers.
+
+## Programmatic Acceptance
+
+=== AC parser-lexical-scalars-conformance ===
+Intent: The authoritative TOML conformance suite passes every valid and invalid boolean, integer, and float case owned by this story.
+Suite: scoped
+Requires: executable=sh; scope=test
+Requires: executable=go; scope=test
+
+import os
+import subprocess
+
+result = subprocess.run(
+    [
+        &quot;sh&quot;,
+        &quot;sources/stage_test.sh&quot;,
+        &quot;valid/bool/**|valid/integer/**|valid/float/**|invalid/bool/**|invalid/integer/**|invalid/float/**&quot;,
+    ],
+    capture_output=True,
+    text=True,
+    env={**os.environ},
+)
+print(result.stdout)
+print(result.stderr)
+assert result.returncode == 0
+=== END AC parser-lexical-scalars-conformance ===
+
+## User Acceptance
+
+- None.
+
+## Guardrails
+
+- Preserve scalar values as tagged JSON objects whose `value` fields are strings.
+- Enforce TOML lexical and range rules instead of relying on permissive numeric parsing.
+- Do not reinterpret invalid scalar forms as strings.
+=== END ARTIFACT ===
+=== BEGIN ARTIFACT FEATURE-Parser-Lexical-Boundaries.md ===
+# FEATURE: Parser Lexical Boundaries
+
+| Field       | Value |
+|-------------|-------|
+| Version     | 20260815 V1 |
+| Description | Defines TOML comment, encoding, control-character, whitespace, and token-boundary validation. |
+| Depends On  | FEATURE-Parser-Lexical-Scalars.md |
+| Provides    | TOML comment handling, UTF-8 validation, control-character rejection, lexical termination |
+| Consumes    | stdin TOML decoder, TOML string lexer, TOML scalar lexer |
+
+## Questions
+
+- None.
+
+## Behavior
+
+The parser treats hashes as comments only outside strings, accepts TOML whitespace and LF or CRLF newlines, validates the complete document as UTF-8, rejects forbidden control characters in comments and values, and requires valid lexical termination between key/value pairs, headers, comments, and end of document.
+
+## Programmatic Acceptance
+
+=== AC parser-lexical-boundaries-conformance ===
+Intent: The authoritative TOML conformance suite passes every valid comment and invalid control-character and encoding case owned by this story.
+Suite: scoped
+Requires: executable=sh; scope=test
+Requires: executable=go; scope=test
+
+import os
+import subprocess
+
+result = subprocess.run(
+    [
+        &quot;sh&quot;,
+        &quot;sources/stage_test.sh&quot;,
+        &quot;valid/comment/**|invalid/control/**|invalid/encoding/**&quot;,
+    ],
+    capture_output=True,
+    text=True,
+    env={**os.environ},
+)
+print(result.stdout)
+print(result.stderr)
+assert result.returncode == 0
+=== END AC parser-lexical-boundaries-conformance ===
+
+## User Acceptance
+
+- None.
+
+## Guardrails
+
+- Never treat a hash inside a string as a comment marker.
+- Reject invalid UTF-8 and forbidden control characters.
+- Reject adjacent or unterminated tokens rather than silently accepting trailing content.
+=== END ARTIFACT ===</pre></article>
+</main>
+</body>
+</html>

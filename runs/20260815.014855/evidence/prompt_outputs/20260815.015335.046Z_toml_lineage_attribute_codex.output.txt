@@ -1,0 +1,26 @@
+<requirement name="run-conformance-suite" stories="conformance">
+Run the upstream toml-test conformance suite against the built decoder.
+</requirement>
+<requirement name="require-decoder-command" stories="decoder-contract">
+DECODER    decoder command. Required — this harness is language-neutral and
+              deliberately has no default implementation language.
+</requirement>
+<requirement name="locate-test-harness" stories="conformance">
+TOML_TEST  absolute path to the toml-test binary (default: found on PATH)
+</requirement>
+<requirement name="enforce-harness-version" stories="conformance">
+The suite's identity is part of the verdict. Without this, "the authoritative suite passed"
+names no particular suite: whichever toml-test happened to be on PATH decided the run, and a
+different version on a different machine is a different exam.
+</requirement>
+<requirement name="return-harness-verdict" stories="conformance">
+# Exit code is the harness exit code: 0 only when every test passes.
+</requirement>
+<unattached story="architecture"/>
+<unattached story="parser-strings"/>
+<unattached story="parser-lexical-scalars"/>
+<unattached story="parser-lexical-boundaries"/>
+<unattached story="parser-keys"/>
+<unattached story="parser-tables"/>
+<unattached story="parser-datetimes"/>
+<unattached story="parser-arrays-inline"/>

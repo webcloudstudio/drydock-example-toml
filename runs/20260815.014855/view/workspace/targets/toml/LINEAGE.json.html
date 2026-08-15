@@ -1,0 +1,376 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>workspace/targets/toml/LINEAGE.json</title>
+<link rel="stylesheet" href="../../../../assets/kit.css">
+</head>
+<body>
+<main>
+<header class="fileheader"><div class="kind">Run artifact</div><h1>workspace/targets/toml/LINEAGE.json</h1><div class="filenav"><a href="../../../../index.html">&larr; Report</a><a href="../../../../workspace/targets/toml/LINEAGE.json">Raw file</a></div></header>
+<article class="doc"><pre>{
+  &quot;version&quot;: 1,
+  &quot;import&quot;: {
+    &quot;root&quot;: &quot;/mnt/c/Users/barlo/projects/drydock/uat/Toml/runs/20260815.014855/sources&quot;,
+    &quot;format&quot;: &quot;markdown&quot;
+  },
+  &quot;sources&quot;: {
+    &quot;INSTRUCTIONS.md&quot;: {
+      &quot;state&quot;: &quot;current&quot;,
+      &quot;versions&quot;: [
+        {
+          &quot;commit&quot;: null,
+          &quot;date&quot;: &quot;2026-08-14&quot;,
+          &quot;hash&quot;: &quot;d1078b2380a08eac60b23d20aa5ce7097b3e0b00193d9bc3eb82202b16b3b94a&quot;,
+          &quot;release&quot;: &quot;&quot;,
+          &quot;state&quot;: &quot;consumed&quot;,
+          &quot;via&quot;: &quot;plan&quot;,
+          &quot;ticket&quot;: null,
+          &quot;requirements&quot;: [
+            {
+              &quot;name&quot;: &quot;go-module-command&quot;,
+              &quot;text&quot;: &quot;The implementation language is Go, fixed by this Target&#x27;s `TECHNOLOGY_STACK.md` and governed by `stack/go.md`.&quot;,
+              &quot;stories&quot;: [
+                &quot;architecture&quot;
+              ]
+            },
+            {
+              &quot;name&quot;: &quot;decoder-contract&quot;,
+              &quot;text&quot;: &quot;The program is a filter: read TOML from **stdin**, write tagged JSON to **stdout**, exit `0`.&quot;,
+              &quot;stories&quot;: [
+                &quot;decoder-contract&quot;
+              ]
+            },
+            {
+              &quot;name&quot;: &quot;parse-strings&quot;,
+              &quot;text&quot;: &quot;**Scalars** \u2014 booleans, integers (including `0x`, `0o`, `0b`, underscores), floats (including `inf`, `nan`, exponents), basic and literal strings, then multi-line strings with their line-ending backslash and trimming rules.&quot;,
+              &quot;stories&quot;: [
+                &quot;parser-strings&quot;
+              ]
+            },
+            {
+              &quot;name&quot;: &quot;parse-lexical-scalars&quot;,
+              &quot;text&quot;: &quot;**Scalars** \u2014 booleans, integers (including `0x`, `0o`, `0b`, underscores), floats (including `inf`, `nan`, exponents), basic and literal strings, then multi-line strings with their line-ending backslash and trimming rules.&quot;,
+              &quot;stories&quot;: [
+                &quot;parser-lexical-scalars&quot;
+              ]
+            },
+            {
+              &quot;name&quot;: &quot;enforce-lexical-boundaries&quot;,
+              &quot;text&quot;: &quot;**Invalid-input hardening** \u2014 control characters, bad UTF-8, duplicate keys, redefinition after an inline table, unterminated constructs.&quot;,
+              &quot;stories&quot;: [
+                &quot;parser-lexical-boundaries&quot;
+              ]
+            },
+            {
+              &quot;name&quot;: &quot;parse-keys&quot;,
+              &quot;text&quot;: &quot;**Keys** \u2014 bare, quoted, and dotted keys; the redefinition rules.&quot;,
+              &quot;stories&quot;: [
+                &quot;parser-keys&quot;
+              ]
+            },
+            {
+              &quot;name&quot;: &quot;parse-tables&quot;,
+              &quot;text&quot;: &quot;**Tables** \u2014 `[table]`, `[a.b.c]` implicit creation, `[[array of tables]]`, and the rules governing which of these may follow which.&quot;,
+              &quot;stories&quot;: [
+                &quot;parser-tables&quot;
+              ]
+            },
+            {
+              &quot;name&quot;: &quot;parse-arrays-inline-tables&quot;,
+              &quot;text&quot;: &quot;**Inline tables and arrays** \u2014 including nesting and the TOML 1.0 restriction that inline tables are closed to later extension.&quot;,
+              &quot;stories&quot;: [
+                &quot;parser-arrays-inline&quot;
+              ]
+            },
+            {
+              &quot;name&quot;: &quot;parse-datetimes&quot;,
+              &quot;text&quot;: &quot;**Datetimes** \u2014 offset, local datetime, local date, local time.&quot;,
+              &quot;stories&quot;: [
+                &quot;parser-datetimes&quot;
+              ]
+            },
+            {
+              &quot;name&quot;: &quot;pass-conformance-suite&quot;,
+              &quot;text&quot;: &quot;The goal is to pass every valid and every invalid case the installed suite supplies, with no case failed, errored, or skipped.&quot;,
+              &quot;stories&quot;: [
+                &quot;conformance&quot;
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    &quot;full_test.sh&quot;: {
+      &quot;state&quot;: &quot;current&quot;,
+      &quot;versions&quot;: [
+        {
+          &quot;commit&quot;: null,
+          &quot;date&quot;: &quot;2026-08-14&quot;,
+          &quot;hash&quot;: &quot;54fcd3c5b0b92e31d7c4c90c3a04ff65617600dcd858947455cda8fbcb2800a6&quot;,
+          &quot;release&quot;: &quot;&quot;,
+          &quot;state&quot;: &quot;consumed&quot;,
+          &quot;via&quot;: &quot;plan&quot;,
+          &quot;ticket&quot;: null,
+          &quot;requirements&quot;: [
+            {
+              &quot;name&quot;: &quot;pin-conformance-version&quot;,
+              &quot;text&quot;: &quot;The version setup_harness.sh installs. run_conformance.sh refuses a different one, so a passing verdict names a specific exam rather than whichever harness was on PATH.&quot;,
+              &quot;stories&quot;: [
+                &quot;conformance&quot;
+              ]
+            },
+            {
+              &quot;name&quot;: &quot;build-and-run-conformance&quot;,
+              &quot;text&quot;: &quot;go build -o toml-decoder ./cmd/toml-decoder\nDECODER=\&quot;$PWD/toml-decoder\&quot; exec sh sources/run_conformance.sh&quot;,
+              &quot;stories&quot;: [
+                &quot;architecture&quot;,
+                &quot;decoder-contract&quot;,
+                &quot;parser-strings&quot;,
+                &quot;parser-lexical-scalars&quot;,
+                &quot;parser-lexical-boundaries&quot;,
+                &quot;parser-keys&quot;,
+                &quot;parser-tables&quot;,
+                &quot;parser-datetimes&quot;,
+                &quot;parser-arrays-inline&quot;,
+                &quot;conformance&quot;
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    &quot;run_conformance.sh&quot;: {
+      &quot;state&quot;: &quot;current&quot;,
+      &quot;versions&quot;: [
+        {
+          &quot;commit&quot;: null,
+          &quot;date&quot;: &quot;2026-08-14&quot;,
+          &quot;hash&quot;: &quot;08bc510bd052f639f3ea85afb174ad1774e6ba7541a262f146590a4ea92d0f86&quot;,
+          &quot;release&quot;: &quot;&quot;,
+          &quot;state&quot;: &quot;consumed&quot;,
+          &quot;via&quot;: &quot;plan&quot;,
+          &quot;ticket&quot;: null,
+          &quot;requirements&quot;: [
+            {
+              &quot;name&quot;: &quot;run-conformance-suite&quot;,
+              &quot;text&quot;: &quot;Run the upstream toml-test conformance suite against the built decoder.&quot;,
+              &quot;stories&quot;: [
+                &quot;conformance&quot;
+              ]
+            },
+            {
+              &quot;name&quot;: &quot;require-decoder-command&quot;,
+              &quot;text&quot;: &quot;DECODER    decoder command. Required \u2014 this harness is language-neutral and\n              deliberately has no default implementation language.&quot;,
+              &quot;stories&quot;: [
+                &quot;decoder-contract&quot;
+              ]
+            },
+            {
+              &quot;name&quot;: &quot;locate-test-harness&quot;,
+              &quot;text&quot;: &quot;TOML_TEST  absolute path to the toml-test binary (default: found on PATH)&quot;,
+              &quot;stories&quot;: [
+                &quot;conformance&quot;
+              ]
+            },
+            {
+              &quot;name&quot;: &quot;enforce-harness-version&quot;,
+              &quot;text&quot;: &quot;The suite&#x27;s identity is part of the verdict. Without this, \&quot;the authoritative suite passed\&quot;\nnames no particular suite: whichever toml-test happened to be on PATH decided the run, and a\ndifferent version on a different machine is a different exam.&quot;,
+              &quot;stories&quot;: [
+                &quot;conformance&quot;
+              ]
+            },
+            {
+              &quot;name&quot;: &quot;return-harness-verdict&quot;,
+              &quot;text&quot;: &quot;# Exit code is the harness exit code: 0 only when every test passes.&quot;,
+              &quot;stories&quot;: [
+                &quot;conformance&quot;
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    &quot;setup_harness.sh&quot;: {
+      &quot;state&quot;: &quot;current&quot;,
+      &quot;versions&quot;: [
+        {
+          &quot;commit&quot;: null,
+          &quot;date&quot;: &quot;2026-08-14&quot;,
+          &quot;hash&quot;: &quot;a94f9cee6ae45b4265e244f40b882f9692f59c67aff16953d2db837fb3885a56&quot;,
+          &quot;release&quot;: &quot;&quot;,
+          &quot;state&quot;: &quot;consumed&quot;,
+          &quot;via&quot;: &quot;plan&quot;,
+          &quot;ticket&quot;: null,
+          &quot;requirements&quot;: [
+            {
+              &quot;name&quot;: &quot;install-toml-test-harness&quot;,
+              &quot;text&quot;: &quot;One-time installation of the upstream toml-test conformance harness.&quot;,
+              &quot;stories&quot;: [
+                &quot;conformance&quot;
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    &quot;stage_contract.sh&quot;: {
+      &quot;state&quot;: &quot;current&quot;,
+      &quot;versions&quot;: [
+        {
+          &quot;commit&quot;: null,
+          &quot;date&quot;: &quot;2026-08-14&quot;,
+          &quot;hash&quot;: &quot;c95f3a314d9d8099bf27a64404a7eba213710c2948d41c1ce6c44f87f225227b&quot;,
+          &quot;release&quot;: &quot;&quot;,
+          &quot;state&quot;: &quot;consumed&quot;,
+          &quot;via&quot;: &quot;plan&quot;,
+          &quot;ticket&quot;: null,
+          &quot;requirements&quot;: [
+            {
+              &quot;name&quot;: &quot;architecture-gate&quot;,
+              &quot;text&quot;: &quot;test -f go.mod\n    if grep -Eq &#x27;^[[:space:]]*require[[:space:](]&#x27; go.mod; then\n      echo \&quot;go.mod declares a forbidden third-party dependency\&quot; &gt;&amp;2\n      exit 1\n    fi\n    go build ./cmd/toml-decoder&quot;,
+              &quot;stories&quot;: [
+                &quot;architecture&quot;
+              ]
+            },
+            {
+              &quot;name&quot;: &quot;decoder-gate&quot;,
+              &quot;text&quot;: &quot;go build -o toml-decoder ./cmd/toml-decoder\n    stage_dir=\&quot;$(mktemp -d)\&quot;\n    trap &#x27;rm -rf \&quot;$stage_dir\&quot;&#x27; EXIT HUP INT TERM\n\n    printf &#x27;answer = 42\\n&#x27; | ./toml-decoder &gt;\&quot;$stage_dir/valid.json\&quot; 2&gt;\&quot;$stage_dir/valid.err\&quot;\n    test ! -s \&quot;$stage_dir/valid.err\&quot;\n    python - \&quot;$stage_dir/valid.json\&quot; &lt;&lt;&#x27;PY&#x27;\nimport json\nimport sys\n\nwith open(sys.argv[1], encoding=\&quot;utf-8\&quot;) as stream:\n    decoded = json.load(stream)\nassert decoded == {\&quot;answer\&quot;: {\&quot;type\&quot;: \&quot;integer\&quot;, \&quot;value\&quot;: \&quot;42\&quot;}}\nPY\n\n    if printf &#x27;answer = [\\n&#x27; | ./toml-decoder &gt;\&quot;$stage_dir/invalid.out\&quot; 2&gt;\&quot;$stage_dir/invalid.err\&quot;; then\n      echo \&quot;malformed TOML exited successfully\&quot; &gt;&amp;2\n      exit 1\n    fi\n    test ! -s \&quot;$stage_dir/invalid.out\&quot;\n    test -s \&quot;$stage_dir/invalid.err\&quot;&quot;,
+              &quot;stories&quot;: [
+                &quot;decoder-contract&quot;
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    &quot;stage_test.sh&quot;: {
+      &quot;state&quot;: &quot;current&quot;,
+      &quot;versions&quot;: [
+        {
+          &quot;commit&quot;: null,
+          &quot;date&quot;: &quot;2026-08-14&quot;,
+          &quot;hash&quot;: &quot;93254a9d7ac72f19345b48fc36faffb1dc79dcc66f55cf18fee48c2cdce988cd&quot;,
+          &quot;release&quot;: &quot;&quot;,
+          &quot;state&quot;: &quot;consumed&quot;,
+          &quot;via&quot;: &quot;plan&quot;,
+          &quot;ticket&quot;: null,
+          &quot;requirements&quot;: [
+            {
+              &quot;name&quot;: &quot;stage-gate-suite-slice&quot;,
+              &quot;text&quot;: &quot;Runs one slice of the authoritative suite.&quot;,
+              &quot;stories&quot;: [
+                &quot;conformance&quot;
+              ]
+            },
+            {
+              &quot;name&quot;: &quot;build-decoder&quot;,
+              &quot;text&quot;: &quot;build the decoder&quot;,
+              &quot;stories&quot;: [
+                &quot;architecture&quot;
+              ]
+            },
+            {
+              &quot;name&quot;: &quot;run-patterned-conformance&quot;,
+              &quot;text&quot;: &quot;then run the installed toml-test suite over the pattern given as $1.&quot;,
+              &quot;stories&quot;: [
+                &quot;conformance&quot;
+              ]
+            },
+            {
+              &quot;name&quot;: &quot;preserve-verdict&quot;,
+              &quot;text&quot;: &quot;Exit status is the verdict and the whole verdict. Do not filter, skip, or reinterpret.&quot;,
+              &quot;stories&quot;: [
+                &quot;conformance&quot;
+              ]
+            },
+            {
+              &quot;name&quot;: &quot;require-one-pattern&quot;,
+              &quot;text&quot;: &quot;if [ $# -ne 1 ]; then\n  echo \&quot;usage: stage_test.sh &lt;toml-test -run pattern&gt;\&quot; &gt;&amp;2\n  exit 2\nfi&quot;,
+              &quot;stories&quot;: [
+                &quot;conformance&quot;
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    &quot;toml-v1.0.0.md&quot;: {
+      &quot;state&quot;: &quot;current&quot;,
+      &quot;versions&quot;: [
+        {
+          &quot;commit&quot;: null,
+          &quot;date&quot;: &quot;2026-08-14&quot;,
+          &quot;hash&quot;: &quot;4cc2468f55b36a27660425430f19c3e63c9da492e6936aded2cf5eed9fcdce45&quot;,
+          &quot;release&quot;: &quot;&quot;,
+          &quot;state&quot;: &quot;consumed&quot;,
+          &quot;via&quot;: &quot;plan&quot;,
+          &quot;ticket&quot;: null,
+          &quot;requirements&quot;: [
+            {
+              &quot;name&quot;: &quot;toml-document-basics&quot;,
+              &quot;text&quot;: &quot;* TOML is case-sensitive.\n* A TOML file must be a valid UTF-8 encoded Unicode document.\n* Whitespace means tab (0x09) or space (0x20).\n* Newline means LF (0x0A) or CRLF (0x0D 0x0A).\n\nA hash symbol marks the rest of the line as a comment, except when inside a\nstring.&quot;,
+              &quot;stories&quot;: [
+                &quot;parser-lexical-boundaries&quot;
+              ]
+            },
+            {
+              &quot;name&quot;: &quot;key-value-pairs&quot;,
+              &quot;text&quot;: &quot;The primary building block of a TOML document is the key/value pair.\n\nKeys are on the left of the equals sign and values are on the right. Whitespace\nis ignored around key names and values. The key, equals sign, and value must be\non the same line (though some values can be broken over multiple lines).&quot;,
+              &quot;stories&quot;: [
+                &quot;parser-keys&quot;
+              ]
+            },
+            {
+              &quot;name&quot;: &quot;strings&quot;,
+              &quot;text&quot;: &quot;There are four ways to express strings: basic, multi-line basic, literal, and\nmulti-line literal. All strings must contain only valid UTF-8 characters.&quot;,
+              &quot;stories&quot;: [
+                &quot;parser-strings&quot;
+              ]
+            },
+            {
+              &quot;name&quot;: &quot;scalar-values&quot;,
+              &quot;text&quot;: &quot;Values must have one of the following types.\n\n- [String](#string)\n- [Integer](#integer)\n- [Float](#float)\n- [Boolean](#boolean)\n- [Offset Date-Time](#offset-date-time)\n- [Local Date-Time](#local-date-time)\n- [Local Date](#local-date)\n- [Local Time](#local-time)\n- [Array](#array)\n- [Inline Table](#inline-table)&quot;,
+              &quot;stories&quot;: [
+                &quot;parser-lexical-scalars&quot;
+              ]
+            },
+            {
+              &quot;name&quot;: &quot;dates-and-times&quot;,
+              &quot;text&quot;: &quot;To unambiguously represent a specific instant in time, you may use an [RFC\n3339](https://tools.ietf.org/html/rfc3339) formatted date-time with offset.\n\nIf you omit the offset from an [RFC 3339](https://tools.ietf.org/html/rfc3339)\nformatted date-time, it will represent the given date-time without any relation\nto an offset or timezone.\n\nIf you include only the date portion of an\n[RFC 3339](https://tools.ietf.org/html/rfc3339) formatted date-time, it will\nrepresent that entire day without any relation to an offset.\n\nIf you include only the time portion of an [RFC\n3339](https://tools.ietf.org/html/rfc3339) formatted date-time, it will\nrepresent that time of day without any relation to a specific day or any offset\nor timezone.&quot;,
+              &quot;stories&quot;: [
+                &quot;parser-datetimes&quot;
+              ]
+            },
+            {
+              &quot;name&quot;: &quot;arrays-and-inline-tables&quot;,
+              &quot;text&quot;: &quot;Arrays are square brackets with values inside. Whitespace is ignored. Elements\nare separated by commas. Arrays can contain values of the same data types as\nallowed in key/value pairs. Values of different types may be mixed.\n\nInline tables provide a more compact syntax for expressing tables. They are\nespecially useful for grouped data that can otherwise quickly become verbose.\nInline tables are fully defined within curly braces: `{` and `}`. Within the\nbraces, zero or more comma-separated key/value pairs may appear.&quot;,
+              &quot;stories&quot;: [
+                &quot;parser-arrays-inline&quot;
+              ]
+            },
+            {
+              &quot;name&quot;: &quot;tables&quot;,
+              &quot;text&quot;: &quot;Tables (also known as hash tables or dictionaries) are collections of key/value\npairs. They are defined by headers, with square brackets on a line by\nthemselves.\n\nThe last syntax that has not yet been described allows writing arrays of tables.\nThese can be expressed by using a header with a name in double brackets. The\nfirst instance of that header defines the array and its first table element, and\neach subsequent instance creates and defines a new table element in that array.\nThe tables are inserted into the array in the order encountered.&quot;,
+              &quot;stories&quot;: [
+                &quot;parser-tables&quot;
+              ]
+            },
+            {
+              &quot;name&quot;: &quot;toml-file-metadata&quot;,
+              &quot;text&quot;: &quot;TOML files should use the extension `.toml`.\n\nWhen transferring TOML files over the internet, the appropriate MIME type is\n`application/toml`.&quot;,
+              &quot;stories&quot;: [
+                &quot;conformance&quot;
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  }
+}
+</pre></article>
+</main>
+</body>
+</html>

@@ -1,0 +1,57 @@
+{
+  "full": [
+    "sh",
+    "sources/full_test.sh"
+  ],
+  "stages": {
+    "architecture": [
+      "sh",
+      "sources/stage_contract.sh",
+      "architecture"
+    ],
+    "conformance": [
+      "sh",
+      "sources/full_test.sh"
+    ],
+    "decoder-contract": [
+      "sh",
+      "sources/stage_contract.sh",
+      "decoder"
+    ],
+    "parser-arrays-inline": [
+      "sh",
+      "sources/stage_test.sh",
+      "valid/array/**|valid/inline-table/**|invalid/array/**|invalid/inline-table/**"
+    ],
+    "parser-datetimes": [
+      "sh",
+      "sources/stage_test.sh",
+      "valid/datetime/**|invalid/datetime/**|invalid/local-date/**|invalid/local-datetime/**|invalid/local-time/**"
+    ],
+    "parser-keys": [
+      "sh",
+      "sources/stage_test.sh",
+      "valid/key/**|invalid/key/**"
+    ],
+    "parser-lexical-boundaries": [
+      "sh",
+      "sources/stage_test.sh",
+      "valid/comment/**|invalid/control/**|invalid/encoding/**"
+    ],
+    "parser-lexical-scalars": [
+      "sh",
+      "sources/stage_test.sh",
+      "valid/bool/**|valid/integer/**|valid/float/**|invalid/bool/**|invalid/integer/**|invalid/float/**"
+    ],
+    "parser-strings": [
+      "sh",
+      "sources/stage_test.sh",
+      "valid/string/**|invalid/string/**"
+    ],
+    "parser-tables": [
+      "sh",
+      "sources/stage_test.sh",
+      "valid/table/**|invalid/table/**"
+    ]
+  }
+}

@@ -1,0 +1,1731 @@
+{
+  "artifacts": {
+    "Build": [
+      {
+        "bytes": 1002,
+        "path": "build/toml/README.md",
+        "sha256": "5abfa2308e3fb77291c26b35138461fd0e540b6381f1386d4056d3bac05956db"
+      },
+      {
+        "bytes": 627,
+        "path": "build/toml/cmd/toml-decoder/main.go",
+        "sha256": "eff43b9b138f70209989ecec959e75db87b0b242a28db0987c79a12fe548f221"
+      },
+      {
+        "bytes": 1625,
+        "path": "build/toml/cmd/toml-decoder/main_test.go",
+        "sha256": "6c74fd146c225503381e1bc44eb65502a060cdd412b205025b0178dbbe1d2fb3"
+      },
+      {
+        "bytes": 46,
+        "path": "build/toml/go.mod",
+        "sha256": "4a3db4f3146e9945fac5b6a22ce313cdffbebf0195d8fb750debb62906dfd303"
+      },
+      {
+        "bytes": 597,
+        "path": "build/toml/internal/toml/conformance_test.go",
+        "sha256": "e5e60e005f0eba239b6a707d27f02aa36ab438e9e5a7d1cb6e5c636fb20f3573"
+      },
+      {
+        "bytes": 19804,
+        "path": "build/toml/internal/toml/toml.go",
+        "sha256": "392abc3eec14c9c9fe00374052c566350300acc378362f0d67edfb1a4263aece"
+      },
+      {
+        "bytes": 2596,
+        "path": "build/toml/internal/toml/toml_test.go",
+        "sha256": "08d71150b31fc3f94a6d3242c32f75e8524ae365b2718a8667814a068a47c0d1"
+      },
+      {
+        "bytes": 449,
+        "path": "build/toml/sources/full_test.sh",
+        "sha256": "54fcd3c5b0b92e31d7c4c90c3a04ff65617600dcd858947455cda8fbcb2800a6"
+      },
+      {
+        "bytes": 2297,
+        "path": "build/toml/sources/run_conformance.sh",
+        "sha256": "08bc510bd052f639f3ea85afb174ad1774e6ba7541a262f146590a4ea92d0f86"
+      },
+      {
+        "bytes": 1292,
+        "path": "build/toml/sources/setup_harness.sh",
+        "sha256": "a94f9cee6ae45b4265e244f40b882f9692f59c67aff16953d2db837fb3885a56"
+      },
+      {
+        "bytes": 1268,
+        "path": "build/toml/sources/stage_contract.sh",
+        "sha256": "c95f3a314d9d8099bf27a64404a7eba213710c2948d41c1ce6c44f87f225227b"
+      },
+      {
+        "bytes": 641,
+        "path": "build/toml/sources/stage_test.sh",
+        "sha256": "93254a9d7ac72f19345b48fc36faffb1dc79dcc66f55cf18fee48c2cdce988cd"
+      },
+      {
+        "bytes": 3246616,
+        "path": "build/toml/toml-decoder",
+        "sha256": "be4eb4bfd49edf5c8d34ab9b863c7d7febe831c67137cca5854427c4d7c0409e"
+      }
+    ],
+    "Evidence": [
+      {
+        "bytes": 268,
+        "path": "evidence/README.md",
+        "sha256": "ab823ace82c733dc1377433c4e8b3b372d86a67be785bf5b544d4957f483c3d3"
+      },
+      {
+        "bytes": 0,
+        "path": "evidence/commands/01-init.stderr.log",
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      {
+        "bytes": 515,
+        "path": "evidence/commands/01-init.stdout.log",
+        "sha256": "b577ed363ecc40986f40acf9a84f6bee4ca52dafb46daf39d1019e567cd55e2e"
+      },
+      {
+        "bytes": 0,
+        "path": "evidence/commands/02-import-sources.stderr.log",
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      {
+        "bytes": 383,
+        "path": "evidence/commands/02-import-sources.stdout.log",
+        "sha256": "9ff19ab8b023a9393b0411784d97ed86949fbf0ca97cc32a5f6ac2e88705eca5"
+      },
+      {
+        "bytes": 0,
+        "path": "evidence/commands/03-analyze.stderr.log",
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      {
+        "bytes": 745,
+        "path": "evidence/commands/03-analyze.stdout.log",
+        "sha256": "c1a24f1f2feedf90ebba2bac8e084184ff654dc69938de437750c08c48cc60df"
+      },
+      {
+        "bytes": 0,
+        "path": "evidence/commands/04-plan.stderr.log",
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      {
+        "bytes": 4117,
+        "path": "evidence/commands/04-plan.stdout.log",
+        "sha256": "28cbac1abd199fe45bfa90a6c5b525d3ef9f35fc3bf2aba47d2de2fd14afd9c2"
+      },
+      {
+        "bytes": 0,
+        "path": "evidence/commands/05-after-plan-build-status.stderr.log",
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      {
+        "bytes": 1691,
+        "path": "evidence/commands/05-after-plan-build-status.stdout.log",
+        "sha256": "6da3b2af0459d29b06793c7b5f04d3460536db05e1c57f5eb31a4a76c3929050"
+      },
+      {
+        "bytes": 0,
+        "path": "evidence/commands/06-after-plan-target-status.stderr.log",
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      {
+        "bytes": 852,
+        "path": "evidence/commands/06-after-plan-target-status.stdout.log",
+        "sha256": "645c8127086fbe83192a68eef42b16c59c04b85bf78a40cdc577b243d6135152"
+      },
+      {
+        "bytes": 0,
+        "path": "evidence/commands/07-after-plan-workspace-status.stderr.log",
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      {
+        "bytes": 831,
+        "path": "evidence/commands/07-after-plan-workspace-status.stdout.log",
+        "sha256": "7f94858c6ef20f38b4148156ea6d2e39c20b7069365b7169b863b6d40fbeb312"
+      },
+      {
+        "bytes": 42,
+        "path": "evidence/commands/08-initial-ready.stderr.log",
+        "sha256": "debe71632b604326fdbad29f820d2728c1dbe86553d8d42b8fb580ef93d0519d"
+      },
+      {
+        "bytes": 0,
+        "path": "evidence/commands/08-initial-ready.stdout.log",
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      {
+        "bytes": 0,
+        "path": "evidence/commands/09-initial-build-1.stderr.log",
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      {
+        "bytes": 3105,
+        "path": "evidence/commands/09-initial-build-1.stdout.log",
+        "sha256": "4e6ed1b5edb622f390b7e76356fa5bb83d9833c1fa7e1dde8a6f0f0665b34f62"
+      },
+      {
+        "bytes": 51,
+        "path": "evidence/commands/10-initial-ready.stderr.log",
+        "sha256": "64c93dff669954e2010d70c241bd2719b77be02e1c4d8386dc58b93f9d4f9c8d"
+      },
+      {
+        "bytes": 0,
+        "path": "evidence/commands/10-initial-ready.stdout.log",
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      {
+        "bytes": 0,
+        "path": "evidence/commands/11-initial-complete.stderr.log",
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      {
+        "bytes": 61,
+        "path": "evidence/commands/11-initial-complete.stdout.log",
+        "sha256": "848a68278c60cfb281387366fe1aee105ad6977113adee78aec59ea925989fb4"
+      },
+      {
+        "bytes": 0,
+        "path": "evidence/commands/12-after-initial-build-build-status.stderr.log",
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      {
+        "bytes": 1710,
+        "path": "evidence/commands/12-after-initial-build-build-status.stdout.log",
+        "sha256": "92fcb1b689df8c3471cb7fd2328f8d897efa1cc3852d17a3f5791a8de887e2a3"
+      },
+      {
+        "bytes": 0,
+        "path": "evidence/commands/13-after-initial-build-target-status.stderr.log",
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      {
+        "bytes": 876,
+        "path": "evidence/commands/13-after-initial-build-target-status.stdout.log",
+        "sha256": "e6dcaa122a02f4bba444ed3c5f202bed3a54c2aba5a0c9d28df93be3d6788d4d"
+      },
+      {
+        "bytes": 0,
+        "path": "evidence/commands/14-after-initial-build-workspace-status.stderr.log",
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      {
+        "bytes": 725,
+        "path": "evidence/commands/14-after-initial-build-workspace-status.stdout.log",
+        "sha256": "a7369bea0a0111e6825221558ed81a0ffe4a1ec282f36ba0e836021e9ec7482b"
+      },
+      {
+        "bytes": 103,
+        "path": "evidence/commands/15-test.stderr.log",
+        "sha256": "09b2f25a26bd688cecc0871d53214d0aa3ccedf85f6219072a52da80bd5f4d57"
+      },
+      {
+        "bytes": 236,
+        "path": "evidence/commands/15-test.stdout.log",
+        "sha256": "f9d73f525087998f8e3c9ded015647de3ff5465f872a5d0bb44cfb6aabda2fb3"
+      },
+      {
+        "bytes": 0,
+        "path": "evidence/commands/16-score-acceptance.stderr.log",
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      {
+        "bytes": 4476,
+        "path": "evidence/commands/16-score-acceptance.stdout.log",
+        "sha256": "1c433d4667e5d32141d3d50dcea9bd06a04b464ffd60153d8b84eb84e33b8063"
+      },
+      {
+        "bytes": 0,
+        "path": "evidence/commands/17-score-build-report.stderr.log",
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      {
+        "bytes": 1570,
+        "path": "evidence/commands/17-score-build-report.stdout.log",
+        "sha256": "1fa93750d2a2cf84aa49bb11ccb71514ee25cca093c40a10af7da3400422e3ef"
+      },
+      {
+        "bytes": 0,
+        "path": "evidence/commands/18-score-release.stderr.log",
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      {
+        "bytes": 709,
+        "path": "evidence/commands/18-score-release.stdout.log",
+        "sha256": "0f115d331711e75710d5e18b9458172646b4f716f6d6fc1f0098a3b364437a50"
+      },
+      {
+        "bytes": 77021,
+        "path": "evidence/llm.jsonl",
+        "sha256": "1ea4663228205c3e3fade634783b442664820ba903e7384f98761652323dde7b"
+      },
+      {
+        "bytes": 11937,
+        "path": "evidence/prompt_outputs/20260815.014859.158Z_toml_analyze_codex.output.txt",
+        "sha256": "6fca0d1b89359c2d872f41a205fb7a5d81b7d99a23003d4579cfd88db1a4a318"
+      },
+      {
+        "bytes": 8856,
+        "path": "evidence/prompt_outputs/20260815.015011.257Z_toml_plan_codex.output.txt",
+        "sha256": "1bf88ee314b8141c90d1795053346806d40fc82d62bfebba850632222939e6a9"
+      },
+      {
+        "bytes": 11732,
+        "path": "evidence/prompt_outputs/20260815.015111.122Z_toml_plan_codex.output.txt",
+        "sha256": "b540d22dd175c2760efe53f250da03d230bf4c0616be059792ee2ed6b83ac88a"
+      },
+      {
+        "bytes": 9087,
+        "path": "evidence/prompt_outputs/20260815.015209.069Z_toml_plan_codex.output.txt",
+        "sha256": "2f39852cbb11639872f091328a581e974d4f6904b3fe06d1d140a6d12ef345be"
+      },
+      {
+        "bytes": 2140,
+        "path": "evidence/prompt_outputs/20260815.015300.989Z_toml_lineage_attribute_codex.output.txt",
+        "sha256": "b67299496006322cbbefed0bec277b7211bc9cbc5c567c2d075b537c129ab4d3"
+      },
+      {
+        "bytes": 599,
+        "path": "evidence/prompt_outputs/20260815.015319.256Z_toml_lineage_attribute_codex.output.txt",
+        "sha256": "47afaa3a6ad11adb302612d40930fde72753262fca24817a210fff3ea95005ec"
+      },
+      {
+        "bytes": 1332,
+        "path": "evidence/prompt_outputs/20260815.015335.046Z_toml_lineage_attribute_codex.output.txt",
+        "sha256": "bfa02f834dbd5b4babb8724ee027c986e8a258b974396b0aa6f9549569bdfa83"
+      },
+      {
+        "bytes": 509,
+        "path": "evidence/prompt_outputs/20260815.015352.486Z_toml_lineage_attribute_codex.output.txt",
+        "sha256": "3ade4ce2455c3faa78020d14b74a7945a1350ce1d200abba29729fcf8d9c45e7"
+      },
+      {
+        "bytes": 1395,
+        "path": "evidence/prompt_outputs/20260815.015403.233Z_toml_lineage_attribute_codex.output.txt",
+        "sha256": "17bfbf2a1ac62079c7ae8e323b9f5e418ba1789bad0ab880ce2acf0a37ee4c7c"
+      },
+      {
+        "bytes": 1021,
+        "path": "evidence/prompt_outputs/20260815.015417.712Z_toml_lineage_attribute_codex.output.txt",
+        "sha256": "27cd3bdf8c5e81a5d93ace3b2fae8dbd282c880c73a3f9c37da0779ac82bfc3a"
+      },
+      {
+        "bytes": 3685,
+        "path": "evidence/prompt_outputs/20260815.015435.169Z_toml_lineage_attribute_codex.output.txt",
+        "sha256": "e36589548569c3d9525c727818a997f90f5607501b2b02548c86b5f50a0d3d60"
+      },
+      {
+        "bytes": 1154,
+        "path": "evidence/prompt_outputs/20260815.015512.078Z_toml_build_codex.output.txt",
+        "sha256": "24b7116794acbc2e2c945a82da75eed0c51997df5840556a5e0c532f6b82c545"
+      },
+      {
+        "bytes": 300,
+        "path": "evidence/prompt_outputs/20260815.015711.540Z_toml_build_codex.output.txt",
+        "sha256": "2d48e271143f312754021770a9ebce555b3a99127d93813a130764b2af4e4f96"
+      },
+      {
+        "bytes": 1156,
+        "path": "evidence/prompt_outputs/20260815.015856.448Z_toml_build_codex.output.txt",
+        "sha256": "10e269bde3f8c6f602742092beca0156816d898361915964a3bdf03d1578f792"
+      },
+      {
+        "bytes": 301,
+        "path": "evidence/prompt_outputs/20260815.020701.947Z_toml_build_codex.output.txt",
+        "sha256": "3fb356376811f5dcb36971b1dc6eaa6e25f57ae72c966cac1fc77d1ed07928bf"
+      },
+      {
+        "bytes": 263,
+        "path": "evidence/prompt_outputs/20260815.021741.854Z_toml_build_codex.output.txt",
+        "sha256": "c2b781c0c460ea566bcc4f7e2a99bbab360a3b2f15e9469d244c9ba3eb6e4273"
+      },
+      {
+        "bytes": 283,
+        "path": "evidence/prompt_outputs/20260815.021926.376Z_toml_score-release_codex.output.txt",
+        "sha256": "7a72a16e1d62d30e56b56cc02abf77e3a9afb8a205fd90c4f89835df8d21695b"
+      },
+      {
+        "bytes": 94536,
+        "path": "evidence/prompts/20260815.014859.158Z_toml_analyze_codex.prompt.md",
+        "sha256": "527e3a357e1c58bc311d87123d16176e9865cc5be6a83c841901667ea767ab74"
+      },
+      {
+        "bytes": 155415,
+        "path": "evidence/prompts/20260815.015011.257Z_toml_plan_codex.prompt.md",
+        "sha256": "057e54aadd8de0415ea2995611d4b1e94e0aba8a07915732326a8d60fa951ee5"
+      },
+      {
+        "bytes": 167245,
+        "path": "evidence/prompts/20260815.015111.122Z_toml_plan_codex.prompt.md",
+        "sha256": "f7350fac0724094fe0cb0842db07277109adb1233fe17c0295f3e9db15038d3b"
+      },
+      {
+        "bytes": 167359,
+        "path": "evidence/prompts/20260815.015209.069Z_toml_plan_codex.prompt.md",
+        "sha256": "a3e2e83ff542438588eaf91fabc88adaa91221aa720a00992e67109b7e017620"
+      },
+      {
+        "bytes": 13313,
+        "path": "evidence/prompts/20260815.015300.989Z_toml_lineage_attribute_codex.prompt.md",
+        "sha256": "99a726223d5c0d5fdc4ad39dba0b8ea2beff193bc546d9263efac19c940e186e"
+      },
+      {
+        "bytes": 4315,
+        "path": "evidence/prompts/20260815.015319.256Z_toml_lineage_attribute_codex.prompt.md",
+        "sha256": "4a3eae692a4d9e716a2394c6d37e19df24a029fc4f38fe492d89fd55cb83ecca"
+      },
+      {
+        "bytes": 6169,
+        "path": "evidence/prompts/20260815.015335.046Z_toml_lineage_attribute_codex.prompt.md",
+        "sha256": "0e47450b6ed9c15a5b51a808c82f20cc04d557c7e37223a8bbb41f3182c6f4ab"
+      },
+      {
+        "bytes": 5162,
+        "path": "evidence/prompts/20260815.015352.486Z_toml_lineage_attribute_codex.prompt.md",
+        "sha256": "922d62a507fc9cd760682686b137523e3072f8fc679dcc706b1ece99aec2c5a1"
+      },
+      {
+        "bytes": 5139,
+        "path": "evidence/prompts/20260815.015403.233Z_toml_lineage_attribute_codex.prompt.md",
+        "sha256": "54fee05122ffa72bc627f59aadb45785ec5485abf3cffef796bd9126f12119d6"
+      },
+      {
+        "bytes": 4508,
+        "path": "evidence/prompts/20260815.015417.712Z_toml_lineage_attribute_codex.prompt.md",
+        "sha256": "1d40dd6512e6696653d367946e327770be3edc426af037e30c75fae0e3bdc566"
+      },
+      {
+        "bytes": 29093,
+        "path": "evidence/prompts/20260815.015435.169Z_toml_lineage_attribute_codex.prompt.md",
+        "sha256": "b62c3c350264e8c8eea2b64a89645decd4a445a61342ebb4663a8e11b515d045"
+      },
+      {
+        "bytes": 52098,
+        "path": "evidence/prompts/20260815.015512.078Z_toml_build_codex.prompt.md",
+        "sha256": "e9e78dd5c0c118c337daf1688f685e4d28c27fcca0bf678148e48633f75271fd"
+      },
+      {
+        "bytes": 49259,
+        "path": "evidence/prompts/20260815.015711.540Z_toml_build_codex.prompt.md",
+        "sha256": "777d81ac4897107b44bbbb7ae60c209e45b37e57731de41c807cabf3473cf926"
+      },
+      {
+        "bytes": 53344,
+        "path": "evidence/prompts/20260815.015856.448Z_toml_build_codex.prompt.md",
+        "sha256": "8546ac05967c1c54770195e46a892ab62659405092add3b9c0a5e3f8369a1486"
+      },
+      {
+        "bytes": 54798,
+        "path": "evidence/prompts/20260815.020701.947Z_toml_build_codex.prompt.md",
+        "sha256": "341a8860f5ab13f7c38bc9cc05ab27bc70542a93da800ebd16bf6046775e5698"
+      },
+      {
+        "bytes": 51243,
+        "path": "evidence/prompts/20260815.021741.854Z_toml_build_codex.prompt.md",
+        "sha256": "bc732843d496244b869ed86c7baaee3e1ba654825e60534d48d889f1979bb55b"
+      },
+      {
+        "bytes": 6200,
+        "path": "evidence/prompts/20260815.021926.376Z_toml_score-release_codex.prompt.md",
+        "sha256": "64faa6a51a3b1c6a952ed8b98b5b0cc25a8bd546d4ab9dacb8cc3d359e6d2a9b"
+      },
+      {
+        "bytes": 12578,
+        "path": "evidence/provider_raw/20260815.014859.158Z_toml_analyze_codex.raw.jsonl",
+        "sha256": "d31eae0560db464c496dd53d65bcf631ca21f1ac922ce07076a9db9595eb61bc"
+      },
+      {
+        "bytes": 9420,
+        "path": "evidence/provider_raw/20260815.015011.257Z_toml_plan_codex.raw.jsonl",
+        "sha256": "7b455e70d6c8e48f320d8a1149eadde63ae51a3e8a4fa9f1db4fb0bc9838b260"
+      },
+      {
+        "bytes": 12527,
+        "path": "evidence/provider_raw/20260815.015111.122Z_toml_plan_codex.raw.jsonl",
+        "sha256": "ec2c2c8eac3c9140dfb206d331802b96f529034458910e9a9a85566f68582b66"
+      },
+      {
+        "bytes": 9752,
+        "path": "evidence/provider_raw/20260815.015209.069Z_toml_plan_codex.raw.jsonl",
+        "sha256": "ca376fcf952734602265fa8916f1f4b888d8b36e2161d17f1321d214601300db"
+      },
+      {
+        "bytes": 2555,
+        "path": "evidence/provider_raw/20260815.015300.989Z_toml_lineage_attribute_codex.raw.jsonl",
+        "sha256": "ed411cf55171b497bd8c279fc1c9603482847a6262efdbab1ac835e3f53aa70d"
+      },
+      {
+        "bytes": 961,
+        "path": "evidence/provider_raw/20260815.015319.256Z_toml_lineage_attribute_codex.raw.jsonl",
+        "sha256": "507ff4e6723cdda521bcf644ca078c402641c02e536bdd6e282e1b1bdf3438c5"
+      },
+      {
+        "bytes": 1742,
+        "path": "evidence/provider_raw/20260815.015335.046Z_toml_lineage_attribute_codex.raw.jsonl",
+        "sha256": "57335202b5b3ff7b60170c604e5fd0b018becb9040a74fda3caea1cd8d6e9fcb"
+      },
+      {
+        "bytes": 889,
+        "path": "evidence/provider_raw/20260815.015352.486Z_toml_lineage_attribute_codex.raw.jsonl",
+        "sha256": "52829be248414a3890e5d08a526f2cba54ba26ca139dd00dc270e4dce109f32e"
+      },
+      {
+        "bytes": 1841,
+        "path": "evidence/provider_raw/20260815.015403.233Z_toml_lineage_attribute_codex.raw.jsonl",
+        "sha256": "84f1f55c41ab0ee50b59aaed9ca5ebdb1a15150cccd0c4bf162f7b7c9c6bf58d"
+      },
+      {
+        "bytes": 1430,
+        "path": "evidence/provider_raw/20260815.015417.712Z_toml_lineage_attribute_codex.raw.jsonl",
+        "sha256": "ee14d8b6274c775904543e69c6a45fcddd15623414b38cf84f4ab2c2cb1d15e5"
+      },
+      {
+        "bytes": 4147,
+        "path": "evidence/provider_raw/20260815.015435.169Z_toml_lineage_attribute_codex.raw.jsonl",
+        "sha256": "7a2e73dee2c236cdb42d903b2f6b7b93bd00c9eb57ef59d35b78c4a13ed3292c"
+      },
+      {
+        "bytes": 21891,
+        "path": "evidence/provider_raw/20260815.015512.078Z_toml_build_codex.raw.jsonl",
+        "sha256": "c26338a70ffd0204bf4dac68471b0477cdef7dd2724684055ba2ea0469c6b9cf"
+      },
+      {
+        "bytes": 21990,
+        "path": "evidence/provider_raw/20260815.015711.540Z_toml_build_codex.raw.jsonl",
+        "sha256": "2b19c924aefe5aea064403b7b1e53ced968db75806fc18ec9f744a96e3cf8de4"
+      },
+      {
+        "bytes": 182117,
+        "path": "evidence/provider_raw/20260815.015856.448Z_toml_build_codex.raw.jsonl",
+        "sha256": "e017ff57aa73c0d0f1220b84e6f0ad428805371686b5e1aaf9d2bc87664e851e"
+      },
+      {
+        "bytes": 235348,
+        "path": "evidence/provider_raw/20260815.020701.947Z_toml_build_codex.raw.jsonl",
+        "sha256": "557ad6fefbbd0e4f5fb0a18819d981070f02708ff469cc6010af62a5338bc7e2"
+      },
+      {
+        "bytes": 17329,
+        "path": "evidence/provider_raw/20260815.021741.854Z_toml_build_codex.raw.jsonl",
+        "sha256": "73282b3c24e8327c378f0eea9805561c60359d930ca59e99e2a8da77e12c84de"
+      },
+      {
+        "bytes": 650,
+        "path": "evidence/provider_raw/20260815.021926.376Z_toml_score-release_codex.raw.jsonl",
+        "sha256": "697ea3b1e6ff77f2e816e6af0c28f912c61023180909f0639b1d5e2dedf752fd"
+      }
+    ],
+    "Inputs": [
+      {
+        "bytes": 479,
+        "path": "inputs/SEA_TRIALS.md",
+        "sha256": "30b259abc2d3688f5186ceaae44c6fcba1c044dc48d139e573917222ba90b90a"
+      },
+      {
+        "bytes": 766,
+        "path": "inputs/TECHNOLOGY_STACK.md",
+        "sha256": "4aa464585ea93ae06ea98f6b13164be6983f2bec7c99a1909d441850b455795b"
+      }
+    ],
+    "Run record": [
+      {
+        "bytes": 9175,
+        "path": "result.json",
+        "sha256": "7d1b819558f89c2b0977627fc10eebb0f46688c4bd8227afd6647135a98cb584"
+      }
+    ],
+    "Sources": [
+      {
+        "bytes": 9444,
+        "path": "sources/INSTRUCTIONS.md",
+        "sha256": "d1078b2380a08eac60b23d20aa5ce7097b3e0b00193d9bc3eb82202b16b3b94a"
+      },
+      {
+        "bytes": 449,
+        "path": "sources/full_test.sh",
+        "sha256": "54fcd3c5b0b92e31d7c4c90c3a04ff65617600dcd858947455cda8fbcb2800a6"
+      },
+      {
+        "bytes": 2297,
+        "path": "sources/run_conformance.sh",
+        "sha256": "08bc510bd052f639f3ea85afb174ad1774e6ba7541a262f146590a4ea92d0f86"
+      },
+      {
+        "bytes": 1292,
+        "path": "sources/setup_harness.sh",
+        "sha256": "a94f9cee6ae45b4265e244f40b882f9692f59c67aff16953d2db837fb3885a56"
+      },
+      {
+        "bytes": 1268,
+        "path": "sources/stage_contract.sh",
+        "sha256": "c95f3a314d9d8099bf27a64404a7eba213710c2948d41c1ce6c44f87f225227b"
+      },
+      {
+        "bytes": 641,
+        "path": "sources/stage_test.sh",
+        "sha256": "93254a9d7ac72f19345b48fc36faffb1dc79dcc66f55cf18fee48c2cdce988cd"
+      },
+      {
+        "bytes": 25225,
+        "path": "sources/toml-v1.0.0.md",
+        "sha256": "4cc2468f55b36a27660425430f19c3e63c9da492e6936aded2cf5eed9fcdce45"
+      }
+    ],
+    "Workspace": [
+      {
+        "bytes": 199,
+        "path": "workspace/logs/20260815.014859.158Z_toml_analyze_codex.llm.log",
+        "sha256": "be37cb921a561abd9af4a18aa9fff2c0f8e0c1c2d01f10da2939b53d8d348bb8"
+      },
+      {
+        "bytes": 176,
+        "path": "workspace/logs/20260815.015011.257Z_toml_plan_codex.llm.log",
+        "sha256": "3f10b0a8edc5c2e2b1566bd640c8248a1e8487b99977f2a8cb6f7e205c336f18"
+      },
+      {
+        "bytes": 190,
+        "path": "workspace/logs/20260815.015111.122Z_toml_plan_codex.llm.log",
+        "sha256": "227f27aa14253978d710f6d9bf52052f936dfa48822ecf124704afb1669e7c7a"
+      },
+      {
+        "bytes": 190,
+        "path": "workspace/logs/20260815.015209.069Z_toml_plan_codex.llm.log",
+        "sha256": "967acad3d3e3c4270cf6545a92708abeb5aecd2218db58c6625212f308f3ac00"
+      },
+      {
+        "bytes": 213,
+        "path": "workspace/logs/20260815.015300.989Z_toml_lineage_attribute_codex.llm.log",
+        "sha256": "f93af55e512e8b8eeec616b06495200167a6db9f669ba4f4e2c7831e233f544c"
+      },
+      {
+        "bytes": 213,
+        "path": "workspace/logs/20260815.015319.256Z_toml_lineage_attribute_codex.llm.log",
+        "sha256": "607a4794b9c9ea47994e73720fd235c13ae7b4e0400153c7aefa73679f795ffd"
+      },
+      {
+        "bytes": 213,
+        "path": "workspace/logs/20260815.015335.046Z_toml_lineage_attribute_codex.llm.log",
+        "sha256": "bbef8cae2a31d5e3eb844698c187b2d76db5b3dbec8664b6070d237d6e07dc8a"
+      },
+      {
+        "bytes": 213,
+        "path": "workspace/logs/20260815.015352.486Z_toml_lineage_attribute_codex.llm.log",
+        "sha256": "4b318aafcfb38fedf00c9d96e0fc3b4532f762f29fda05ed2f0396424933fe85"
+      },
+      {
+        "bytes": 213,
+        "path": "workspace/logs/20260815.015403.233Z_toml_lineage_attribute_codex.llm.log",
+        "sha256": "6d9a8d1f6cb8ecd53442a867d360cac29fcf899ffc8015eadc811c6a6815e91b"
+      },
+      {
+        "bytes": 213,
+        "path": "workspace/logs/20260815.015417.712Z_toml_lineage_attribute_codex.llm.log",
+        "sha256": "d18a146113e0cfb267bb7e5cc0a8a1164ddb4169628ca01db2efcfe4b6debbc3"
+      },
+      {
+        "bytes": 216,
+        "path": "workspace/logs/20260815.015435.169Z_toml_lineage_attribute_codex.llm.log",
+        "sha256": "2f06b0fb610a67a551afef10fc453c955415232cb5e4ceaed75ba1eaea93d668"
+      },
+      {
+        "bytes": 134,
+        "path": "workspace/logs/20260815.015512.078Z_toml_build_codex.llm.log",
+        "sha256": "e176bee6511a780182ec551e2436e7f7137181008cd01c8ed1ab8e39611bb68f"
+      },
+      {
+        "bytes": 424,
+        "path": "workspace/logs/20260815.015512.078Z_toml_build_codex.stderr.log",
+        "sha256": "33dad582c0942e722d521b7c2830773e35fdaf7c1c55b026f9b555710d879265"
+      },
+      {
+        "bytes": 134,
+        "path": "workspace/logs/20260815.015711.540Z_toml_build_codex.llm.log",
+        "sha256": "0b777089d29c93eaf72b9aea15c95d71f7b9c5bae2dd360c7b95e28e24f464bf"
+      },
+      {
+        "bytes": 138,
+        "path": "workspace/logs/20260815.015856.448Z_toml_build_codex.llm.log",
+        "sha256": "5f34a8df6b891d891f44208cd3c069aed9e665c141f6af814c88978e26e7fb22"
+      },
+      {
+        "bytes": 2139,
+        "path": "workspace/logs/20260815.015856.448Z_toml_build_codex.stderr.log",
+        "sha256": "5f7e082c0a17bc3b33ae2d428fe108068c87209b1f38fc7af2a0b5c3352a37c6"
+      },
+      {
+        "bytes": 138,
+        "path": "workspace/logs/20260815.020701.947Z_toml_build_codex.llm.log",
+        "sha256": "61b282a7f33f08545df75550402f2b2157538c4dc67432fb70cdba5c5a42be91"
+      },
+      {
+        "bytes": 1468,
+        "path": "workspace/logs/20260815.020701.947Z_toml_build_codex.stderr.log",
+        "sha256": "96c4561abd8346a90b90ab5622a17151f0c19d205041c2de84f10b1fc86d95a9"
+      },
+      {
+        "bytes": 133,
+        "path": "workspace/logs/20260815.021741.854Z_toml_build_codex.llm.log",
+        "sha256": "1c3fa364addc3662f51a342e52622f7b94511f5f64af3b23245c98ae7ff87a4f"
+      },
+      {
+        "bytes": 204,
+        "path": "workspace/logs/20260815.021926.376Z_toml_score-release_codex.llm.log",
+        "sha256": "3c71aa650694afdb78ad1f0e7b5271e5e1e4eaeef2a905cb743958655def8764"
+      },
+      {
+        "bytes": 1147,
+        "path": "workspace/logs/history.jsonl",
+        "sha256": "9bd04c18bcea463005ddf6e4a2ae640e00a873f6ae8a3de10c8d77dd3c9f3c9e"
+      },
+      {
+        "bytes": 1368,
+        "path": "workspace/targets/toml/ACCEPTANCE.json",
+        "sha256": "58eed859968ae1423856588aac06acc640d635e3684364ab56f3dec1e252ccca"
+      },
+      {
+        "bytes": 8807,
+        "path": "workspace/targets/toml/ANALYSIS.md",
+        "sha256": "b5e15c0365d32baadf4a7a8f04dd21d312a92d6706198e23021aed0f6d705704"
+      },
+      {
+        "bytes": 18,
+        "path": "workspace/targets/toml/ANALYZE_COMPASS.md",
+        "sha256": "d0e0ada0cb20f1b26f01cf14ca9bd616306e3714489c16926cb4df903a2fc83b"
+      },
+      {
+        "bytes": 11728,
+        "path": "workspace/targets/toml/COMPASS.md",
+        "sha256": "522c9e94b66c6a51cbfdca4f5a608ac08d4995fcbd8564331d2e94bda4314818"
+      },
+      {
+        "bytes": 1127,
+        "path": "workspace/targets/toml/DECISIONS.json",
+        "sha256": "005753a21a1356667f28bf107967a76c9f7c9e85c19b1b3fe280ef7e20a814c2"
+      },
+      {
+        "bytes": 162,
+        "path": "workspace/targets/toml/EXCLUDE_FILES.md",
+        "sha256": "856e43f06b22025f1fd16ae254f1ed8ff12f01798cc2f64d5c863746aa8130c6"
+      },
+      {
+        "bytes": 15672,
+        "path": "workspace/targets/toml/LINEAGE.json",
+        "sha256": "61083255b32fef69a89a4e57297ebaf249b36ae1529b4cf42fa05542c527bf69"
+      },
+      {
+        "bytes": 13944,
+        "path": "workspace/targets/toml/MANIFEST.md",
+        "sha256": "f50753f448e7a929e6d88a68603aa4369ffe505aafd878ff757207588b075fac"
+      },
+      {
+        "bytes": 403,
+        "path": "workspace/targets/toml/METADATA.md",
+        "sha256": "910537e92d4f6a3d1be7d9902a80791362a38054372e38476fd6a3e45d4b7e1d"
+      },
+      {
+        "bytes": 15,
+        "path": "workspace/targets/toml/PLAN_COMPASS.md",
+        "sha256": "aa2892befcade0dc6d56d5b387423c53157daffffab3ed9162c34d81eb48cc56"
+      },
+      {
+        "bytes": 15010,
+        "path": "workspace/targets/toml/QuarterDeck/commanders_chair.html",
+        "sha256": "75e3919cc34c696f8275becb43544bc4f54ea93a11b298ace635b5d9ae14be83"
+      },
+      {
+        "bytes": 5917,
+        "path": "workspace/targets/toml/QuarterDeck/console.yaml",
+        "sha256": "8c1535d78ba661579e807e8d7e3d6a7f53c2dd42db98c7547249ff8790417518"
+      },
+      {
+        "bytes": 0,
+        "path": "workspace/targets/toml/QuarterDeck/data/.gitkeep",
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      {
+        "bytes": 189,
+        "path": "workspace/targets/toml/QuarterDeck/planning-session.md",
+        "sha256": "fdec85d6675e9afb232d04f9d6b115d5156c1c23d0c3f3450595e711760774ae"
+      },
+      {
+        "bytes": 905,
+        "path": "workspace/targets/toml/QuarterDeck/questionnaires/discovery-identity.json",
+        "sha256": "03940bf608c1db740b31f824b65d75e95e66e24f9b40f718693b5f26e050de7a"
+      },
+      {
+        "bytes": 36,
+        "path": "workspace/targets/toml/README.md",
+        "sha256": "a71d45d1198bd568762c0a4dcb8e37b2744547af97d66e55eec1b72e72dfa2a1"
+      },
+      {
+        "bytes": 636,
+        "path": "workspace/targets/toml/SCORECARD.md",
+        "sha256": "e2b12063ac3a83a0d66befbae32e52277f7dae6acd096d23f2995f8a1394de42"
+      },
+      {
+        "bytes": 479,
+        "path": "workspace/targets/toml/SEA_TRIALS.md",
+        "sha256": "30b259abc2d3688f5186ceaae44c6fcba1c044dc48d139e573917222ba90b90a"
+      },
+      {
+        "bytes": 4218,
+        "path": "workspace/targets/toml/SOUNDINGS.md",
+        "sha256": "e7d0eb51303b78ea7a2b38ce313436bba758baf207c90d606fcf3bc7b3a2ba94"
+      },
+      {
+        "bytes": 766,
+        "path": "workspace/targets/toml/TECHNOLOGY_STACK.md",
+        "sha256": "4aa464585ea93ae06ea98f6b13164be6983f2bec7c99a1909d441850b455795b"
+      },
+      {
+        "bytes": 3110,
+        "path": "workspace/targets/toml/blueprint/ARCHITECTURE.md",
+        "sha256": "e557add3314a661c6073caf7ff8c08f61479d72e82da73b2ff17c4636a2d45e6"
+      },
+      {
+        "bytes": 488,
+        "path": "workspace/targets/toml/blueprint/ARCHITECTURE_compact.md",
+        "sha256": "8a6a249103705efd9be9748bcf4033bf3cc09623d16c4d2dfae3662fb5640463"
+      },
+      {
+        "bytes": 1692,
+        "path": "workspace/targets/toml/blueprint/FEATURE-Conformance.md",
+        "sha256": "533c93e31979b0c34083cc7374300746319e341d139d8482465b8bd0ad6010fa"
+      },
+      {
+        "bytes": 2888,
+        "path": "workspace/targets/toml/blueprint/FEATURE-Decoder-Contract.md",
+        "sha256": "b2021fa432b4267c230ccc3b0df0e3006dfacb6d94f4940c459cc24ee469f49d"
+      },
+      {
+        "bytes": 1785,
+        "path": "workspace/targets/toml/blueprint/FEATURE-Parser-Arrays-Inline.md",
+        "sha256": "d47b63f69941ed19d0faa74595b377b95e711808cecebc9a9d0f3f5304159fdf"
+      },
+      {
+        "bytes": 1789,
+        "path": "workspace/targets/toml/blueprint/FEATURE-Parser-Datetimes.md",
+        "sha256": "cd86386ce3d224649ce25d4327c6099863bbc2e358f5f54b90258408d7ec2416"
+      },
+      {
+        "bytes": 1661,
+        "path": "workspace/targets/toml/blueprint/FEATURE-Parser-Keys.md",
+        "sha256": "5ebf95ec2d5829c940bd0f207ed2d43f00c4bb68a3bf606bde73e7be6d68a2f1"
+      },
+      {
+        "bytes": 1724,
+        "path": "workspace/targets/toml/blueprint/FEATURE-Parser-Lexical-Boundaries.md",
+        "sha256": "406b41d6b2cd22a614688308a9248e5a1175534003af5bf51dfb226da36e377f"
+      },
+      {
+        "bytes": 1818,
+        "path": "workspace/targets/toml/blueprint/FEATURE-Parser-Lexical-Scalars.md",
+        "sha256": "394e9d05cd3f351068ae0e983f67a749119852f749960cd8e0ececae460e91d0"
+      },
+      {
+        "bytes": 1717,
+        "path": "workspace/targets/toml/blueprint/FEATURE-Parser-Strings.md",
+        "sha256": "cd52b18d482985dd1ebf295b8e4cad42517c8abde75db7474bfda90050eacca8"
+      },
+      {
+        "bytes": 1695,
+        "path": "workspace/targets/toml/blueprint/FEATURE-Parser-Tables.md",
+        "sha256": "84b952540cb57666e94e48779491301796a2b4fdc11dfd802cbd9d99ac39a316"
+      },
+      {
+        "bytes": 0,
+        "path": "workspace/targets/toml/blueprint/changes/.gitkeep",
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      {
+        "bytes": 449,
+        "path": "workspace/targets/toml/blueprint/full_test.sh",
+        "sha256": "54fcd3c5b0b92e31d7c4c90c3a04ff65617600dcd858947455cda8fbcb2800a6"
+      },
+      {
+        "bytes": 2297,
+        "path": "workspace/targets/toml/blueprint/run_conformance.sh",
+        "sha256": "08bc510bd052f639f3ea85afb174ad1774e6ba7541a262f146590a4ea92d0f86"
+      },
+      {
+        "bytes": 1292,
+        "path": "workspace/targets/toml/blueprint/setup_harness.sh",
+        "sha256": "a94f9cee6ae45b4265e244f40b882f9692f59c67aff16953d2db837fb3885a56"
+      },
+      {
+        "bytes": 0,
+        "path": "workspace/targets/toml/blueprint/sources/.gitkeep",
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      {
+        "bytes": 9444,
+        "path": "workspace/targets/toml/blueprint/sources/INSTRUCTIONS.md",
+        "sha256": "d1078b2380a08eac60b23d20aa5ce7097b3e0b00193d9bc3eb82202b16b3b94a"
+      },
+      {
+        "bytes": 449,
+        "path": "workspace/targets/toml/blueprint/sources/full_test.sh",
+        "sha256": "54fcd3c5b0b92e31d7c4c90c3a04ff65617600dcd858947455cda8fbcb2800a6"
+      },
+      {
+        "bytes": 2297,
+        "path": "workspace/targets/toml/blueprint/sources/run_conformance.sh",
+        "sha256": "08bc510bd052f639f3ea85afb174ad1774e6ba7541a262f146590a4ea92d0f86"
+      },
+      {
+        "bytes": 1292,
+        "path": "workspace/targets/toml/blueprint/sources/setup_harness.sh",
+        "sha256": "a94f9cee6ae45b4265e244f40b882f9692f59c67aff16953d2db837fb3885a56"
+      },
+      {
+        "bytes": 1268,
+        "path": "workspace/targets/toml/blueprint/sources/stage_contract.sh",
+        "sha256": "c95f3a314d9d8099bf27a64404a7eba213710c2948d41c1ce6c44f87f225227b"
+      },
+      {
+        "bytes": 641,
+        "path": "workspace/targets/toml/blueprint/sources/stage_test.sh",
+        "sha256": "93254a9d7ac72f19345b48fc36faffb1dc79dcc66f55cf18fee48c2cdce988cd"
+      },
+      {
+        "bytes": 25225,
+        "path": "workspace/targets/toml/blueprint/sources/toml-v1.0.0.md",
+        "sha256": "4cc2468f55b36a27660425430f19c3e63c9da492e6936aded2cf5eed9fcdce45"
+      },
+      {
+        "bytes": 1268,
+        "path": "workspace/targets/toml/blueprint/stage_contract.sh",
+        "sha256": "c95f3a314d9d8099bf27a64404a7eba213710c2948d41c1ce6c44f87f225227b"
+      },
+      {
+        "bytes": 415,
+        "path": "workspace/targets/toml/blueprint/stage_contract_compact.md",
+        "sha256": "4d3a39701e97a64c3b8ec2792cb9db7f5ca27f4d619b296dffe2c07957bfb74d"
+      },
+      {
+        "bytes": 641,
+        "path": "workspace/targets/toml/blueprint/stage_test.sh",
+        "sha256": "93254a9d7ac72f19345b48fc36faffb1dc79dcc66f55cf18fee48c2cdce988cd"
+      },
+      {
+        "bytes": 406,
+        "path": "workspace/targets/toml/blueprint/stage_test_compact.md",
+        "sha256": "1baf63eef22b3fe47607fe1753dbda0410cd2b01211d4b0de93d41ce066542e5"
+      },
+      {
+        "bytes": 0,
+        "path": "workspace/targets/toml/evidence/.gitkeep",
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      {
+        "bytes": 3183,
+        "path": "workspace/targets/toml/evidence/block-1.md",
+        "sha256": "bbf1a44e2719836635b262f7642bd12c4866ae2a5bb1c7530e5f57fe309d0246"
+      },
+      {
+        "bytes": 2631,
+        "path": "workspace/targets/toml/evidence/block-2.md",
+        "sha256": "bc00704477fe8779e452bf41a2a48e6108143d65287a1369042e7afa08c23d9b"
+      },
+      {
+        "bytes": 7717,
+        "path": "workspace/targets/toml/evidence/block-3.md",
+        "sha256": "0472dc9acd05f8dff09220844ad2d36e1cf7c57bdece11f8aed3339ee8bf5e93"
+      },
+      {
+        "bytes": 7547,
+        "path": "workspace/targets/toml/evidence/block-4.md",
+        "sha256": "b40a81158d5a0a4ed8efc42ab4923bc1cc308819d58b2a620deab2a16a2dac35"
+      },
+      {
+        "bytes": 2551,
+        "path": "workspace/targets/toml/evidence/block-5.md",
+        "sha256": "8c1877bf8d2f232b4d06f9df34ded9b00ded5f3ff4a881e484b1a78b7ee33d43"
+      },
+      {
+        "bytes": 405,
+        "path": "workspace/targets/toml/evidence/prepassed-acceptance.json",
+        "sha256": "97d7e59a881fb9d9604c7173ea8c132fce85a1b1fd4c37cc6347cd2e85abbd09"
+      },
+      {
+        "bytes": 3165,
+        "path": "workspace/targets/toml/evidence/score-release.json",
+        "sha256": "eb6b0031634eb88ba3528514e274dccdbbe09daa317df192701864da751d67a5"
+      },
+      {
+        "bytes": 0,
+        "path": "workspace/targets/toml/logs/.gitkeep",
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      }
+    ]
+  },
+  "commands": [
+    {
+      "argv": [
+        "/mnt/c/Users/barlo/projects/drydock/.venv/bin/python3",
+        "-m",
+        "drydock",
+        "init",
+        "toml"
+      ],
+      "cwd": "workspace",
+      "elapsed_ms": 840,
+      "label": "01-init",
+      "returncode": 0,
+      "sequence": 1,
+      "stderr": {
+        "bytes": 0,
+        "path": "evidence/commands/01-init.stderr.log",
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "stdout": {
+        "bytes": 515,
+        "path": "evidence/commands/01-init.stdout.log",
+        "sha256": "b577ed363ecc40986f40acf9a84f6bee4ca52dafb46daf39d1019e567cd55e2e"
+      }
+    },
+    {
+      "argv": [
+        "/mnt/c/Users/barlo/projects/drydock/.venv/bin/python3",
+        "-m",
+        "drydock",
+        "import",
+        "toml",
+        "sources",
+        "--format",
+        "markdown"
+      ],
+      "cwd": "workspace",
+      "elapsed_ms": 1081,
+      "label": "02-import-sources",
+      "returncode": 0,
+      "sequence": 2,
+      "stderr": {
+        "bytes": 0,
+        "path": "evidence/commands/02-import-sources.stderr.log",
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "stdout": {
+        "bytes": 383,
+        "path": "evidence/commands/02-import-sources.stdout.log",
+        "sha256": "9ff19ab8b023a9393b0411784d97ed86949fbf0ca97cc32a5f6ac2e88705eca5"
+      }
+    },
+    {
+      "argv": [
+        "/mnt/c/Users/barlo/projects/drydock/.venv/bin/python3",
+        "-m",
+        "drydock",
+        "analyze",
+        "toml"
+      ],
+      "cwd": "workspace",
+      "elapsed_ms": 72034,
+      "label": "03-analyze",
+      "returncode": 0,
+      "sequence": 3,
+      "stderr": {
+        "bytes": 0,
+        "path": "evidence/commands/03-analyze.stderr.log",
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "stdout": {
+        "bytes": 745,
+        "path": "evidence/commands/03-analyze.stdout.log",
+        "sha256": "c1a24f1f2feedf90ebba2bac8e084184ff654dc69938de437750c08c48cc60df"
+      }
+    },
+    {
+      "argv": [
+        "/mnt/c/Users/barlo/projects/drydock/.venv/bin/python3",
+        "-m",
+        "drydock",
+        "plan",
+        "toml",
+        "--override"
+      ],
+      "cwd": "workspace",
+      "elapsed_ms": 297087,
+      "label": "04-plan",
+      "returncode": 0,
+      "sequence": 4,
+      "stderr": {
+        "bytes": 0,
+        "path": "evidence/commands/04-plan.stderr.log",
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "stdout": {
+        "bytes": 4117,
+        "path": "evidence/commands/04-plan.stdout.log",
+        "sha256": "28cbac1abd199fe45bfa90a6c5b525d3ef9f35fc3bf2aba47d2de2fd14afd9c2"
+      }
+    },
+    {
+      "argv": [
+        "/mnt/c/Users/barlo/projects/drydock/.venv/bin/python3",
+        "-m",
+        "drydock",
+        "build",
+        "status",
+        "toml"
+      ],
+      "cwd": "workspace",
+      "elapsed_ms": 1653,
+      "label": "05-after-plan-build-status",
+      "returncode": 0,
+      "sequence": 5,
+      "stderr": {
+        "bytes": 0,
+        "path": "evidence/commands/05-after-plan-build-status.stderr.log",
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "stdout": {
+        "bytes": 1691,
+        "path": "evidence/commands/05-after-plan-build-status.stdout.log",
+        "sha256": "6da3b2af0459d29b06793c7b5f04d3460536db05e1c57f5eb31a4a76c3929050"
+      }
+    },
+    {
+      "argv": [
+        "/mnt/c/Users/barlo/projects/drydock/.venv/bin/python3",
+        "-m",
+        "drydock",
+        "status",
+        "toml"
+      ],
+      "cwd": "workspace",
+      "elapsed_ms": 857,
+      "label": "06-after-plan-target-status",
+      "returncode": 0,
+      "sequence": 6,
+      "stderr": {
+        "bytes": 0,
+        "path": "evidence/commands/06-after-plan-target-status.stderr.log",
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "stdout": {
+        "bytes": 852,
+        "path": "evidence/commands/06-after-plan-target-status.stdout.log",
+        "sha256": "645c8127086fbe83192a68eef42b16c59c04b85bf78a40cdc577b243d6135152"
+      }
+    },
+    {
+      "argv": [
+        "/mnt/c/Users/barlo/projects/drydock/.venv/bin/python3",
+        "-m",
+        "drydock",
+        "status"
+      ],
+      "cwd": "workspace",
+      "elapsed_ms": 571,
+      "label": "07-after-plan-workspace-status",
+      "returncode": 0,
+      "sequence": 7,
+      "stderr": {
+        "bytes": 0,
+        "path": "evidence/commands/07-after-plan-workspace-status.stderr.log",
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "stdout": {
+        "bytes": 831,
+        "path": "evidence/commands/07-after-plan-workspace-status.stdout.log",
+        "sha256": "7f94858c6ef20f38b4148156ea6d2e39c20b7069365b7169b863b6d40fbeb312"
+      }
+    },
+    {
+      "argv": [
+        "/mnt/c/Users/barlo/projects/drydock/.venv/bin/python3",
+        "-m",
+        "drydock",
+        "status",
+        "toml",
+        "--ready"
+      ],
+      "cwd": "workspace",
+      "elapsed_ms": 362,
+      "label": "08-initial-ready",
+      "returncode": 0,
+      "sequence": 8,
+      "stderr": {
+        "bytes": 42,
+        "path": "evidence/commands/08-initial-ready.stderr.log",
+        "sha256": "debe71632b604326fdbad29f820d2728c1dbe86553d8d42b8fb580ef93d0519d"
+      },
+      "stdout": {
+        "bytes": 0,
+        "path": "evidence/commands/08-initial-ready.stdout.log",
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      }
+    },
+    {
+      "argv": [
+        "/mnt/c/Users/barlo/projects/drydock/.venv/bin/python3",
+        "-m",
+        "drydock",
+        "build",
+        "toml",
+        "--override",
+        "--repair-attempts",
+        "6"
+      ],
+      "cwd": "workspace",
+      "elapsed_ms": 1419659,
+      "label": "09-initial-build-1",
+      "returncode": 0,
+      "sequence": 9,
+      "stderr": {
+        "bytes": 0,
+        "path": "evidence/commands/09-initial-build-1.stderr.log",
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "stdout": {
+        "bytes": 3105,
+        "path": "evidence/commands/09-initial-build-1.stdout.log",
+        "sha256": "4e6ed1b5edb622f390b7e76356fa5bb83d9833c1fa7e1dde8a6f0f0665b34f62"
+      }
+    },
+    {
+      "argv": [
+        "/mnt/c/Users/barlo/projects/drydock/.venv/bin/python3",
+        "-m",
+        "drydock",
+        "status",
+        "toml",
+        "--ready"
+      ],
+      "cwd": "workspace",
+      "elapsed_ms": 194,
+      "label": "10-initial-ready",
+      "returncode": 1,
+      "sequence": 10,
+      "stderr": {
+        "bytes": 51,
+        "path": "evidence/commands/10-initial-ready.stderr.log",
+        "sha256": "64c93dff669954e2010d70c241bd2719b77be02e1c4d8386dc58b93f9d4f9c8d"
+      },
+      "stdout": {
+        "bytes": 0,
+        "path": "evidence/commands/10-initial-ready.stdout.log",
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      }
+    },
+    {
+      "argv": [
+        "/mnt/c/Users/barlo/projects/drydock/.venv/bin/python3",
+        "-m",
+        "drydock",
+        "status",
+        "toml",
+        "--check"
+      ],
+      "cwd": "workspace",
+      "elapsed_ms": 211,
+      "label": "11-initial-complete",
+      "returncode": 0,
+      "sequence": 11,
+      "stderr": {
+        "bytes": 0,
+        "path": "evidence/commands/11-initial-complete.stderr.log",
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "stdout": {
+        "bytes": 61,
+        "path": "evidence/commands/11-initial-complete.stdout.log",
+        "sha256": "848a68278c60cfb281387366fe1aee105ad6977113adee78aec59ea925989fb4"
+      }
+    },
+    {
+      "argv": [
+        "/mnt/c/Users/barlo/projects/drydock/.venv/bin/python3",
+        "-m",
+        "drydock",
+        "build",
+        "status",
+        "toml"
+      ],
+      "cwd": "workspace",
+      "elapsed_ms": 586,
+      "label": "12-after-initial-build-build-status",
+      "returncode": 0,
+      "sequence": 12,
+      "stderr": {
+        "bytes": 0,
+        "path": "evidence/commands/12-after-initial-build-build-status.stderr.log",
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "stdout": {
+        "bytes": 1710,
+        "path": "evidence/commands/12-after-initial-build-build-status.stdout.log",
+        "sha256": "92fcb1b689df8c3471cb7fd2328f8d897efa1cc3852d17a3f5791a8de887e2a3"
+      }
+    },
+    {
+      "argv": [
+        "/mnt/c/Users/barlo/projects/drydock/.venv/bin/python3",
+        "-m",
+        "drydock",
+        "status",
+        "toml"
+      ],
+      "cwd": "workspace",
+      "elapsed_ms": 493,
+      "label": "13-after-initial-build-target-status",
+      "returncode": 0,
+      "sequence": 13,
+      "stderr": {
+        "bytes": 0,
+        "path": "evidence/commands/13-after-initial-build-target-status.stderr.log",
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "stdout": {
+        "bytes": 876,
+        "path": "evidence/commands/13-after-initial-build-target-status.stdout.log",
+        "sha256": "e6dcaa122a02f4bba444ed3c5f202bed3a54c2aba5a0c9d28df93be3d6788d4d"
+      }
+    },
+    {
+      "argv": [
+        "/mnt/c/Users/barlo/projects/drydock/.venv/bin/python3",
+        "-m",
+        "drydock",
+        "status"
+      ],
+      "cwd": "workspace",
+      "elapsed_ms": 452,
+      "label": "14-after-initial-build-workspace-status",
+      "returncode": 0,
+      "sequence": 14,
+      "stderr": {
+        "bytes": 0,
+        "path": "evidence/commands/14-after-initial-build-workspace-status.stderr.log",
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "stdout": {
+        "bytes": 725,
+        "path": "evidence/commands/14-after-initial-build-workspace-status.stdout.log",
+        "sha256": "a7369bea0a0111e6825221558ed81a0ffe4a1ec282f36ba0e836021e9ec7482b"
+      }
+    },
+    {
+      "argv": [
+        "sh",
+        "sources/full_test.sh"
+      ],
+      "cwd": "build/toml",
+      "elapsed_ms": 2104,
+      "label": "15-test",
+      "returncode": 0,
+      "sequence": 15,
+      "stderr": {
+        "bytes": 103,
+        "path": "evidence/commands/15-test.stderr.log",
+        "sha256": "09b2f25a26bd688cecc0871d53214d0aa3ccedf85f6219072a52da80bd5f4d57"
+      },
+      "stdout": {
+        "bytes": 236,
+        "path": "evidence/commands/15-test.stdout.log",
+        "sha256": "f9d73f525087998f8e3c9ded015647de3ff5465f872a5d0bb44cfb6aabda2fb3"
+      }
+    },
+    {
+      "argv": [
+        "/mnt/c/Users/barlo/projects/drydock/.venv/bin/python3",
+        "-m",
+        "drydock",
+        "score",
+        "ac",
+        "toml"
+      ],
+      "cwd": "workspace",
+      "elapsed_ms": 22014,
+      "label": "16-score-acceptance",
+      "returncode": 0,
+      "sequence": 16,
+      "stderr": {
+        "bytes": 0,
+        "path": "evidence/commands/16-score-acceptance.stderr.log",
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "stdout": {
+        "bytes": 4476,
+        "path": "evidence/commands/16-score-acceptance.stdout.log",
+        "sha256": "1c433d4667e5d32141d3d50dcea9bd06a04b464ffd60153d8b84eb84e33b8063"
+      }
+    },
+    {
+      "argv": [
+        "/mnt/c/Users/barlo/projects/drydock/.venv/bin/python3",
+        "-m",
+        "drydock",
+        "score",
+        "build",
+        "toml"
+      ],
+      "cwd": "workspace",
+      "elapsed_ms": 325,
+      "label": "17-score-build-report",
+      "returncode": 0,
+      "sequence": 17,
+      "stderr": {
+        "bytes": 0,
+        "path": "evidence/commands/17-score-build-report.stderr.log",
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "stdout": {
+        "bytes": 1570,
+        "path": "evidence/commands/17-score-build-report.stdout.log",
+        "sha256": "1fa93750d2a2cf84aa49bb11ccb71514ee25cca093c40a10af7da3400422e3ef"
+      }
+    },
+    {
+      "argv": [
+        "/mnt/c/Users/barlo/projects/drydock/.venv/bin/python3",
+        "-m",
+        "drydock",
+        "score",
+        "release",
+        "toml"
+      ],
+      "cwd": "workspace",
+      "elapsed_ms": 15892,
+      "label": "18-score-release",
+      "returncode": 0,
+      "sequence": 18,
+      "stderr": {
+        "bytes": 0,
+        "path": "evidence/commands/18-score-release.stderr.log",
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "stdout": {
+        "bytes": 709,
+        "path": "evidence/commands/18-score-release.stdout.log",
+        "sha256": "0f115d331711e75710d5e18b9458172646b4f716f6d6fc1f0098a3b364437a50"
+      }
+    }
+  ],
+  "environment": {
+    "drydock_version": "unknown",
+    "effort": "",
+    "finished_at": "2026-08-15T02:19:36.421599Z",
+    "git_commit": "c00d802d04ce6fd45e553157db5d4dbaa17bc5d2",
+    "model": "gpt-5.6-luna",
+    "platform": "Linux-6.6.87.2-microsoft-standard-WSL2-x86_64-with-glibc2.35",
+    "provider": "codex",
+    "python_version": "3.12.13",
+    "started_at": "2026-08-15T01:48:55.894518Z"
+  },
+  "llm_artifacts": [
+    {
+      "bytes": 94536,
+      "kind": "prompt",
+      "path": "evidence/prompts/20260815.014859.158Z_toml_analyze_codex.prompt.md",
+      "sha256": "527e3a357e1c58bc311d87123d16176e9865cc5be6a83c841901667ea767ab74"
+    },
+    {
+      "bytes": 155415,
+      "kind": "prompt",
+      "path": "evidence/prompts/20260815.015011.257Z_toml_plan_codex.prompt.md",
+      "sha256": "057e54aadd8de0415ea2995611d4b1e94e0aba8a07915732326a8d60fa951ee5"
+    },
+    {
+      "bytes": 167245,
+      "kind": "prompt",
+      "path": "evidence/prompts/20260815.015111.122Z_toml_plan_codex.prompt.md",
+      "sha256": "f7350fac0724094fe0cb0842db07277109adb1233fe17c0295f3e9db15038d3b"
+    },
+    {
+      "bytes": 167359,
+      "kind": "prompt",
+      "path": "evidence/prompts/20260815.015209.069Z_toml_plan_codex.prompt.md",
+      "sha256": "a3e2e83ff542438588eaf91fabc88adaa91221aa720a00992e67109b7e017620"
+    },
+    {
+      "bytes": 13313,
+      "kind": "prompt",
+      "path": "evidence/prompts/20260815.015300.989Z_toml_lineage_attribute_codex.prompt.md",
+      "sha256": "99a726223d5c0d5fdc4ad39dba0b8ea2beff193bc546d9263efac19c940e186e"
+    },
+    {
+      "bytes": 4315,
+      "kind": "prompt",
+      "path": "evidence/prompts/20260815.015319.256Z_toml_lineage_attribute_codex.prompt.md",
+      "sha256": "4a3eae692a4d9e716a2394c6d37e19df24a029fc4f38fe492d89fd55cb83ecca"
+    },
+    {
+      "bytes": 6169,
+      "kind": "prompt",
+      "path": "evidence/prompts/20260815.015335.046Z_toml_lineage_attribute_codex.prompt.md",
+      "sha256": "0e47450b6ed9c15a5b51a808c82f20cc04d557c7e37223a8bbb41f3182c6f4ab"
+    },
+    {
+      "bytes": 5162,
+      "kind": "prompt",
+      "path": "evidence/prompts/20260815.015352.486Z_toml_lineage_attribute_codex.prompt.md",
+      "sha256": "922d62a507fc9cd760682686b137523e3072f8fc679dcc706b1ece99aec2c5a1"
+    },
+    {
+      "bytes": 5139,
+      "kind": "prompt",
+      "path": "evidence/prompts/20260815.015403.233Z_toml_lineage_attribute_codex.prompt.md",
+      "sha256": "54fee05122ffa72bc627f59aadb45785ec5485abf3cffef796bd9126f12119d6"
+    },
+    {
+      "bytes": 4508,
+      "kind": "prompt",
+      "path": "evidence/prompts/20260815.015417.712Z_toml_lineage_attribute_codex.prompt.md",
+      "sha256": "1d40dd6512e6696653d367946e327770be3edc426af037e30c75fae0e3bdc566"
+    },
+    {
+      "bytes": 29093,
+      "kind": "prompt",
+      "path": "evidence/prompts/20260815.015435.169Z_toml_lineage_attribute_codex.prompt.md",
+      "sha256": "b62c3c350264e8c8eea2b64a89645decd4a445a61342ebb4663a8e11b515d045"
+    },
+    {
+      "bytes": 52098,
+      "kind": "prompt",
+      "path": "evidence/prompts/20260815.015512.078Z_toml_build_codex.prompt.md",
+      "sha256": "e9e78dd5c0c118c337daf1688f685e4d28c27fcca0bf678148e48633f75271fd"
+    },
+    {
+      "bytes": 49259,
+      "kind": "prompt",
+      "path": "evidence/prompts/20260815.015711.540Z_toml_build_codex.prompt.md",
+      "sha256": "777d81ac4897107b44bbbb7ae60c209e45b37e57731de41c807cabf3473cf926"
+    },
+    {
+      "bytes": 53344,
+      "kind": "prompt",
+      "path": "evidence/prompts/20260815.015856.448Z_toml_build_codex.prompt.md",
+      "sha256": "8546ac05967c1c54770195e46a892ab62659405092add3b9c0a5e3f8369a1486"
+    },
+    {
+      "bytes": 54798,
+      "kind": "prompt",
+      "path": "evidence/prompts/20260815.020701.947Z_toml_build_codex.prompt.md",
+      "sha256": "341a8860f5ab13f7c38bc9cc05ab27bc70542a93da800ebd16bf6046775e5698"
+    },
+    {
+      "bytes": 51243,
+      "kind": "prompt",
+      "path": "evidence/prompts/20260815.021741.854Z_toml_build_codex.prompt.md",
+      "sha256": "bc732843d496244b869ed86c7baaee3e1ba654825e60534d48d889f1979bb55b"
+    },
+    {
+      "bytes": 6200,
+      "kind": "prompt",
+      "path": "evidence/prompts/20260815.021926.376Z_toml_score-release_codex.prompt.md",
+      "sha256": "64faa6a51a3b1c6a952ed8b98b5b0cc25a8bd546d4ab9dacb8cc3d359e6d2a9b"
+    },
+    {
+      "bytes": 11937,
+      "kind": "prompt_output",
+      "path": "evidence/prompt_outputs/20260815.014859.158Z_toml_analyze_codex.output.txt",
+      "sha256": "6fca0d1b89359c2d872f41a205fb7a5d81b7d99a23003d4579cfd88db1a4a318"
+    },
+    {
+      "bytes": 8856,
+      "kind": "prompt_output",
+      "path": "evidence/prompt_outputs/20260815.015011.257Z_toml_plan_codex.output.txt",
+      "sha256": "1bf88ee314b8141c90d1795053346806d40fc82d62bfebba850632222939e6a9"
+    },
+    {
+      "bytes": 11732,
+      "kind": "prompt_output",
+      "path": "evidence/prompt_outputs/20260815.015111.122Z_toml_plan_codex.output.txt",
+      "sha256": "b540d22dd175c2760efe53f250da03d230bf4c0616be059792ee2ed6b83ac88a"
+    },
+    {
+      "bytes": 9087,
+      "kind": "prompt_output",
+      "path": "evidence/prompt_outputs/20260815.015209.069Z_toml_plan_codex.output.txt",
+      "sha256": "2f39852cbb11639872f091328a581e974d4f6904b3fe06d1d140a6d12ef345be"
+    },
+    {
+      "bytes": 2140,
+      "kind": "prompt_output",
+      "path": "evidence/prompt_outputs/20260815.015300.989Z_toml_lineage_attribute_codex.output.txt",
+      "sha256": "b67299496006322cbbefed0bec277b7211bc9cbc5c567c2d075b537c129ab4d3"
+    },
+    {
+      "bytes": 599,
+      "kind": "prompt_output",
+      "path": "evidence/prompt_outputs/20260815.015319.256Z_toml_lineage_attribute_codex.output.txt",
+      "sha256": "47afaa3a6ad11adb302612d40930fde72753262fca24817a210fff3ea95005ec"
+    },
+    {
+      "bytes": 1332,
+      "kind": "prompt_output",
+      "path": "evidence/prompt_outputs/20260815.015335.046Z_toml_lineage_attribute_codex.output.txt",
+      "sha256": "bfa02f834dbd5b4babb8724ee027c986e8a258b974396b0aa6f9549569bdfa83"
+    },
+    {
+      "bytes": 509,
+      "kind": "prompt_output",
+      "path": "evidence/prompt_outputs/20260815.015352.486Z_toml_lineage_attribute_codex.output.txt",
+      "sha256": "3ade4ce2455c3faa78020d14b74a7945a1350ce1d200abba29729fcf8d9c45e7"
+    },
+    {
+      "bytes": 1395,
+      "kind": "prompt_output",
+      "path": "evidence/prompt_outputs/20260815.015403.233Z_toml_lineage_attribute_codex.output.txt",
+      "sha256": "17bfbf2a1ac62079c7ae8e323b9f5e418ba1789bad0ab880ce2acf0a37ee4c7c"
+    },
+    {
+      "bytes": 1021,
+      "kind": "prompt_output",
+      "path": "evidence/prompt_outputs/20260815.015417.712Z_toml_lineage_attribute_codex.output.txt",
+      "sha256": "27cd3bdf8c5e81a5d93ace3b2fae8dbd282c880c73a3f9c37da0779ac82bfc3a"
+    },
+    {
+      "bytes": 3685,
+      "kind": "prompt_output",
+      "path": "evidence/prompt_outputs/20260815.015435.169Z_toml_lineage_attribute_codex.output.txt",
+      "sha256": "e36589548569c3d9525c727818a997f90f5607501b2b02548c86b5f50a0d3d60"
+    },
+    {
+      "bytes": 1154,
+      "kind": "prompt_output",
+      "path": "evidence/prompt_outputs/20260815.015512.078Z_toml_build_codex.output.txt",
+      "sha256": "24b7116794acbc2e2c945a82da75eed0c51997df5840556a5e0c532f6b82c545"
+    },
+    {
+      "bytes": 300,
+      "kind": "prompt_output",
+      "path": "evidence/prompt_outputs/20260815.015711.540Z_toml_build_codex.output.txt",
+      "sha256": "2d48e271143f312754021770a9ebce555b3a99127d93813a130764b2af4e4f96"
+    },
+    {
+      "bytes": 1156,
+      "kind": "prompt_output",
+      "path": "evidence/prompt_outputs/20260815.015856.448Z_toml_build_codex.output.txt",
+      "sha256": "10e269bde3f8c6f602742092beca0156816d898361915964a3bdf03d1578f792"
+    },
+    {
+      "bytes": 301,
+      "kind": "prompt_output",
+      "path": "evidence/prompt_outputs/20260815.020701.947Z_toml_build_codex.output.txt",
+      "sha256": "3fb356376811f5dcb36971b1dc6eaa6e25f57ae72c966cac1fc77d1ed07928bf"
+    },
+    {
+      "bytes": 263,
+      "kind": "prompt_output",
+      "path": "evidence/prompt_outputs/20260815.021741.854Z_toml_build_codex.output.txt",
+      "sha256": "c2b781c0c460ea566bcc4f7e2a99bbab360a3b2f15e9469d244c9ba3eb6e4273"
+    },
+    {
+      "bytes": 283,
+      "kind": "prompt_output",
+      "path": "evidence/prompt_outputs/20260815.021926.376Z_toml_score-release_codex.output.txt",
+      "sha256": "7a72a16e1d62d30e56b56cc02abf77e3a9afb8a205fd90c4f89835df8d21695b"
+    },
+    {
+      "bytes": 12578,
+      "kind": "provider_raw",
+      "path": "evidence/provider_raw/20260815.014859.158Z_toml_analyze_codex.raw.jsonl",
+      "sha256": "d31eae0560db464c496dd53d65bcf631ca21f1ac922ce07076a9db9595eb61bc"
+    },
+    {
+      "bytes": 9420,
+      "kind": "provider_raw",
+      "path": "evidence/provider_raw/20260815.015011.257Z_toml_plan_codex.raw.jsonl",
+      "sha256": "7b455e70d6c8e48f320d8a1149eadde63ae51a3e8a4fa9f1db4fb0bc9838b260"
+    },
+    {
+      "bytes": 12527,
+      "kind": "provider_raw",
+      "path": "evidence/provider_raw/20260815.015111.122Z_toml_plan_codex.raw.jsonl",
+      "sha256": "ec2c2c8eac3c9140dfb206d331802b96f529034458910e9a9a85566f68582b66"
+    },
+    {
+      "bytes": 9752,
+      "kind": "provider_raw",
+      "path": "evidence/provider_raw/20260815.015209.069Z_toml_plan_codex.raw.jsonl",
+      "sha256": "ca376fcf952734602265fa8916f1f4b888d8b36e2161d17f1321d214601300db"
+    },
+    {
+      "bytes": 2555,
+      "kind": "provider_raw",
+      "path": "evidence/provider_raw/20260815.015300.989Z_toml_lineage_attribute_codex.raw.jsonl",
+      "sha256": "ed411cf55171b497bd8c279fc1c9603482847a6262efdbab1ac835e3f53aa70d"
+    },
+    {
+      "bytes": 961,
+      "kind": "provider_raw",
+      "path": "evidence/provider_raw/20260815.015319.256Z_toml_lineage_attribute_codex.raw.jsonl",
+      "sha256": "507ff4e6723cdda521bcf644ca078c402641c02e536bdd6e282e1b1bdf3438c5"
+    },
+    {
+      "bytes": 1742,
+      "kind": "provider_raw",
+      "path": "evidence/provider_raw/20260815.015335.046Z_toml_lineage_attribute_codex.raw.jsonl",
+      "sha256": "57335202b5b3ff7b60170c604e5fd0b018becb9040a74fda3caea1cd8d6e9fcb"
+    },
+    {
+      "bytes": 889,
+      "kind": "provider_raw",
+      "path": "evidence/provider_raw/20260815.015352.486Z_toml_lineage_attribute_codex.raw.jsonl",
+      "sha256": "52829be248414a3890e5d08a526f2cba54ba26ca139dd00dc270e4dce109f32e"
+    },
+    {
+      "bytes": 1841,
+      "kind": "provider_raw",
+      "path": "evidence/provider_raw/20260815.015403.233Z_toml_lineage_attribute_codex.raw.jsonl",
+      "sha256": "84f1f55c41ab0ee50b59aaed9ca5ebdb1a15150cccd0c4bf162f7b7c9c6bf58d"
+    },
+    {
+      "bytes": 1430,
+      "kind": "provider_raw",
+      "path": "evidence/provider_raw/20260815.015417.712Z_toml_lineage_attribute_codex.raw.jsonl",
+      "sha256": "ee14d8b6274c775904543e69c6a45fcddd15623414b38cf84f4ab2c2cb1d15e5"
+    },
+    {
+      "bytes": 4147,
+      "kind": "provider_raw",
+      "path": "evidence/provider_raw/20260815.015435.169Z_toml_lineage_attribute_codex.raw.jsonl",
+      "sha256": "7a2e73dee2c236cdb42d903b2f6b7b93bd00c9eb57ef59d35b78c4a13ed3292c"
+    },
+    {
+      "bytes": 21891,
+      "kind": "provider_raw",
+      "path": "evidence/provider_raw/20260815.015512.078Z_toml_build_codex.raw.jsonl",
+      "sha256": "c26338a70ffd0204bf4dac68471b0477cdef7dd2724684055ba2ea0469c6b9cf"
+    },
+    {
+      "bytes": 21990,
+      "kind": "provider_raw",
+      "path": "evidence/provider_raw/20260815.015711.540Z_toml_build_codex.raw.jsonl",
+      "sha256": "2b19c924aefe5aea064403b7b1e53ced968db75806fc18ec9f744a96e3cf8de4"
+    },
+    {
+      "bytes": 182117,
+      "kind": "provider_raw",
+      "path": "evidence/provider_raw/20260815.015856.448Z_toml_build_codex.raw.jsonl",
+      "sha256": "e017ff57aa73c0d0f1220b84e6f0ad428805371686b5e1aaf9d2bc87664e851e"
+    },
+    {
+      "bytes": 235348,
+      "kind": "provider_raw",
+      "path": "evidence/provider_raw/20260815.020701.947Z_toml_build_codex.raw.jsonl",
+      "sha256": "557ad6fefbbd0e4f5fb0a18819d981070f02708ff469cc6010af62a5338bc7e2"
+    },
+    {
+      "bytes": 17329,
+      "kind": "provider_raw",
+      "path": "evidence/provider_raw/20260815.021741.854Z_toml_build_codex.raw.jsonl",
+      "sha256": "73282b3c24e8327c378f0eea9805561c60359d930ca59e99e2a8da77e12c84de"
+    },
+    {
+      "bytes": 650,
+      "kind": "provider_raw",
+      "path": "evidence/provider_raw/20260815.021926.376Z_toml_score-release_codex.raw.jsonl",
+      "sha256": "697ea3b1e6ff77f2e816e6af0c28f912c61023180909f0639b1d5e2dedf752fd"
+    },
+    {
+      "bytes": 77021,
+      "kind": "llm_execution_records",
+      "path": "evidence/llm.jsonl",
+      "sha256": "1ea4663228205c3e3fade634783b442664820ba903e7384f98761652323dde7b"
+    }
+  ],
+  "schema_version": 1
+}

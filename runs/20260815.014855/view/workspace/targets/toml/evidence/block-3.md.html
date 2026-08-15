@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>workspace/targets/toml/evidence/block-3.md</title>
+<link rel="stylesheet" href="../../../../../assets/kit.css">
+</head>
+<body>
+<main>
+<header class="fileheader"><div class="kind">Run artifact</div><h1>workspace/targets/toml/evidence/block-3.md</h1><div class="filenav"><a href="../../../../../index.html">&larr; Report</a><a href="../../../../../workspace/targets/toml/evidence/block-3.md">Raw file</a></div></header>
+<article class="doc"><h1>Evidence: Block 3 · Service (block-3)</h1>
+<ul><li>block type: block</li><li>date: 2026-08-14</li><li>resulting state: closed/verified</li><li>story points (combined assembled cost): 9513</li><li>execution id: 20260815.015856.448Z-283ea0ec</li></ul>
+<h2>Stories built</h2>
+<ul><li>Parse all TOML string forms. (parser-strings) [story]</li><li>Parse booleans, integers, and floating-point values. (parser-lexical-scalars) [story]</li><li>Enforce comments, control characters, UTF-8, and lexical boundaries. (parser-lexical-boundaries) [story]</li></ul>
+<h2>Acceptance tooling authorization</h2>
+<ul><li>FEATURE-Parser-Strings.md#parser-strings-conformance: executable=sh; scope=test; authorization=existing Target environment</li><li>FEATURE-Parser-Strings.md#parser-strings-conformance: executable=go; scope=test; authorization=existing Target environment</li><li>FEATURE-Parser-Lexical-Scalars.md#parser-lexical-scalars-conformance: executable=sh; scope=test; authorization=existing Target environment</li><li>FEATURE-Parser-Lexical-Scalars.md#parser-lexical-scalars-conformance: executable=go; scope=test; authorization=existing Target environment</li><li>FEATURE-Parser-Lexical-Boundaries.md#parser-lexical-boundaries-conformance: executable=sh; scope=test; authorization=existing Target environment</li><li>FEATURE-Parser-Lexical-Boundaries.md#parser-lexical-boundaries-conformance: executable=go; scope=test; authorization=existing Target environment</li></ul>
+<h2>Reusable compacts</h2>
+<ul><li>stage_test_compact.md</li></ul>
+<h2>Missing context</h2>
+<ul><li>context: toml-v1.0.0.md</li></ul>
+<h2>Stacked context</h2>
+<ul><li>compass: COMPASS.md (SP 2932)</li><li>implements: FEATURE-Parser-Strings.md (SP 430)</li><li>context: stage_test.sh (SP 161)</li><li>context: ARCHITECTURE_compact.md (SP 122)</li><li>stack: go.md (SP 3646)</li><li>stack: common_compact.md (SP 1179)</li><li>implements: FEATURE-Parser-Lexical-Scalars.md (SP 455)</li><li>implements: FEATURE-Parser-Lexical-Boundaries.md (SP 431)</li></ul>
+<h2>Build directory changes</h2>
+<ul><li>internal/toml/toml.go</li><li>internal/toml/toml_test.go</li><li>toml-decoder</li></ul>
+<h2>Pre-build acceptance observation</h2>
+<ul><li>GREEN (prepassed): parser-strings-conformance (FEATURE-Parser-Strings.md)</li></ul>
+<p>intent: The authoritative TOML conformance suite passes every valid and invalid string case owned by this story. return code: 0 stdout: toml-test v2.2.0 [/mnt/c/Users/barlo/projects/drydock/uat/Toml/runs/20260815.014855/build/toml/toml-decoder] [no encoder] skipped tests: 884 valid tests:   0 passed,  0 failed encoder tests: no encoder command given invalid tests:   0 passed,  0 failed</p>
+<p>harness: /home/barlo/.local/bin/toml-test toml-test v2.2.0; go1.24.6 linux/amd64; race=false; cgo=true</p>
+<ul><li>GREEN (prepassed): parser-lexical-scalars-conformance (FEATURE-Parser-Lexical-Scalars.md)</li></ul>
+<p>intent: The authoritative TOML conformance suite passes every valid and invalid boolean, integer, and float case owned by this story. return code: 0 stdout: toml-test v2.2.0 [/mnt/c/Users/barlo/projects/drydock/uat/Toml/runs/20260815.014855/build/toml/toml-decoder] [no encoder] skipped tests: 884 valid tests:   0 passed,  0 failed encoder tests: no encoder command given invalid tests:   0 passed,  0 failed</p>
+<p>harness: /home/barlo/.local/bin/toml-test toml-test v2.2.0; go1.24.6 linux/amd64; race=false; cgo=true</p>
+<ul><li>GREEN (prepassed): parser-lexical-boundaries-conformance (FEATURE-Parser-Lexical-Boundaries.md)</li></ul>
+<p>intent: The authoritative TOML conformance suite passes every valid comment and invalid control-character and encoding case owned by this story. return code: 0 stdout: toml-test v2.2.0 [/mnt/c/Users/barlo/projects/drydock/uat/Toml/runs/20260815.014855/build/toml/toml-decoder] [no encoder] skipped tests: 884 valid tests:   0 passed,  0 failed encoder tests: no encoder command given invalid tests:   0 passed,  0 failed</p>
+<p>harness: /home/barlo/.local/bin/toml-test toml-test v2.2.0; go1.24.6 linux/amd64; race=false; cgo=true</p>
+<h2>Post-build programmatic acceptance</h2>
+<ul><li>PASS: parser-strings-conformance (FEATURE-Parser-Strings.md)</li></ul>
+<p>intent: The authoritative TOML conformance suite passes every valid and invalid string case owned by this story. target interpreter: /mnt/c/Users/barlo/projects/drydock/.venv/bin/python3 provisioning: not required return code: 0 stdout: toml-test v2.2.0 [/mnt/c/Users/barlo/projects/drydock/uat/Toml/runs/20260815.014855/build/toml/toml-decoder] [no encoder] skipped tests: 884 valid tests:   0 passed,  0 failed encoder tests: no encoder command given invalid tests:   0 passed,  0 failed</p>
+<p>harness: /home/barlo/.local/bin/toml-test toml-test v2.2.0; go1.24.6 linux/amd64; race=false; cgo=true</p>
+<ul><li>PASS: parser-lexical-scalars-conformance (FEATURE-Parser-Lexical-Scalars.md)</li></ul>
+<p>intent: The authoritative TOML conformance suite passes every valid and invalid boolean, integer, and float case owned by this story. target interpreter: /mnt/c/Users/barlo/projects/drydock/.venv/bin/python3 provisioning: not required return code: 0 stdout: toml-test v2.2.0 [/mnt/c/Users/barlo/projects/drydock/uat/Toml/runs/20260815.014855/build/toml/toml-decoder] [no encoder] skipped tests: 884 valid tests:   0 passed,  0 failed encoder tests: no encoder command given invalid tests:   0 passed,  0 failed</p>
+<p>harness: /home/barlo/.local/bin/toml-test toml-test v2.2.0; go1.24.6 linux/amd64; race=false; cgo=true</p>
+<ul><li>PASS: parser-lexical-boundaries-conformance (FEATURE-Parser-Lexical-Boundaries.md)</li></ul>
+<p>intent: The authoritative TOML conformance suite passes every valid comment and invalid control-character and encoding case owned by this story. target interpreter: /mnt/c/Users/barlo/projects/drydock/.venv/bin/python3 provisioning: not required return code: 0 stdout: toml-test v2.2.0 [/mnt/c/Users/barlo/projects/drydock/uat/Toml/runs/20260815.014855/build/toml/toml-decoder] [no encoder] skipped tests: 884 valid tests:   0 passed,  0 failed encoder tests: no encoder command given invalid tests:   0 passed,  0 failed</p>
+<p>harness: /home/barlo/.local/bin/toml-test toml-test v2.2.0; go1.24.6 linux/amd64; race=false; cgo=true</p>
+<h2>Agent self-report (advisory)</h2>
+<p>The build agent declared a failure. This is advisory only; the programmatic acceptance above is the authority for this block&#x27;s outcome.</p>
+<ul><li>summary: Full conformance is incomplete due to deferred arrays, tables, and datetime support.</li><li>detail:</li></ul>
+<p><code>sh sources/full_test.sh</code> reported 76 valid passed and 129 failed; failures are primarily later-block features such as arrays and tables. Implement those subsequent parser blocks before rerunning the full suite.</p>
+<h2>Build summary</h2>
+<p>&lt;reusable-compact filename=&quot;stage_test.sh&quot;&gt; Runs one governed conformance slice: <code>sh sources/stage_test.sh &#x27;&lt;toml-test -run pattern&gt;&#x27;</code>. Requires exactly one pattern argument, builds <code>./cmd/toml-decoder</code>, sets <code>TOML_TEST_VERSION</code> (default <code>v2.2.0</code>), and uses the decoder’s exit status as the verdict. &lt;/reusable-compact&gt;</p>
+<p>RESULT: FAILED</p>
+<p>FILES CHANGED:</p>
+<ul><li>internal/toml/toml.go</li><li>internal/toml/toml_test.go</li></ul>
+<p>SUMMARY: Implemented TOML strings, scalar lexing, UTF-8/control validation, comments, and lexical boundaries. Go tests and vet pass. String, scalar, control, and encoding cases pass when filtered with <code>*</code>. Full suite remains incomplete because arrays, tables, and datetimes are later build blocks.</p>
+<p>BLOCKERS:</p>
+<ul><li>Valid comment cases containing tables/arrays still fail, as those parser features are not yet implemented.</li></ul>
+<p>FAILURE_SUMMARY: Full conformance is incomplete due to deferred arrays, tables, and datetime support.<br>FAILURE_DETAIL: <code>sh sources/full_test.sh</code> reported 76 valid passed and 129 failed; failures are primarily later-block features such as arrays and tables. Implement those subsequent parser blocks before rerunning the full suite.</p></article>
+</main>
+</body>
+</html>

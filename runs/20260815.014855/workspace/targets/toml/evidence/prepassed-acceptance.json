@@ -1,0 +1,15 @@
+{
+  "prepassed": [
+    "complete-conformance",
+    "decoder-invalid-contract",
+    "decoder-stage-contract",
+    "decoder-valid-contract",
+    "parser-arrays-inline-conformance",
+    "parser-datetimes-conformance",
+    "parser-keys-conformance",
+    "parser-lexical-boundaries-conformance",
+    "parser-lexical-scalars-conformance",
+    "parser-strings-conformance",
+    "parser-tables-conformance"
+  ]
+}

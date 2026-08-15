@@ -1,17 +1,45 @@
 # Toml: PASSED
 
-Open `index.html` for the linked proof kit; verify it with `sha256sum -c SHA256SUMS`.
+4 of 6 receipt claims proven. Open `index.html` for the linked proof kit; verify it with `sha256sum -c SHA256SUMS`.
 
+## Receipt
+
+| Claim | Verdict | Recorded outcome | Proof |
+|---|---|---|---|
+| Lifecycle completed | PASS | 18 lifecycle commands executed; the run ended at 18-score-release. | [result.json](result.json) |
+| External conformance suite passed | PASS | sh sources/full_test.sh exited 0. | [evidence/commands/15-test.stdout.log](evidence/commands/15-test.stdout.log) |
+| Target completion check passed | UNPROVEN | drydock status toml --check exited 1. | [evidence/commands/11-initial-complete.stdout.log](evidence/commands/11-initial-complete.stdout.log) |
+| Acceptance score passed | FAIL | drydock score acceptance exited 1. | [evidence/commands/16-score-acceptance.stdout.log](evidence/commands/16-score-acceptance.stdout.log) |
+| Release score passed | PASS | drydock score release exited 0. | [evidence/commands/18-score-release.stdout.log](evidence/commands/18-score-release.stdout.log) |
+| Integrity verification passed | PASS | 217 files digested; verify with sha256sum -c SHA256SUMS. | [SHA256SUMS](SHA256SUMS) |
+
+## Run facts
+
+- Drydock: `unknown` (commit `9af06df538d12e55ae5132a2a7c19a48e5416397`)
+- Provider and model: `codex` / `gpt-5.6-luna`
+- Platform: `Linux-6.6.87.2-microsoft-standard-WSL2-x86_64-with-glibc2.35` on Python `3.12.13`
 - Target: `toml`
 - Run: `20260814.050011`
 - Ran: 2026-08-14 01:00:11 EDT — 2026-08-14 02:04:30 EDT
-- Provider and model: `codex` / `gpt-5.6-luna`
 - Elapsed: 3859.1s
-- Build passes: 1
 - LLM calls: 26
 - Tokens: cached 16,353,280; uncached 1,213,938; output 137,635
 - LLM elapsed: 3396.3s
+- Build passes: 1; repairs: 6 attempts allowed
+- Conformance: passed
+- Verdict: expected PASSED, observed PASSED
 - Advisory scores: acceptance=exit 1, build-report=exit 0, release=exit 0
+
+## RUN SUMMARY
+
+- Input specification: [`sources/toml-v1.0.0.md`](sources/toml-v1.0.0.md)
+- Delivered Code: [`build/toml/`](build/toml)
+- Test Results: [`evidence/commands/15-test.stdout.log`](evidence/commands/15-test.stdout.log)
+
+## RUN NOTES:
+
+- One run is evidence of one run. It is not a benchmark.
+- It is not a security certification of the delivered code.
 
 ## Commands
 

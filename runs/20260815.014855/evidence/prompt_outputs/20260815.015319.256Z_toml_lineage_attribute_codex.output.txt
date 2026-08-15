@@ -1,0 +1,7 @@
+<requirement name="pin-conformance-version" stories="conformance">
+The version setup_harness.sh installs. run_conformance.sh refuses a different one, so a passing verdict names a specific exam rather than whichever harness was on PATH.
+</requirement>
+<requirement name="build-and-run-conformance" stories="architecture,decoder-contract,parser-strings,parser-lexical-scalars,parser-lexical-boundaries,parser-keys,parser-tables,parser-datetimes,parser-arrays-inline,conformance">
+go build -o toml-decoder ./cmd/toml-decoder
+DECODER="$PWD/toml-decoder" exec sh sources/run_conformance.sh
+</requirement>

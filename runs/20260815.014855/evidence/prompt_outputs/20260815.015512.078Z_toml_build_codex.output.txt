@@ -1,0 +1,22 @@
+<reusable-compact filename="ARCHITECTURE.md">
+Go module `github.com/owner/toml-decoder`, Go 1.22+, standard library only. `cmd/toml-decoder` reads stdin, calls `internal/toml.Decode`, emits tagged JSON to stdout, and reports parse errors on stderr with non-zero exit. Tables/arrays map to JSON containers; scalar values use `{type, value}` string fields. No third-party dependencies.
+</reusable-compact>
+
+<reusable-compact filename="stage_contract.sh">
+`stage_contract.sh architecture` requires dependency-free `go.mod` and successful decoder compilation. `stage_contract.sh decoder` verifies `answer = 42` produces tagged JSON, malformed TOML exits non-zero, stdout stays empty on failure, and stderr is non-empty.
+</reusable-compact>
+
+RESULT: SUCCESS
+
+FILES CHANGED:
+- go.mod
+- cmd/toml-decoder/main.go
+- internal/toml/toml.go
+- internal/toml/toml_test.go
+- toml-decoder
+
+SUMMARY:
+Established the standard-library-only Go module, decoder entry point, internal parser boundary, tagged value model, initial parsing behavior, and deterministic tests. Architecture acceptance, decoder smoke contract, formatting, vet, and race tests pass.
+
+BLOCKERS:
+- None
