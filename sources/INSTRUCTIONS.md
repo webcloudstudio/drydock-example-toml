@@ -175,6 +175,26 @@ key/table semantics and in rejecting malformed input, not in the grammar.
    redefinition after an inline table, unterminated constructs. This is where
    most of the remaining score lives.
 
+## Governed Stage Boundaries
+
+`ACCEPTANCE.json` fixes the Commander-owned story boundaries used by the unattended build. Plan
+preserves these exact story ids and may merge related Analyze stories into each boundary through
+`covers:`:
+
+- `architecture` — compilable standard-library-only Go module and decoder command boundary.
+- `decoder-contract` — stdin, tagged JSON, diagnostic-stream, and exit-status contract.
+- `parser-strings` — TOML string cases.
+- `parser-lexical-scalars` — booleans, integers, and floats.
+- `parser-lexical-boundaries` — comments, control characters, and encoding.
+- `parser-keys` — key forms and key-definition semantics.
+- `parser-tables` — standard tables, redefinition, arrays of tables, and ordering.
+- `parser-arrays-inline` — arrays, inline tables, and inline-table closure.
+- `parser-datetimes` — offset and local date/time forms.
+- `conformance` — the complete unfiltered suite after every implementation stage.
+
+Each boundary has a governed command that can run when that story finishes. Do not split one
+boundary into separately scheduled stories: only the named story has Commander-owned verification.
+
 The specification is normative and short. Follow it directly.
 
 ## Files the LLM Needs

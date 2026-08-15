@@ -7,6 +7,7 @@
     "sources/INSTRUCTIONS.md",
     "sources/toml-v1.0.0.md",
     "sources/full_test.sh",
+    "sources/stage_contract.sh",
     "sources/stage_test.sh",
     "sources/run_conformance.sh",
     "sources/setup_harness.sh"
@@ -24,6 +25,16 @@
       "sources/full_test.sh"
     ],
     "stages": {
+      "architecture": [
+        "sh",
+        "sources/stage_contract.sh",
+        "architecture"
+      ],
+      "decoder-contract": [
+        "sh",
+        "sources/stage_contract.sh",
+        "decoder"
+      ],
       "parser-lexical-scalars": [
         "sh",
         "sources/stage_test.sh",
@@ -32,7 +43,12 @@
       "parser-strings": [
         "sh",
         "sources/stage_test.sh",
-        "valid/string/**|invalid/string/**|invalid/control/**"
+        "valid/string/**|invalid/string/**"
+      ],
+      "parser-lexical-boundaries": [
+        "sh",
+        "sources/stage_test.sh",
+        "valid/comment/**|invalid/control/**|invalid/encoding/**"
       ],
       "parser-keys": [
         "sh",
@@ -52,7 +68,11 @@
       "parser-datetimes": [
         "sh",
         "sources/stage_test.sh",
-        "valid/datetime/**|invalid/datetime/**"
+        "valid/datetime/**|invalid/datetime/**|invalid/local-date/**|invalid/local-datetime/**|invalid/local-time/**"
+      ],
+      "conformance": [
+        "sh",
+        "sources/full_test.sh"
       ]
     }
   }
