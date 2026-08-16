@@ -14,7 +14,26 @@
     assertion: assert result.returncode != 0 → AssertionError
     raised at: decoder-no-arguments.py:13
     process exit code: 1
+    criterion code:
+         1 | import subprocess
+         2 |
+         3 | subprocess.run(
+         4 |     [&quot;go&quot;, &quot;build&quot;, &quot;-o&quot;, &quot;toml-decoder&quot;, &quot;./cmd/toml-decoder&quot;],
+         5 |     check=True,
+         6 | )
+         7 | result = subprocess.run(
+         8 |     [&quot;./toml-decoder&quot;, &quot;--unsupported&quot;],
+         9 |     input=&quot;answer = 42\n&quot;,
+        10 |     capture_output=True,
+        11 |     text=True,
+        12 | )
+      &gt; 13 | assert result.returncode != 0
     check stderr:
+      Traceback (most recent call last):
+        File &quot;decoder-no-arguments.py&quot;, line 13, in &lt;module&gt;
+          assert result.returncode != 0
+                 ^^^^^^^^^^^^^^^^^^^^^^
+      AssertionError
 </pre></article>
 </main>
 </body>

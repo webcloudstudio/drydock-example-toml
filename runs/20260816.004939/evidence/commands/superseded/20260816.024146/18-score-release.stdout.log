@@ -1,0 +1,12 @@
+Drydock 0.1.8  Copyright (c) 2026 Web Cloud Studio. All rights reserved.
+2026-08-15 22:31:42 EDT  Calling CODEX/gpt-5.6-luna (score release)...
+  Completed CODEX/gpt-5.6-luna (score release)  rc=0
+
+toml: PASSED — 1 of 1
+
+  st-001  MET       sh sources/full_test.sh: return code 0; toml-test: 205 valid tests and 474 invalid tests passed
+  reported: Build directory has uncommitted changes
+
+Scorecard: /mnt/c/Users/barlo/projects/drydock/uat/Toml/runs/20260816.004939/workspace/targets/toml/SCORECARD.md
+Evidence: /mnt/c/Users/barlo/projects/drydock/uat/Toml/runs/20260816.004939/workspace/targets/toml/evidence/score-release.json
+Target - committed project workspace git store

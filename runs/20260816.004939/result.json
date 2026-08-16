@@ -285,7 +285,7 @@
     },
     {
       "argv": [
-        "/mnt/c/Users/barlo/projects/drydock/.venv/bin/python3",
+        "/mnt/c/Users/barlo/projects/drydock/.venv/bin/python",
         "-m",
         "drydock",
         "score",
@@ -293,7 +293,7 @@
         "toml"
       ],
       "cwd": "workspace",
-      "elapsed_ms": 59558,
+      "elapsed_ms": 61308,
       "label": "16-score-acceptance",
       "llm_executions": [],
       "returncode": 1,
@@ -302,7 +302,7 @@
     },
     {
       "argv": [
-        "/mnt/c/Users/barlo/projects/drydock/.venv/bin/python3",
+        "/mnt/c/Users/barlo/projects/drydock/.venv/bin/python",
         "-m",
         "drydock",
         "score",
@@ -310,7 +310,7 @@
         "toml"
       ],
       "cwd": "workspace",
-      "elapsed_ms": 365,
+      "elapsed_ms": 570,
       "label": "17-score-build-report",
       "llm_executions": [],
       "returncode": 0,
@@ -319,7 +319,7 @@
     },
     {
       "argv": [
-        "/mnt/c/Users/barlo/projects/drydock/.venv/bin/python3",
+        "/mnt/c/Users/barlo/projects/drydock/.venv/bin/python",
         "-m",
         "drydock",
         "score",
@@ -327,10 +327,10 @@
         "toml"
       ],
       "cwd": "workspace",
-      "elapsed_ms": 14849,
+      "elapsed_ms": 15604,
       "label": "18-score-release",
       "llm_executions": [
-        "20260816.023142.779Z-ba32a1da"
+        "20260816.024255.479Z-d6416f97"
       ],
       "returncode": 0,
       "stderr_path": "evidence/commands/18-score-release.stderr.log",
@@ -338,17 +338,17 @@
     }
   ],
   "degraded": [],
-  "elapsed_ms": 80064,
+  "elapsed_ms": 82660,
   "environment": {
     "drydock_version": "0.1.8",
     "effort": "",
-    "finished_at": "2026-08-16T02:31:56.580015Z",
-    "git_commit": "0c58a9624be56fac129cb7164bfca22f14866696",
+    "finished_at": "2026-08-16T02:43:09.362158Z",
+    "git_commit": "35c5ec72ea0aac8c772a0a3b989dafb575352311",
     "model": "gpt-5.6-luna",
     "platform": "Linux-6.6.87.2-microsoft-standard-WSL2-x86_64-with-glibc2.35",
     "provider": "codex",
     "python_version": "3.12.13",
-    "started_at": "2026-08-16T02:30:36.435642Z"
+    "started_at": "2026-08-16T02:41:46.655164Z"
   },
   "error": "",
   "evidence_dir": "evidence",
@@ -367,12 +367,12 @@
   "status": "passed",
   "target": "toml",
   "usage": {
-    "cached_input_tokens": 10465792,
-    "calls": 25,
-    "fresh_input_tokens": 812240,
-    "input_tokens": 11278032,
+    "cached_input_tokens": 10474752,
+    "calls": 26,
+    "fresh_input_tokens": 816636,
+    "input_tokens": 11291388,
     "invalid_records": 0,
-    "llm_elapsed_ms": 2694107,
-    "output_tokens": 110726
+    "llm_elapsed_ms": 2701270,
+    "output_tokens": 110858
   }
 }
