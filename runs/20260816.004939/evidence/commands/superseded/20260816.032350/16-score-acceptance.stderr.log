@@ -1,0 +1,25 @@
+error: acceptance verification failed for toml: 1 of 29 criteria
+  decoder-no-arguments  decoder-contract  FEATURE-Decoder-Contract.md
+    assertion: assert result.returncode != 0 → AssertionError
+    raised at: decoder-no-arguments.py:13
+    process exit code: 1
+    criterion code:
+         1 | import subprocess
+         2 |
+         3 | subprocess.run(
+         4 |     ["go", "build", "-o", "toml-decoder", "./cmd/toml-decoder"],
+         5 |     check=True,
+         6 | )
+         7 | result = subprocess.run(
+         8 |     ["./toml-decoder", "--unsupported"],
+         9 |     input="answer = 42\n",
+        10 |     capture_output=True,
+        11 |     text=True,
+        12 | )
+      > 13 | assert result.returncode != 0
+    check stderr:
+      Traceback (most recent call last):
+        File "decoder-no-arguments.py", line 13, in <module>
+          assert result.returncode != 0
+                 ^^^^^^^^^^^^^^^^^^^^^^
+      AssertionError

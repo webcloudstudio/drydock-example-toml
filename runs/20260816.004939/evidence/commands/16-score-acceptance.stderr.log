@@ -3,6 +3,8 @@ error: acceptance verification failed for toml: 1 of 29 criteria
     assertion: assert result.returncode != 0 → AssertionError
     raised at: decoder-no-arguments.py:13
     process exit code: 1
+    values at failure:
+      result = CompletedProcess(args=['./toml-decoder', '--unsupported'], returncode=0, stdout='{"answer":{"type":"integer","value":"42"}}\n', stderr='')
     criterion code:
          1 | import subprocess
          2 |
