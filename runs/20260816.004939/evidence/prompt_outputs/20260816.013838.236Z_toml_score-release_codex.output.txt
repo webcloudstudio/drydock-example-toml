@@ -1,0 +1,1 @@
+{"criteria":[{"id":"st-001","verdict":"MET","rationale":"The governed full gate exited zero and reported all 205 valid and 474 invalid tests passed.","evidence":["sh sources/full_test.sh returned code 0","governed gate stdout: valid tests 205 passed, invalid tests 474 passed"]}],"improvements":[]}

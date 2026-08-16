@@ -1,0 +1,17 @@
+Drydock 0.1.8  Copyright (c) 2026 Web Cloud Studio. All rights reserved.
+Analyzing Blueprint: toml
+Running analysis...
+2026-08-15 20:49:45 EDT  Calling CODEX/gpt-5.6-luna (analyze)...
+  Completed CODEX/gpt-5.6-luna (analyze)  rc=0
+
+  ANALYSIS.md   →  ANALYSIS.md
+  SEA_TRIALS.md →  SEA_TRIALS.md
+  COMPASS.md    →  COMPASS.md  (created)
+  discovery-identity.json →  QuarterDeck/questionnaires/discovery-identity.json
+  commanders_chair  →  QuarterDeck/commanders_chair.html  (lifecycle: analyzed)
+
+Quality: ⚠  Questions  (4 features · 11 stories · 1 questionnaires · 0 blockers)
+
+Review QuarterDeck action items, then run:
+  drydock plan toml
+Target - committed project workspace git store

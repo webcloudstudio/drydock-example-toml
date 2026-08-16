@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>evidence/commands/09-initial-build-1.stdout.log</title>
+<link rel="stylesheet" href="../../../assets/kit.css">
+</head>
+<body>
+<main>
+<header class="fileheader"><div class="kind">Run artifact</div><h1>evidence/commands/09-initial-build-1.stdout.log</h1><div class="filenav"><a href="../../../index.html">&larr; Report</a><a href="../../../evidence/commands/09-initial-build-1.stdout.log">Raw file</a></div></header>
+<article class="doc"><pre>Drydock 0.1.8  Copyright (c) 2026 Web Cloud Studio. All rights reserved.
+Build: toml
+scope: entire project
+frontier: architecture
+
+LLM BUILD: Block 1 · Foundational [block-1]
+  stories: Establish the standard-library-only Go module and decoder command. [architecture]
+  call: 1 of up to 7 · initial build · codex/gpt-5.6-luna
+  Completed CODEX/gpt-5.6-luna (build)  rc=0
+acceptance: call 1 · 2/2 AC passed
+built: architecture — closed/verified · execution 20260816.005728.172Z-cb1d49ff
+
+LLM BUILD: Block 2 · Service [block-2]
+  stories: Implement the stdin, tagged-JSON, diagnostic, and exit-status contract. [decoder-contract]
+  call: 1 of up to 7 · initial build · codex/gpt-5.6-luna
+  Completed CODEX/gpt-5.6-luna (build)  rc=0
+acceptance: call 1 · 3/3 AC passed
+built: decoder-contract — closed/verified · execution 20260816.005855.689Z-33607cc9
+
+LLM BUILD: Block 3 · Service [block-3]
+  stories: Parse all TOML basic, literal, and multiline string forms. [parser-strings]
+  call: 1 of up to 7 · initial build · codex/gpt-5.6-luna
+  Completed CODEX/gpt-5.6-luna (build)  rc=0
+acceptance: call 1 · 3/3 AC passed
+built: parser-strings — closed/verified · execution 20260816.010051.090Z-0d65277f
+
+LLM BUILD: Block 4 · Service [block-4]
+  stories: Parse TOML booleans, integers, and floating-point values. [parser-lexical-scalars]
+  call: 1 of up to 7 · initial build · codex/gpt-5.6-luna
+  Completed CODEX/gpt-5.6-luna (build)  rc=0
+acceptance: call 1 · 3/3 AC passed
+built: parser-lexical-scalars — closed/verified · execution 20260816.010655.417Z-48ceef7c
+
+LLM BUILD: Block 5 · Service [block-5]
+  stories: Enforce TOML comments, control-character, and UTF-8 boundaries. [parser-lexical-boundaries]
+  call: 1 of up to 7 · initial build · codex/gpt-5.6-luna
+  Completed CODEX/gpt-5.6-luna (build)  rc=0
+acceptance: call 1 · 2/3 AC passed · failed: parser-boundaries-valid (0/0 cases)
+
+LLM BUILD: Block 5 · Service [block-5]
+  stories: Enforce TOML comments, control-character, and UTF-8 boundaries. [parser-lexical-boundaries]
+  call: 2 of up to 7 · automatic repair 1 of 6 · codex/gpt-5.6-luna
+  failing: parser-boundaries-valid (0/0 cases)
+  Completed CODEX/gpt-5.6-luna (build)  rc=0
+acceptance: call 2 · 3/3 AC passed
+built: parser-lexical-boundaries — closed/verified · execution 20260816.011402.538Z-7d77748f
+
+LLM BUILD: Block 6 · Service [block-6]
+  stories: Parse bare, quoted, and dotted keys with duplicate protection. [parser-keys]
+  call: 1 of up to 7 · initial build · codex/gpt-5.6-luna
+  Completed CODEX/gpt-5.6-luna (build)  rc=0
+acceptance: call 1 · 3/3 AC passed
+built: parser-keys — closed/verified · execution 20260816.011726.759Z-f3150fe3
+
+LLM BUILD: Block 7 · Service [block-7]
+  stories: Implement standard tables and arrays-of-tables with ordering rules. [parser-tables]
+  call: 1 of up to 7 · initial build · codex/gpt-5.6-luna
+  Completed CODEX/gpt-5.6-luna (build)  rc=0
+acceptance: call 1 · 3/3 AC passed
+built: parser-tables — closed/verified · execution 20260816.012022.052Z-d5d4f5c7
+
+LLM BUILD: Block 8 · Service [block-8]
+  stories: Parse arrays and inline tables with closure and nesting rules. [parser-arrays-inline]
+  call: 1 of up to 7 · initial build · codex/gpt-5.6-luna
+  Completed CODEX/gpt-5.6-luna (build)  rc=0
+acceptance: call 1 · 3/3 AC passed
+built: parser-arrays-inline — closed/verified · execution 20260816.012414.115Z-5c036c1d
+
+LLM BUILD: Block 9 · Service [block-9]
+  stories: Parse offset and local TOML date/time values with required encoding. [parser-datetimes]
+  call: 1 of up to 7 · initial build · codex/gpt-5.6-luna
+  Completed CODEX/gpt-5.6-luna (build)  rc=0
+acceptance: call 1 · 3/3 AC passed
+built: parser-datetimes — closed/verified · execution 20260816.013008.609Z-2aa9dd3b
+
+LLM BUILD: Block 10 · Service [block-10]
+  stories: Verify complete TOML 1.0.0 conformance against the installed suite. [conformance]
+  call: 1 of up to 7 · initial build · codex/gpt-5.6-luna
+  Completed CODEX/gpt-5.6-luna (build)  rc=0
+acceptance: call 1 · 3/3 AC passed
+built: conformance — closed/verified · execution 20260816.013330.042Z-abd5c8bf
+
+result: 10 built, 0 failed, 0 unchanged
+elapsed: 40 minutes 7 seconds
+Target - committed project workspace git store
+</pre></article>
+</main>
+</body>
+</html>

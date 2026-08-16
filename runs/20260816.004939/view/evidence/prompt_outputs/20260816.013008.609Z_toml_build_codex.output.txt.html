@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>evidence/prompt_outputs/20260816.013008.609Z_toml_build_codex.output.txt</title>
+<link rel="stylesheet" href="../../../assets/kit.css">
+</head>
+<body>
+<main>
+<header class="fileheader"><div class="kind">Run artifact</div><h1>evidence/prompt_outputs/20260816.013008.609Z_toml_build_codex.output.txt</h1><div class="filenav"><a href="../../../index.html">&larr; Report</a><a href="../../../evidence/prompt_outputs/20260816.013008.609Z_toml_build_codex.output.txt">Raw file</a></div></header>
+<article class="doc"><pre>RESULT: FAILED
+
+FILES CHANGED:
+- internal/toml/toml.go
+- internal/toml/toml_test.go
+
+SUMMARY:
+Implemented strict TOML datetime parsing, validation, RFC 3339 encoding, and fractional truncation. Datetime tests passed: 9 valid, 35 invalid datetime, 12 invalid dates, 15 invalid local datetimes, and 8 invalid local times. Unit tests and vet pass.
+
+BLOCKERS:
+- Full suite retains 8 valid and 22 invalid failures in pre-existing integer, float, and table behavior.
+
+FAILURE_SUMMARY: Full conformance suite fails outside the datetime story.
+FAILURE_DETAIL: Datetime-scoped verification passes, but sources/full_test.sh exits nonzero due unrelated integer normalization, float validation, and table semantics failures. Those areas must be fixed in their respective build blocks.</pre></article>
+</main>
+</body>
+</html>

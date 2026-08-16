@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>workspace/logs/20260816.013330.042Z_toml_build_codex.stderr.log</title>
+<link rel="stylesheet" href="../../../assets/kit.css">
+</head>
+<body>
+<main>
+<header class="fileheader"><div class="kind">Run artifact</div><h1>workspace/logs/20260816.013330.042Z_toml_build_codex.stderr.log</h1><div class="filenav"><a href="../../../index.html">&larr; Report</a><a href="../../../workspace/logs/20260816.013330.042Z_toml_build_codex.stderr.log">Raw file</a></div></header>
+<article class="doc"><pre>2026-08-16T01:34:39.654701Z ERROR codex_core::tools::router: error=apply_patch verification failed: Failed to find expected lines in /mnt/c/Users/barlo/projects/drydock/uat/Toml/runs/20260816.004939/build/toml/internal/toml/toml.go:
+		if !exists {
+			m := map[string]any{}
+			cur[part] = m
+			cur = m
+			continue
+		}
+		switch v := value.(type) {
+		case map[string]any:
+			if p.closed[mapID(v)] {
+				return nil, fmt.Errorf(&quot;table redefinition&quot;)
+2026-08-16T01:35:38.546471Z ERROR codex_core::tools::router: error=apply_patch verification failed: Failed to read file to update /mnt/c/Users/barlo/projects/drydock/uat/20260816.004939/build/toml/internal/toml/toml_test.go: No such file or directory (os error 2)
+2026-08-16T01:35:49.120190Z ERROR codex_core::tools::router: error=apply_patch verification failed: Failed to find expected lines in /mnt/c/Users/barlo/projects/drydock/uat/Toml/runs/20260816.004939/build/toml/internal/toml/toml_test.go:
+		&quot;value = 0x&quot;,
+2026-08-16T01:37:11.360859Z ERROR codex_core::tools::router: error=write_stdin failed: Unknown process id 50017
+</pre></article>
+</main>
+</body>
+</html>

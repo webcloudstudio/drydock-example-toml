@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>workspace/targets/toml/evidence/block-2.md</title>
+<link rel="stylesheet" href="../../../../../assets/kit.css">
+</head>
+<body>
+<main>
+<header class="fileheader"><div class="kind">Run artifact</div><h1>workspace/targets/toml/evidence/block-2.md</h1><div class="filenav"><a href="../../../../../index.html">&larr; Report</a><a href="../../../../../workspace/targets/toml/evidence/block-2.md">Raw file</a></div></header>
+<article class="doc"><h1>Evidence: Block 2 · Service (block-2)</h1>
+<ul><li>block type: block</li><li>date: 2026-08-15</li><li>resulting state: closed/verified</li><li>story points (combined assembled cost): 9552</li><li>execution id: 20260816.005855.689Z-33607cc9</li></ul>
+<h2>Stories built</h2>
+<ul><li>Implement the stdin, tagged-JSON, diagnostic, and exit-status contract. (decoder-contract) [story]</li></ul>
+<h2>Acceptance tooling authorization</h2>
+<ul><li>FEATURE-Decoder-Contract.md#decoder-valid-contract: executable=sh; scope=test; authorization=existing Target environment</li><li>FEATURE-Decoder-Contract.md#decoder-valid-contract: executable=python3; scope=test; authorization=existing Target environment</li><li>FEATURE-Decoder-Contract.md#decoder-invalid-contract: executable=sh; scope=test; authorization=existing Target environment</li><li>FEATURE-Decoder-Contract.md#decoder-no-arguments: executable=go; scope=test; authorization=existing Target environment</li></ul>
+<h2>Stacked context</h2>
+<ul><li>compass: COMPASS.md (SP 2899)</li><li>implements: FEATURE-Decoder-Contract.md (SP 665)</li><li>context: stage_contract.sh (SP 317)</li><li>context: ARCHITECTURE_compact.md (SP 128)</li><li>stack: go.md (SP 3646)</li><li>stack: common.md (SP 1807)</li></ul>
+<h2>Build directory changes</h2>
+<ul><li>cmd/toml-decoder/main.go</li><li>internal/toml/toml.go</li><li>internal/toml/toml_test.go</li></ul>
+<h2>Pre-build acceptance observation</h2>
+<ul><li>RED: decoder-valid-contract (FEATURE-Decoder-Contract.md)</li></ul>
+<p>intent: Valid stdin produces the required tagged JSON state and no diagnostic. return code: 1 stderr: Traceback (most recent call last): File &quot;decoder-valid-contract.py&quot;, line 11, in &lt;module&gt; assert result.returncode == 0 ^^^^^^^^^^^^^^^^^^^^^^ AssertionError</p>
+<ul><li>RED: decoder-invalid-contract (FEATURE-Decoder-Contract.md)</li></ul>
+<p>intent: Malformed stdin is rejected without a successful stdout payload. return code: 1 stderr: Traceback (most recent call last): File &quot;decoder-invalid-contract.py&quot;, line 10, in &lt;module&gt; assert result.returncode == 0 ^^^^^^^^^^^^^^^^^^^^^^ AssertionError</p>
+<ul><li>GREEN (prepassed): decoder-no-arguments (FEATURE-Decoder-Contract.md)</li></ul>
+<p>intent: The command boundary rejects unsupported command-line arguments. return code: 0</p>
+<h2>Post-build programmatic acceptance</h2>
+<ul><li>PASS: decoder-valid-contract (FEATURE-Decoder-Contract.md)</li></ul>
+<p>intent: Valid stdin produces the required tagged JSON state and no diagnostic. target interpreter: /mnt/c/Users/barlo/projects/drydock/.venv/bin/python3 provisioning: not required return code: 0</p>
+<ul><li>PASS: decoder-invalid-contract (FEATURE-Decoder-Contract.md)</li></ul>
+<p>intent: Malformed stdin is rejected without a successful stdout payload. target interpreter: /mnt/c/Users/barlo/projects/drydock/.venv/bin/python3 provisioning: not required return code: 0</p>
+<ul><li>PASS: decoder-no-arguments (FEATURE-Decoder-Contract.md)</li></ul>
+<p>intent: The command boundary rejects unsupported command-line arguments. target interpreter: /mnt/c/Users/barlo/projects/drydock/.venv/bin/python3 provisioning: not required return code: 0</p>
+<h2>Build summary</h2>
+<p>RESULT: SUCCESS</p>
+<p>FILES CHANGED:</p>
+<ul><li>cmd/toml-decoder/main.go</li><li>internal/toml/toml.go</li><li>internal/toml/toml_test.go</li></ul>
+<p>SUMMARY: Implemented stdin/stdout/stderr handling, tagged JSON output, diagnostics, nonzero exits, argument rejection, and minimal integer decoding. All declared contract checks, <code>go test -race</code>, <code>go vet</code>, and formatting checks pass.</p>
+<p>BLOCKERS:</p>
+<ul><li>None</li></ul></article>
+</main>
+</body>
+</html>

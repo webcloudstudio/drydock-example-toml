@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>workspace/targets/toml/blueprint/FEATURE-Parser-Tables.md</title>
+<link rel="stylesheet" href="../../../../../assets/kit.css">
+</head>
+<body>
+<main>
+<header class="fileheader"><div class="kind">Run artifact</div><h1>workspace/targets/toml/blueprint/FEATURE-Parser-Tables.md</h1><div class="filenav"><a href="../../../../../index.html">&larr; Report</a><a href="../../../../../workspace/targets/toml/blueprint/FEATURE-Parser-Tables.md">Raw file</a></div></header>
+<article class="doc"><h1>FEATURE: Parser Tables</h1>
+<div class="scroll"><table><thead><tr><th>Field</th><th>Value</th></tr></thead><tbody><tr><td>Version</td><td>20260816 V1</td></tr><tr><td>Description</td><td>Implements TOML standard tables and arrays of tables with ordering and conflict rules.</td></tr><tr><td>Depends On</td><td>ARCHITECTURE.md, FEATURE-Parser-Keys.md</td></tr><tr><td>Provides</td><td>TOML standard-table and array-of-tables state machines</td></tr><tr><td>Consumes</td><td>internal/toml.Decode</td></tr></tbody></table></div>
+<h2>Purpose</h2>
+<p>The parser implements standard table headers, implicit parents, table redefinition rules, arrays of tables, nested arrays of tables, and most-recent-element targeting.</p>
+<h2>Workflow</h2>
+<ol><li>Parse a standard table or array-of-tables header.</li><li>Resolve its path through existing tables and array elements.</li><li>Create implicit parents where TOML permits them.</li><li>Select or append the correct array element.</li><li>Reject redefinitions, reversed parent ordering, and table/array conflicts.</li><li>Parse subsequent assignments into the selected table.</li></ol>
+<h2>Programmatic Acceptance</h2>
+<p>Requires: executable=go; scope=test<br>Requires: executable=sh; scope=test<br>Requires: executable=toml-test; scope=test</p>
+<p>=== AC parser-tables-conformance ===<br>Intent: The implementation passes the authoritative TOML table and array-of-table cases owned by this story.<br>Suite: scoped</p>
+<p>import subprocess</p>
+<p>result = subprocess.run( [&quot;sh&quot;, &quot;sources/stage_test.sh&quot;, &quot;valid/table/<strong>|invalid/table/</strong>&quot;], capture_output=True, text=True, ) print(result.stdout) print(result.stderr) assert result.returncode == 0 === END AC parser-tables-conformance ===</p>
+<p>=== AC parser-tables-redefinition ===<br>Intent: Redefining a standard table is rejected. import subprocess</p>
+<p>source = &quot;[fruit]\napple = \&quot;red\&quot;\n[fruit]\norange = \&quot;orange\&quot;\n&quot; result = subprocess.run( [&quot;./toml-decoder&quot;], input=source, capture_output=True, text=True, ) print(result.stdout) print(result.stderr) assert result.returncode != 0 === END AC parser-tables-redefinition ===</p>
+<p>=== AC parser-tables-array-conflict ===<br>Intent: Defining an array of tables where a static table already exists is rejected. import subprocess</p>
+<p>source = &quot;[fruits]\nname = \&quot;apple\&quot;\n[[fruits]]\nname = \&quot;orange\&quot;\n&quot; result = subprocess.run( [&quot;./toml-decoder&quot;], input=source, capture_output=True, text=True, ) print(result.stdout) print(result.stderr) assert result.returncode != 0 === END AC parser-tables-array-conflict ===</p>
+<h2>User Acceptance</h2>
+<ul><li>None.</li></ul>
+<h2>Guardrails</h2>
+<ul><li>A standard table cannot be defined more than once.</li><li>Arrays of tables append elements in source order.</li><li>Nested table headers target the most recently defined enclosing array element.</li><li>A table and an array of tables cannot define the same path incompatibly.</li></ul></article>
+</main>
+</body>
+</html>

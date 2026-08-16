@@ -1,0 +1,15 @@
+RESULT: FAILED
+
+FILES CHANGED:
+- internal/toml/toml.go
+- internal/toml/toml_test.go
+- toml-decoder
+
+SUMMARY:
+Added UTF-8, control-character, CRLF, comment, and line-boundary validation with focused tests. Control scope passed 32/32; encoding scope passed 14/14. Valid comment scope passed 5/7.
+
+BLOCKERS:
+- Valid comment cases still require unsupported tables, arrays, and datetime parsing.
+
+FAILURE_SUMMARY: Valid comment acceptance failed due to pre-existing parser feature gaps.
+FAILURE_DETAIL: `valid/comment/everywhere` and `valid/comment/tricky` fail at table/array constructs. Implement table, array, and datetime parsing before rerunning the lexical-boundary acceptance gate.

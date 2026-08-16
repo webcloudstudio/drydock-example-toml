@@ -1,0 +1,101 @@
+<requirement name="toml-document-boundaries" stories="parser-lexical-boundaries">
+TOML is case-sensitive.
+A TOML file must be a valid UTF-8 encoded Unicode document.
+Whitespace means tab (0x09) or space (0x20).
+Newline means LF (0x0A) or CRLF (0x0D 0x0A).
+</requirement>
+<requirement name="comments" stories="parser-lexical-boundaries">
+A hash symbol marks the rest of the line as a comment, except when inside a string.
+Control characters other than tab (U+0000 to U+0008, U+000A to U+001F, U+007F) are not permitted in comments.
+</requirement>
+<requirement name="key-value-pairs" stories="parser-lexical-scalars,parser-lexical-boundaries">
+The primary building block of a TOML document is the key/value pair.
+
+Keys are on the left of the equals sign and values are on the right. Whitespace is ignored around key names and values. The key, equals sign, and value must be on the same line (though some values can be broken over multiple lines).
+
+Unspecified values are invalid.
+
+There must be a newline (or EOF) after a key/value pair. (See [Inline Table](#inline-table) for exceptions.)
+</requirement>
+<requirement name="parse-keys" stories="parser-keys">
+A key may be either bare, quoted, or dotted.
+
+Bare keys may only contain ASCII letters, ASCII digits, underscores, and dashes (`A-Za-z0-9_-`).
+
+A bare key must be non-empty, but an empty quoted key is allowed (though discouraged).
+
+Dotted keys are a sequence of bare or quoted keys joined with a dot. This allows for grouping similar properties together:
+
+Defining a key multiple times is invalid.
+</requirement>
+<requirement name="parse-strings" stories="parser-strings">
+There are four ways to express strings: basic, multi-line basic, literal, and multi-line literal. All strings must contain only valid UTF-8 characters.
+
+Basic strings are surrounded by quotation marks (`"`).
+
+Multi-line basic strings are surrounded by three quotation marks on each side and allow newlines.
+
+Literal strings are surrounded by single quotes. Like basic strings, they must appear on a single line.
+
+Multi-line literal strings are surrounded by three single quotes on each side and allow newlines. Like literal strings, there is no escaping whatsoever.
+</requirement>
+<requirement name="parse-scalars" stories="parser-lexical-scalars">
+Values must have one of the following types.
+
+- [String](#string)
+- [Integer](#integer)
+- [Float](#float)
+- [Boolean](#boolean)
+- [Offset Date-Time](#offset-date-time)
+- [Local Date-Time](#local-date-time)
+- [Local Date](#local-date)
+- [Local Time](#local-time)
+- [Array](#array)
+- [Inline Table](#inline-table)
+
+Integers are whole numbers. Positive numbers may be prefixed with a plus sign. Negative numbers are prefixed with a minus sign.
+
+Floats should be implemented as IEEE 754 binary64 values.
+
+Booleans are just the tokens you're used to. Always lowercase.
+</requirement>
+<requirement name="parse-datetimes" stories="parser-datetimes">
+To unambiguously represent a specific instant in time, you may use an [RFC 3339](https://tools.ietf.org/html/rfc3339) formatted date-time with offset.
+
+If you omit the offset from an [RFC 3339](https://tools.ietf.org/html/rfc3339) formatted date-time, it will represent the given date-time without any relation to an offset or timezone.
+
+If you include only the date portion of an [RFC 3339](https://tools.ietf.org/html/rfc3339) formatted date-time, it will represent that entire day without any relation to an offset or timezone.
+
+If you include only the time portion of an [RFC 3339](https://tools.ietf.org/html/rfc3339) formatted date-time, it will represent that time of day without any relation to a specific day or any offset or timezone.
+</requirement>
+<requirement name="parse-arrays-inline-tables" stories="parser-arrays-inline">
+Arrays are square brackets with values inside. Whitespace is ignored. Elements are separated by commas. Arrays can contain values of the same data types as allowed in key/value pairs. Values of different types may be mixed.
+
+Arrays can span multiple lines. A terminating comma (also called a trailing comma) is permitted after the last value of the array.
+
+Inline tables provide a more compact syntax for expressing tables. They are especially useful for grouped data that can otherwise quickly become verbose. Inline tables are fully defined within curly braces: `{` and `}`. Within the braces, zero or more comma-separated key/value pairs may appear.
+</requirement>
+<requirement name="parse-tables" stories="parser-tables">
+Tables (also known as hash tables or dictionaries) are collections of key/value pairs. They are defined by headers, with square brackets on a line by themselves.
+
+You don't need to specify all the super-tables if you don't want to. TOML knows how to do it for you.
+
+Empty tables are allowed and simply have no key/value pairs within them.
+
+Like keys, you cannot define a table more than once. Doing so is invalid.
+</requirement>
+<requirement name="parse-arrays-of-tables" stories="parser-tables">
+The last syntax that has not yet been described allows writing arrays of tables. These can be expressed by using a header with a name in double brackets. The first instance of that header defines the array and its first table element, and each subsequent instance creates and defines a new table element in that array. The tables are inserted into the array in the order encountered.
+
+If the parent of a table or array of tables is an array element, that element must already have been defined before the child can be defined. Attempts to reverse that ordering must produce an error at parse time.
+
+Attempting to append to a statically defined array, even if that array is empty, must produce an error at parse time.
+</requirement>
+<requirement name="toml-file-metadata" stories="">
+TOML files should use the extension `.toml`.
+
+When transferring TOML files over the internet, the appropriate MIME type is `application/toml`.
+</requirement>
+<unattached story="architecture"/>
+<unattached story="decoder-contract"/>
+<unattached story="conformance"/>

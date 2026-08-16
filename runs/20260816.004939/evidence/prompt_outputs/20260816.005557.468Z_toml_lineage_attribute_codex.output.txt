@@ -1,0 +1,12 @@
+<requirement name="install-toml-test-harness" stories="conformance">
+# One-time installation of the upstream toml-test conformance harness.
+</requirement>
+<unattached story="architecture"/>
+<unattached story="decoder-contract"/>
+<unattached story="parser-strings"/>
+<unattached story="parser-lexical-scalars"/>
+<unattached story="parser-lexical-boundaries"/>
+<unattached story="parser-keys"/>
+<unattached story="parser-tables"/>
+<unattached story="parser-arrays-inline"/>
+<unattached story="parser-datetimes"/>

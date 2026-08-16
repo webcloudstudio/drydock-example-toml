@@ -1,0 +1,6 @@
+2026-08-16T01:18:50.087460Z ERROR codex_core::tools::router: error=apply_patch verification failed: Failed to find expected lines in /mnt/c/Users/barlo/projects/drydock/uat/Toml/runs/20260816.004939/build/toml/internal/toml/toml_test.go:
+	input := `bare = 1\n
+"quoted key" = 2\n
+outer . "inner.key" = 3\n
+"equals=key"=4\n
+`

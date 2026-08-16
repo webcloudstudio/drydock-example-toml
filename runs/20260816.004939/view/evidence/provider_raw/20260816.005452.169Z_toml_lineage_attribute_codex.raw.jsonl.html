@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>evidence/provider_raw/20260816.005452.169Z_toml_lineage_attribute_codex.raw.jsonl</title>
+<link rel="stylesheet" href="../../../assets/kit.css">
+</head>
+<body>
+<main>
+<header class="fileheader"><div class="kind">Run artifact</div><h1>evidence/provider_raw/20260816.005452.169Z_toml_lineage_attribute_codex.raw.jsonl</h1><div class="filenav"><a href="../../../index.html">&larr; Report</a><a href="../../../evidence/provider_raw/20260816.005452.169Z_toml_lineage_attribute_codex.raw.jsonl">Raw file</a></div></header>
+<article class="doc"><pre>{&quot;type&quot;:&quot;thread.started&quot;,&quot;thread_id&quot;:&quot;01a00810-7968-7ee0-824a-b77314482d5f&quot;}
+{&quot;type&quot;:&quot;turn.started&quot;}
+{&quot;type&quot;:&quot;item.completed&quot;,&quot;item&quot;:{&quot;id&quot;:&quot;item_0&quot;,&quot;type&quot;:&quot;agent_message&quot;,&quot;text&quot;:&quot;&lt;requirement name=\&quot;standard-library-go-module\&quot; stories=\&quot;architecture\&quot;&gt;\nThe implementation language is Go, fixed by this Target&#x27;s `TECHNOLOGY_STACK.md` and governed by `stack/go.md`.\n&lt;/requirement&gt;\n&lt;requirement name=\&quot;stdin-tagged-json-contract\&quot; stories=\&quot;decoder-contract\&quot;&gt;\nThe program is a filter: read TOML from **stdin**, write tagged JSON to **stdout**, exit `0`. On invalid TOML, write a diagnostic to **stderr** and exit non-zero. No arguments, no config, no side effects.\n&lt;/requirement&gt;\n&lt;requirement name=\&quot;parse-strings\&quot; stories=\&quot;parser-strings\&quot;&gt;\n**Scalars** — booleans, integers (including `0x`, `0o`, `0b`, underscores), floats (including `inf`, `nan`, exponents), basic and literal strings, then multi-line strings with their line-ending backslash and trimming rules.\n&lt;/requirement&gt;\n&lt;requirement name=\&quot;parse-lexical-scalars\&quot; stories=\&quot;parser-lexical-scalars\&quot;&gt;\n**Scalars** — booleans, integers (including `0x`, `0o`, `0b`, underscores), floats (including `inf`, `nan`, exponents), basic and literal strings, then multi-line strings with their line-ending backslash and trimming rules.\n&lt;/requirement&gt;\n&lt;requirement name=\&quot;enforce-lexical-boundaries\&quot; stories=\&quot;parser-lexical-boundaries\&quot;&gt;\n**Invalid-input hardening** — control characters, bad UTF-8, duplicate keys, redefinition after an inline table, unterminated constructs.\n&lt;/requirement&gt;\n&lt;requirement name=\&quot;parse-keys\&quot; stories=\&quot;parser-keys\&quot;&gt;\n**Keys** — bare, quoted, and dotted keys; the redefinition rules.\n&lt;/requirement&gt;\n&lt;requirement name=\&quot;parse-tables\&quot; stories=\&quot;parser-tables\&quot;&gt;\n**Tables** — `[table]`, `[a.b.c]` implicit creation, `[[array of tables]]`, and the rules governing which of these may follow which.\n&lt;/requirement&gt;\n&lt;requirement name=\&quot;parse-arrays-inline-tables\&quot; stories=\&quot;parser-arrays-inline\&quot;&gt;\n**Inline tables and arrays** — including nesting and the TOML 1.0 restriction that inline tables are closed to later extension.\n&lt;/requirement&gt;\n&lt;requirement name=\&quot;parse-datetimes\&quot; stories=\&quot;parser-datetimes\&quot;&gt;\n**Datetimes** — offset, local datetime, local date, local time.\n&lt;/requirement&gt;\n&lt;requirement name=\&quot;pass-conformance-suite\&quot; stories=\&quot;conformance\&quot;&gt;\nThe goal is to pass every valid and every invalid case the installed suite supplies, with no case failed, errored, or skipped.\n&lt;/requirement&gt;&quot;}}
+{&quot;type&quot;:&quot;turn.completed&quot;,&quot;usage&quot;:{&quot;input_tokens&quot;:15008,&quot;cached_input_tokens&quot;:8960,&quot;cache_write_input_tokens&quot;:0,&quot;output_tokens&quot;:1074,&quot;reasoning_output_tokens&quot;:516}}
+</pre></article>
+</main>
+</body>
+</html>

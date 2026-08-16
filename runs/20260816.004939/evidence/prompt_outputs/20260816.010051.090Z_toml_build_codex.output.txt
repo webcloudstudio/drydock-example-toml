@@ -1,0 +1,19 @@
+<reusable-compact filename="stage_test.sh">
+- Runs one authoritative TOML conformance scope.
+- Requires exactly one `-run` pattern argument.
+- Builds `./cmd/toml-decoder`, then invokes `sources/run_conformance.sh -run "$1"`.
+- Exit status is the complete verdict; no output parsing.
+</reusable-compact>
+
+RESULT: SUCCESS
+
+FILES CHANGED:
+- cmd/toml-decoder/main.go
+- internal/toml/toml.go
+- internal/toml/toml_test.go
+
+SUMMARY:
+Implemented TOML basic, literal, multiline, escape, Unicode, continuation, and malformed-string handling. Valid string tests: 23 passed. Invalid string tests: 77 passed. Contract, race tests, vet, and formatting checks pass.
+
+BLOCKERS:
+- None

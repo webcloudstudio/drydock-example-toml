@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>workspace/targets/toml/evidence/block-1.md</title>
+<link rel="stylesheet" href="../../../../../assets/kit.css">
+</head>
+<body>
+<main>
+<header class="fileheader"><div class="kind">Run artifact</div><h1>workspace/targets/toml/evidence/block-1.md</h1><div class="filenav"><a href="../../../../../index.html">&larr; Report</a><a href="../../../../../workspace/targets/toml/evidence/block-1.md">Raw file</a></div></header>
+<article class="doc"><h1>Evidence: Block 1 · Foundational (block-1)</h1>
+<ul><li>block type: block</li><li>date: 2026-08-15</li><li>resulting state: closed/verified</li><li>story points (combined assembled cost): 7225</li><li>execution id: 20260816.005728.172Z-cb1d49ff</li></ul>
+<h2>Stories built</h2>
+<ul><li>Establish the standard-library-only Go module and decoder command. (architecture) [story]</li></ul>
+<h2>Acceptance tooling authorization</h2>
+<ul><li>ARCHITECTURE.md#architecture-module: executable=sh; scope=test; authorization=existing Target environment</li><li>ARCHITECTURE.md#architecture-boundary: executable=go; scope=test; authorization=existing Target environment</li></ul>
+<h2>Reusable compacts</h2>
+<ul><li>ARCHITECTURE_compact.md</li></ul>
+<h2>Stacked context</h2>
+<ul><li>compass: COMPASS.md (SP 2899)</li><li>implements: ARCHITECTURE.md (SP 623)</li><li>stack: go.md (SP 3646)</li></ul>
+<h2>Build directory changes</h2>
+<ul><li>cmd/toml-decoder/main.go</li><li>go.mod</li><li>internal/toml/toml.go</li><li>internal/toml/toml_test.go</li></ul>
+<h2>Pre-build acceptance observation</h2>
+<ul><li>RED: architecture-module (ARCHITECTURE.md)</li></ul>
+<p>intent: The project has a compilable standard-library-only Go module and decoder command. return code: 1 stderr: Traceback (most recent call last): File &quot;architecture-module.py&quot;, line 10, in &lt;module&gt; assert result.returncode == 0 ^^^^^^^^^^^^^^^^^^^^^^ AssertionError</p>
+<ul><li>RED: architecture-boundary (ARCHITECTURE.md)</li></ul>
+<p>intent: The decoder command is buildable at its declared path. return code: 1 stdout: go: cannot find main module, but found .git/config in /mnt/c/Users/barlo/projects/drydock/uat/Toml to create a module there, run: cd ../../../.. &amp;&amp; go mod init stderr: Traceback (most recent call last): File &quot;architecture-boundary.py&quot;, line 10, in &lt;module&gt; assert result.returncode == 0 ^^^^^^^^^^^^^^^^^^^^^^ AssertionError</p>
+<h2>Post-build programmatic acceptance</h2>
+<ul><li>PASS: architecture-module (ARCHITECTURE.md)</li></ul>
+<p>intent: The project has a compilable standard-library-only Go module and decoder command. target interpreter: /mnt/c/Users/barlo/projects/drydock/.venv/bin/python3 provisioning: not required return code: 0</p>
+<ul><li>PASS: architecture-boundary (ARCHITECTURE.md)</li></ul>
+<p>intent: The decoder command is buildable at its declared path. target interpreter: /mnt/c/Users/barlo/projects/drydock/.venv/bin/python3 provisioning: not required return code: 0</p>
+<h2>Build summary</h2>
+<p>&lt;reusable-compact filename=&quot;ARCHITECTURE.md&quot;&gt; Go module <code>github.com/owner/toml-decoder</code> using Go 1.22+ and no dependencies. <code>cmd/toml-decoder</code> reads stdin, calls <code>internal/toml.Decode</code>, emits tagged JSON to stdout, and reports errors to stderr with nonzero exit. <code>internal/toml</code> owns TOML parsing and tagged values: scalar values use string <code>type</code>/<code>value</code> fields; tables are objects and arrays are arrays. &lt;/reusable-compact&gt;</p>
+<p>RESULT: SUCCESS</p>
+<p>FILES CHANGED:</p>
+<ul><li>go.mod</li><li>cmd/toml-decoder/main.go</li><li>internal/toml/toml.go</li><li>internal/toml/toml_test.go</li></ul>
+<p>SUMMARY: Created the standard-library-only Go module, decoder command boundary, tagged value model, and foundational tests. <code>go test</code>, <code>go vet</code>, <code>go build</code>, formatting checks, and the architecture acceptance contract pass.</p>
+<p>BLOCKERS:</p>
+<ul><li>None</li></ul></article>
+</main>
+</body>
+</html>

@@ -1,0 +1,15 @@
+2026-08-16T01:34:39.654701Z ERROR codex_core::tools::router: error=apply_patch verification failed: Failed to find expected lines in /mnt/c/Users/barlo/projects/drydock/uat/Toml/runs/20260816.004939/build/toml/internal/toml/toml.go:
+		if !exists {
+			m := map[string]any{}
+			cur[part] = m
+			cur = m
+			continue
+		}
+		switch v := value.(type) {
+		case map[string]any:
+			if p.closed[mapID(v)] {
+				return nil, fmt.Errorf("table redefinition")
+2026-08-16T01:35:38.546471Z ERROR codex_core::tools::router: error=apply_patch verification failed: Failed to read file to update /mnt/c/Users/barlo/projects/drydock/uat/20260816.004939/build/toml/internal/toml/toml_test.go: No such file or directory (os error 2)
+2026-08-16T01:35:49.120190Z ERROR codex_core::tools::router: error=apply_patch verification failed: Failed to find expected lines in /mnt/c/Users/barlo/projects/drydock/uat/Toml/runs/20260816.004939/build/toml/internal/toml/toml_test.go:
+		"value = 0x",
+2026-08-16T01:37:11.360859Z ERROR codex_core::tools::router: error=write_stdin failed: Unknown process id 50017

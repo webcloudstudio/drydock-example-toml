@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>workspace/targets/toml/ACCEPTANCE.json</title>
+<link rel="stylesheet" href="../../../../assets/kit.css">
+</head>
+<body>
+<main>
+<header class="fileheader"><div class="kind">Run artifact</div><h1>workspace/targets/toml/ACCEPTANCE.json</h1><div class="filenav"><a href="../../../../index.html">&larr; Report</a><a href="../../../../workspace/targets/toml/ACCEPTANCE.json">Raw file</a></div></header>
+<article class="doc"><pre>{
+  &quot;full&quot;: [
+    &quot;sh&quot;,
+    &quot;sources/full_test.sh&quot;
+  ],
+  &quot;stages&quot;: {
+    &quot;architecture&quot;: [
+      &quot;sh&quot;,
+      &quot;sources/stage_contract.sh&quot;,
+      &quot;architecture&quot;
+    ],
+    &quot;conformance&quot;: [
+      &quot;sh&quot;,
+      &quot;sources/full_test.sh&quot;
+    ],
+    &quot;decoder-contract&quot;: [
+      &quot;sh&quot;,
+      &quot;sources/stage_contract.sh&quot;,
+      &quot;decoder&quot;
+    ],
+    &quot;parser-arrays-inline&quot;: [
+      &quot;sh&quot;,
+      &quot;sources/stage_test.sh&quot;,
+      &quot;valid/array/**|valid/inline-table/**|invalid/array/**|invalid/inline-table/**&quot;
+    ],
+    &quot;parser-datetimes&quot;: [
+      &quot;sh&quot;,
+      &quot;sources/stage_test.sh&quot;,
+      &quot;valid/datetime/**|invalid/datetime/**|invalid/local-date/**|invalid/local-datetime/**|invalid/local-time/**&quot;
+    ],
+    &quot;parser-keys&quot;: [
+      &quot;sh&quot;,
+      &quot;sources/stage_test.sh&quot;,
+      &quot;valid/key/**|invalid/key/**&quot;
+    ],
+    &quot;parser-lexical-boundaries&quot;: [
+      &quot;sh&quot;,
+      &quot;sources/stage_test.sh&quot;,
+      &quot;valid/comment/**|invalid/control/**|invalid/encoding/**&quot;
+    ],
+    &quot;parser-lexical-scalars&quot;: [
+      &quot;sh&quot;,
+      &quot;sources/stage_test.sh&quot;,
+      &quot;valid/bool/**|valid/integer/**|valid/float/**|invalid/bool/**|invalid/integer/**|invalid/float/**&quot;
+    ],
+    &quot;parser-strings&quot;: [
+      &quot;sh&quot;,
+      &quot;sources/stage_test.sh&quot;,
+      &quot;valid/string/**|invalid/string/**&quot;
+    ],
+    &quot;parser-tables&quot;: [
+      &quot;sh&quot;,
+      &quot;sources/stage_test.sh&quot;,
+      &quot;valid/table/**|invalid/table/**&quot;
+    ]
+  }
+}
+</pre></article>
+</main>
+</body>
+</html>

@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>workspace/targets/toml/blueprint/FEATURE-Conformance.md</title>
+<link rel="stylesheet" href="../../../../../assets/kit.css">
+</head>
+<body>
+<main>
+<header class="fileheader"><div class="kind">Run artifact</div><h1>workspace/targets/toml/blueprint/FEATURE-Conformance.md</h1><div class="filenav"><a href="../../../../../index.html">&larr; Report</a><a href="../../../../../workspace/targets/toml/blueprint/FEATURE-Conformance.md">Raw file</a></div></header>
+<article class="doc"><h1>FEATURE: Conformance</h1>
+<div class="scroll"><table><thead><tr><th>Field</th><th>Value</th></tr></thead><tbody><tr><td>Version</td><td>20260816 V1</td></tr><tr><td>Description</td><td>Verifies complete TOML 1.0.0 conformance against the installed authoritative suite.</td></tr><tr><td>Depends On</td><td>ARCHITECTURE.md, FEATURE-Decoder-Contract.md, FEATURE-Parser-Strings.md, FEATURE-Parser-Lexical-Scalars.md, FEATURE-Parser-Lexical-Boundaries.md, FEATURE-Parser-Keys.md, FEATURE-Parser-Tables.md, FEATURE-Parser-Arrays-Inline.md, FEATURE-Parser-Datetimes.md</td></tr><tr><td>Provides</td><td>complete TOML 1.0.0 conformance verification</td></tr><tr><td>Consumes</td><td>cmd/toml-decoder</td></tr></tbody></table></div>
+<h2>Purpose</h2>
+<p>The terminal verification runs the supplied unfiltered <code>sources/full_test.sh</code> entry point against the installed <code>toml-test</code> v2.2.0 suite. The harness exit status is the complete release verdict.</p>
+<h2>Verification</h2>
+<p>The supplied scripts remain unchanged. <code>sources/full_test.sh</code> builds the decoder and invokes <code>sources/run_conformance.sh</code>, which selects the required harness version and executes the complete TOML 1.0 suite.</p>
+<h2>Programmatic Acceptance</h2>
+<p>Requires: executable=go; scope=test<br>Requires: executable=sh; scope=test<br>Requires: executable=toml-test; scope=test</p>
+<p>=== AC conformance-full ===<br>Intent: The completed implementation passes the complete authoritative TOML 1.0.0 suite.<br>Suite: full</p>
+<p>import subprocess</p>
+<p>result = subprocess.run( [&quot;sh&quot;, &quot;sources/full_test.sh&quot;], capture_output=True, text=True, ) print(result.stdout) print(result.stderr) assert result.returncode == 0 === END AC conformance-full ===</p>
+<p>=== AC conformance-harness-integrity ===<br>Intent: The supplied full-test entry point remains present and executable as a shell script. import os from pathlib import Path</p>
+<p>harness = Path(&quot;sources/full_test.sh&quot;) assert harness.is_file() assert os.access(harness, os.R_OK) === END AC conformance-harness-integrity ===</p>
+<p>=== AC conformance-decoder-build ===<br>Intent: The decoder builds successfully through the same Go command used by the scoring harness. import subprocess</p>
+<p>result = subprocess.run( [&quot;go&quot;, &quot;build&quot;, &quot;-o&quot;, &quot;toml-decoder&quot;, &quot;./cmd/toml-decoder&quot;], capture_output=True, text=True, ) print(result.stdout) print(result.stderr) assert result.returncode == 0 === END AC conformance-decoder-build ===</p>
+<h2>User Acceptance</h2>
+<ul><li>None.</li></ul>
+<h2>Guardrails</h2>
+<ul><li>The complete unfiltered suite is the sole release verdict.</li><li>Supplied scoring and harness scripts must not be modified.</li><li>The installed harness must be TOML Test v2.2.0 when its version is available.</li><li>No valid or invalid case may be skipped, reinterpreted, or filtered during final verification.</li></ul></article>
+</main>
+</body>
+</html>

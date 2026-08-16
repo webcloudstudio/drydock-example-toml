@@ -1,0 +1,32 @@
+[
+  {
+    "id": "analyze-display_name",
+    "type": "text",
+    "severity": "material",
+    "origin": "analyze-questionnaire",
+    "blueprint": "ARCHITECTURE.md",
+    "story": null,
+    "status": "answered",
+    "archived": false,
+    "title": "Display Name",
+    "description": "The display name Drydock will use for this project. Edit to override the proposal.",
+    "options": [],
+    "system_choice": "TOML 1.0.0 Parser",
+    "commander_direction": "TOML 1.0.0 Parser"
+  },
+  {
+    "id": "analyze-short_description",
+    "type": "text",
+    "severity": "material",
+    "origin": "analyze-questionnaire",
+    "blueprint": "ARCHITECTURE.md",
+    "story": null,
+    "status": "answered",
+    "archived": false,
+    "title": "Short Description",
+    "description": "One-sentence description of what this project does. Edit to override the proposal.",
+    "options": [],
+    "system_choice": "A standard-library-only Go command-line parser that converts TOML 1.0.0 input into tagged JSON.",
+    "commander_direction": "A standard-library-only Go command-line parser that converts TOML 1.0.0 input into tagged JSON."
+  }
+]

@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>workspace/targets/toml/evidence/block-5.md</title>
+<link rel="stylesheet" href="../../../../../assets/kit.css">
+</head>
+<body>
+<main>
+<header class="fileheader"><div class="kind">Run artifact</div><h1>workspace/targets/toml/evidence/block-5.md</h1><div class="filenav"><a href="../../../../../index.html">&larr; Report</a><a href="../../../../../workspace/targets/toml/evidence/block-5.md">Raw file</a></div></header>
+<article class="doc"><h1>Evidence: Block 5 · Service (block-5)</h1>
+<ul><li>block type: block</li><li>date: 2026-08-15</li><li>resulting state: closed/verified</li><li>story points (combined assembled cost): 8685</li><li>execution id: 20260816.011402.538Z-7d77748f</li></ul>
+<h2>Stories built</h2>
+<ul><li>Enforce TOML comments, control-character, and UTF-8 boundaries. (parser-lexical-boundaries) [story]</li></ul>
+<h2>Acceptance tooling authorization</h2>
+<ul><li>FEATURE-Parser-Lexical-Boundaries.md#parser-boundaries-valid: executable=sh; scope=test; authorization=existing Target environment</li><li>FEATURE-Parser-Lexical-Boundaries.md#parser-boundaries-valid: executable=go; scope=test; authorization=existing Target environment</li><li>FEATURE-Parser-Lexical-Boundaries.md#parser-boundaries-invalid-control: executable=sh; scope=test; authorization=existing Target environment</li><li>FEATURE-Parser-Lexical-Boundaries.md#parser-boundaries-invalid-control: executable=go; scope=test; authorization=existing Target environment</li><li>FEATURE-Parser-Lexical-Boundaries.md#parser-boundaries-invalid-encoding: executable=sh; scope=test; authorization=existing Target environment</li><li>FEATURE-Parser-Lexical-Boundaries.md#parser-boundaries-invalid-encoding: executable=go; scope=test; authorization=existing Target environment</li></ul>
+<h2>Stacked context</h2>
+<ul><li>compass: COMPASS.md (SP 2899)</li><li>implements: FEATURE-Parser-Lexical-Boundaries.md (SP 615)</li><li>context: stage_test.sh (SP 161)</li><li>context: ARCHITECTURE_compact.md (SP 128)</li><li>stack: go.md (SP 3646)</li><li>stack: common_compact.md (SP 1179)</li></ul>
+<h2>Build directory changes</h2>
+<ul><li>internal/toml/toml.go</li><li>internal/toml/toml_test.go</li><li>toml-decoder</li></ul>
+<h2>Pre-build acceptance observation</h2>
+<ul><li>RED: parser-boundaries-valid (FEATURE-Parser-Lexical-Boundaries.md)</li></ul>
+<p>intent: The authoritative TOML suite passes every valid comment and boundary case. return code: 1 stdout: FAIL valid/comment/everywhere line 7: expected key-value pair</p>
+<p>Exit 1</p>
+<p>input sent to parser-cmd (PID 1467266): 1 │[0m # Top comment. 2 │[0m   # Top comment. 3 │[0m # Top comment. 4 │[0m 5 │[0m # [no-extraneous-groups-please] 6 │[0m 7 │[0m [group] # Comment 8 │[0m answer = 42 # Comment 9 │[0m # no-extraneous-keys-please = 999 10 │[0m # Inbetween comment. 11 │[0m more = [ # Comment 12 │[0m   # What about multiple # comments? 13 │[0m   # Can you handle it? 14 │[0m   # 15 │[0m           # Evil. 16 │[0m # Evil. 17 │[0m   42, 42, # Comments within arrays are fun. 18 │[0m   # What about multiple # comments? 19 │[0m   # Can you handle it? 20 │[0m   # 21 │[0m           # Evil. 22 │[0m # Evil. 23 │[0m # ] Did I fool you? 24 │[0m ] # Hopefully not. 25 │[0m 26 │[0m # Make sure the space between the datetime and &quot;#&quot; isn&#x27;t lexed. 27 │[0m dt = 1979-05-27T07:32:12-07:00  # c 28 │[0m d = 1979-05-27 # Comment 29 │[0m 30 │[0m [[aot]] # Comment 31 │[0m k = 98 # Comment 32 │[0m [[aot]]# Comment 33 │[0m k = 99# Comment</p>
+<p>output from parser-cmd (PID 1467266) (stderr): 1 │[0m line 7: expected key-value pair 2 │[0m 3 │[0m Exit 1</p>
+<p>want: &lt;empty&gt;</p>
+<p>FAIL valid/comment/tricky line 1: expected key-value pair</p>
+<p>Exit 1</p>
+<p>input sent to parser-cmd (PID 1467259): 1 │[0m [section]#attached comment 2 │[0m #[notsection] 3 │[0m one = &quot;11&quot;#cmt 4 │[0m two = &quot;22#&quot; 5 │[0m three = &#x27;#&#x27; 6 │[0m 7 │[0m four = &quot;&quot;&quot;# no comment 8 │[0m # nor this 9 │[0m #also not comment&quot;&quot;&quot;#is_comment 10 │[0m 11 │[0m five = 5.5#66 12 │[0m six = 6#7 13 │[0m 8 = &quot;eight&quot; 14 │[0m #nine = 99 15 │[0m ten = 10e2#1 16 │[0m eleven = 1.11e1#23 17 │[0m 18 │[0m [&quot;hash#tag&quot;] 19 │[0m &quot;#!&quot; = &quot;hash bang&quot; 20 │[0m arr3 = [ &quot;#&quot;, &#x27;#&#x27;, &quot;&quot;&quot;###&quot;&quot;&quot; ] 21 │[0m arr4 = [ 1,# 9, 9, 22 │[0m 2#,9 23 │[0m ,#9 24 │[0m 3#] 25 │[0m ,4] 26 │[0m arr5 = [[[[#[&quot;#&quot;], 27 │[0m [&quot;#&quot;]]]]#] 28 │[0m ] 29 │[0m tbl1 = { &quot;#&quot; = &#x27;}#&#x27;}#}}</p>
+<p>output from parser-cmd (PID 1467259) (stderr): 1 │[0m line 1: expected key-value pair 2 │[0m 3 │[0m Exit 1</p>
+<p>want: &lt;empty&gt;</p>
+<p>toml-test v2.2.0 [/mnt/c/Users/barlo/projects/drydock/uat/Toml/runs/20260816.004939/build/toml/toml-decoder] [no encoder] skipped tests: 877 valid tests:   5 passed,  2 failed encoder tests: no encoder command given invalid tests:   0 passed,  0 failed</p>
+<p>harness: /home/barlo/.local/bin/toml-test toml-test v2.2.0; go1.24.6 linux/amd64; race=false; cgo=true stderr: Traceback (most recent call last): File &quot;parser-boundaries-valid.py&quot;, line 10, in &lt;module&gt; assert result.returncode == 0 ^^^^^^^^^^^^^^^^^^^^^^ AssertionError</p>
+<ul><li>RED: parser-boundaries-invalid-control (FEATURE-Parser-Lexical-Boundaries.md)</li></ul>
+<p>intent: The authoritative TOML suite rejects every invalid control-character case. return code: 1 stdout: FAIL invalid/control/bare-cr Expected an error, but no error was reported.</p>
+<p>input sent to parser-cmd (PID 1467542): 1 │[0m # The following line contains a single carriage return control character 2 │[0m</p>
+<p>output from parser-cmd (PID 1467542) (stdout): 1 │[0m {}</p>
+<p>want: Exit code 1</p>
+<p>FAIL invalid/control/comment-cr Expected an error, but no error was reported.</p>
+<p>input sent to parser-cmd (PID 1467545): 1 │[0m comment-cr   = &quot;Carriage return in comment&quot; # a=1</p>
+<p>output from parser-cmd (PID 1467545) (stdout): 1 │[0m { 2 │[0m   &quot;a&quot;:          {&quot;type&quot;: &quot;integer&quot;, &quot;value&quot;: &quot;1&quot;}, 3 │[0m   &quot;comment-cr&quot;: {&quot;type&quot;: &quot;string&quot;, &quot;value&quot;: &quot;Carriage return in comment&quot;} 4 │[0m }</p>
+<p>want: Exit code 1</p>
+<p>FAIL invalid/control/comment-del Expected an error, but no error was reported.</p>
+<p>input sent to parser-cmd (PID 1467539): 1 │[0m comment-del  = &quot;0x7f&quot;   # </p>
+<p>output from parser-cmd (PID 1467539) (stdout): 1 │[0m { 2 │[0m   &quot;comment-del&quot;: {&quot;type&quot;: &quot;string&quot;, &quot;value&quot;: &quot;0x7f&quot;} 3 │[0m }</p>
+<p>want: Exit code 1</p>
+<p>FAIL invalid/control/comment-ff Expected an error, but no error was reported.</p>
+<p>input sent to parser-cmd (PID 1467615): 1 │[0m comment-ff   = &quot;0x7f&quot;   #</p>
+<p>output from parser-cmd (PID 1467615) (stdout): 1 │[0m { 2 │[0m   &quot;comment-ff&quot;: {&quot;type&quot;: &quot;string&quot;, &quot;value&quot;: &quot;0x7f&quot;} 3 │[0m }</p>
+<p>want: Exit code 1</p>
+<p>FAIL invalid/control/comment-lf Expected an error, but no error was reported.</p>
+<p>input sent to parser-cmd (PID 1467525): 1 │[0m comment-lf   = &quot;ctrl-P&quot; # </p>
+<p>output from parser-cmd (PID 1467525) (stdout): 1 │[0m { 2 │[0m   &quot;comment-lf&quot;: {&quot;type&quot;: &quot;string&quot;, &quot;value&quot;: &quot;ctrl-P&quot;} 3 │[0m }</p>
+<p>want: Exit code 1</p>
+<p>FAIL invalid/control/comment-null Expected an error, but no error was reported.</p>
+<p>input sent to parser-cmd (PID 1467534): 1 │[0m comment-null = &quot;null&quot;   #  </p>
+<p>output from parser-cmd (PID 1467534) (stdout): 1 │[0m { 2 │[0m   &quot;comment-null&quot;: {&quot;type&quot;: &quot;string&quot;, &quot;value&quot;: &quot;null&quot;} 3 │[0m }</p>
+<p>want: Exit code 1</p>
+<p>FAIL invalid/control/comment-us Expected an error, but no error was reported.</p>
+<p>input sent to parser-cmd (PID 1467491): 1 │[0m comment-us   = &quot;ctrl-_&quot; #</p>
+<p>output from parser-cmd (PID 1467491) (stdout): 1 │[0m { 2 │[0m   &quot;comment-us&quot;: {&quot;type&quot;: &quot;string&quot;, &quot;value&quot;: &quot;ctrl-_&quot;} 3 │[0m }</p>
+<p>want: Exit code 1</p>
+<p>FAIL invalid/control/multi-del Expected an error, but no error was reported.</p>
+<p>input sent to parser-cmd (PID 1467493): 1 │[0m multi-del  = &quot;&quot;&quot;null&quot;&quot;&quot;</p>
+<p>output from parser-cmd (PID 1467493) (stdout): 1 │[0m { 2 │[0m   &quot;multi-del&quot;: {&quot;type&quot;: &quot;string&quot;, &quot;value&quot;: &quot;null&quot;} 3 │[0m }</p>
+<p>want: Exit code 1</p>
+<p>FAIL invalid/control/only-ff Expected an error, but no error was reported.</p>
+<p>input sent to parser-cmd (PID 1467490): 1 │[0m</p>
+<p>output from parser-cmd (PID 1467490) (stdout): 1 │[0m {}</p>
+<p>want: Exit code 1</p>
+<p>FAIL invalid/control/only-vt Expected an error, but no error was reported.</p>
+<p>input sent to parser-cmd (PID 1467518): 1 │[0m</p>
+<p>output from parser-cmd (PID 1467518) (stdout): 1 │[0m {}</p>
+<p>want: Exit code 1</p>
+<p>FAIL invalid/control/rawmulti-del Expected an error, but no error was reported.</p>
+<p>input sent to parser-cmd (PID 1467515): 1 │[0m rawmulti-del  = &#x27;&#x27;&#x27;null&#x27;&#x27;&#x27;</p>
+<p>output from parser-cmd (PID 1467515) (stdout): 1 │[0m { 2 │[0m   &quot;rawmulti-del&quot;: {&quot;type&quot;: &quot;string&quot;, &quot;value&quot;: &quot;null&quot;} 3 │[0m }</p>
+<p>want: Exit code 1</p>
+<p>toml-test v2.2.0 [/mnt/c/Users/barlo/projects/drydock/uat/Toml/runs/20260816.004939/build/toml/toml-decoder] [no encoder] skipped tests: 852 valid tests:   0 passed,  0 failed encoder tests: no encoder command given invalid tests:  21 passed, 11 failed</p>
+<p>harness: /home/barlo/.local/bin/toml-test toml-test v2.2.0; go1.24.6 linux/amd64; race=false; cgo=true stderr: Traceback (most recent call last): File &quot;parser-boundaries-invalid-control.py&quot;, line 10, in &lt;module&gt; assert result.returncode == 0 ^^^^^^^^^^^^^^^^^^^^^^ AssertionError</p>
+<ul><li>RED: parser-boundaries-invalid-encoding (FEATURE-Parser-Lexical-Boundaries.md)</li></ul>
+<p>intent: The authoritative TOML suite rejects every invalid UTF-8 encoding case. return code: 1 stdout: FAIL invalid/encoding/ideographic-space Expected an error, but no error was reported.</p>
+<p>input sent to parser-cmd (PID 1467834): 1 │[0m # First on next line is U+3000 IDEOGRAPHIC SPACE 2 │[0m 　foo = &quot;bar&quot;</p>
+<p>output from parser-cmd (PID 1467834) (stdout): 1 │[0m { 2 │[0m   &quot;foo&quot;: {&quot;type&quot;: &quot;string&quot;, &quot;value&quot;: &quot;bar&quot;} 3 │[0m }</p>
+<p>want: Exit code 1</p>
+<p>toml-test v2.2.0 [/mnt/c/Users/barlo/projects/drydock/uat/Toml/runs/20260816.004939/build/toml/toml-decoder] [no encoder] skipped tests: 870 valid tests:   0 passed,  0 failed encoder tests: no encoder command given invalid tests:  13 passed,  1 failed</p>
+<p>harness: /home/barlo/.local/bin/toml-test toml-test v2.2.0; go1.24.6 linux/amd64; race=false; cgo=true stderr: Traceback (most recent call last): File &quot;parser-boundaries-invalid-encoding.py&quot;, line 10, in &lt;module&gt; assert result.returncode == 0 ^^^^^^^^^^^^^^^^^^^^^^ AssertionError</p>
+<h2>Post-build programmatic acceptance</h2>
+<ul><li>PASS: parser-boundaries-valid (FEATURE-Parser-Lexical-Boundaries.md)</li></ul>
+<p>intent: The authoritative TOML suite passes every valid comment and boundary case. target interpreter: /mnt/c/Users/barlo/projects/drydock/.venv/bin/python3 provisioning: not required return code: 0 stdout: toml-test v2.2.0 [/mnt/c/Users/barlo/projects/drydock/uat/Toml/runs/20260816.004939/build/toml/toml-decoder] [no encoder] skipped tests: 877 valid tests:   7 passed,  0 failed encoder tests: no encoder command given invalid tests:   0 passed,  0 failed</p>
+<p>harness: /home/barlo/.local/bin/toml-test toml-test v2.2.0; go1.24.6 linux/amd64; race=false; cgo=true</p>
+<ul><li>PASS: parser-boundaries-invalid-control (FEATURE-Parser-Lexical-Boundaries.md)</li></ul>
+<p>intent: The authoritative TOML suite rejects every invalid control-character case. target interpreter: /mnt/c/Users/barlo/projects/drydock/.venv/bin/python3 provisioning: not required return code: 0 stdout: toml-test v2.2.0 [/mnt/c/Users/barlo/projects/drydock/uat/Toml/runs/20260816.004939/build/toml/toml-decoder] [no encoder] skipped tests: 852 valid tests:   0 passed,  0 failed encoder tests: no encoder command given invalid tests:  32 passed,  0 failed</p>
+<p>harness: /home/barlo/.local/bin/toml-test toml-test v2.2.0; go1.24.6 linux/amd64; race=false; cgo=true</p>
+<ul><li>PASS: parser-boundaries-invalid-encoding (FEATURE-Parser-Lexical-Boundaries.md)</li></ul>
+<p>intent: The authoritative TOML suite rejects every invalid UTF-8 encoding case. target interpreter: /mnt/c/Users/barlo/projects/drydock/.venv/bin/python3 provisioning: not required return code: 0 stdout: toml-test v2.2.0 [/mnt/c/Users/barlo/projects/drydock/uat/Toml/runs/20260816.004939/build/toml/toml-decoder] [no encoder] skipped tests: 870 valid tests:   0 passed,  0 failed encoder tests: no encoder command given invalid tests:  14 passed,  0 failed</p>
+<p>harness: /home/barlo/.local/bin/toml-test toml-test v2.2.0; go1.24.6 linux/amd64; race=false; cgo=true</p>
+<h2>Repair attempts</h2>
+<ul><li>attempt 0 (initial build): failed; 2/3 checks; 46/46 cases model=gpt-5.6-luna; execution 20260816.010953.453Z-b14dc4e6</li><li>attempt 1 (repair 1): built; 3/3 checks; 46/46 cases model=gpt-5.6-luna; execution 20260816.011402.538Z-7d77748f</li></ul>
+<h2>Build summary</h2>
+<p>RESULT: SUCCESS</p>
+<p>FILES CHANGED:</p>
+<ul><li>internal/toml/toml.go</li><li>toml-decoder</li></ul>
+<p>SUMMARY: Implemented table headers, arrays, inline tables, datetime recognition, comment-aware multiline parsing, and strict boundary handling.</p>
+<p>Passed:</p>
+<ul><li>Valid comments: 7/7</li><li>Invalid controls: 32/32</li><li>Invalid UTF-8: 14/14</li><li>Go tests, race tests, vet, and build</li></ul>
+<p>BLOCKERS:</p>
+<ul><li>None</li></ul></article>
+</main>
+</body>
+</html>

@@ -1,0 +1,11 @@
+RESULT: SUCCESS
+
+FILES CHANGED:
+- internal/toml/toml.go
+- internal/toml/toml_test.go
+
+SUMMARY:
+Implemented nested/mixed arrays, comments, trailing commas, dotted inline keys, multiline values, closure rules, and delimiter validation. Targeted conformance passed with zero failures; Go tests, vet, and race tests pass.
+
+BLOCKERS:
+- Full suite still has failures in pre-existing scalar, key, and datetime stages outside this block.

@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>workspace/targets/toml/evidence/block-8.md</title>
+<link rel="stylesheet" href="../../../../../assets/kit.css">
+</head>
+<body>
+<main>
+<header class="fileheader"><div class="kind">Run artifact</div><h1>workspace/targets/toml/evidence/block-8.md</h1><div class="filenav"><a href="../../../../../index.html">&larr; Report</a><a href="../../../../../workspace/targets/toml/evidence/block-8.md">Raw file</a></div></header>
+<article class="doc"><h1>Evidence: Block 8 · Service (block-8)</h1>
+<ul><li>block type: block</li><li>date: 2026-08-15</li><li>resulting state: closed/verified</li><li>story points (combined assembled cost): 8810</li><li>execution id: 20260816.012414.115Z-5c036c1d</li></ul>
+<h2>Stories built</h2>
+<ul><li>Parse arrays and inline tables with closure and nesting rules. (parser-arrays-inline) [story]</li></ul>
+<h2>Stacked context</h2>
+<ul><li>compass: COMPASS.md (SP 2899)</li><li>implements: FEATURE-Parser-Arrays-Inline.md (SP 722)</li><li>context: stage_test.sh (SP 161)</li><li>context: ARCHITECTURE_compact.md (SP 128)</li><li>stack: go.md (SP 3646)</li><li>stack: common_compact.md (SP 1179)</li></ul>
+<h2>Build directory changes</h2>
+<ul><li>internal/toml/toml.go</li><li>internal/toml/toml_test.go</li><li>toml-decoder</li></ul>
+<h2>Pre-build acceptance observation</h2>
+<ul><li>GREEN (prepassed): parser-arrays-inline-conformance (FEATURE-Parser-Arrays-Inline.md)</li></ul>
+<p>intent: The implementation passes the authoritative array and inline-table cases owned by this story. return code: 0 stdout: toml-test v2.2.0 [/mnt/c/Users/barlo/projects/drydock/uat/Toml/runs/20260816.004939/build/toml/toml-decoder] [no encoder] skipped tests: 884 valid tests:   0 passed,  0 failed encoder tests: no encoder command given invalid tests:   0 passed,  0 failed</p>
+<p>harness: /home/barlo/.local/bin/toml-test toml-test v2.2.0; go1.24.6 linux/amd64; race=false; cgo=true</p>
+<ul><li>GREEN (prepassed): parser-arrays-trailing-comma (FEATURE-Parser-Arrays-Inline.md)</li></ul>
+<p>intent: Arrays permit a trailing comma and preserve their parsed elements. return code: 0 stdout: {&quot;values&quot;:[{&quot;type&quot;:&quot;integer&quot;,&quot;value&quot;:&quot;1&quot;},{&quot;type&quot;:&quot;integer&quot;,&quot;value&quot;:&quot;2&quot;}]}</p>
+<ul><li>RED: parser-inline-closure (FEATURE-Parser-Arrays-Inline.md)</li></ul>
+<p>intent: An inline table cannot be extended by a later assignment. return code: 1 stdout: {&quot;product&quot;:{&quot;type&quot;:{&quot;edible&quot;:{&quot;type&quot;:&quot;bool&quot;,&quot;value&quot;:&quot;false&quot;},&quot;name&quot;:{&quot;type&quot;:&quot;string&quot;,&quot;value&quot;:&quot;Nail&quot;}}}} stderr: Traceback (most recent call last): File &quot;parser-inline-closure.py&quot;, line 12, in &lt;module&gt; assert result.returncode != 0 ^^^^^^^^^^^^^^^^^^^^^^ AssertionError</p>
+<h2>Post-build programmatic acceptance</h2>
+<ul><li>PASS: parser-arrays-inline-conformance (FEATURE-Parser-Arrays-Inline.md)</li></ul>
+<p>intent: The implementation passes the authoritative array and inline-table cases owned by this story. target interpreter: /mnt/c/Users/barlo/projects/drydock/.venv/bin/python3 provisioning: not required return code: 0 stdout: toml-test v2.2.0 [/mnt/c/Users/barlo/projects/drydock/uat/Toml/runs/20260816.004939/build/toml/toml-decoder] [no encoder] skipped tests: 884 valid tests:   0 passed,  0 failed encoder tests: no encoder command given invalid tests:   0 passed,  0 failed</p>
+<p>harness: /home/barlo/.local/bin/toml-test toml-test v2.2.0; go1.24.6 linux/amd64; race=false; cgo=true</p>
+<ul><li>PASS: parser-arrays-trailing-comma (FEATURE-Parser-Arrays-Inline.md)</li></ul>
+<p>intent: Arrays permit a trailing comma and preserve their parsed elements. target interpreter: /mnt/c/Users/barlo/projects/drydock/.venv/bin/python3 provisioning: not required return code: 0 stdout: {&quot;values&quot;:[{&quot;type&quot;:&quot;integer&quot;,&quot;value&quot;:&quot;1&quot;},{&quot;type&quot;:&quot;integer&quot;,&quot;value&quot;:&quot;2&quot;}]}</p>
+<ul><li>PASS: parser-inline-closure (FEATURE-Parser-Arrays-Inline.md)</li></ul>
+<p>intent: An inline table cannot be extended by a later assignment. target interpreter: /mnt/c/Users/barlo/projects/drydock/.venv/bin/python3 provisioning: not required return code: 0 stdout: line 3: table redefinition</p>
+<h2>Build summary</h2>
+<p>RESULT: SUCCESS</p>
+<p>FILES CHANGED:</p>
+<ul><li>internal/toml/toml.go</li><li>internal/toml/toml_test.go</li></ul>
+<p>SUMMARY: Implemented nested/mixed arrays, comments, trailing commas, dotted inline keys, multiline values, closure rules, and delimiter validation. Targeted conformance passed with zero failures; Go tests, vet, and race tests pass.</p>
+<p>BLOCKERS:</p>
+<ul><li>Full suite still has failures in pre-existing scalar, key, and datetime stages outside this block.</li></ul></article>
+</main>
+</body>
+</html>

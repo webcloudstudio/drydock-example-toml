@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>workspace/targets/toml/evidence/block-3.md</title>
+<link rel="stylesheet" href="../../../../../assets/kit.css">
+</head>
+<body>
+<main>
+<header class="fileheader"><div class="kind">Run artifact</div><h1>workspace/targets/toml/evidence/block-3.md</h1><div class="filenav"><a href="../../../../../index.html">&larr; Report</a><a href="../../../../../workspace/targets/toml/evidence/block-3.md">Raw file</a></div></header>
+<article class="doc"><h1>Evidence: Block 3 · Service (block-3)</h1>
+<ul><li>block type: block</li><li>date: 2026-08-15</li><li>resulting state: closed/verified</li><li>story points (combined assembled cost): 8724</li><li>execution id: 20260816.010051.090Z-0d65277f</li></ul>
+<h2>Stories built</h2>
+<ul><li>Parse all TOML basic, literal, and multiline string forms. (parser-strings) [story]</li></ul>
+<h2>Acceptance tooling authorization</h2>
+<ul><li>FEATURE-Parser-Strings.md#parser-strings-valid: executable=sh; scope=test; authorization=existing Target environment</li><li>FEATURE-Parser-Strings.md#parser-strings-valid: executable=go; scope=test; authorization=existing Target environment</li><li>FEATURE-Parser-Strings.md#parser-strings-invalid: executable=sh; scope=test; authorization=existing Target environment</li><li>FEATURE-Parser-Strings.md#parser-strings-invalid: executable=go; scope=test; authorization=existing Target environment</li><li>FEATURE-Parser-Strings.md#parser-strings-contract: executable=go; scope=test; authorization=existing Target environment</li></ul>
+<h2>Reusable compacts</h2>
+<ul><li>stage_test_compact.md</li></ul>
+<h2>Stacked context</h2>
+<ul><li>compass: COMPASS.md (SP 2899)</li><li>implements: FEATURE-Parser-Strings.md (SP 633)</li><li>context: stage_test.sh (SP 161)</li><li>context: ARCHITECTURE_compact.md (SP 128)</li><li>stack: go.md (SP 3646)</li><li>stack: common_compact.md (SP 1179)</li></ul>
+<h2>Build directory changes</h2>
+<ul><li>cmd/toml-decoder/main.go</li><li>internal/toml/toml.go</li><li>internal/toml/toml_test.go</li><li>toml-decoder</li></ul>
+<h2>Pre-build acceptance observation</h2>
+<ul><li>RED: parser-strings-valid (FEATURE-Parser-Strings.md)</li></ul>
+<p>intent: The authoritative TOML suite passes every valid string case. return code: 1 stdout: FAIL valid/string/basic-escape-01 line 2: unsupported value</p>
+<p>Exit 1</p>
+<p>input sent to parser-cmd (PID 1452558): 1 │[0m # Escape &quot; 2 │[0m test = &quot;\&quot;one\&quot;&quot;</p>
+<p>output from parser-cmd (PID 1452558) (stderr): 1 │[0m line 2: unsupported value 2 │[0m 3 │[0m Exit 1</p>
+<p>want: &lt;empty&gt;</p>
+<p>FAIL valid/string/basic-escape-02 line 2: unsupported value</p>
+<p>Exit 1</p>
+<p>input sent to parser-cmd (PID 1452559): 1 │[0m # Escape \ and then &quot; 2 │[0m test = &quot;\\\&quot;one&quot;</p>
+<p>output from parser-cmd (PID 1452559) (stderr): 1 │[0m line 2: unsupported value 2 │[0m 3 │[0m Exit 1</p>
+<p>want: &lt;empty&gt;</p>
+<p>FAIL valid/string/basic-escape-03 line 2: unsupported value</p>
+<p>Exit 1</p>
+<p>input sent to parser-cmd (PID 1452551): 1 │[0m # Escape \ four times and then &quot; 2 │[0m test = &quot;\\\\\\\\\&quot;one&quot;</p>
+<p>output from parser-cmd (PID 1452551) (stderr): 1 │[0m line 2: unsupported value 2 │[0m 3 │[0m Exit 1</p>
+<p>want: &lt;empty&gt;</p>
+<p>FAIL valid/string/empty line 1: invalid integer</p>
+<p>Exit 1</p>
+<p>input sent to parser-cmd (PID 1452549): 1 │[0m answer = &quot;&quot;</p>
+<p>output from parser-cmd (PID 1452549) (stderr): 1 │[0m line 1: invalid integer 2 │[0m 3 │[0m Exit 1</p>
+<p>want: &lt;empty&gt;</p>
+<p>FAIL valid/string/ends-in-whitespace-escape line 1: invalid integer</p>
+<p>Exit 1</p>
+<p>input sent to parser-cmd (PID 1452582): 1 │[0m beee = &quot;&quot;&quot; 2 │[0m heeee 3 │[0m geeee\ 4 │[0m 5 │[0m 6 │[0m       &quot;&quot;&quot;</p>
+<p>output from parser-cmd (PID 1452582) (stderr): 1 │[0m line 1: invalid integer 2 │[0m 3 │[0m Exit 1</p>
+<p>want: &lt;empty&gt;</p>
+<p>FAIL valid/string/escape-tricky line 1: unsupported value</p>
+<p>Exit 1</p>
+<p>input sent to parser-cmd (PID 1452560): 1 │[0m end_esc = &quot;String does not end here\&quot; but ends here\\&quot; 2 │[0m lit_end_esc = &#x27;String ends here\&#x27; 3 │[0m 4 │[0m multiline_unicode = &quot;&quot;&quot; 5 │[0m \u00a0&quot;&quot;&quot; 6 │[0m 7 │[0m multiline_not_unicode = &quot;&quot;&quot; 8 │[0m \\u0041&quot;&quot;&quot; 9 │[0m 10 │[0m multiline_end_esc = &quot;&quot;&quot;When will it end? \&quot;&quot;&quot;...&quot;&quot;\&quot; should be here\&quot;&quot;&quot;&quot; 11 │[0m 12 │[0m lit_multiline_not_unicode = &#x27;&#x27;&#x27; 13 │[0m \u007f&#x27;&#x27;&#x27; 14 │[0m 15 │[0m lit_multiline_end = &#x27;&#x27;&#x27;There is no escape\&#x27;&#x27;&#x27;</p>
+<p>output from parser-cmd (PID 1452560) (stderr): 1 │[0m line 1: unsupported value 2 │[0m 3 │[0m Exit 1</p>
+<p>want: &lt;empty&gt;</p>
+<p>FAIL valid/string/escaped-escape line 1: invalid integer</p>
+<p>Exit 1</p>
+<p>input sent to parser-cmd (PID 1452624): 1 │[0m answer = &quot;\\x64&quot;</p>
+<p>output from parser-cmd (PID 1452624) (stderr): 1 │[0m line 1: invalid integer 2 │[0m 3 │[0m Exit 1</p>
+<p>want: &lt;empty&gt;</p>
+<p>FAIL valid/string/escapes line 1: unsupported value</p>
+<p>Exit 1</p>
+<p>input sent to parser-cmd (PID 1452620): 1 │[0m backspace     = &quot;|\b.&quot; 2 │[0m tab           = &quot;|\t.&quot; 3 │[0m newline       = &quot;|\n.&quot; 4 │[0m formfeed      = &quot;|\f.&quot; 5 │[0m carriage      = &quot;|\r.&quot; 6 │[0m quote         = &quot;|\&quot;.&quot; 7 │[0m backslash     = &quot;|\\.&quot; 8 │[0m delete        = &quot;|\u007F.&quot; 9 │[0m unitseparator = &quot;|\u001F.&quot; 10 │[0m 11 │[0m # \u is escaped, so should NOT be interperted as a \u escape. 12 │[0m notunicode1   = &quot;|\\u.&quot; 13 │[0m notunicode2   = &quot;|\u005Cu.&quot; 14 │[0m notunicode3   = &quot;|\\u0075.&quot; 15 │[0m notunicode4   = &quot;|\\\u0075.&quot;</p>
+<p>output from parser-cmd (PID 1452620) (stderr): 1 │[0m line 1: unsupported value 2 │[0m 3 │[0m Exit 1</p>
+<p>want: &lt;empty&gt;</p>
+<p>FAIL valid/string/multibyte line 4: invalid integer</p>
+<p>Exit 1</p>
+<p>input sent to parser-cmd (PID 1452563): 1 │[0m # Test each multibyte length: 2, 3, and 4 bytes: 2 │[0m # ɑ € 𐫱 3 │[0m 4 │[0m basic    = &quot;ɑ € 𐫱 ɑ€𐫱&quot; 5 │[0m raw      = &#x27;ɑ € 𐫱 ɑ€𐫱&#x27; 6 │[0m ml-basic = &quot;&quot;&quot;ɑ € 𐫱 ɑ€𐫱&quot;&quot;&quot; 7 │[0m ml-raw   = &#x27;&#x27;&#x27;ɑ € 𐫱 ɑ€𐫱&#x27;&#x27;&#x27;</p>
+<p>output from parser-cmd (PID 1452563) (stderr): 1 │[0m line 4: invalid integer 2 │[0m 3 │[0m Exit 1</p>
+<p>want: &lt;empty&gt;</p>
+<p>FAIL valid/string/multibyte-escape line 4: invalid integer</p>
+<p>Exit 1</p>
+<p>input sent to parser-cmd (PID 1452626): 1 │[0m # Test each multibyte length: 2, 3, and 4 bytes: 2 │[0m # ɑ € 𐫱 3 │[0m 4 │[0m basic-1    = &quot;\u0251 \u20ac \U00010AF1 \u0251\u20ac\U00010AF1&quot; 5 │[0m ml-basic-1 = &quot;&quot;&quot;\u0251 \u20ac \U00010AF1 \u0251\u20ac\U00010AF1&quot;&quot;&quot; 6 │[0m 7 │[0m # Again, but only using \U 8 │[0m basic-2    = &quot;\U00000251 \U000020ac \U00010AF1 \U00000251\U000020ac\U00010AF1&quot; 9 │[0m ml-basic-2 = &quot;&quot;&quot;\U00000251 \U000020ac \U00010AF1 \U00000251\U000020ac\U00010AF1&quot;&quot;&quot;</p>
+<p>output from parser-cmd (PID 1452626) (stderr): 1 │[0m line 4: invalid integer 2 │[0m 3 │[0m Exit 1</p>
+<p>want: &lt;empty&gt;</p>
+<p>FAIL valid/string/multiline line 3: unsupported value</p>
+<p>Exit 1</p>
+<p>input sent to parser-cmd (PID 1452550): 1 │[0m # NOTE: this file includes some literal tab characters. 2 │[0m 3 │[0m equivalent_one = &quot;The quick brown fox jumps over the lazy dog.&quot; 4 │[0m equivalent_two = &quot;&quot;&quot; 5 │[0m The quick brown \ 6 │[0m 7 │[0m 8 │[0m   fox jumps over \ 9 │[0m     the lazy dog.&quot;&quot;&quot; 10 │[0m 11 │[0m equivalent_three = &quot;&quot;&quot;\ 12 │[0m        The quick brown \ 13 │[0m        fox jumps over \ 14 │[0m        the lazy dog.\ 15 │[0m        &quot;&quot;&quot; 16 │[0m 17 │[0m whitespace-after-bs = &quot;&quot;&quot;\ 18 │[0m        The quick brown \ 19 │[0m        fox jumps over \ 20 │[0m        the lazy dog.\ 21 │[0m        &quot;&quot;&quot; 22 │[0m 23 │[0m no-space = &quot;&quot;&quot;a\ 24 │[0m     b&quot;&quot;&quot; 25 │[0m 26 │[0m # Has tab character. 27 │[0m keep-ws-before = &quot;&quot;&quot;a   	\ 28 │[0m    b&quot;&quot;&quot; 29 │[0m 30 │[0m escape-bs-1 = &quot;&quot;&quot;a \\ 31 │[0m b&quot;&quot;&quot; 32 │[0m 33 │[0m escape-bs-2 = &quot;&quot;&quot;a \\\ 34 │[0m b&quot;&quot;&quot; 35 │[0m 36 │[0m escape-bs-3 = &quot;&quot;&quot;a \\\\ 37 │[0m   b&quot;&quot;&quot;</p>
+<p>output from parser-cmd (PID 1452550) (stderr): 1 │[0m line 3: unsupported value 2 │[0m 3 │[0m Exit 1</p>
+<p>want: &lt;empty&gt;</p>
+<p>FAIL valid/string/multiline-empty line 1: invalid integer</p>
+<p>Exit 1</p>
+<p>input sent to parser-cmd (PID 1452564): 1 │[0m empty-1 = &quot;&quot;&quot;&quot;&quot;&quot; 2 │[0m 3 │[0m # A newline immediately following the opening delimiter will be trimmed. 4 │[0m empty-2 = &quot;&quot;&quot; 5 │[0m &quot;&quot;&quot; 6 │[0m 7 │[0m # \ at the end of line trims newlines as well; note that last \ is followed by 8 │[0m # two spaces, which are ignored. 9 │[0m empty-3 = &quot;&quot;&quot;\ 10 │[0m     &quot;&quot;&quot; 11 │[0m empty-4 = &quot;&quot;&quot;\ 12 │[0m    \ 13 │[0m    \ 14 │[0m    &quot;&quot;&quot;</p>
+<p>output from parser-cmd (PID 1452564) (stderr): 1 │[0m line 1: invalid integer 2 │[0m 3 │[0m Exit 1</p>
+<p>want: &lt;empty&gt;</p>
+<p>FAIL valid/string/multiline-escaped-crlf line 3: invalid integer</p>
+<p>Exit 1</p>
+<p>input sent to parser-cmd (PID 1452617): 1 │[0m # The following line should be an unescaped backslash followed by a Windows 2 │[0m # newline sequence (&quot;\r\n&quot;) 3 │[0m 0=&quot;&quot;&quot;\ 4 │[0m &quot;&quot;&quot;</p>
+<p>output from parser-cmd (PID 1452617) (stderr): 1 │[0m line 3: invalid integer 2 │[0m 3 │[0m Exit 1</p>
+<p>want: &lt;empty&gt;</p>
+<p>FAIL valid/string/multiline-quotes line 4: unsupported value</p>
+<p>Exit 1</p>
+<p>input sent to parser-cmd (PID 1452562): 1 │[0m # Make sure that quotes inside multiline strings are allowed, including right 2 │[0m # after the opening &#x27;&#x27;&#x27;/&quot;&quot;&quot; and before the closing &#x27;&#x27;&#x27;/&quot;&quot;&quot; 3 │[0m 4 │[0m lit_one = &#x27;&#x27;&#x27;&#x27;one quote&#x27;&#x27;&#x27;&#x27; 5 │[0m lit_two = &#x27;&#x27;&#x27;&#x27;&#x27;two quotes&#x27;&#x27;&#x27;&#x27;&#x27; 6 │[0m lit_one_space = &#x27;&#x27;&#x27; &#x27;one quote&#x27; &#x27;&#x27;&#x27; 7 │[0m lit_two_space = &#x27;&#x27;&#x27; &#x27;&#x27;two quotes&#x27;&#x27; &#x27;&#x27;&#x27; 8 │[0m 9 │[0m one = &quot;&quot;&quot;&quot;one quote&quot;&quot;&quot;&quot; 10 │[0m two = &quot;&quot;&quot;&quot;&quot;two quotes&quot;&quot;&quot;&quot;&quot; 11 │[0m one_space = &quot;&quot;&quot; &quot;one quote&quot; &quot;&quot;&quot; 12 │[0m two_space = &quot;&quot;&quot; &quot;&quot;two quotes&quot;&quot; &quot;&quot;&quot; 13 │[0m 14 │[0m mismatch1 = &quot;&quot;&quot;aaa&#x27;&#x27;&#x27;bbb&quot;&quot;&quot; 15 │[0m mismatch2 = &#x27;&#x27;&#x27;aaa&quot;&quot;&quot;bbb&#x27;&#x27;&#x27; 16 │[0m 17 │[0m # Three opening &quot;&quot;&quot;, then one escaped &quot;, then two &quot;&quot; (allowed), and then three 18 │[0m # closing &quot;&quot;&quot; 19 │[0m escaped = &quot;&quot;&quot;lol\&quot;&quot;&quot;&quot;&quot;&quot; 20 │[0m 21 │[0m five-quotes = &quot;&quot;&quot; 22 │[0m Closing with five quotes 23 │[0m &quot;&quot;&quot;&quot;&quot; 24 │[0m four-quotes = &quot;&quot;&quot; 25 │[0m Closing with four quotes 26 │[0m &quot;&quot;&quot;&quot;</p>
+<p>output from parser-cmd (PID 1452562) (stderr): 1 │[0m line 4: unsupported value 2 │[0m 3 │[0m Exit 1</p>
+<p>want: &lt;empty&gt;</p>
+<p>FAIL valid/string/nl line 1: unsupported value</p>
+<p>Exit 1</p>
+<p>input sent to parser-cmd (PID 1452585): 1 │[0m nl_mid = &quot;val\nue&quot; 2 │[0m nl_end = &quot;&quot;&quot;value\n&quot;&quot;&quot; 3 │[0m 4 │[0m lit_nl_end = &#x27;&#x27;&#x27;value\n&#x27;&#x27;&#x27; 5 │[0m lit_nl_mid = &#x27;val\nue&#x27; 6 │[0m lit_nl_uni = &#x27;val\ue&#x27;</p>
+<p>output from parser-cmd (PID 1452585) (stderr): 1 │[0m line 1: unsupported value 2 │[0m 3 │[0m Exit 1</p>
+<p>want: &lt;empty&gt;</p>
+<p>FAIL valid/string/quoted-unicode line 2: unsupported value</p>
+<p>Exit 1</p>
+<p>input sent to parser-cmd (PID 1452547): 1 │[0m 2 │[0m escaped_string = &quot;\u0000 \u0008 \u000c \U00000041 \u007f \u0080 \u00ff \ud7ff \ue000 \uffff \U00010000 \U0010ffff&quot; 3 │[0m not_escaped_string = &#x27;\u0000 \u0008 \u000c \U00000041 \u007f \u0080 \u00ff \ud7ff \ue000 \uffff \U00010000 \U0010ffff&#x27; 4 │[0m 5 │[0m basic_string = &quot;~  ÿ ퟿  ￿ 𐀀 􏿿&quot; 6 │[0m literal_string = &#x27;~  ÿ ퟿  ￿ 𐀀 􏿿&#x27;</p>
+<p>output from parser-cmd (PID 1452547) (stderr): 1 │[0m line 2: unsupported value 2 │[0m 3 │[0m Exit 1</p>
+<p>want: &lt;empty&gt;</p>
+<p>FAIL valid/string/raw line 1: unsupported value</p>
+<p>Exit 1</p>
+<p>input sent to parser-cmd (PID 1452546): 1 │[0m backspace = &#x27;This string has a \b backspace character.&#x27; 2 │[0m tab = &#x27;This string has a \t tab character.&#x27; 3 │[0m unescaped_tab = &#x27;This string has an 	 unescaped tab character.&#x27; 4 │[0m newline = &#x27;This string has a \n new line character.&#x27; 5 │[0m formfeed = &#x27;This string has a \f form feed character.&#x27; 6 │[0m carriage = &#x27;This string has a \r carriage return character.&#x27; 7 │[0m slash = &#x27;This string has a \/ slash character.&#x27; 8 │[0m backslash = &#x27;This string has a \\ backslash character.&#x27;</p>
+<p>output from parser-cmd (PID 1452546) (stderr): 1 │[0m line 1: unsupported value 2 │[0m 3 │[0m Exit 1</p>
+<p>want: &lt;empty&gt;</p>
+<p>FAIL valid/string/raw-empty line 1: invalid integer</p>
+<p>Exit 1</p>
+<p>input sent to parser-cmd (PID 1452621): 1 │[0m empty = &#x27;&#x27;</p>
+<p>output from parser-cmd (PID 1452621) (stderr): 1 │[0m line 1: invalid integer 2 │[0m 3 │[0m Exit 1</p>
+<p>want: &lt;empty&gt;</p>
+<p>FAIL valid/string/raw-multiline line 2: unsupported value</p>
+<p>Exit 1</p>
+<p>input sent to parser-cmd (PID 1452553): 1 │[0m # Single &#x27; should be allowed. 2 │[0m oneline = &#x27;&#x27;&#x27;This string has a &#x27; quote character.&#x27;&#x27;&#x27; 3 │[0m 4 │[0m # A newline immediately following the opening delimiter will be trimmed. 5 │[0m firstnl = &#x27;&#x27;&#x27; 6 │[0m This string has a &#x27; quote character.&#x27;&#x27;&#x27; 7 │[0m 8 │[0m # All other whitespace and newline characters remain intact. 9 │[0m multiline = &#x27;&#x27;&#x27; 10 │[0m This string 11 │[0m has &#x27; a quote character 12 │[0m and more than 13 │[0m one newline 14 │[0m in it.&#x27;&#x27;&#x27; 15 │[0m 16 │[0m # Tab character in literal string does not need to be escaped 17 │[0m multiline_with_tab = &#x27;&#x27;&#x27;First line 18 │[0m 	 Followed by a tab&#x27;&#x27;&#x27; 19 │[0m 20 │[0m this-str-has-apostrophes=&#x27;&#x27;&#x27;&#x27; there&#x27;s one already 21 │[0m &#x27;&#x27; two more 22 │[0m &#x27;&#x27;&#x27;&#x27;&#x27;</p>
+<p>output from parser-cmd (PID 1452553) (stderr): 1 │[0m line 2: unsupported value 2 │[0m 3 │[0m Exit 1</p>
+<p>want: &lt;empty&gt;</p>
+<p>FAIL valid/string/simple line 1: unsupported value</p>
+<p>Exit 1</p>
+<p>input sent to parser-cmd (PID 1452613): 1 │[0m answer = &quot;You are not drinking enough whisky.&quot;</p>
+<p>output from parser-cmd (PID 1452613) (stderr): 1 │[0m line 1: unsupported value 2 │[0m 3 │[0m Exit 1</p>
+<p>want: &lt;empty&gt;</p>
+<p>FAIL valid/string/start-mb line 4: invalid integer</p>
+<p>Exit 1</p>
+<p>input sent to parser-cmd (PID 1452561): 1 │[0m # Start first line with a multibyte character. 2 │[0m # 3 │[0m # https://github.com/marzer/tomlplusplus/issues/190 4 │[0m s1 = &quot;§&quot; 5 │[0m s2 = &#x27;§&#x27; 6 │[0m s3 = &quot;&quot;&quot;\ 7 │[0m §&quot;&quot;&quot; 8 │[0m s4 = &quot;&quot;&quot; 9 │[0m §&quot;&quot;&quot; 10 │[0m s5 = &quot;&quot;&quot;§&quot;&quot;&quot; 11 │[0m s6 = &#x27;&#x27;&#x27; 12 │[0m §&#x27;&#x27;&#x27; 13 │[0m s7 = &#x27;&#x27;&#x27;§&#x27;&#x27;&#x27;</p>
+<p>output from parser-cmd (PID 1452561) (stderr): 1 │[0m line 4: invalid integer 2 │[0m 3 │[0m Exit 1</p>
+<p>want: &lt;empty&gt;</p>
+<p>FAIL valid/string/unicode-escape line 1: invalid integer</p>
+<p>Exit 1</p>
+<p>input sent to parser-cmd (PID 1452565): 1 │[0m delta-1 = &quot;\u03B4&quot; 2 │[0m delta-2 = &quot;\U000003B4&quot; 3 │[0m a       = &quot;\u0061&quot; 4 │[0m b       = &quot;\u0062&quot; 5 │[0m c       = &quot;\U00000063&quot; 6 │[0m null-1  = &quot;\u0000&quot; 7 │[0m null-2  = &quot;\U00000000&quot; 8 │[0m 9 │[0m ml-delta-1 = &quot;&quot;&quot;\u03B4&quot;&quot;&quot; 10 │[0m ml-delta-2 = &quot;&quot;&quot;\U000003B4&quot;&quot;&quot; 11 │[0m ml-a       = &quot;&quot;&quot;\u0061&quot;&quot;&quot; 12 │[0m ml-b       = &quot;&quot;&quot;\u0062&quot;&quot;&quot; 13 │[0m ml-c       = &quot;&quot;&quot;\U00000063&quot;&quot;&quot; 14 │[0m ml-null-1  = &quot;&quot;&quot;\u0000&quot;&quot;&quot; 15 │[0m ml-null-2  = &quot;&quot;&quot;\U00000000&quot;&quot;&quot;</p>
+<p>output from parser-cmd (PID 1452565) (stderr): 1 │[0m line 1: invalid integer 2 │[0m 3 │[0m Exit 1</p>
+<p>want: &lt;empty&gt;</p>
+<p>FAIL valid/string/with-pound line 1: unsupported value</p>
+<p>Exit 1</p>
+<p>input sent to parser-cmd (PID 1452548): 1 │[0m pound = &quot;We see no # comments here.&quot; 2 │[0m poundcomment = &quot;But there are # some comments here.&quot; # Did I # mess you up?</p>
+<p>output from parser-cmd (PID 1452548) (stderr): 1 │[0m line 1: unsupported value 2 │[0m 3 │[0m Exit 1</p>
+<p>want: &lt;empty&gt;</p>
+<p>toml-test v2.2.0 [/mnt/c/Users/barlo/projects/drydock/uat/Toml/runs/20260816.004939/build/toml/toml-decoder] [no encoder] skipped tests: 861 valid tests:   0 passed, 23 failed encoder tests: no encoder command given invalid tests:   0 passed,  0 failed</p>
+<p>harness: /home/barlo/.local/bin/toml-test toml-test v2.2.0; go1.24.6 linux/amd64; race=false; cgo=true stderr: Traceback (most recent call last): File &quot;parser-strings-valid.py&quot;, line 10, in &lt;module&gt; assert result.returncode == 0 ^^^^^^^^^^^^^^^^^^^^^^ AssertionError</p>
+<ul><li>GREEN (prepassed): parser-strings-invalid (FEATURE-Parser-Strings.md)</li></ul>
+<p>intent: The authoritative TOML suite rejects every invalid string case. return code: 0 stdout: toml-test v2.2.0 [/mnt/c/Users/barlo/projects/drydock/uat/Toml/runs/20260816.004939/build/toml/toml-decoder] [no encoder] skipped tests: 807 valid tests:   0 passed,  0 failed encoder tests: no encoder command given invalid tests:  77 passed,  0 failed</p>
+<p>harness: /home/barlo/.local/bin/toml-test toml-test v2.2.0; go1.24.6 linux/amd64; race=false; cgo=true</p>
+<ul><li>RED: parser-strings-contract (FEATURE-Parser-Strings.md)</li></ul>
+<p>intent: String parsing remains reachable through the stdin decoder boundary. return code: 1 stderr: Traceback (most recent call last): File &quot;parser-strings-contract.py&quot;, line 15, in &lt;module&gt; assert result.returncode == 0 ^^^^^^^^^^^^^^^^^^^^^^ AssertionError</p>
+<h2>Post-build programmatic acceptance</h2>
+<ul><li>PASS: parser-strings-valid (FEATURE-Parser-Strings.md)</li></ul>
+<p>intent: The authoritative TOML suite passes every valid string case. target interpreter: /mnt/c/Users/barlo/projects/drydock/.venv/bin/python3 provisioning: not required return code: 0 stdout: toml-test v2.2.0 [/mnt/c/Users/barlo/projects/drydock/uat/Toml/runs/20260816.004939/build/toml/toml-decoder] [no encoder] skipped tests: 861 valid tests:  23 passed,  0 failed encoder tests: no encoder command given invalid tests:   0 passed,  0 failed</p>
+<p>harness: /home/barlo/.local/bin/toml-test toml-test v2.2.0; go1.24.6 linux/amd64; race=false; cgo=true</p>
+<ul><li>PASS: parser-strings-invalid (FEATURE-Parser-Strings.md)</li></ul>
+<p>intent: The authoritative TOML suite rejects every invalid string case. target interpreter: /mnt/c/Users/barlo/projects/drydock/.venv/bin/python3 provisioning: not required return code: 0 stdout: toml-test v2.2.0 [/mnt/c/Users/barlo/projects/drydock/uat/Toml/runs/20260816.004939/build/toml/toml-decoder] [no encoder] skipped tests: 807 valid tests:   0 passed,  0 failed encoder tests: no encoder command given invalid tests:  77 passed,  0 failed</p>
+<p>harness: /home/barlo/.local/bin/toml-test toml-test v2.2.0; go1.24.6 linux/amd64; race=false; cgo=true</p>
+<ul><li>PASS: parser-strings-contract (FEATURE-Parser-Strings.md)</li></ul>
+<p>intent: String parsing remains reachable through the stdin decoder boundary. target interpreter: /mnt/c/Users/barlo/projects/drydock/.venv/bin/python3 provisioning: not required return code: 0</p>
+<h2>Build summary</h2>
+<p>&lt;reusable-compact filename=&quot;stage_test.sh&quot;&gt;</p>
+<ul><li>Runs one authoritative TOML conformance scope.</li><li>Requires exactly one <code>-run</code> pattern argument.</li><li>Builds <code>./cmd/toml-decoder</code>, then invokes <code>sources/run_conformance.sh -run &quot;$1&quot;</code>.</li><li>Exit status is the complete verdict; no output parsing.</li></ul>
+<p>&lt;/reusable-compact&gt;</p>
+<p>RESULT: SUCCESS</p>
+<p>FILES CHANGED:</p>
+<ul><li>cmd/toml-decoder/main.go</li><li>internal/toml/toml.go</li><li>internal/toml/toml_test.go</li></ul>
+<p>SUMMARY: Implemented TOML basic, literal, multiline, escape, Unicode, continuation, and malformed-string handling. Valid string tests: 23 passed. Invalid string tests: 77 passed. Contract, race tests, vet, and formatting checks pass.</p>
+<p>BLOCKERS:</p>
+<ul><li>None</li></ul></article>
+</main>
+</body>
+</html>
