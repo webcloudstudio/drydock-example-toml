@@ -1,13 +1,13 @@
 # Release Scorecard: toml
 
 - Verdict: PASSED
-- Code identity: f55abbd07438c6f09ac810c0f7b59952076076f9
+- Code identity: a36d029f38d04480a53973bc3dbc0a540ab6334a
 
 ## Project acceptance
 
 | ID | Type | Criterion | Verdict | Observed |
 |---|---|---|---|---|
-| st-001 | technical | The completed parser shall make sh sources/full_test.sh exit zero; that script's exit status is the sole acceptance verdict. | MET | sh sources/full_test.sh returned 0; toml-test reported 205 valid tests and 474 invalid tests passed |
+| st-001 | technical | The completed parser shall make sh sources/full_test.sh exit zero; that script's exit status is the sole acceptance verdict. | MET | sh sources/full_test.sh returned exit code 0; governed gate full: valid tests 205 passed, invalid tests 474 passed |
 
 ## Failures
 

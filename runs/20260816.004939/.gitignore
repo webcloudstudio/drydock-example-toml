@@ -144,4 +144,11 @@
 /workspace/logs/20260816.032708.567Z_toml_score-release_codex.output.txt
 /workspace/logs/20260816.032708.567Z_toml_score-release_codex.prompt.md
 /workspace/logs/20260816.032708.567Z_toml_score-release_codex.raw.jsonl
+/workspace/logs/20260816.044159.202Z_toml_score.log
+/workspace/logs/20260816.044257.866Z_build_score.log
+/workspace/logs/20260816.044258.725Z_toml_score_codex.log
+/workspace/logs/20260816.044304.004Z_toml_score-release_codex.llm.log
+/workspace/logs/20260816.044304.004Z_toml_score-release_codex.output.txt
+/workspace/logs/20260816.044304.004Z_toml_score-release_codex.prompt.md
+/workspace/logs/20260816.044304.004Z_toml_score-release_codex.raw.jsonl
 /workspace/logs/llm.jsonl

@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>evidence/commands/superseded/20260816.044158/16-score-acceptance.stderr.log</title>
+<link rel="stylesheet" href="../../../../../assets/kit.css">
+</head>
+<body>
+<main>
+<header class="fileheader"><div class="kind">Run artifact</div><h1>evidence/commands/superseded/20260816.044158/16-score-acceptance.stderr.log</h1><div class="filenav"><a href="../../../../../index.html">&larr; Report</a><a href="../../../../../evidence/commands/superseded/20260816.044158/16-score-acceptance.stderr.log">Raw file</a></div></header>
+<article class="doc"><pre>error: acceptance verification failed for toml: 1 of 29 criteria
+  decoder-no-arguments  decoder-contract  FEATURE-Decoder-Contract.md
+    assertion: assert result.returncode != 0 → AssertionError
+    raised at: decoder-no-arguments.py:13
+    process exit code: 1
+    values at failure:
+      result = CompletedProcess(args=[&#x27;./toml-decoder&#x27;, &#x27;--unsupported&#x27;], returncode=0, stdout=&#x27;{&quot;answer&quot;:{&quot;type&quot;:&quot;integer&quot;,&quot;value&quot;:&quot;42&quot;}}\n&#x27;, stderr=&#x27;&#x27;)
+    criterion code:
+         1 | import subprocess
+         2 |
+         3 | subprocess.run(
+         4 |     [&quot;go&quot;, &quot;build&quot;, &quot;-o&quot;, &quot;toml-decoder&quot;, &quot;./cmd/toml-decoder&quot;],
+         5 |     check=True,
+         6 | )
+         7 | result = subprocess.run(
+         8 |     [&quot;./toml-decoder&quot;, &quot;--unsupported&quot;],
+         9 |     input=&quot;answer = 42\n&quot;,
+        10 |     capture_output=True,
+        11 |     text=True,
+        12 | )
+      &gt; 13 | assert result.returncode != 0
+    check stderr:
+      Traceback (most recent call last):
+        File &quot;decoder-no-arguments.py&quot;, line 13, in &lt;module&gt;
+          assert result.returncode != 0
+                 ^^^^^^^^^^^^^^^^^^^^^^
+      AssertionError
+</pre></article>
+</main>
+</body>
+</html>
