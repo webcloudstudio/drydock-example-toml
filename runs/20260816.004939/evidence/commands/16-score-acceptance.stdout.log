@@ -1,6 +1,8 @@
 Drydock 0.1.8  Copyright (c) 2026 Web Cloud Studio. All rights reserved.
+Target - setup project workspace git store
+Target - committed project workspace git store
 
-Acceptance verification: toml  (2026-08-16T01:37:42+00:00)
+Acceptance verification: toml  (2026-08-16T02:30:39+00:00)
   PASS 14   FAIL 1   UNVERIFIED 0   PREPASSED 14   (29 AC)
   14 criterion(s) were green before their block built. Either they do not exercise the story's work,
   or the deliverable already existed. Not counted as proven; the build is not blocked on them.
@@ -12,7 +14,14 @@ Acceptance verification: toml  (2026-08-16T01:37:42+00:00)
   ✗ FAIL        decoder-no-arguments                decoder-contract           FEATURE-Decoder-Contract.md
         intent: The command boundary rejects unsupported command-line arguments.
         assertion: assert result.returncode != 0 → AssertionError
+        raised at: decoder-no-arguments.py:13
         process exit code: 1
+        check stderr:
+          Traceback (most recent call last):
+            File "decoder-no-arguments.py", line 13, in <module>
+              assert result.returncode != 0
+                     ^^^^^^^^^^^^^^^^^^^^^^
+          AssertionError
 
   ✓ PASS        parser-strings-valid                parser-strings             FEATURE-Parser-Strings.md
   ~ PREPASSED   parser-strings-invalid              parser-strings             FEATURE-Parser-Strings.md

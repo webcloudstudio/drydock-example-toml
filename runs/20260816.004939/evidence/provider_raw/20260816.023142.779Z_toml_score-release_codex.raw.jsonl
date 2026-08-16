@@ -1,0 +1,4 @@
+{"type":"thread.started","thread_id":"01a00869-24a0-7e31-a7c4-b351dcd1cf0b"}
+{"type":"turn.started"}
+{"type":"item.completed","item":{"id":"item_0","type":"agent_message","text":"{\"criteria\":[{\"id\":\"st-001\",\"verdict\":\"MET\",\"rationale\":\"The governed full gate passed with exit code 0.\",\"evidence\":[\"sh sources/full_test.sh: return code 0\",\"toml-test: 205 valid tests and 474 invalid tests passed\"]}],\"improvements\":[\"Review the reported uncommitted changes before release.\"]}"}}
+{"type":"turn.completed","usage":{"input_tokens":13356,"cached_input_tokens":8960,"cache_write_input_tokens":0,"output_tokens":152,"reasoning_output_tokens":71}}
