@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>workspace/targets/toml/blueprint/FEATURE-Datetimes.md</title>
+<link rel="stylesheet" href="../../../../../assets/kit.css">
+</head>
+<body>
+<main>
+<header class="fileheader"><div class="kind">Run artifact</div><h1>workspace/targets/toml/blueprint/FEATURE-Datetimes.md</h1><div class="filenav"><a href="../../../../../index.html">&larr; Report</a><a href="../../../../../workspace/targets/toml/blueprint/FEATURE-Datetimes.md">Raw file</a></div></header>
+<article class="doc"><h1>FEATURE: TOML Datetimes</h1>
+<div class="scroll"><table><thead><tr><th>Field</th><th>Value</th></tr></thead><tbody><tr><td>Version</td><td>20260816 V1</td></tr><tr><td>Description</td><td>Parse and format TOML offset and local date and time values.</td></tr><tr><td>Depends On</td><td>ARCHITECTURE.md</td></tr><tr><td>Provides</td><td>TOML datetime, local datetime, local date, and local time parsing</td></tr><tr><td>Consumes</td><td>internal/toml</td></tr></tbody></table></div>
+<h2>Supported Values</h2>
+<p>Parse offset datetimes, local datetimes, local dates, and local times according to TOML 1.0.0 and RFC 3339-compatible forms. Accept <code>T</code> or permitted space separation for offset and local datetimes.</p>
+<p>Emit the required tagged types: <code>datetime</code>, <code>datetime-local</code>, <code>date-local</code>, and <code>time-local</code>. Offset datetimes use RFC 3339 formatting; local values omit unavailable offset or date components.</p>
+<h2>Precision and Validation</h2>
+<p>Require valid calendar and clock fields. Preserve supported fractional precision and truncate excess fractional seconds rather than rounding. Reject malformed separators, invalid dates or times, invalid offsets, and unsupported local forms.</p>
+<h2>Programmatic Acceptance</h2>
+<p>=== AC datetimes-valid ===<br>Intent: The decoder passes all authoritative valid TOML datetime cases owned by this feature.<br>Suite: scoped<br>Requires: executable=go; scope=test</p>
+<p>import subprocess</p>
+<p>result = subprocess.run( [&quot;sh&quot;, &quot;sources/stage_test.sh&quot;, &quot;valid/datetime/**&quot;], capture_output=True, text=True, ) print(result.stdout) print(result.stderr) assert result.returncode == 0 === END AC datetimes-valid ===</p>
+<p>=== AC datetimes-invalid ===<br>Intent: The decoder rejects all authoritative invalid TOML datetime, local-date, local-datetime, and local-time cases owned by this feature.<br>Suite: scoped<br>Requires: executable=go; scope=test</p>
+<p>import subprocess</p>
+<p>result = subprocess.run( [&quot;sh&quot;, &quot;sources/stage_test.sh&quot;, &quot;invalid/datetime/<strong>|invalid/local-date/</strong>|invalid/local-datetime/<strong>|invalid/local-time/</strong>&quot;], capture_output=True, text=True, ) print(result.stdout) print(result.stderr) assert result.returncode == 0 === END AC datetimes-invalid ===</p>
+<h2>User Acceptance</h2>
+<ul><li>None.</li></ul>
+<h2>Guardrails</h2>
+<ul><li>Emit datetime values with the required TOML type tags.</li><li>Truncate excess fractional precision; never round it.</li><li>Do not attach an offset to local datetime, date, or time values.</li></ul></article>
+</main>
+</body>
+</html>

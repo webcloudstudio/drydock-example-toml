@@ -1,0 +1,3 @@
+2026-08-16T12:25:49.568691Z ERROR codex_core::tools::router: error=exec_command failed for `/bin/bash -lc "rm -f ./toml-decoder
+find . -path './sources' -prune -o -type f -print | sort
+[ "'! -e ./toml-decoder ]'`: CreateProcess { message: "Rejected(\"`/bin/bash -lc \\\"rm -f ./toml-decoder\\nfind . -path './sources' -prune -o -type f -print | sort\\n[ \\\"'! -e ./toml-decoder ]'` rejected: rm -f style commands are not permitted. Use a safer approach\")" }

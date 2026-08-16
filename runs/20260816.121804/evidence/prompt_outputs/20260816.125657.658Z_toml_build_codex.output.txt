@@ -1,0 +1,13 @@
+RESULT: SUCCESS
+
+FILES CHANGED:
+- internal/toml/toml_test.go
+
+SUMMARY:
+Added regression tests for nested/commented arrays, trailing commas, dotted inline tables, closure conflicts, and invalid inline-table syntax. All gates pass:
+- Full suite: 205 valid, 474 invalid
+- Scoped array/inline suites: all pass
+- `go test`, `gofmt`, and `go vet`: pass
+
+BLOCKERS:
+- None

@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>workspace/targets/toml/blueprint/FEATURE-Keys.md</title>
+<link rel="stylesheet" href="../../../../../assets/kit.css">
+</head>
+<body>
+<main>
+<header class="fileheader"><div class="kind">Run artifact</div><h1>workspace/targets/toml/blueprint/FEATURE-Keys.md</h1><div class="filenav"><a href="../../../../../index.html">&larr; Report</a><a href="../../../../../workspace/targets/toml/blueprint/FEATURE-Keys.md">Raw file</a></div></header>
+<article class="doc"><h1>FEATURE: TOML Keys</h1>
+<div class="scroll"><table><thead><tr><th>Field</th><th>Value</th></tr></thead><tbody><tr><td>Version</td><td>20260816 V1</td></tr><tr><td>Description</td><td>Parse TOML bare, quoted, dotted, and duplicate-key definitions.</td></tr><tr><td>Depends On</td><td>ARCHITECTURE.md, FEATURE-Strings.md</td></tr><tr><td>Provides</td><td>TOML bare, quoted, dotted, and duplicate-key semantics</td></tr><tr><td>Consumes</td><td>internal/toml</td></tr></tbody></table></div>
+<h2>Key Parsing</h2>
+<p>Support bare keys containing ASCII letters, digits, underscores, and dashes; quoted basic and literal keys; and dotted paths combining these forms. Whitespace around dotted components is permitted.</p>
+<p>Assignments create nested tables as needed. Numeric-looking bare keys remain string keys. Quoted and bare spellings that resolve to the same key are equivalent.</p>
+<h2>Definition Semantics</h2>
+<p>Reject empty bare keys, duplicate definitions, assignments through scalar values, and attempts to redefine tables or values. Preserve insertion-independent nested object semantics.</p>
+<h2>Programmatic Acceptance</h2>
+<p>=== AC keys-valid ===<br>Intent: The decoder passes all authoritative valid TOML key cases owned by this feature.<br>Suite: scoped<br>Requires: executable=go; scope=test</p>
+<p>import subprocess</p>
+<p>result = subprocess.run( [&quot;sh&quot;, &quot;sources/stage_test.sh&quot;, &quot;valid/key/**&quot;], capture_output=True, text=True, ) print(result.stdout) print(result.stderr) assert result.returncode == 0 === END AC keys-valid ===</p>
+<p>=== AC keys-invalid ===<br>Intent: The decoder rejects all authoritative invalid TOML key cases owned by this feature.<br>Suite: scoped<br>Requires: executable=go; scope=test</p>
+<p>import subprocess</p>
+<p>result = subprocess.run( [&quot;sh&quot;, &quot;sources/stage_test.sh&quot;, &quot;invalid/key/**&quot;], capture_output=True, text=True, ) print(result.stdout) print(result.stderr) assert result.returncode == 0 === END AC keys-invalid ===</p>
+<h2>User Acceptance</h2>
+<ul><li>None.</li></ul>
+<h2>Guardrails</h2>
+<ul><li>Use only the Go standard library.</li><li>Do not reinterpret or modify the supplied conformance harness.</li></ul></article>
+</main>
+</body>
+</html>

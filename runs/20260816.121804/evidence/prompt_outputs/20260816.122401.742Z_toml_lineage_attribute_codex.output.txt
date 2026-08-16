@@ -1,0 +1,57 @@
+<requirement name="document-lexical-rules" stories="parser-lexical-boundaries">
+* TOML is case-sensitive.
+* A TOML file must be a valid UTF-8 encoded Unicode document.
+* Whitespace means tab (0x09) or space (0x20).
+* Newline means LF (0x0A) or CRLF (0x0D 0x0A).
+
+A hash symbol marks the rest of the line as a comment, except when inside a
+string.
+</requirement>
+<requirement name="key-definition-semantics" stories="parser-keys">
+A key may be either bare, quoted, or dotted.
+</requirement>
+<requirement name="scalar-values" stories="parser-lexical-scalars">
+Values must have one of the following types.
+
+- [String](#string)
+- [Integer](#integer)
+- [Float](#float)
+- [Boolean](#boolean)
+- [Offset Date-Time](#offset-date-time)
+- [Local Date-Time](#local-date-time)
+- [Local Date](#local-date)
+- [Local Time](#local-time)
+- [Array](#array)
+- [Inline Table](#inline-table)
+</requirement>
+<requirement name="string-values" stories="parser-strings">
+There are four ways to express strings: basic, multi-line basic, literal, and
+multi-line literal. All strings must contain only valid UTF-8 characters.
+</requirement>
+<requirement name="datetime-values" stories="parser-datetimes">
+To unambiguously represent a specific instant in time, you may use an [RFC
+3339](https://tools.ietf.org/html/rfc3339) formatted date-time with offset.
+</requirement>
+<requirement name="arrays-and-inline-tables" stories="parser-arrays-inline">
+Arrays are square brackets with values inside. Whitespace is ignored. Elements
+are separated by commas.
+
+Inline tables provide a more compact syntax for expressing tables.
+</requirement>
+<requirement name="tables-and-arrays-of-tables" stories="parser-tables">
+Tables (also known as hash tables or dictionaries) are collections of key/value
+pairs. They are defined by headers, with square brackets on a line by
+themselves.
+
+The last syntax that has not yet been described allows writing arrays of tables.
+</requirement>
+<requirement name="toml-file-extension" stories="">
+TOML files should use the extension `.toml`.
+</requirement>
+<requirement name="toml-mime-type" stories="">
+When transferring TOML files over the internet, the appropriate MIME type is
+`application/toml`.
+</requirement>
+<unattached story="architecture"/>
+<unattached story="decoder-contract"/>
+<unattached story="conformance"/>

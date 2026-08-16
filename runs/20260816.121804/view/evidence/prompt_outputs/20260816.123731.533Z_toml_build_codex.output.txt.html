@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>evidence/prompt_outputs/20260816.123731.533Z_toml_build_codex.output.txt</title>
+<link rel="stylesheet" href="../../../assets/kit.css">
+</head>
+<body>
+<main>
+<header class="fileheader"><div class="kind">Run artifact</div><h1>evidence/prompt_outputs/20260816.123731.533Z_toml_build_codex.output.txt</h1><div class="filenav"><a href="../../../index.html">&larr; Report</a><a href="../../../evidence/prompt_outputs/20260816.123731.533Z_toml_build_codex.output.txt">Raw file</a></div></header>
+<article class="doc"><pre>RESULT: FAILED
+
+FILES CHANGED:
+- internal/toml/toml.go
+- internal/toml/toml_test.go
+
+SUMMARY:
+Implemented TOML booleans, canonical integers, base-prefixed integers, floats, exponents, special values, validation, and tests. Scalar suites pass; full suite remains failing in out-of-scope arrays, tables, strings, comments, and datetimes.
+
+BLOCKERS:
+- Full conformance suite is not yet green due to prior unimplemented parser features.
+
+FAILURE_SUMMARY: Full conformance suite has 62 valid and 33 invalid failures outside this scalar block.
+FAILURE_DETAIL: Scalar-specific tests pass, but completing the full gate requires implementing arrays, tables, comments, strings, and datetime parsing in subsequent build blocks.</pre></article>
+</main>
+</body>
+</html>

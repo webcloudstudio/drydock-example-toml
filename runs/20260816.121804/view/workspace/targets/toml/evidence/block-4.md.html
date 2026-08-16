@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>workspace/targets/toml/evidence/block-4.md</title>
+<link rel="stylesheet" href="../../../../../assets/kit.css">
+</head>
+<body>
+<main>
+<header class="fileheader"><div class="kind">Run artifact</div><h1>workspace/targets/toml/evidence/block-4.md</h1><div class="filenav"><a href="../../../../../index.html">&larr; Report</a><a href="../../../../../workspace/targets/toml/evidence/block-4.md">Raw file</a></div></header>
+<article class="doc"><h1>Evidence: Block 4 · Service (block-4)</h1>
+<ul><li>block type: block</li><li>date: 2026-08-16</li><li>resulting state: closed/verified</li><li>story points (combined assembled cost): 7534</li><li>execution id: 20260816.123731.533Z-77b80c17</li></ul>
+<h2>Stories built</h2>
+<ul><li>Parse TOML booleans, integers, and floating-point scalar values. (parser-lexical-scalars) [story]</li></ul>
+<h2>Missing context</h2>
+<ul><li>context: toml-v1.0.0.md</li></ul>
+<h2>Stacked context</h2>
+<ul><li>compass: COMPASS.md (SP 2942)</li><li>implements: FEATURE-Lexical-Scalars.md (SP 602)</li><li>context: stage_test.sh (SP 161)</li><li>context: ARCHITECTURE_compact.md (SP 123)</li><li>stack: go.md (SP 3646)</li></ul>
+<h2>Build directory changes</h2>
+<ul><li>internal/toml/toml.go</li><li>internal/toml/toml_test.go</li><li>toml-decoder</li></ul>
+<h2>Pre-build acceptance observation</h2>
+<ul><li>GREEN (prepassed): scalars-valid-suite (FEATURE-Lexical-Scalars.md)</li></ul>
+<p>intent: The authoritative conformance suite passes all valid boolean, integer, and float cases. return code: 0 stdout: toml-test v2.2.0 [/mnt/c/Users/barlo/projects/drydock/uat/Toml/runs/20260816.121804/build/toml/toml-decoder] [no encoder] skipped tests: 884 valid tests:   0 passed,  0 failed encoder tests: no encoder command given invalid tests:   0 passed,  0 failed</p>
+<p>harness: /home/barlo/.local/bin/toml-test toml-test v2.2.0; go1.24.6 linux/amd64; race=false; cgo=true</p>
+<ul><li>GREEN (prepassed): scalars-invalid-suite (FEATURE-Lexical-Scalars.md)</li></ul>
+<p>intent: The authoritative conformance suite rejects all invalid boolean, integer, and float cases. return code: 0 stdout: toml-test v2.2.0 [/mnt/c/Users/barlo/projects/drydock/uat/Toml/runs/20260816.121804/build/toml/toml-decoder] [no encoder] skipped tests: 884 valid tests:   0 passed,  0 failed encoder tests: no encoder command given invalid tests:   0 passed,  0 failed</p>
+<p>harness: /home/barlo/.local/bin/toml-test toml-test v2.2.0; go1.24.6 linux/amd64; race=false; cgo=true</p>
+<ul><li>GREEN (prepassed): scalars-bounded-suites (FEATURE-Lexical-Scalars.md)</li></ul>
+<p>intent: The valid and invalid scalar conformance slices each complete successfully. return code: 0 stdout: toml-test v2.2.0 [/mnt/c/Users/barlo/projects/drydock/uat/Toml/runs/20260816.121804/build/toml/toml-decoder] [no encoder] skipped tests: 884 valid tests:   0 passed,  0 failed encoder tests: no encoder command given invalid tests:   0 passed,  0 failed</p>
+<p>harness: /home/barlo/.local/bin/toml-test toml-test v2.2.0; go1.24.6 linux/amd64; race=false; cgo=true</p>
+<p>toml-test v2.2.0 [/mnt/c/Users/barlo/projects/drydock/uat/Toml/runs/20260816.121804/build/toml/toml-decoder] [no encoder] skipped tests: 884 valid tests:   0 passed,  0 failed encoder tests: no encoder command given invalid tests:   0 passed,  0 failed</p>
+<p>harness: /home/barlo/.local/bin/toml-test toml-test v2.2.0; go1.24.6 linux/amd64; race=false; cgo=true</p>
+<h2>Post-build programmatic acceptance</h2>
+<ul><li>PASS: scalars-valid-suite (FEATURE-Lexical-Scalars.md)</li></ul>
+<p>intent: The authoritative conformance suite passes all valid boolean, integer, and float cases. target interpreter: /mnt/c/Users/barlo/projects/drydock/.venv/bin/python3 provisioning: not required return code: 0 stdout: toml-test v2.2.0 [/mnt/c/Users/barlo/projects/drydock/uat/Toml/runs/20260816.121804/build/toml/toml-decoder] [no encoder] skipped tests: 884 valid tests:   0 passed,  0 failed encoder tests: no encoder command given invalid tests:   0 passed,  0 failed</p>
+<p>harness: /home/barlo/.local/bin/toml-test toml-test v2.2.0; go1.24.6 linux/amd64; race=false; cgo=true</p>
+<ul><li>PASS: scalars-invalid-suite (FEATURE-Lexical-Scalars.md)</li></ul>
+<p>intent: The authoritative conformance suite rejects all invalid boolean, integer, and float cases. target interpreter: /mnt/c/Users/barlo/projects/drydock/.venv/bin/python3 provisioning: not required return code: 0 stdout: toml-test v2.2.0 [/mnt/c/Users/barlo/projects/drydock/uat/Toml/runs/20260816.121804/build/toml/toml-decoder] [no encoder] skipped tests: 884 valid tests:   0 passed,  0 failed encoder tests: no encoder command given invalid tests:   0 passed,  0 failed</p>
+<p>harness: /home/barlo/.local/bin/toml-test toml-test v2.2.0; go1.24.6 linux/amd64; race=false; cgo=true</p>
+<ul><li>PASS: scalars-bounded-suites (FEATURE-Lexical-Scalars.md)</li></ul>
+<p>intent: The valid and invalid scalar conformance slices each complete successfully. target interpreter: /mnt/c/Users/barlo/projects/drydock/.venv/bin/python3 provisioning: not required return code: 0 stdout: toml-test v2.2.0 [/mnt/c/Users/barlo/projects/drydock/uat/Toml/runs/20260816.121804/build/toml/toml-decoder] [no encoder] skipped tests: 884 valid tests:   0 passed,  0 failed encoder tests: no encoder command given invalid tests:   0 passed,  0 failed</p>
+<p>harness: /home/barlo/.local/bin/toml-test toml-test v2.2.0; go1.24.6 linux/amd64; race=false; cgo=true</p>
+<p>toml-test v2.2.0 [/mnt/c/Users/barlo/projects/drydock/uat/Toml/runs/20260816.121804/build/toml/toml-decoder] [no encoder] skipped tests: 884 valid tests:   0 passed,  0 failed encoder tests: no encoder command given invalid tests:   0 passed,  0 failed</p>
+<p>harness: /home/barlo/.local/bin/toml-test toml-test v2.2.0; go1.24.6 linux/amd64; race=false; cgo=true</p>
+<h2>Agent self-report (advisory)</h2>
+<p>The build agent declared a failure. This is advisory only; the programmatic acceptance above is the authority for this block&#x27;s outcome.</p>
+<ul><li>summary: Full conformance suite has 62 valid and 33 invalid failures outside this scalar block.</li><li>detail:</li></ul>
+<p>Scalar-specific tests pass, but completing the full gate requires implementing arrays, tables, comments, strings, and datetime parsing in subsequent build blocks.</p>
+<h2>Build summary</h2>
+<p>RESULT: FAILED</p>
+<p>FILES CHANGED:</p>
+<ul><li>internal/toml/toml.go</li><li>internal/toml/toml_test.go</li></ul>
+<p>SUMMARY: Implemented TOML booleans, canonical integers, base-prefixed integers, floats, exponents, special values, validation, and tests. Scalar suites pass; full suite remains failing in out-of-scope arrays, tables, strings, comments, and datetimes.</p>
+<p>BLOCKERS:</p>
+<ul><li>Full conformance suite is not yet green due to prior unimplemented parser features.</li></ul>
+<p>FAILURE_SUMMARY: Full conformance suite has 62 valid and 33 invalid failures outside this scalar block.<br>FAILURE_DETAIL: Scalar-specific tests pass, but completing the full gate requires implementing arrays, tables, comments, strings, and datetime parsing in subsequent build blocks.</p></article>
+</main>
+</body>
+</html>

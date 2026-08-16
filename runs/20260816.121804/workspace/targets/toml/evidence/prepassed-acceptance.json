@@ -1,0 +1,14 @@
+{
+  "prepassed": [
+    "arrays-invalid",
+    "arrays-valid",
+    "conformance-full",
+    "datetimes-invalid",
+    "inline-invalid",
+    "inline-valid",
+    "lexical-boundaries-invalid-suite",
+    "scalars-bounded-suites",
+    "scalars-invalid-suite",
+    "scalars-valid-suite"
+  ]
+}

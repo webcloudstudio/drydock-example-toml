@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>workspace/targets/toml/evidence/block-5.md</title>
+<link rel="stylesheet" href="../../../../../assets/kit.css">
+</head>
+<body>
+<main>
+<header class="fileheader"><div class="kind">Run artifact</div><h1>workspace/targets/toml/evidence/block-5.md</h1><div class="filenav"><a href="../../../../../index.html">&larr; Report</a><a href="../../../../../workspace/targets/toml/evidence/block-5.md">Raw file</a></div></header>
+<article class="doc"><h1>Evidence: Block 5 · Service (block-5)</h1>
+<ul><li>block type: block</li><li>date: 2026-08-16</li><li>resulting state: closed/verified</li><li>story points (combined assembled cost): 7497</li><li>execution id: 20260816.124257.241Z-fa66cd05</li></ul>
+<h2>Stories built</h2>
+<ul><li>Handle TOML comments, whitespace, line endings, UTF-8, and control-character rules. (parser-lexical-boundaries) [story]</li></ul>
+<h2>Missing context</h2>
+<ul><li>context: toml-v1.0.0.md</li></ul>
+<h2>Stacked context</h2>
+<ul><li>compass: COMPASS.md (SP 2942)</li><li>implements: FEATURE-Lexical-Boundaries.md (SP 566)</li><li>context: stage_test.sh (SP 161)</li><li>context: ARCHITECTURE_compact.md (SP 123)</li><li>stack: go.md (SP 3646)</li></ul>
+<h2>Build directory changes</h2>
+<ul><li>internal/toml/toml.go</li><li>internal/toml/toml_test.go</li><li>toml-decoder</li></ul>
+<h2>Pre-build acceptance observation</h2>
+<ul><li>RED: lexical-comments-valid-suite (FEATURE-Lexical-Boundaries.md)</li></ul>
+<p>intent: The authoritative conformance suite passes every valid comment and lexical-boundary case. return code: 1 stdout: FAIL valid/comment/everywhere line 7: invalid table</p>
+<p>Exit 1</p>
+<p>input sent to parser-cmd (PID 1709125): 1 │[0m # Top comment. 2 │[0m   # Top comment. 3 │[0m # Top comment. 4 │[0m 5 │[0m # [no-extraneous-groups-please] 6 │[0m 7 │[0m [group] # Comment 8 │[0m answer = 42 # Comment 9 │[0m # no-extraneous-keys-please = 999 10 │[0m # Inbetween comment. 11 │[0m more = [ # Comment 12 │[0m   # What about multiple # comments? 13 │[0m   # Can you handle it? 14 │[0m   # 15 │[0m           # Evil. 16 │[0m # Evil. 17 │[0m   42, 42, # Comments within arrays are fun. 18 │[0m   # What about multiple # comments? 19 │[0m   # Can you handle it? 20 │[0m   # 21 │[0m           # Evil. 22 │[0m # Evil. 23 │[0m # ] Did I fool you? 24 │[0m ] # Hopefully not. 25 │[0m 26 │[0m # Make sure the space between the datetime and &quot;#&quot; isn&#x27;t lexed. 27 │[0m dt = 1979-05-27T07:32:12-07:00  # c 28 │[0m d = 1979-05-27 # Comment 29 │[0m 30 │[0m [[aot]] # Comment 31 │[0m k = 98 # Comment 32 │[0m [[aot]]# Comment 33 │[0m k = 99# Comment</p>
+<p>output from parser-cmd (PID 1709125) (stderr): 1 │[0m line 7: invalid table 2 │[0m 3 │[0m Exit 1</p>
+<p>want: &lt;empty&gt;</p>
+<p>FAIL valid/comment/tricky line 1: invalid table</p>
+<p>Exit 1</p>
+<p>input sent to parser-cmd (PID 1709123): 1 │[0m [section]#attached comment 2 │[0m #[notsection] 3 │[0m one = &quot;11&quot;#cmt 4 │[0m two = &quot;22#&quot; 5 │[0m three = &#x27;#&#x27; 6 │[0m 7 │[0m four = &quot;&quot;&quot;# no comment 8 │[0m # nor this 9 │[0m #also not comment&quot;&quot;&quot;#is_comment 10 │[0m 11 │[0m five = 5.5#66 12 │[0m six = 6#7 13 │[0m 8 = &quot;eight&quot; 14 │[0m #nine = 99 15 │[0m ten = 10e2#1 16 │[0m eleven = 1.11e1#23 17 │[0m 18 │[0m [&quot;hash#tag&quot;] 19 │[0m &quot;#!&quot; = &quot;hash bang&quot; 20 │[0m arr3 = [ &quot;#&quot;, &#x27;#&#x27;, &quot;&quot;&quot;###&quot;&quot;&quot; ] 21 │[0m arr4 = [ 1,# 9, 9, 22 │[0m 2#,9 23 │[0m ,#9 24 │[0m 3#] 25 │[0m ,4] 26 │[0m arr5 = [[[[#[&quot;#&quot;], 27 │[0m [&quot;#&quot;]]]]#] 28 │[0m ] 29 │[0m tbl1 = { &quot;#&quot; = &#x27;}#&#x27;}#}}</p>
+<p>output from parser-cmd (PID 1709123) (stderr): 1 │[0m line 1: invalid table 2 │[0m 3 │[0m Exit 1</p>
+<p>want: &lt;empty&gt;</p>
+<p>toml-test v2.2.0 [/mnt/c/Users/barlo/projects/drydock/uat/Toml/runs/20260816.121804/build/toml/toml-decoder] [no encoder] skipped tests: 877 valid tests:   5 passed,  2 failed encoder tests: no encoder command given invalid tests:   0 passed,  0 failed</p>
+<p>harness: /home/barlo/.local/bin/toml-test toml-test v2.2.0; go1.24.6 linux/amd64; race=false; cgo=true stderr: --- drydock: values at failure --- result = CompletedProcess(args=[&#x27;sh&#x27;, &#x27;sources/stage_test.sh&#x27;, &#x27;valid/comment/**&#x27;], returncode=1, stdout=&#x27;FAIL valid/comment/everywhere\n     line 7: invalid table\n \n     Exit 1\n\n     input sent to parser-cmd (PID 1709125):\n        1 │\x1b[0m # Top comment.\n        2 │\x1b[0m   # Top comment.\n        3 │\x1b[0m # Top comment.\n        4 │\x1b[0m\n        5 │\x1b[0m # [no-extraneous-groups-please]\n … (+2948 chars) --- drydock: end values --- Traceback (most recent call last): File &quot;lexical-comments-valid-suite.py&quot;, line 10, in &lt;module&gt; assert result.returncode == 0 ^^^^^^^^^^^^^^^^^^^^^^ AssertionError</p>
+<ul><li>GREEN (prepassed): lexical-boundaries-invalid-suite (FEATURE-Lexical-Boundaries.md)</li></ul>
+<p>intent: The authoritative conformance suite rejects every invalid control-character and encoding case. return code: 0 stdout: toml-test v2.2.0 [/mnt/c/Users/barlo/projects/drydock/uat/Toml/runs/20260816.121804/build/toml/toml-decoder] [no encoder] skipped tests: 884 valid tests:   0 passed,  0 failed encoder tests: no encoder command given invalid tests:   0 passed,  0 failed</p>
+<p>harness: /home/barlo/.local/bin/toml-test toml-test v2.2.0; go1.24.6 linux/amd64; race=false; cgo=true</p>
+<ul><li>RED: lexical-boundaries-suites (FEATURE-Lexical-Boundaries.md)</li></ul>
+<p>intent: The valid comment and invalid lexical-boundary conformance slices complete successfully. return code: 1 stdout: FAIL valid/comment/everywhere line 7: invalid table</p>
+<p>Exit 1</p>
+<p>input sent to parser-cmd (PID 1709478): 1 │[0m # Top comment. 2 │[0m   # Top comment. 3 │[0m # Top comment. 4 │[0m 5 │[0m # [no-extraneous-groups-please] 6 │[0m 7 │[0m [group] # Comment 8 │[0m answer = 42 # Comment 9 │[0m # no-extraneous-keys-please = 999 10 │[0m # Inbetween comment. 11 │[0m more = [ # Comment 12 │[0m   # What about multiple # comments? 13 │[0m   # Can you handle it? 14 │[0m   # 15 │[0m           # Evil. 16 │[0m # Evil. 17 │[0m   42, 42, # Comments within arrays are fun. 18 │[0m   # What about multiple # comments? 19 │[0m   # Can you handle it? 20 │[0m   # 21 │[0m           # Evil. 22 │[0m # Evil. 23 │[0m # ] Did I fool you? 24 │[0m ] # Hopefully not. 25 │[0m 26 │[0m # Make sure the space between the datetime and &quot;#&quot; isn&#x27;t lexed. 27 │[0m dt = 1979-05-27T07:32:12-07:00  # c 28 │[0m d = 1979-05-27 # Comment 29 │[0m 30 │[0m [[aot]] # Comment 31 │[0m k = 98 # Comment 32 │[0m [[aot]]# Comment 33 │[0m k = 99# Comment</p>
+<p>output from parser-cmd (PID 1709478) (stderr): 1 │[0m line 7: invalid table 2 │[0m 3 │[0m Exit 1</p>
+<p>want: &lt;empty&gt;</p>
+<p>FAIL valid/comment/tricky line 1: invalid table</p>
+<p>Exit 1</p>
+<p>input sent to parser-cmd (PID 1709470): 1 │[0m [section]#attached comment 2 │[0m #[notsection] 3 │[0m one = &quot;11&quot;#cmt 4 │[0m two = &quot;22#&quot; 5 │[0m three = &#x27;#&#x27; 6 │[0m 7 │[0m four = &quot;&quot;&quot;# no comment 8 │[0m # nor this 9 │[0m #also not comment&quot;&quot;&quot;#is_comment 10 │[0m 11 │[0m five = 5.5#66 12 │[0m six = 6#7 13 │[0m 8 = &quot;eight&quot; 14 │[0m #nine = 99 15 │[0m ten = 10e2#1 16 │[0m eleven = 1.11e1#23 17 │[0m 18 │[0m [&quot;hash#tag&quot;] 19 │[0m &quot;#!&quot; = &quot;hash bang&quot; 20 │[0m arr3 = [ &quot;#&quot;, &#x27;#&#x27;, &quot;&quot;&quot;###&quot;&quot;&quot; ] 21 │[0m arr4 = [ 1,# 9, 9, 22 │[0m 2#,9 23 │[0m ,#9 24 │[0m 3#] 25 │[0m ,4] 26 │[0m arr5 = [[[[#[&quot;#&quot;], 27 │[0m [&quot;#&quot;]]]]#] 28 │[0m ] 29 │[0m tbl1 = { &quot;#&quot; = &#x27;}#&#x27;}#}}</p>
+<p>output from parser-cmd (PID 1709470) (stderr): 1 │[0m line 1: invalid table 2 │[0m 3 │[0m Exit 1</p>
+<p>want: &lt;empty&gt;</p>
+<p>toml-test v2.2.0 [/mnt/c/Users/barlo/projects/drydock/uat/Toml/runs/20260816.121804/build/toml/toml-decoder] [no encoder] skipped tests: 877 valid tests:   5 passed,  2 failed encoder tests: no encoder command given invalid tests:   0 passed,  0 failed</p>
+<p>harness: /home/barlo/.local/bin/toml-test toml-test v2.2.0; go1.24.6 linux/amd64; race=false; cgo=true stderr: --- drydock: values at failure --- result = CompletedProcess(args=[&#x27;sh&#x27;, &#x27;sources/stage_test.sh&#x27;, &#x27;valid/comment/**&#x27;], returncode=1, stdout=&#x27;FAIL valid/comment/everywhere\n     line 7: invalid table\n \n     Exit 1\n\n     input sent to parser-cmd (PID 1709478):\n        1 │\x1b[0m # Top comment.\n        2 │\x1b[0m   # Top comment.\n        3 │\x1b[0m # Top comment.\n        4 │\x1b[0m\n        5 │\x1b[0m # [no-extraneous-groups-please]\n … (+2948 chars) --- drydock: end values --- Traceback (most recent call last): File &quot;lexical-boundaries-suites.py&quot;, line 15, in &lt;module&gt; assert result.returncode == 0 ^^^^^^^^^^^^^^^^^^^^^^ AssertionError</p>
+<h2>Post-build programmatic acceptance</h2>
+<ul><li>PASS: lexical-comments-valid-suite (FEATURE-Lexical-Boundaries.md)</li></ul>
+<p>intent: The authoritative conformance suite passes every valid comment and lexical-boundary case. target interpreter: /mnt/c/Users/barlo/projects/drydock/.venv/bin/python3 provisioning: not required return code: 0 stdout: toml-test v2.2.0 [/mnt/c/Users/barlo/projects/drydock/uat/Toml/runs/20260816.121804/build/toml/toml-decoder] [no encoder] skipped tests: 877 valid tests:   7 passed,  0 failed encoder tests: no encoder command given invalid tests:   0 passed,  0 failed</p>
+<p>harness: /home/barlo/.local/bin/toml-test toml-test v2.2.0; go1.24.6 linux/amd64; race=false; cgo=true</p>
+<ul><li>PASS: lexical-boundaries-invalid-suite (FEATURE-Lexical-Boundaries.md)</li></ul>
+<p>intent: The authoritative conformance suite rejects every invalid control-character and encoding case. target interpreter: /mnt/c/Users/barlo/projects/drydock/.venv/bin/python3 provisioning: not required return code: 0 stdout: toml-test v2.2.0 [/mnt/c/Users/barlo/projects/drydock/uat/Toml/runs/20260816.121804/build/toml/toml-decoder] [no encoder] skipped tests: 884 valid tests:   0 passed,  0 failed encoder tests: no encoder command given invalid tests:   0 passed,  0 failed</p>
+<p>harness: /home/barlo/.local/bin/toml-test toml-test v2.2.0; go1.24.6 linux/amd64; race=false; cgo=true</p>
+<ul><li>PASS: lexical-boundaries-suites (FEATURE-Lexical-Boundaries.md)</li></ul>
+<p>intent: The valid comment and invalid lexical-boundary conformance slices complete successfully. target interpreter: /mnt/c/Users/barlo/projects/drydock/.venv/bin/python3 provisioning: not required return code: 0 stdout: toml-test v2.2.0 [/mnt/c/Users/barlo/projects/drydock/uat/Toml/runs/20260816.121804/build/toml/toml-decoder] [no encoder] skipped tests: 877 valid tests:   7 passed,  0 failed encoder tests: no encoder command given invalid tests:   0 passed,  0 failed</p>
+<p>harness: /home/barlo/.local/bin/toml-test toml-test v2.2.0; go1.24.6 linux/amd64; race=false; cgo=true</p>
+<p>toml-test v2.2.0 [/mnt/c/Users/barlo/projects/drydock/uat/Toml/runs/20260816.121804/build/toml/toml-decoder] [no encoder] skipped tests: 884 valid tests:   0 passed,  0 failed encoder tests: no encoder command given invalid tests:   0 passed,  0 failed</p>
+<p>harness: /home/barlo/.local/bin/toml-test toml-test v2.2.0; go1.24.6 linux/amd64; race=false; cgo=true</p>
+<h2>Build summary</h2>
+<p>RESULT: SUCCESS</p>
+<p>FILES CHANGED:</p>
+<ul><li>internal/toml/toml.go</li><li>internal/toml/toml_test.go</li></ul>
+<p>SUMMARY: Implemented comment stripping, UTF-8/control validation, CRLF handling, lexical whitespace checks, and comment-aware arrays/inline tables. Focused suites pass; Go tests and vet pass.</p>
+<p>BLOCKERS:</p>
+<ul><li>Full suite still has unrelated table/inline-table failures: 198 valid passed, 7 failed; 442 invalid passed, 32 failed.</li></ul></article>
+</main>
+</body>
+</html>

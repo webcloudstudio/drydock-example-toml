@@ -1,0 +1,17 @@
+Drydock 0.1.8  Copyright (c) 2026 Web Cloud Studio. All rights reserved.
+Drydock status — workspace
+
+Target: toml
+   Phase:     Loop
+   State:     All 10 blocks verified — ready for Refit
+   Detail:    7 imported · 10 authored · metadata built
+   Analysis:  Questions · 19 stories · 1 questions · 0 blockers
+   Plan:      approved · 10/10 verified · 0 pending
+   Review:    BLOCKERS.md none · 1 questionnaires
+   Next Step: drydock refit toml BOTH <Scope> <Change>
+   8-16:      ✅  drydock build status toml
+   8-16:      ✅  drydock build toml --override --repair-attempts 6
+   8-16:      ✅  drydock build status toml
+   8-16:      ✅  drydock plan toml --override
+   8-16:      ✅  drydock analyze toml
+

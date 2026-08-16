@@ -1,0 +1,88 @@
+Drydock 0.1.8  Copyright (c) 2026 Web Cloud Studio. All rights reserved.
+
+Acceptance verification: toml  (2026-08-16T13:04:11+00:00)
+  PASS 16   FAIL 0   UNVERIFIED 0   PREPASSED 10   (26 AC)
+
+  ✓ PASS        architecture-build                architecture               ARCHITECTURE.md
+  ✓ PASS        architecture-module               architecture               ARCHITECTURE.md
+  ✓ PASS        architecture-dependencies         architecture               ARCHITECTURE.md
+  ✓ PASS        decoder-valid-contract            decoder-contract           FEATURE-Decoder-Contract.md
+  ✓ PASS        decoder-invalid-contract          decoder-contract           FEATURE-Decoder-Contract.md
+  ✓ PASS        decoder-stage-contract            decoder-contract           FEATURE-Decoder-Contract.md
+  ✓ PASS        strings-valid-suite               parser-strings             FEATURE-Strings.md
+  ✓ PASS        strings-invalid-suite             parser-strings             FEATURE-Strings.md
+  ✓ PASS        strings-bounded-suites            parser-strings             FEATURE-Strings.md
+  ✓ PASS        keys-valid                        parser-keys                FEATURE-Keys.md
+  ✓ PASS        keys-invalid                      parser-keys                FEATURE-Keys.md
+  ~ PREPASSED   scalars-valid-suite               parser-lexical-scalars     FEATURE-Lexical-Scalars.md
+        intent: The authoritative conformance suite passes all valid boolean, integer, and float cases.
+        green at this block's baseline too, before its code existed — confirm the criterion exercises the story's work
+
+  ~ PREPASSED   scalars-invalid-suite             parser-lexical-scalars     FEATURE-Lexical-Scalars.md
+        intent: The authoritative conformance suite rejects all invalid boolean, integer, and float cases.
+        green at this block's baseline too, before its code existed — confirm the criterion exercises the story's work
+
+  ~ PREPASSED   scalars-bounded-suites            parser-lexical-scalars     FEATURE-Lexical-Scalars.md
+        intent: The valid and invalid scalar conformance slices each complete successfully.
+        green at this block's baseline too, before its code existed — confirm the criterion exercises the story's work
+
+  ✓ PASS        lexical-comments-valid-suite      parser-lexical-boundaries  FEATURE-Lexical-Boundaries.md
+  ~ PREPASSED   lexical-boundaries-invalid-suite  parser-lexical-boundaries  FEATURE-Lexical-Boundaries.md
+        intent: The authoritative conformance suite rejects every invalid control-character and encoding case.
+        green at this block's baseline too, before its code existed — confirm the criterion exercises the story's work
+
+  ✓ PASS        lexical-boundaries-suites         parser-lexical-boundaries  FEATURE-Lexical-Boundaries.md
+  ✓ PASS        tables-valid                      parser-tables              FEATURE-Tables.md
+  ✓ PASS        tables-invalid                    parser-tables              FEATURE-Tables.md
+  ✓ PASS        datetimes-valid                   parser-datetimes           FEATURE-Datetimes.md
+  ~ PREPASSED   datetimes-invalid                 parser-datetimes           FEATURE-Datetimes.md
+        intent: The decoder rejects all authoritative invalid TOML datetime, local-date, local-datetime, and local-time cases owned by this feature.
+        green at this block's baseline too, before its code existed — confirm the criterion exercises the story's work
+
+  ~ PREPASSED   arrays-valid                      parser-arrays-inline       FEATURE-Arrays-Inline.md
+        intent: The decoder passes all authoritative valid TOML array cases owned by this feature.
+        green at this block's baseline too, before its code existed — confirm the criterion exercises the story's work
+
+  ~ PREPASSED   inline-valid                      parser-arrays-inline       FEATURE-Arrays-Inline.md
+        intent: The decoder passes all authoritative valid TOML inline-table cases owned by this feature.
+        green at this block's baseline too, before its code existed — confirm the criterion exercises the story's work
+
+  ~ PREPASSED   arrays-invalid                    parser-arrays-inline       FEATURE-Arrays-Inline.md
+        intent: The decoder rejects all authoritative invalid TOML array cases owned by this feature.
+        green at this block's baseline too, before its code existed — confirm the criterion exercises the story's work
+
+  ~ PREPASSED   inline-invalid                    parser-arrays-inline       FEATURE-Arrays-Inline.md
+        intent: The decoder rejects all authoritative invalid TOML inline-table cases owned by this feature.
+        green at this block's baseline too, before its code existed — confirm the criterion exercises the story's work
+
+  ~ PREPASSED   conformance-full                  conformance                FEATURE-Conformance.md
+        intent: The completed decoder passes the supplied unfiltered TOML 1.0.0 conformance suite.
+        green at this block's baseline too, before its code existed — confirm the criterion exercises the story's work
+
+
+  Proof coverage: 16 of 26 criteria are proof — green here, and observed red before the work that turned them green.
+    10 are not. Each names a story whose acceptance did not test it.
+
+    PREPASSED  scalars-valid-suite  parser-lexical-scalars  FEATURE-Lexical-Scalars.md
+               green before its block built
+    PREPASSED  scalars-invalid-suite  parser-lexical-scalars  FEATURE-Lexical-Scalars.md
+               green before its block built
+    PREPASSED  scalars-bounded-suites  parser-lexical-scalars  FEATURE-Lexical-Scalars.md
+               green before its block built
+    PREPASSED  lexical-boundaries-invalid-suite  parser-lexical-boundaries  FEATURE-Lexical-Boundaries.md
+               green before its block built
+    PREPASSED  datetimes-invalid  parser-datetimes  FEATURE-Datetimes.md
+               green before its block built
+    PREPASSED  arrays-valid  parser-arrays-inline  FEATURE-Arrays-Inline.md
+               green before its block built
+    PREPASSED  inline-valid  parser-arrays-inline  FEATURE-Arrays-Inline.md
+               green before its block built
+    PREPASSED  arrays-invalid  parser-arrays-inline  FEATURE-Arrays-Inline.md
+               green before its block built
+    PREPASSED  inline-invalid  parser-arrays-inline  FEATURE-Arrays-Inline.md
+               green before its block built
+    PREPASSED  conformance-full  conformance  FEATURE-Conformance.md
+               green before its block built
+
+Soundings: /mnt/c/Users/barlo/projects/drydock/uat/Toml/runs/20260816.121804/workspace/targets/toml/SOUNDINGS.md
+Target - committed project workspace git store

@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>evidence/prompt_outputs/20260816.122612.488Z_toml_build_codex.output.txt</title>
+<link rel="stylesheet" href="../../../assets/kit.css">
+</head>
+<body>
+<main>
+<header class="fileheader"><div class="kind">Run artifact</div><h1>evidence/prompt_outputs/20260816.122612.488Z_toml_build_codex.output.txt</h1><div class="filenav"><a href="../../../index.html">&larr; Report</a><a href="../../../evidence/prompt_outputs/20260816.122612.488Z_toml_build_codex.output.txt">Raw file</a></div></header>
+<article class="doc"><pre>RESULT: FAILED
+
+FILES CHANGED:
+- cmd/toml-decoder/main.go
+- cmd/toml-decoder/main_test.go
+- internal/toml/toml.go
+
+SUMMARY:
+Implemented and verified the decoder stdin, tagged-JSON, stderr diagnostic, and exit-status contract. Decoder and architecture gates pass. Full conformance fails on parser features assigned to later stages.
+
+BLOCKERS:
+- Full suite remains failing: 167 valid and 59 invalid cases failed.
+
+FAILURE_SUMMARY: Full TOML conformance is incomplete
+FAILURE_DETAIL: The current parser only supports basic scalar key/value pairs; later parser stages must implement arrays, tables, floats, datetimes, and strict validation before rerunning the full suite.</pre></article>
+</main>
+</body>
+</html>

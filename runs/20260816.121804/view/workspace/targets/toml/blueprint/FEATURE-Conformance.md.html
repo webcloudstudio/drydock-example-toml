@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>workspace/targets/toml/blueprint/FEATURE-Conformance.md</title>
+<link rel="stylesheet" href="../../../../../assets/kit.css">
+</head>
+<body>
+<main>
+<header class="fileheader"><div class="kind">Run artifact</div><h1>workspace/targets/toml/blueprint/FEATURE-Conformance.md</h1><div class="filenav"><a href="../../../../../index.html">&larr; Report</a><a href="../../../../../workspace/targets/toml/blueprint/FEATURE-Conformance.md">Raw file</a></div></header>
+<article class="doc"><h1>FEATURE: Complete TOML Conformance</h1>
+<div class="scroll"><table><thead><tr><th>Field</th><th>Value</th></tr></thead><tbody><tr><td>Version</td><td>20260816 V1</td></tr><tr><td>Description</td><td>Assemble the completed decoder and verify the complete TOML 1.0.0 conformance suite.</td></tr><tr><td>Depends On</td><td>ARCHITECTURE.md, FEATURE-Decoder-Contract.md, FEATURE-Strings.md, FEATURE-Lexical-Scalars.md, FEATURE-Lexical-Boundaries.md, FEATURE-Keys.md, FEATURE-Tables.md, FEATURE-Arrays-Inline.md, FEATURE-Datetimes.md</td></tr><tr><td>Provides</td><td>complete TOML 1.0.0 conformance verdict</td></tr><tr><td>Consumes</td><td>cmd/toml-decoder, sources/full_test.sh</td></tr></tbody></table></div>
+<h2>Assembly</h2>
+<p>Use the completed <code>cmd/toml-decoder</code> and parser implementation with the supplied scoring assets unchanged. The final verification must execute the unfiltered <code>sources/full_test.sh</code> command from the application root.</p>
+<h2>Release Verification</h2>
+<p>The complete authoritative TOML 1.0.0 suite is the sole project acceptance gate. Its exit status must be zero; do not substitute filtered runs or assert on summary text.</p>
+<h2>Programmatic Acceptance</h2>
+<p>=== AC conformance-full ===<br>Intent: The completed decoder passes the supplied unfiltered TOML 1.0.0 conformance suite.<br>Suite: full<br>Requires: executable=go; scope=test</p>
+<p>import subprocess</p>
+<p>result = subprocess.run( [&quot;sh&quot;, &quot;sources/full_test.sh&quot;], capture_output=True, text=True, ) print(result.stdout) print(result.stderr) assert result.returncode == 0 === END AC conformance-full ===</p>
+<h2>User Acceptance</h2>
+<ul><li>None.</li></ul>
+<h2>Guardrails</h2>
+<ul><li>Run <code>sh sources/full_test.sh</code> without filtering, skipping, or reinterpretation.</li><li>Preserve all supplied scoring and harness assets.</li><li>Do not introduce a third-party TOML parser.</li></ul></article>
+</main>
+</body>
+</html>

@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>workspace/targets/toml/blueprint/FEATURE-Decoder-Contract.md</title>
+<link rel="stylesheet" href="../../../../../assets/kit.css">
+</head>
+<body>
+<main>
+<header class="fileheader"><div class="kind">Run artifact</div><h1>workspace/targets/toml/blueprint/FEATURE-Decoder-Contract.md</h1><div class="filenav"><a href="../../../../../index.html">&larr; Report</a><a href="../../../../../workspace/targets/toml/blueprint/FEATURE-Decoder-Contract.md">Raw file</a></div></header>
+<article class="doc"><h1>FEATURE: Decoder Contract</h1>
+<div class="scroll"><table><thead><tr><th>Field</th><th>Value</th></tr></thead><tbody><tr><td>Version</td><td>20260816 V1</td></tr><tr><td>Description</td><td>Defines the stdin, tagged-JSON, diagnostic-stream, and exit-status contract for the TOML decoder.</td></tr><tr><td>Depends On</td><td>ARCHITECTURE.md</td></tr><tr><td>Provides</td><td>stdin TOML decoder, tagged JSON stdout, stderr diagnostics</td></tr><tr><td>Consumes</td><td>internal/toml</td></tr></tbody></table></div>
+<h2>Workflow</h2>
+<p>The executable reads the complete TOML document from standard input and delegates parsing to <code>internal/toml</code>. On success it writes exactly one tagged JSON document to standard output and exits zero. On invalid TOML it writes a diagnostic to standard error, writes no successful result to standard output, and exits non-zero. The executable accepts no required arguments and has no runtime configuration.</p>
+<h2>Output Contract</h2>
+<ul><li>Tables are JSON objects.</li><li>Arrays are JSON arrays.</li><li>Every scalar is encoded as <code>{&quot;type&quot;: &quot;&lt;TOML_TYPE&gt;&quot;, &quot;value&quot;: &quot;&lt;TOML_VALUE&gt;&quot;}</code>.</li><li>Scalar <code>value</code> fields are always JSON strings.</li><li>Integer values must remain lossless across the signed 64-bit range.</li><li>Offset and local date/time values use the required TOML type tags and formatting.</li></ul>
+<h2>Programmatic Acceptance</h2>
+<p>=== AC decoder-valid-contract ===<br>Intent: A valid TOML document produces the required tagged JSON on stdout with no stderr diagnostic.</p>
+<p>import json import subprocess</p>
+<p>source = &quot;answer = 42\n&quot; expected = {&quot;answer&quot;: {&quot;type&quot;: &quot;integer&quot;, &quot;value&quot;: &quot;42&quot;}} result = subprocess.run( [&quot;./toml-decoder&quot;], input=source, capture_output=True, text=True, ) print(result.stdout) print(result.stderr) assert result.returncode == 0 assert result.stderr == &quot;&quot; assert json.loads(result.stdout) == expected === END AC decoder-valid-contract ===</p>
+<p>=== AC decoder-invalid-contract ===<br>Intent: Invalid TOML produces a non-zero exit, no successful stdout result, and a stderr diagnostic.</p>
+<p>import subprocess</p>
+<p>source = &quot;answer = [\n&quot; result = subprocess.run( [&quot;./toml-decoder&quot;], input=source, capture_output=True, text=True, ) print(result.stdout) print(result.stderr) assert result.returncode != 0 assert result.stdout == &quot;&quot; assert result.stderr != &quot;&quot; === END AC decoder-invalid-contract ===</p>
+<p>=== AC decoder-stage-contract ===<br>Intent: The supplied decoder contract gate passes in full.</p>
+<p>import subprocess</p>
+<p>result = subprocess.run( [&quot;sh&quot;, &quot;sources/stage_contract.sh&quot;, &quot;decoder&quot;], capture_output=True, text=True, ) print(result.stdout) print(result.stderr) assert result.returncode == 0 === END AC decoder-stage-contract ===</p>
+<h2>User Acceptance</h2>
+<ul><li>None.</li></ul>
+<h2>Guardrails</h2>
+<ul><li>Successful JSON is written only to stdout.</li><li>Diagnostics are written only to stderr.</li><li>Invalid input must never exit successfully.</li><li>The executable must not read configuration files or produce runtime side effects.</li></ul></article>
+</main>
+</body>
+</html>

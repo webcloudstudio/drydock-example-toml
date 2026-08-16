@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>workspace/targets/toml/blueprint/FEATURE-Arrays-Inline.md</title>
+<link rel="stylesheet" href="../../../../../assets/kit.css">
+</head>
+<body>
+<main>
+<header class="fileheader"><div class="kind">Run artifact</div><h1>workspace/targets/toml/blueprint/FEATURE-Arrays-Inline.md</h1><div class="filenav"><a href="../../../../../index.html">&larr; Report</a><a href="../../../../../workspace/targets/toml/blueprint/FEATURE-Arrays-Inline.md">Raw file</a></div></header>
+<article class="doc"><h1>FEATURE: TOML Arrays and Inline Tables</h1>
+<div class="scroll"><table><thead><tr><th>Field</th><th>Value</th></tr></thead><tbody><tr><td>Version</td><td>20260816 V1</td></tr><tr><td>Description</td><td>Parse TOML arrays and inline tables, including nesting and closure conflicts.</td></tr><tr><td>Depends On</td><td>ARCHITECTURE.md, FEATURE-Keys.md, FEATURE-Tables.md</td></tr><tr><td>Provides</td><td>TOML arrays and inline-table parsing</td></tr><tr><td>Consumes</td><td>internal/toml</td></tr></tbody></table></div>
+<h2>Arrays</h2>
+<p>Support empty, mixed-type, nested, multiline, and commented arrays. Permit trailing commas and arbitrary permitted whitespace or comments around elements and delimiters. Arrays may contain all TOML value types, including inline tables.</p>
+<h2>Inline Tables</h2>
+<p>Support empty and nested inline tables with dotted keys. Inline tables must be fully defined within their braces, must not contain prohibited newlines or trailing commas, and cannot be extended after closure.</p>
+<p>Reject conflicts between arrays, tables, inline tables, and later definitions.</p>
+<h2>Programmatic Acceptance</h2>
+<p>=== AC arrays-valid ===<br>Intent: The decoder passes all authoritative valid TOML array cases owned by this feature.<br>Suite: scoped<br>Requires: executable=go; scope=test</p>
+<p>import subprocess</p>
+<p>result = subprocess.run( [&quot;sh&quot;, &quot;sources/stage_test.sh&quot;, &quot;valid/array/**&quot;], capture_output=True, text=True, ) print(result.stdout) print(result.stderr) assert result.returncode == 0 === END AC arrays-valid ===</p>
+<p>=== AC inline-valid ===<br>Intent: The decoder passes all authoritative valid TOML inline-table cases owned by this feature.<br>Suite: scoped<br>Requires: executable=go; scope=test</p>
+<p>import subprocess</p>
+<p>result = subprocess.run( [&quot;sh&quot;, &quot;sources/stage_test.sh&quot;, &quot;valid/inline-table/**&quot;], capture_output=True, text=True, ) print(result.stdout) print(result.stderr) assert result.returncode == 0 === END AC inline-valid ===</p>
+<p>=== AC arrays-invalid ===<br>Intent: The decoder rejects all authoritative invalid TOML array cases owned by this feature.<br>Suite: scoped<br>Requires: executable=go; scope=test</p>
+<p>import subprocess</p>
+<p>result = subprocess.run( [&quot;sh&quot;, &quot;sources/stage_test.sh&quot;, &quot;invalid/array/**&quot;], capture_output=True, text=True, ) print(result.stdout) print(result.stderr) assert result.returncode == 0 === END AC arrays-invalid ===</p>
+<p>=== AC inline-invalid ===<br>Intent: The decoder rejects all authoritative invalid TOML inline-table cases owned by this feature.<br>Suite: scoped<br>Requires: executable=go; scope=test</p>
+<p>import subprocess</p>
+<p>result = subprocess.run( [&quot;sh&quot;, &quot;sources/stage_test.sh&quot;, &quot;invalid/inline-table/**&quot;], capture_output=True, text=True, ) print(result.stdout) print(result.stderr) assert result.returncode == 0 === END AC inline-invalid ===</p>
+<h2>User Acceptance</h2>
+<ul><li>None.</li></ul>
+<h2>Guardrails</h2>
+<ul><li>Do not permit trailing commas or prohibited newlines in inline tables.</li><li>Do not permit later extension of a closed inline table.</li><li>Preserve heterogeneous array values and nested structure.</li></ul></article>
+</main>
+</body>
+</html>

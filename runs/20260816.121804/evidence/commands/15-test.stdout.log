@@ -1,0 +1,4 @@
+toml-test v2.2.0 [/mnt/c/Users/barlo/projects/drydock/uat/Toml/runs/20260816.121804/build/toml/toml-decoder] [no encoder]
+  valid tests: 205 passed,  0 failed
+encoder tests: no encoder command given
+invalid tests: 474 passed,  0 failed

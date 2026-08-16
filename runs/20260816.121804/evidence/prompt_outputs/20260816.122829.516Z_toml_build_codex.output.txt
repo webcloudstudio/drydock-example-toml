@@ -1,0 +1,19 @@
+<reusable-compact filename="stage_test.sh">
+Executable stage gate requiring exactly one TOML test pattern. It pins `TOML_TEST_VERSION` to `v2.2.0`, builds `./cmd/toml-decoder`, runs `sources/run_conformance.sh -run "$1"` with `DECODER="$PWD/toml-decoder"`, and uses the command exit status as the verdict.
+</reusable-compact>
+
+RESULT: FAILED
+
+FILES CHANGED:
+- internal/toml/toml.go
+- internal/toml/toml_test.go
+- toml-decoder
+
+SUMMARY:
+Implemented TOML basic, literal, multiline strings, dotted keys, duplicate-key checks, tables, and basic inline tables. Local tests, vet, and build pass. Staged results: valid strings 23/23; invalid strings 74/77; valid keys 26/28; invalid keys 60/61. Full suite failed: 125 valid passed, 80 failed; 413 invalid passed, 61 failed.
+
+BLOCKERS:
+- Remaining failures require parser features outside this block, including arrays, datetimes, complete scalar validation, table semantics, and multiline delimiter edge cases.
+
+FAILURE_SUMMARY: Authoritative conformance suite still has substantial failures outside the implemented slice.
+FAILURE_DETAIL: Local checks pass, but staged string/key and full conformance gates do not. Implement complete TOML arrays, datetimes, scalar lexical validation, table redefinition semantics, and remaining string delimiter rules before rerunning.

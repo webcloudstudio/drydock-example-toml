@@ -1,0 +1,12 @@
+RESULT: SUCCESS
+
+FILES CHANGED:
+- cmd/toml-decoder/main.go
+
+SUMMARY:
+- Added rejection of unexpected command-line arguments.
+- `go test`, `go test -race`, `go vet`, and build pass.
+- Full TOML suite passes: 205 valid and 474 invalid, zero failures.
+
+BLOCKERS:
+- None

@@ -1,0 +1,36 @@
+<requirement name="go-module-decoder-command" stories="architecture">
+Establish the standard-library-only Go module and decoder command.
+</requirement>
+<requirement name="stdin-tagged-json-contract" stories="decoder-contract">
+The program is a filter: read TOML from **stdin**, write tagged JSON to **stdout**, exit `0`.
+</requirement>
+<requirement name="parse-toml-strings" stories="parser-strings">
+- **Scalars** — booleans, integers (including `0x`, `0o`, `0b`, underscores), floats (including `inf`, `nan`, exponents), basic and literal strings, then
+  multi-line strings with their line-ending backslash and trimming rules.
+</requirement>
+<requirement name="parse-lexical-scalars" stories="parser-lexical-scalars">
+- **Scalars** — booleans, integers (including `0x`, `0o`, `0b`, underscores),
+  floats (including `inf`, `nan`, exponents), basic and literal strings, then
+  multi-line strings with their line-ending backslash and trimming rules.
+</requirement>
+<requirement name="parse-lexical-boundaries" stories="parser-lexical-boundaries">
+- **Scaffolding** — line handling, comments, whitespace, the stdin/stdout/exit
+  contract, tagged JSON emission.
+</requirement>
+<requirement name="parse-key-semantics" stories="parser-keys">
+- **Keys** — bare, quoted, and dotted keys; the redefinition rules.
+</requirement>
+<requirement name="parse-tables" stories="parser-tables">
+- **Tables** — `[table]`, `[a.b.c]` implicit creation, `[[array of tables]]`,
+  and the rules governing which of these may follow which.
+</requirement>
+<requirement name="parse-arrays-inline-tables" stories="parser-arrays-inline">
+- **Inline tables and arrays** — including nesting and the TOML 1.0 restriction
+  that inline tables are closed to later extension.
+</requirement>
+<requirement name="parse-datetimes" stories="parser-datetimes">
+- **Datetimes** — offset, local datetime, local date, local time.
+</requirement>
+<requirement name="pass-complete-conformance-suite" stories="conformance">
+- `sh sources/full_test.sh` runs cleanly with zero errors and exits zero.
+</requirement>

@@ -1,0 +1,335 @@
+{
+  "version": 1,
+  "import": {
+    "root": "/mnt/c/Users/barlo/projects/drydock/uat/Toml/runs/20260816.121804/sources",
+    "format": "markdown"
+  },
+  "sources": {
+    "INSTRUCTIONS.md": {
+      "state": "current",
+      "versions": [
+        {
+          "commit": "93b12d4",
+          "date": "2026-08-16",
+          "hash": "5f94adab4012709386f8527eaf7ca98638794051b622ea8c8e34e8e532d9622d",
+          "release": "",
+          "state": "consumed",
+          "via": "plan",
+          "ticket": null,
+          "requirements": [
+            {
+              "name": "go-module-decoder-command",
+              "text": "Establish the standard-library-only Go module and decoder command.",
+              "stories": [
+                "architecture"
+              ]
+            },
+            {
+              "name": "stdin-tagged-json-contract",
+              "text": "The program is a filter: read TOML from **stdin**, write tagged JSON to **stdout**, exit `0`.",
+              "stories": [
+                "decoder-contract"
+              ]
+            },
+            {
+              "name": "parse-toml-strings",
+              "text": "- **Scalars** \u2014 booleans, integers (including `0x`, `0o`, `0b`, underscores), floats (including `inf`, `nan`, exponents), basic and literal strings, then\n  multi-line strings with their line-ending backslash and trimming rules.",
+              "stories": [
+                "parser-strings"
+              ]
+            },
+            {
+              "name": "parse-lexical-scalars",
+              "text": "- **Scalars** \u2014 booleans, integers (including `0x`, `0o`, `0b`, underscores),\n  floats (including `inf`, `nan`, exponents), basic and literal strings, then\n  multi-line strings with their line-ending backslash and trimming rules.",
+              "stories": [
+                "parser-lexical-scalars"
+              ]
+            },
+            {
+              "name": "parse-lexical-boundaries",
+              "text": "- **Scaffolding** \u2014 line handling, comments, whitespace, the stdin/stdout/exit\n  contract, tagged JSON emission.",
+              "stories": [
+                "parser-lexical-boundaries"
+              ]
+            },
+            {
+              "name": "parse-key-semantics",
+              "text": "- **Keys** \u2014 bare, quoted, and dotted keys; the redefinition rules.",
+              "stories": [
+                "parser-keys"
+              ]
+            },
+            {
+              "name": "parse-tables",
+              "text": "- **Tables** \u2014 `[table]`, `[a.b.c]` implicit creation, `[[array of tables]]`,\n  and the rules governing which of these may follow which.",
+              "stories": [
+                "parser-tables"
+              ]
+            },
+            {
+              "name": "parse-arrays-inline-tables",
+              "text": "- **Inline tables and arrays** \u2014 including nesting and the TOML 1.0 restriction\n  that inline tables are closed to later extension.",
+              "stories": [
+                "parser-arrays-inline"
+              ]
+            },
+            {
+              "name": "parse-datetimes",
+              "text": "- **Datetimes** \u2014 offset, local datetime, local date, local time.",
+              "stories": [
+                "parser-datetimes"
+              ]
+            },
+            {
+              "name": "pass-complete-conformance-suite",
+              "text": "- `sh sources/full_test.sh` runs cleanly with zero errors and exits zero.",
+              "stories": [
+                "conformance"
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    "full_test.sh": {
+      "state": "current",
+      "versions": [
+        {
+          "commit": "93b12d4",
+          "date": "2026-08-16",
+          "hash": "54fcd3c5b0b92e31d7c4c90c3a04ff65617600dcd858947455cda8fbcb2800a6",
+          "release": "",
+          "state": "consumed",
+          "via": "plan",
+          "ticket": null,
+          "requirements": [
+            {
+              "name": "pin-test-version",
+              "text": "The version setup_harness.sh installs. run_conformance.sh refuses a different one, so a passing verdict names a specific exam rather than whichever harness was on PATH.",
+              "stories": [
+                "conformance"
+              ]
+            },
+            {
+              "name": "build-decoder",
+              "text": "go build -o toml-decoder ./cmd/toml-decoder",
+              "stories": [
+                "architecture"
+              ]
+            },
+            {
+              "name": "run-conformance-suite",
+              "text": "DECODER=\"$PWD/toml-decoder\" exec sh sources/run_conformance.sh",
+              "stories": [
+                "conformance"
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    "run_conformance.sh": {
+      "state": "current",
+      "versions": [
+        {
+          "commit": "93b12d4",
+          "date": "2026-08-16",
+          "hash": "15ecb784a928f4835ca1620341fcaf8af6bcf97ffd26aa8946c9ceecff475afe",
+          "release": "",
+          "state": "consumed",
+          "via": "plan",
+          "ticket": null,
+          "requirements": [
+            {
+              "name": "run-toml-conformance",
+              "text": "Run the upstream toml-test conformance suite against the built decoder.",
+              "stories": [
+                "conformance"
+              ]
+            },
+            {
+              "name": "standardize-harness-exit-status",
+              "text": "Exit code follows the harness exit-status standard in prompts/UAT_SETUP_INSTRUCTIONS.md: 0 only when every test passes, 2 when this harness could not run at all, and any other nonzero when it ran and the decoder failed.",
+              "stories": [
+                "conformance"
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    "setup_harness.sh": {
+      "state": "current",
+      "versions": [
+        {
+          "commit": "93b12d4",
+          "date": "2026-08-16",
+          "hash": "a94f9cee6ae45b4265e244f40b882f9692f59c67aff16953d2db837fb3885a56",
+          "release": "",
+          "state": "consumed",
+          "via": "plan",
+          "ticket": null,
+          "requirements": [
+            {
+              "name": "install-conformance-harness",
+              "text": "One-time installation of the upstream toml-test conformance harness.",
+              "stories": [
+                "conformance"
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    "stage_contract.sh": {
+      "state": "current",
+      "versions": [
+        {
+          "commit": "93b12d4",
+          "date": "2026-08-16",
+          "hash": "c95f3a314d9d8099bf27a64404a7eba213710c2948d41c1ce6c44f87f225227b",
+          "release": "",
+          "state": "consumed",
+          "via": "plan",
+          "ticket": null,
+          "requirements": [
+            {
+              "name": "architecture-stage-gate",
+              "text": "test -f go.mod\n    if grep -Eq '^[[:space:]]*require[[:space:](]' go.mod; then\n      echo \"go.mod declares a forbidden third-party dependency\" >&2\n      exit 1\n    fi\n    go build ./cmd/toml-decoder",
+              "stories": [
+                "architecture"
+              ]
+            },
+            {
+              "name": "decoder-stage-gate",
+              "text": "printf 'answer = 42\\n' | ./toml-decoder >\"$stage_dir/valid.json\" 2>\"$stage_dir/valid.err\"\n    test ! -s \"$stage_dir/valid.err\"\n    python - \"$stage_dir/valid.json\" <<'PY'\nimport json\nimport sys\n\nwith open(sys.argv[1], encoding=\"utf-8\") as stream:\n    decoded = json.load(stream)\nassert decoded == {\"answer\": {\"type\": \"integer\", \"value\": \"42\"}}\nPY\n\n    if printf 'answer = [\\n' | ./toml-decoder >\"$stage_dir/invalid.out\" 2>\"$stage_dir/invalid.err\"; then\n      echo \"malformed TOML exited successfully\" >&2\n      exit 1\n    fi\n    test ! -s \"$stage_dir/invalid.out\"\n    test -s \"$stage_dir/invalid.err\"",
+              "stories": [
+                "decoder-contract"
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    "stage_test.sh": {
+      "state": "current",
+      "versions": [
+        {
+          "commit": "93b12d4",
+          "date": "2026-08-16",
+          "hash": "93254a9d7ac72f19345b48fc36faffb1dc79dcc66f55cf18fee48c2cdce988cd",
+          "release": "",
+          "state": "consumed",
+          "via": "plan",
+          "ticket": null,
+          "requirements": [
+            {
+              "name": "require-single-pattern-argument",
+              "text": "if [ $# -ne 1 ]; then\n  echo \"usage: stage_test.sh <toml-test -run pattern>\" >&2\n  exit 2\nfi",
+              "stories": []
+            },
+            {
+              "name": "set-test-version",
+              "text": "TOML_TEST_VERSION=\"${TOML_TEST_VERSION:-v2.2.0}\"\nexport TOML_TEST_VERSION",
+              "stories": []
+            },
+            {
+              "name": "build-decoder",
+              "text": "go build -o toml-decoder ./cmd/toml-decoder",
+              "stories": [
+                "architecture"
+              ]
+            },
+            {
+              "name": "run-authoritative-test-slice",
+              "text": "DECODER=\"$PWD/toml-decoder\" exec sh sources/run_conformance.sh -run \"$1\"",
+              "stories": [
+                "conformance"
+              ]
+            },
+            {
+              "name": "preserve-test-verdict",
+              "text": "Exit status is the verdict and the whole verdict. Do not filter, skip, or reinterpret.",
+              "stories": []
+            }
+          ]
+        }
+      ]
+    },
+    "toml-v1.0.0.md": {
+      "state": "current",
+      "versions": [
+        {
+          "commit": "93b12d4",
+          "date": "2026-08-16",
+          "hash": "4cc2468f55b36a27660425430f19c3e63c9da492e6936aded2cf5eed9fcdce45",
+          "release": "",
+          "state": "consumed",
+          "via": "plan",
+          "ticket": null,
+          "requirements": [
+            {
+              "name": "document-lexical-rules",
+              "text": "* TOML is case-sensitive.\n* A TOML file must be a valid UTF-8 encoded Unicode document.\n* Whitespace means tab (0x09) or space (0x20).\n* Newline means LF (0x0A) or CRLF (0x0D 0x0A).\n\nA hash symbol marks the rest of the line as a comment, except when inside a\nstring.",
+              "stories": [
+                "parser-lexical-boundaries"
+              ]
+            },
+            {
+              "name": "key-definition-semantics",
+              "text": "A key may be either bare, quoted, or dotted.",
+              "stories": [
+                "parser-keys"
+              ]
+            },
+            {
+              "name": "scalar-values",
+              "text": "Values must have one of the following types.\n\n- [String](#string)\n- [Integer](#integer)\n- [Float](#float)\n- [Boolean](#boolean)\n- [Offset Date-Time](#offset-date-time)\n- [Local Date-Time](#local-date-time)\n- [Local Date](#local-date)\n- [Local Time](#local-time)\n- [Array](#array)\n- [Inline Table](#inline-table)",
+              "stories": [
+                "parser-lexical-scalars"
+              ]
+            },
+            {
+              "name": "string-values",
+              "text": "There are four ways to express strings: basic, multi-line basic, literal, and\nmulti-line literal. All strings must contain only valid UTF-8 characters.",
+              "stories": [
+                "parser-strings"
+              ]
+            },
+            {
+              "name": "datetime-values",
+              "text": "To unambiguously represent a specific instant in time, you may use an [RFC\n3339](https://tools.ietf.org/html/rfc3339) formatted date-time with offset.",
+              "stories": [
+                "parser-datetimes"
+              ]
+            },
+            {
+              "name": "arrays-and-inline-tables",
+              "text": "Arrays are square brackets with values inside. Whitespace is ignored. Elements\nare separated by commas.\n\nInline tables provide a more compact syntax for expressing tables.",
+              "stories": [
+                "parser-arrays-inline"
+              ]
+            },
+            {
+              "name": "tables-and-arrays-of-tables",
+              "text": "Tables (also known as hash tables or dictionaries) are collections of key/value\npairs. They are defined by headers, with square brackets on a line by\nthemselves.\n\nThe last syntax that has not yet been described allows writing arrays of tables.",
+              "stories": [
+                "parser-tables"
+              ]
+            },
+            {
+              "name": "toml-file-extension",
+              "text": "TOML files should use the extension `.toml`.",
+              "stories": []
+            },
+            {
+              "name": "toml-mime-type",
+              "text": "When transferring TOML files over the internet, the appropriate MIME type is\n`application/toml`.",
+              "stories": []
+            }
+          ]
+        }
+      ]
+    }
+  }
+}

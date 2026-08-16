@@ -1,0 +1,67 @@
+Drydock 0.1.8  Copyright (c) 2026 Web Cloud Studio. All rights reserved.
+2026-08-16 08:19:34 EDT  Calling CODEX/gpt-5.6-luna (plan)...
+  Completed CODEX/gpt-5.6-luna (plan)  rc=0
+========================================================================
+PLAN PROGRESS  ·  STAGE 1 · TOPOLOGY
+========================================================================
+Topology Created:  True
+Blueprints Created: 0 / 10
+Manifest Created:  False
+Blueprints Remaining: 10
+Batch Result:       Topology accepted
+========================================================================
+2026-08-16 08:20:26 EDT  Calling CODEX/gpt-5.6-luna (plan)...
+  Completed CODEX/gpt-5.6-luna (plan)  rc=0
+========================================================================
+PLAN PROGRESS  ·  STAGE 2 · BLUEPRINT BATCH 1
+========================================================================
+Topology Created:  True
+Blueprints Created: 5 / 10
+Manifest Created:  False
+Blueprints Remaining: 5
+Batch Result:       Accepted 5 Blueprint(s)
+========================================================================
+2026-08-16 08:21:26 EDT  Calling CODEX/gpt-5.6-luna (plan)...
+  Completed CODEX/gpt-5.6-luna (plan)  rc=0
+========================================================================
+PLAN PROGRESS  ·  STAGE 2 · BLUEPRINT BATCH 2
+========================================================================
+Topology Created:  True
+Blueprints Created: 10 / 10
+Manifest Created:  False
+Blueprints Remaining: 0
+Batch Result:       Accepted 5 Blueprint(s)
+========================================================================
+========================================================================
+PLAN PROGRESS  ·  STAGE 3 · MANIFEST
+========================================================================
+Topology Created:  True
+Blueprints Created: 10 / 10
+Manifest Created:  True
+Blueprints Remaining: 0
+Batch Result:       Manifest validated and serialized
+========================================================================
+2026-08-16 08:22:24 EDT  Calling CODEX/gpt-5.6-luna (lineage_attribute)...
+  Completed CODEX/gpt-5.6-luna (lineage_attribute)  rc=0
+2026-08-16 08:22:41 EDT  Calling CODEX/gpt-5.6-luna (lineage_attribute)...
+  Completed CODEX/gpt-5.6-luna (lineage_attribute)  rc=0
+2026-08-16 08:22:59 EDT  Calling CODEX/gpt-5.6-luna (lineage_attribute)...
+  Completed CODEX/gpt-5.6-luna (lineage_attribute)  rc=0
+2026-08-16 08:23:15 EDT  Calling CODEX/gpt-5.6-luna (lineage_attribute)...
+  Completed CODEX/gpt-5.6-luna (lineage_attribute)  rc=0
+2026-08-16 08:23:28 EDT  Calling CODEX/gpt-5.6-luna (lineage_attribute)...
+  Completed CODEX/gpt-5.6-luna (lineage_attribute)  rc=0
+2026-08-16 08:23:42 EDT  Calling CODEX/gpt-5.6-luna (lineage_attribute)...
+  Completed CODEX/gpt-5.6-luna (lineage_attribute)  rc=0
+2026-08-16 08:24:01 EDT  Calling CODEX/gpt-5.6-luna (lineage_attribute)...
+  Completed CODEX/gpt-5.6-luna (lineage_attribute)  rc=0
+
+Mode: OVERWRITE (Blueprint specs regenerated from analysis)
+Provider: codex / gpt-5.6-luna
+Graph: 0 features, 10 stories, 0 spikes, 0 acceptance gates
+Warnings: 33
+Outcome: updated
+Execution: 20260816.121934.967Z-770b9e8f
+Elapsed: 5 minutes 1 second
+Review: /mnt/c/Users/barlo/projects/drydock/uat/Toml/runs/20260816.121804/workspace/targets/toml/QuarterDeck
+Target - committed project workspace git store

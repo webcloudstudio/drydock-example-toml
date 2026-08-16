@@ -1,0 +1,11 @@
+RESULT: SUCCESS
+
+FILES CHANGED:
+- internal/toml/toml.go
+- internal/toml/toml_test.go
+
+SUMMARY:
+Implemented comment stripping, UTF-8/control validation, CRLF handling, lexical whitespace checks, and comment-aware arrays/inline tables. Focused suites pass; Go tests and vet pass.
+
+BLOCKERS:
+- Full suite still has unrelated table/inline-table failures: 198 valid passed, 7 failed; 442 invalid passed, 32 failed.

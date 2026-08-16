@@ -1,0 +1,27 @@
+<requirement name="require-single-pattern-argument" stories="">
+if [ $# -ne 1 ]; then
+  echo "usage: stage_test.sh <toml-test -run pattern>" >&2
+  exit 2
+fi
+</requirement>
+<requirement name="set-test-version" stories="">
+TOML_TEST_VERSION="${TOML_TEST_VERSION:-v2.2.0}"
+export TOML_TEST_VERSION
+</requirement>
+<requirement name="build-decoder" stories="architecture">
+go build -o toml-decoder ./cmd/toml-decoder
+</requirement>
+<requirement name="run-authoritative-test-slice" stories="conformance">
+DECODER="$PWD/toml-decoder" exec sh sources/run_conformance.sh -run "$1"
+</requirement>
+<requirement name="preserve-test-verdict" stories="">
+Exit status is the verdict and the whole verdict. Do not filter, skip, or reinterpret.
+</requirement>
+<unattached story="decoder-contract"/>
+<unattached story="parser-strings"/>
+<unattached story="parser-keys"/>
+<unattached story="parser-lexical-scalars"/>
+<unattached story="parser-lexical-boundaries"/>
+<unattached story="parser-tables"/>
+<unattached story="parser-datetimes"/>
+<unattached story="parser-arrays-inline"/>

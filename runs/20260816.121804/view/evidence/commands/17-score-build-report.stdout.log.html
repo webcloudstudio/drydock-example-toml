@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>evidence/commands/17-score-build-report.stdout.log</title>
+<link rel="stylesheet" href="../../../assets/kit.css">
+</head>
+<body>
+<main>
+<header class="fileheader"><div class="kind">Run artifact</div><h1>evidence/commands/17-score-build-report.stdout.log</h1><div class="filenav"><a href="../../../index.html">&larr; Report</a><a href="../../../evidence/commands/17-score-build-report.stdout.log">Raw file</a></div></header>
+<article class="doc"><pre>Drydock 0.1.8  Copyright (c) 2026 Web Cloud Studio. All rights reserved.
+
+Build report: toml
+  evidence: /mnt/c/Users/barlo/projects/drydock/uat/Toml/runs/20260816.121804/workspace/targets/toml/evidence
+  usage:    /mnt/c/Users/barlo/projects/drydock/uat/Toml/runs/20260816.121804/workspace/logs/llm.jsonl
+
+  Block                        AC  Calls     Cached  Uncached    Hit  Output     Time
+  ───────────────────────────────────────────────────────────────────────────────────
+  ✓ Block 1 · Foundational    3/3      1    157,952    23,242  87.2%   3,037   1m 19s
+  ✓ Block 2 · Service         3/3      1    281,856    34,963  89.0%   4,900   1m 53s
+  ✓ Block 3 · Service         5/5      2  1,654,528   136,009  92.4%  18,704   7m 54s
+  ✓ Block 4 · Service         3/3      1    837,632    64,466  92.9%   9,914   4m 35s
+  ✓ Block 5 · Service         3/3      1    894,976    60,052  93.7%   9,740   4m 09s
+  ✓ Block 6 · Service         4/4      1  1,911,808    78,071  96.1%  17,879   7m 20s
+  ✓ Block 7 · Service         4/4      1    706,048    45,182  94.0%   5,678   2m 41s
+  ✓ Block 8 · Feature         1/1      1    177,664    38,425  82.2%   1,928   1m 03s
+  ───────────────────────────────────────────────────────────────────────────────────
+  TOTAL                     26/26      9  6,622,464   480,410  93.2%  71,780  30m 58s
+
+  Blocks: 8/8 verified · 7 on first call · 1 repaired
+  Model:  gpt-5.6-luna
+  Tokens: 6,622,464 cached · 480,410 uncached · 71,780 out
+
+  Repairs
+    Block 3 · Service [block-3]
+      initial build  failed  2/5 AC · 138/138 cases · 1,435,021 in · 94.4% hit · 5m 43s
+      repair 1       built   5/5 AC · 215/215 cases · 355,516 in · 84.2% hit · 2m 11s
+
+</pre></article>
+</main>
+</body>
+</html>

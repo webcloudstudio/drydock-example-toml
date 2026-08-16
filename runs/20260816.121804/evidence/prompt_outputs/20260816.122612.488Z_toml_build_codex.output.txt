@@ -1,0 +1,15 @@
+RESULT: FAILED
+
+FILES CHANGED:
+- cmd/toml-decoder/main.go
+- cmd/toml-decoder/main_test.go
+- internal/toml/toml.go
+
+SUMMARY:
+Implemented and verified the decoder stdin, tagged-JSON, stderr diagnostic, and exit-status contract. Decoder and architecture gates pass. Full conformance fails on parser features assigned to later stages.
+
+BLOCKERS:
+- Full suite remains failing: 167 valid and 59 invalid cases failed.
+
+FAILURE_SUMMARY: Full TOML conformance is incomplete
+FAILURE_DETAIL: The current parser only supports basic scalar key/value pairs; later parser stages must implement arrays, tables, floats, datetimes, and strict validation before rerunning the full suite.

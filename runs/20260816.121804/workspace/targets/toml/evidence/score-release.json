@@ -1,0 +1,63 @@
+{
+  "schema_version": 5,
+  "recorded_at": "2026-08-16T13:06:17+00:00",
+  "target": "toml",
+  "verdict": "PASSED",
+  "verdict_line": "toml: PASSED \u2014 1 of 1",
+  "statement": "toml: PASSED \u2014 1 of 1\n\n  st-001  MET       governed gate sh sources/full_test.sh returned code 0; toml-test output: 205 valid tests passed and 474 invalid tests passed\n  reported: Build directory has uncommitted changes",
+  "complete": true,
+  "governed_gate": {
+    "name": "full",
+    "outcome": "PASS",
+    "argv": [
+      "sh",
+      "sources/full_test.sh"
+    ],
+    "return_code": 0,
+    "duration_ms": 3813,
+    "detail": "",
+    "timed_out": false,
+    "build_identity": "7ef38ef018a07a52",
+    "stdout": "toml-test v2.2.0 [/mnt/c/Users/barlo/projects/drydock/uat/Toml/runs/20260816.121804/build/toml/toml-decoder] [no encoder]\n  valid tests: 205 passed,  0 failed\nencoder tests: no encoder command given\ninvalid tests: 474 passed,  0 failed\n",
+    "stderr": "harness: /home/barlo/.local/bin/toml-test toml-test v2.2.0; go1.24.6 linux/amd64; race=false; cgo=true\n"
+  },
+  "criteria": [
+    {
+      "criterion_id": "st-001",
+      "verdict": "MET",
+      "rationale": "The governed full scoring script exited zero with all 205 valid and 474 invalid tests passing.",
+      "evidence": [
+        "governed gate sh sources/full_test.sh returned code 0",
+        "toml-test output: 205 valid tests passed and 474 invalid tests passed"
+      ]
+    }
+  ],
+  "guardrail_ids": [],
+  "observations": [],
+  "blockers": [],
+  "attestations": [],
+  "kit_faults": [],
+  "warnings": [
+    "Build directory has uncommitted changes"
+  ],
+  "improvements": [],
+  "identities": {
+    "code": "3895a4799ddc970f8156037dc88e00f149eb48b9",
+    "sea_trials": "30b259abc2d3688f5186ceaae44c6fcba1c044dc48d139e573917222ba90b90a",
+    "blueprint": {
+      "ARCHITECTURE.md": "6646ccb2ae8ad921dc31d34da5e69944e93580c2c27202b96b0aca8e9fa9b284",
+      "ARCHITECTURE_compact.md": "65b8417ac4704c76603773a940a26ce0f26b27cbdaee514c8fb70f3435f5b019",
+      "FEATURE-Arrays-Inline.md": "c9825f443a74c80b060a569b9309aa7b384cefec54a7da4c9cb183ddf4b83f12",
+      "FEATURE-Conformance.md": "239b33c310c26fa58cc1c9e8f467ad78f65a520df876943457cc67a47423010a",
+      "FEATURE-Datetimes.md": "21a2ed9a7ea7e847f2b509ac0a55427dabea12f576725f166b246e2429314f14",
+      "FEATURE-Decoder-Contract.md": "f102f9780aed8c0c0cf02fdcf708585559579c8b5e2636dae1a2f35cb93b8d36",
+      "FEATURE-Keys.md": "6128a55dc0a6e896540f6757b3c1aa914da129a7f16dc51f0848866d1ea9ad07",
+      "FEATURE-Lexical-Boundaries.md": "e298b34f95fc662f043945074795de0bea3805294e9edf3155c15fdd71728aab",
+      "FEATURE-Lexical-Scalars.md": "af7b4b7d8d7e0f33ac4da5f9ec12ea61fb2bfbd90ef61799b9f2bfbb63487bbb",
+      "FEATURE-Strings.md": "cc413121a98db193bf3d0aa72117538945d1e4fd79b1815d5960e2fcf4a8e3a1",
+      "FEATURE-Tables.md": "b9b2fb4b527832c5c6d09e9a6995d2fa38981a9435bcc8ae6045de9f9bb4944f",
+      "stage_test_compact.md": "dac9ad0d184aad261bd5cb121f5a26ae4aaff63967d45eb50019e96f9bd5f0ac"
+    }
+  },
+  "execution_id": "20260816.130611.356Z-6f712365"
+}

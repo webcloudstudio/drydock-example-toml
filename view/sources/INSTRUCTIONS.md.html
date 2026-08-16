@@ -24,7 +24,9 @@ DECODER=&quot;$PWD/toml-decoder&quot; exec sh sources/run_conformance.sh</code><
 <p>The build step is deliberately separate from the scoring step so that a compilation failure and a conformance failure are distinguishable in the evidence. <code>DECODER</code> is the harness&#x27;s only knowledge of the implementation language; the harness itself is language-neutral.</p>
 <p><strong>The scoring assets are read-only.</strong> <code>sources/full_test.sh</code>, <code>sources/run_conformance.sh</code>, and <code>sources/setup_harness.sh</code> are hash-verified against the import and restored before grading, so a modification is reported as tampering rather than honored. Do not write to them. Build <code>cmd/toml-decoder</code> so that the supplied entry point succeeds; changing the entry point is not a repair.</p>
 <h2>Interface Contract</h2>
-<p>The program is a filter: read TOML from <strong>stdin</strong>, write tagged JSON to <strong>stdout</strong>, exit <code>0</code>. On invalid TOML, write a diagnostic to <strong>stderr</strong> and exit non-zero. No arguments, no config, no side effects.</p>
+<p>The program is a filter: read TOML from <strong>stdin</strong>, write tagged JSON to <strong>stdout</strong>, exit <code>0</code>.</p>
+<p>On invalid TOML, write a diagnostic to <strong>stderr</strong> and exit non-zero.</p>
+<p>The program takes no arguments, reads no configuration files, and produces no side effects.</p>
 <p>Minimal shape (<code>cmd/toml-decoder/main.go</code>):</p>
 <pre><code>package main
 

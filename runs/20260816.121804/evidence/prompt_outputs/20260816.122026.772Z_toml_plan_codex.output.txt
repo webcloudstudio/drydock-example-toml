@@ -1,0 +1,444 @@
+=== BEGIN ARTIFACT ARCHITECTURE.md ===
+# ARCHITECTURE: TOML 1.0.0 Parser
+
+| Field       | Value |
+|-------------|-------|
+| Version     | 20260816 V1 |
+| Description | Standard-library-only Go architecture for a TOML 1.0.0 command-line decoder. |
+| Depends On  | — |
+| Provides    | cmd/toml-decoder, internal/toml, Go module |
+| Consumes    | — |
+
+## Questions
+
+- None.
+
+## Intent
+
+The project is a Go command-line filter that reads a TOML 1.0.0 document from standard input and emits deterministic tagged JSON. Parsing is implemented in `internal/toml`, while `cmd/toml-decoder` owns process I/O, JSON encoding, diagnostics, and exit status.
+
+## Modules and Boundaries
+
+| Module | Responsibility |
+|---|---|
+| `cmd/toml-decoder` | Read stdin, invoke the parser, encode successful results, and report failures. |
+| `internal/toml` | Parse TOML 1.0.0 syntax and semantics into tagged values and tables. |
+| `go.mod` | Declare the Go module and toolchain floor without third-party dependencies. |
+
+The command must not read configuration files, access the network, persist data, or modify supplied scoring assets. The parser must use only the Go standard library.
+
+## Tagged Value Model
+
+Tables map to JSON objects and arrays map to JSON arrays. Every scalar value is represented as an object containing string-valued `type` and `value` fields. Supported type tags are `string`, `integer`, `float`, `bool`, `datetime`, `datetime-local`, `date-local`, and `time-local`.
+
+## Technology Stack
+
+- Go 1.22 or newer, using `go.md`.
+- POSIX shell for supplied acceptance scripts, using `common.md`.
+
+## Programmatic Acceptance
+
+=== AC architecture-build ===
+Intent: The declared Go module and decoder command compile without third-party module requirements.
+
+import subprocess
+
+result = subprocess.run(
+    ["sh", "sources/stage_contract.sh", "architecture"],
+    capture_output=True,
+    text=True,
+)
+print(result.stdout)
+print(result.stderr)
+assert result.returncode == 0
+=== END AC architecture-build ===
+
+=== AC architecture-module ===
+Intent: The command package is buildable through the required repository path.
+
+import subprocess
+
+result = subprocess.run(
+    ["go", "build", "./cmd/toml-decoder"],
+    capture_output=True,
+    text=True,
+)
+print(result.stdout)
+print(result.stderr)
+assert result.returncode == 0
+=== END AC architecture-module ===
+
+=== AC architecture-dependencies ===
+Intent: The module declares no forbidden third-party dependency.
+
+from pathlib import Path
+
+module_text = Path("go.mod").read_text(encoding="utf-8")
+require_lines = [
+    line for line in module_text.splitlines()
+    if line.lstrip().startswith("require ")
+]
+assert not require_lines
+=== END AC architecture-dependencies ===
+
+## User Acceptance
+
+- None.
+
+## Guardrails
+
+- The parser must not import a third-party TOML library.
+- The `cmd/toml-decoder` build path must remain unchanged.
+- Supplied scoring scripts and harness assets must not be modified.
+=== END ARTIFACT ===
+=== BEGIN ARTIFACT FEATURE-Decoder-Contract.md ===
+# FEATURE: Decoder Contract
+
+| Field       | Value |
+|-------------|-------|
+| Version     | 20260816 V1 |
+| Description | Defines the stdin, tagged-JSON, diagnostic-stream, and exit-status contract for the TOML decoder. |
+| Depends On  | ARCHITECTURE.md |
+| Provides    | stdin TOML decoder, tagged JSON stdout, stderr diagnostics |
+| Consumes    | internal/toml |
+
+## Questions
+
+- None.
+
+## Workflow
+
+The executable reads the complete TOML document from standard input and delegates parsing to `internal/toml`. On success it writes exactly one tagged JSON document to standard output and exits zero. On invalid TOML it writes a diagnostic to standard error, writes no successful result to standard output, and exits non-zero. The executable accepts no required arguments and has no runtime configuration.
+
+## Output Contract
+
+- Tables are JSON objects.
+- Arrays are JSON arrays.
+- Every scalar is encoded as `{"type": "<TOML_TYPE>", "value": "<TOML_VALUE>"}`.
+- Scalar `value` fields are always JSON strings.
+- Integer values must remain lossless across the signed 64-bit range.
+- Offset and local date/time values use the required TOML type tags and formatting.
+
+## Programmatic Acceptance
+
+=== AC decoder-valid-contract ===
+Intent: A valid TOML document produces the required tagged JSON on stdout with no stderr diagnostic.
+
+import json
+import subprocess
+
+source = "answer = 42\n"
+expected = {"answer": {"type": "integer", "value": "42"}}
+result = subprocess.run(
+    ["./toml-decoder"],
+    input=source,
+    capture_output=True,
+    text=True,
+)
+print(result.stdout)
+print(result.stderr)
+assert result.returncode == 0
+assert result.stderr == ""
+assert json.loads(result.stdout) == expected
+=== END AC decoder-valid-contract ===
+
+=== AC decoder-invalid-contract ===
+Intent: Invalid TOML produces a non-zero exit, no successful stdout result, and a stderr diagnostic.
+
+import subprocess
+
+source = "answer = [\n"
+result = subprocess.run(
+    ["./toml-decoder"],
+    input=source,
+    capture_output=True,
+    text=True,
+)
+print(result.stdout)
+print(result.stderr)
+assert result.returncode != 0
+assert result.stdout == ""
+assert result.stderr != ""
+=== END AC decoder-invalid-contract ===
+
+=== AC decoder-stage-contract ===
+Intent: The supplied decoder contract gate passes in full.
+
+import subprocess
+
+result = subprocess.run(
+    ["sh", "sources/stage_contract.sh", "decoder"],
+    capture_output=True,
+    text=True,
+)
+print(result.stdout)
+print(result.stderr)
+assert result.returncode == 0
+=== END AC decoder-stage-contract ===
+
+## User Acceptance
+
+- None.
+
+## Guardrails
+
+- Successful JSON is written only to stdout.
+- Diagnostics are written only to stderr.
+- Invalid input must never exit successfully.
+- The executable must not read configuration files or produce runtime side effects.
+=== END ARTIFACT ===
+=== BEGIN ARTIFACT FEATURE-Strings.md ===
+# FEATURE: TOML Strings
+
+| Field       | Value |
+|-------------|-------|
+| Version     | 20260816 V1 |
+| Description | Defines TOML 1.0.0 basic, literal, multiline basic, and multiline literal string parsing. |
+| Depends On  | ARCHITECTURE.md |
+| Provides    | TOML string parsing |
+| Consumes    | internal/toml |
+
+## Questions
+
+- None.
+
+## Scope
+
+Support basic and literal strings, multiline delimiters, required escapes, Unicode scalar escapes, newline trimming, line-ending continuation, embedded quotes, preserved whitespace, and prohibited-control validation according to TOML 1.0.0.
+
+## Programmatic Acceptance
+
+=== AC strings-valid-suite ===
+Intent: The authoritative conformance suite passes every valid string case owned by this feature.
+
+import subprocess
+
+result = subprocess.run(
+    ["sh", "sources/stage_test.sh", "valid/string/**"],
+    capture_output=True,
+    text=True,
+)
+print(result.stdout)
+print(result.stderr)
+assert result.returncode == 0
+=== END AC strings-valid-suite ===
+
+=== AC strings-invalid-suite ===
+Intent: The authoritative conformance suite rejects every invalid string case owned by this feature.
+
+import subprocess
+
+result = subprocess.run(
+    ["sh", "sources/stage_test.sh", "invalid/string/**"],
+    capture_output=True,
+    text=True,
+)
+print(result.stdout)
+print(result.stderr)
+assert result.returncode == 0
+=== END AC strings-invalid-suite ===
+
+=== AC strings-bounded-suites ===
+Intent: Both string conformance invocations complete successfully as separate executable checks.
+
+import subprocess
+
+patterns = ["valid/string/**", "invalid/string/**"]
+for pattern in patterns:
+    result = subprocess.run(
+        ["sh", "sources/stage_test.sh", pattern],
+        capture_output=True,
+        text=True,
+    )
+    print(result.stdout)
+    print(result.stderr)
+    assert result.returncode == 0
+=== END AC strings-bounded-suites ===
+
+## User Acceptance
+
+- None.
+
+## Guardrails
+
+- Basic-string escapes must be decoded only when TOML 1.0.0 permits them.
+- Literal strings must preserve backslashes and reject unescaped delimiters.
+- Multiline strings must enforce delimiter, trimming, continuation, and control-character rules.
+- Invalid UTF-8 and prohibited controls must not be accepted as string content.
+=== END ARTIFACT ===
+=== BEGIN ARTIFACT FEATURE-Lexical-Scalars.md ===
+# FEATURE: Lexical Scalars
+
+| Field       | Value |
+|-------------|-------|
+| Version     | 20260816 V1 |
+| Description | Defines TOML boolean, integer, and floating-point scalar parsing. |
+| Depends On  | ARCHITECTURE.md |
+| Provides    | TOML boolean, integer, and float parsing |
+| Consumes    | internal/toml |
+
+## Questions
+
+- None.
+
+## Scope
+
+Support lowercase booleans; signed decimal integers; hexadecimal, octal, and binary integers; underscores; signed 64-bit bounds; decimal fractions and exponents; signed zero; infinity; and NaN. Scalar values must be emitted with the corresponding TOML type tag and a JSON string representation.
+
+## Programmatic Acceptance
+
+=== AC scalars-valid-suite ===
+Intent: The authoritative conformance suite passes all valid boolean, integer, and float cases.
+
+import subprocess
+
+result = subprocess.run(
+    [
+        "sh",
+        "sources/stage_test.sh",
+        "valid/bool/**|valid/integer/**|valid/float/**",
+    ],
+    capture_output=True,
+    text=True,
+)
+print(result.stdout)
+print(result.stderr)
+assert result.returncode == 0
+=== END AC scalars-valid-suite ===
+
+=== AC scalars-invalid-suite ===
+Intent: The authoritative conformance suite rejects all invalid boolean, integer, and float cases.
+
+import subprocess
+
+result = subprocess.run(
+    [
+        "sh",
+        "sources/stage_test.sh",
+        "invalid/bool/**|invalid/integer/**|invalid/float/**",
+    ],
+    capture_output=True,
+    text=True,
+)
+print(result.stdout)
+print(result.stderr)
+assert result.returncode == 0
+=== END AC scalars-invalid-suite ===
+
+=== AC scalars-bounded-suites ===
+Intent: The valid and invalid scalar conformance slices each complete successfully.
+
+import subprocess
+
+patterns = [
+    "valid/bool/**|valid/integer/**|valid/float/**",
+    "invalid/bool/**|invalid/integer/**|invalid/float/**",
+]
+for pattern in patterns:
+    result = subprocess.run(
+        ["sh", "sources/stage_test.sh", pattern],
+        capture_output=True,
+        text=True,
+    )
+    print(result.stdout)
+    print(result.stderr)
+    assert result.returncode == 0
+=== END AC scalars-bounded-suites ===
+
+## User Acceptance
+
+- None.
+
+## Guardrails
+
+- Integer parsing must reject values outside the signed 64-bit range.
+- Integer underscores must satisfy TOML placement rules.
+- Floats must reject malformed decimal points and exponents.
+- Special float tokens must remain lowercase and preserve the required type semantics.
+=== END ARTIFACT ===
+=== BEGIN ARTIFACT FEATURE-Lexical-Boundaries.md ===
+# FEATURE: Lexical Boundaries
+
+| Field       | Value |
+|-------------|-------|
+| Version     | 20260816 V1 |
+| Description | Defines TOML comment, whitespace, line-ending, encoding, and control-character handling. |
+| Depends On  | ARCHITECTURE.md |
+| Provides    | TOML lexical boundary validation |
+| Consumes    | internal/toml |
+
+## Questions
+
+- None.
+
+## Scope
+
+Handle spaces and tabs, LF and CRLF line endings, comments outside strings, multiline lexical boundaries, valid UTF-8 documents, and rejection of prohibited control characters in comments and applicable value contexts.
+
+## Programmatic Acceptance
+
+=== AC lexical-comments-valid-suite ===
+Intent: The authoritative conformance suite passes every valid comment and lexical-boundary case.
+
+import subprocess
+
+result = subprocess.run(
+    ["sh", "sources/stage_test.sh", "valid/comment/**"],
+    capture_output=True,
+    text=True,
+)
+print(result.stdout)
+print(result.stderr)
+assert result.returncode == 0
+=== END AC lexical-comments-valid-suite ===
+
+=== AC lexical-boundaries-invalid-suite ===
+Intent: The authoritative conformance suite rejects every invalid control-character and encoding case.
+
+import subprocess
+
+result = subprocess.run(
+    [
+        "sh",
+        "sources/stage_test.sh",
+        "invalid/control/**|invalid/encoding/**",
+    ],
+    capture_output=True,
+    text=True,
+)
+print(result.stdout)
+print(result.stderr)
+assert result.returncode == 0
+=== END AC lexical-boundaries-invalid-suite ===
+
+=== AC lexical-boundaries-suites ===
+Intent: The valid comment and invalid lexical-boundary conformance slices complete successfully.
+
+import subprocess
+
+patterns = [
+    "valid/comment/**",
+    "invalid/control/**|invalid/encoding/**",
+]
+for pattern in patterns:
+    result = subprocess.run(
+        ["sh", "sources/stage_test.sh", pattern],
+        capture_output=True,
+        text=True,
+    )
+    print(result.stdout)
+    print(result.stderr)
+    assert result.returncode == 0
+=== END AC lexical-boundaries-suites ===
+
+## User Acceptance
+
+- None.
+
+## Guardrails
+
+- Comments must not consume content inside strings.
+- Only TOML-permitted whitespace and line endings may be accepted.
+- Invalid UTF-8 must be rejected.
+- Prohibited control characters must be rejected in every applicable lexical context.
+=== END ARTIFACT ===

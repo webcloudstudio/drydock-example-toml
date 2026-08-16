@@ -1,0 +1,15 @@
+<reusable-compact filename="stage_test.sh">
+Runs one scoped TOML conformance slice. Requires exactly one `-run` pattern argument, builds `./cmd/toml-decoder`, invokes `sources/run_conformance.sh`, and uses the command exit status as the verdict. Defaults `TOML_TEST_VERSION` to `v2.2.0`.
+</reusable-compact>
+
+RESULT: SUCCESS
+
+FILES CHANGED:
+- internal/toml/toml.go
+- toml-decoder
+
+SUMMARY:
+Fixed multiline quote-run parsing and line-comment boundary handling. Scoped acceptance passes: strings valid 23/23, strings invalid 77/77, keys valid 28/28, keys invalid 61/61. Go tests and vet pass.
+
+BLOCKERS:
+- Full conformance remains outside this block’s string/key scope and still has unrelated array, scalar, datetime, and table failures.

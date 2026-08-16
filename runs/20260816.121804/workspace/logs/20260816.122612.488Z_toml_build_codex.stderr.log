@@ -1,0 +1,1 @@
+2026-08-16T12:27:08.924225Z ERROR codex_core::tools::router: error=apply_patch verification failed: Failed to read file to update /mnt/c/Users/barlo/projects/drydock/uat/Toml/runs/20260816.121804/build/toml/cmd/toml-decoder/main_test.go: No such file or directory (os error 2)

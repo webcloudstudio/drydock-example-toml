@@ -1,0 +1,14 @@
+RESULT: FAILED
+
+FILES CHANGED:
+- internal/toml/toml.go
+- internal/toml/toml_test.go
+
+SUMMARY:
+Implemented TOML booleans, canonical integers, base-prefixed integers, floats, exponents, special values, validation, and tests. Scalar suites pass; full suite remains failing in out-of-scope arrays, tables, strings, comments, and datetimes.
+
+BLOCKERS:
+- Full conformance suite is not yet green due to prior unimplemented parser features.
+
+FAILURE_SUMMARY: Full conformance suite has 62 valid and 33 invalid failures outside this scalar block.
+FAILURE_DETAIL: Scalar-specific tests pass, but completing the full gate requires implementing arrays, tables, comments, strings, and datetime parsing in subsequent build blocks.

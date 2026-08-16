@@ -1,0 +1,1 @@
+{"criteria":[{"id":"st-001","verdict":"MET","rationale":"The governed full scoring script exited zero with all 205 valid and 474 invalid tests passing.","evidence":["governed gate sh sources/full_test.sh returned code 0","toml-test output: 205 valid tests passed and 474 invalid tests passed"]}],"improvements":[]}

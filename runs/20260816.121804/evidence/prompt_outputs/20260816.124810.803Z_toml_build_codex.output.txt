@@ -1,0 +1,11 @@
+RESULT: SUCCESS
+
+FILES CHANGED:
+- internal/toml/toml.go
+- internal/toml/toml_test.go
+
+SUMMARY:
+Implemented table lifecycle/array-of-table resolution and TOML datetime parsing, normalization, and precision truncation. Full suite passed: 205 valid, 474 invalid. Race tests and vet passed.
+
+BLOCKERS:
+- None

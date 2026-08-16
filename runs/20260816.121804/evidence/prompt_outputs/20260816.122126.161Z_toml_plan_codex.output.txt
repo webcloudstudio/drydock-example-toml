@@ -1,0 +1,366 @@
+=== BEGIN ARTIFACT FEATURE-Keys.md ===
+# FEATURE: TOML Keys
+
+| Field       | Value |
+|-------------|-------|
+| Version     | 20260816 V1 |
+| Description | Parse TOML bare, quoted, dotted, and duplicate-key definitions. |
+| Depends On  | ARCHITECTURE.md, FEATURE-Strings.md |
+| Provides    | TOML bare, quoted, dotted, and duplicate-key semantics |
+| Consumes    | internal/toml |
+
+## Questions
+
+- None.
+
+## Key Parsing
+
+Support bare keys containing ASCII letters, digits, underscores, and dashes; quoted basic and literal keys; and dotted paths combining these forms. Whitespace around dotted components is permitted.
+
+Assignments create nested tables as needed. Numeric-looking bare keys remain string keys. Quoted and bare spellings that resolve to the same key are equivalent.
+
+## Definition Semantics
+
+Reject empty bare keys, duplicate definitions, assignments through scalar values, and attempts to redefine tables or values. Preserve insertion-independent nested object semantics.
+
+## Programmatic Acceptance
+
+=== AC keys-valid ===
+Intent: The decoder passes all authoritative valid TOML key cases owned by this feature.
+Suite: scoped
+Requires: executable=go; scope=test
+
+import subprocess
+
+result = subprocess.run(
+    ["sh", "sources/stage_test.sh", "valid/key/**"],
+    capture_output=True,
+    text=True,
+)
+print(result.stdout)
+print(result.stderr)
+assert result.returncode == 0
+=== END AC keys-valid ===
+
+=== AC keys-invalid ===
+Intent: The decoder rejects all authoritative invalid TOML key cases owned by this feature.
+Suite: scoped
+Requires: executable=go; scope=test
+
+import subprocess
+
+result = subprocess.run(
+    ["sh", "sources/stage_test.sh", "invalid/key/**"],
+    capture_output=True,
+    text=True,
+)
+print(result.stdout)
+print(result.stderr)
+assert result.returncode == 0
+=== END AC keys-invalid ===
+
+## User Acceptance
+
+- None.
+
+## Guardrails
+
+- Use only the Go standard library.
+- Do not reinterpret or modify the supplied conformance harness.
+=== END ARTIFACT ===
+=== BEGIN ARTIFACT FEATURE-Tables.md ===
+# FEATURE: TOML Tables
+
+| Field       | Value |
+|-------------|-------|
+| Version     | 20260816 V1 |
+| Description | Parse standard tables and arrays of tables with TOML lifecycle and conflict rules. |
+| Depends On  | ARCHITECTURE.md, FEATURE-Keys.md |
+| Provides    | TOML standard tables and arrays-of-tables semantics |
+| Consumes    | internal/toml |
+
+## Questions
+
+- None.
+
+## Standard Tables
+
+Support table headers, dotted table paths, implicit parent tables, empty tables, and valid out-of-order definitions. Track table ownership so explicit headers cannot redefine an already-defined table or scalar.
+
+## Arrays of Tables
+
+Support array-of-table headers, creation of elements in encounter order, targeting of the most recently defined element, nested tables, and nested arrays of tables. Reject reversed parent ordering, static-array conflicts, table/array conflicts, and invalid redefinitions.
+
+## Programmatic Acceptance
+
+=== AC tables-valid ===
+Intent: The decoder passes all authoritative valid TOML table and array-of-table cases owned by this feature.
+Suite: scoped
+Requires: executable=go; scope=test
+
+import subprocess
+
+result = subprocess.run(
+    ["sh", "sources/stage_test.sh", "valid/table/**"],
+    capture_output=True,
+    text=True,
+)
+print(result.stdout)
+print(result.stderr)
+assert result.returncode == 0
+=== END AC tables-valid ===
+
+=== AC tables-invalid ===
+Intent: The decoder rejects all authoritative invalid TOML table and array-of-table cases owned by this feature.
+Suite: scoped
+Requires: executable=go; scope=test
+
+import subprocess
+
+result = subprocess.run(
+    ["sh", "sources/stage_test.sh", "invalid/table/**"],
+    capture_output=True,
+    text=True,
+)
+print(result.stdout)
+print(result.stderr)
+assert result.returncode == 0
+=== END AC tables-invalid ===
+
+## User Acceptance
+
+- None.
+
+## Guardrails
+
+- Arrays of tables must preserve document order.
+- A child of an array-of-tables element must resolve to the most recently defined applicable element.
+- Do not alter supplied scoring scripts.
+=== END ARTIFACT ===
+=== BEGIN ARTIFACT FEATURE-Arrays-Inline.md ===
+# FEATURE: TOML Arrays and Inline Tables
+
+| Field       | Value |
+|-------------|-------|
+| Version     | 20260816 V1 |
+| Description | Parse TOML arrays and inline tables, including nesting and closure conflicts. |
+| Depends On  | ARCHITECTURE.md, FEATURE-Keys.md, FEATURE-Tables.md |
+| Provides    | TOML arrays and inline-table parsing |
+| Consumes    | internal/toml |
+
+## Questions
+
+- None.
+
+## Arrays
+
+Support empty, mixed-type, nested, multiline, and commented arrays. Permit trailing commas and arbitrary permitted whitespace or comments around elements and delimiters. Arrays may contain all TOML value types, including inline tables.
+
+## Inline Tables
+
+Support empty and nested inline tables with dotted keys. Inline tables must be fully defined within their braces, must not contain prohibited newlines or trailing commas, and cannot be extended after closure.
+
+Reject conflicts between arrays, tables, inline tables, and later definitions.
+
+## Programmatic Acceptance
+
+=== AC arrays-valid ===
+Intent: The decoder passes all authoritative valid TOML array cases owned by this feature.
+Suite: scoped
+Requires: executable=go; scope=test
+
+import subprocess
+
+result = subprocess.run(
+    ["sh", "sources/stage_test.sh", "valid/array/**"],
+    capture_output=True,
+    text=True,
+)
+print(result.stdout)
+print(result.stderr)
+assert result.returncode == 0
+=== END AC arrays-valid ===
+
+=== AC inline-valid ===
+Intent: The decoder passes all authoritative valid TOML inline-table cases owned by this feature.
+Suite: scoped
+Requires: executable=go; scope=test
+
+import subprocess
+
+result = subprocess.run(
+    ["sh", "sources/stage_test.sh", "valid/inline-table/**"],
+    capture_output=True,
+    text=True,
+)
+print(result.stdout)
+print(result.stderr)
+assert result.returncode == 0
+=== END AC inline-valid ===
+
+=== AC arrays-invalid ===
+Intent: The decoder rejects all authoritative invalid TOML array cases owned by this feature.
+Suite: scoped
+Requires: executable=go; scope=test
+
+import subprocess
+
+result = subprocess.run(
+    ["sh", "sources/stage_test.sh", "invalid/array/**"],
+    capture_output=True,
+    text=True,
+)
+print(result.stdout)
+print(result.stderr)
+assert result.returncode == 0
+=== END AC arrays-invalid ===
+
+=== AC inline-invalid ===
+Intent: The decoder rejects all authoritative invalid TOML inline-table cases owned by this feature.
+Suite: scoped
+Requires: executable=go; scope=test
+
+import subprocess
+
+result = subprocess.run(
+    ["sh", "sources/stage_test.sh", "invalid/inline-table/**"],
+    capture_output=True,
+    text=True,
+)
+print(result.stdout)
+print(result.stderr)
+assert result.returncode == 0
+=== END AC inline-invalid ===
+
+## User Acceptance
+
+- None.
+
+## Guardrails
+
+- Do not permit trailing commas or prohibited newlines in inline tables.
+- Do not permit later extension of a closed inline table.
+- Preserve heterogeneous array values and nested structure.
+=== END ARTIFACT ===
+=== BEGIN ARTIFACT FEATURE-Datetimes.md ===
+# FEATURE: TOML Datetimes
+
+| Field       | Value |
+|-------------|-------|
+| Version     | 20260816 V1 |
+| Description | Parse and format TOML offset and local date and time values. |
+| Depends On  | ARCHITECTURE.md |
+| Provides    | TOML datetime, local datetime, local date, and local time parsing |
+| Consumes    | internal/toml |
+
+## Questions
+
+- None.
+
+## Supported Values
+
+Parse offset datetimes, local datetimes, local dates, and local times according to TOML 1.0.0 and RFC 3339-compatible forms. Accept `T` or permitted space separation for offset and local datetimes.
+
+Emit the required tagged types: `datetime`, `datetime-local`, `date-local`, and `time-local`. Offset datetimes use RFC 3339 formatting; local values omit unavailable offset or date components.
+
+## Precision and Validation
+
+Require valid calendar and clock fields. Preserve supported fractional precision and truncate excess fractional seconds rather than rounding. Reject malformed separators, invalid dates or times, invalid offsets, and unsupported local forms.
+
+## Programmatic Acceptance
+
+=== AC datetimes-valid ===
+Intent: The decoder passes all authoritative valid TOML datetime cases owned by this feature.
+Suite: scoped
+Requires: executable=go; scope=test
+
+import subprocess
+
+result = subprocess.run(
+    ["sh", "sources/stage_test.sh", "valid/datetime/**"],
+    capture_output=True,
+    text=True,
+)
+print(result.stdout)
+print(result.stderr)
+assert result.returncode == 0
+=== END AC datetimes-valid ===
+
+=== AC datetimes-invalid ===
+Intent: The decoder rejects all authoritative invalid TOML datetime, local-date, local-datetime, and local-time cases owned by this feature.
+Suite: scoped
+Requires: executable=go; scope=test
+
+result = subprocess.run(
+    ["sh", "sources/stage_test.sh",
+     "invalid/datetime/**|invalid/local-date/**|invalid/local-datetime/**|invalid/local-time/**"],
+    capture_output=True,
+    text=True,
+)
+print(result.stdout)
+print(result.stderr)
+assert result.returncode == 0
+=== END AC datetimes-invalid ===
+
+## User Acceptance
+
+- None.
+
+## Guardrails
+
+- Emit datetime values with the required TOML type tags.
+- Truncate excess fractional precision; never round it.
+- Do not attach an offset to local datetime, date, or time values.
+=== END ARTIFACT ===
+=== BEGIN ARTIFACT FEATURE-Conformance.md ===
+# FEATURE: Complete TOML Conformance
+
+| Field       | Value |
+|-------------|-------|
+| Version     | 20260816 V1 |
+| Description | Assemble the completed decoder and verify the complete TOML 1.0.0 conformance suite. |
+| Depends On  | ARCHITECTURE.md, FEATURE-Decoder-Contract.md, FEATURE-Strings.md, FEATURE-Lexical-Scalars.md, FEATURE-Lexical-Boundaries.md, FEATURE-Keys.md, FEATURE-Tables.md, FEATURE-Arrays-Inline.md, FEATURE-Datetimes.md |
+| Provides    | complete TOML 1.0.0 conformance verdict |
+| Consumes    | cmd/toml-decoder, sources/full_test.sh |
+
+## Questions
+
+- None.
+
+## Assembly
+
+Use the completed `cmd/toml-decoder` and parser implementation with the supplied scoring assets unchanged. The final verification must execute the unfiltered `sources/full_test.sh` command from the application root.
+
+## Release Verification
+
+The complete authoritative TOML 1.0.0 suite is the sole project acceptance gate. Its exit status must be zero; do not substitute filtered runs or assert on summary text.
+
+## Programmatic Acceptance
+
+=== AC conformance-full ===
+Intent: The completed decoder passes the supplied unfiltered TOML 1.0.0 conformance suite.
+Suite: full
+Requires: executable=go; scope=test
+
+import subprocess
+
+result = subprocess.run(
+    ["sh", "sources/full_test.sh"],
+    capture_output=True,
+    text=True,
+)
+print(result.stdout)
+print(result.stderr)
+assert result.returncode == 0
+=== END AC conformance-full ===
+
+## User Acceptance
+
+- None.
+
+## Guardrails
+
+- Run `sh sources/full_test.sh` without filtering, skipping, or reinterpretation.
+- Preserve all supplied scoring and harness assets.
+- Do not introduce a third-party TOML parser.
+=== END ARTIFACT ===

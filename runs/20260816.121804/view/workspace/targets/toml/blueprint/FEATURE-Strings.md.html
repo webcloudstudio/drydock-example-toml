@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>workspace/targets/toml/blueprint/FEATURE-Strings.md</title>
+<link rel="stylesheet" href="../../../../../assets/kit.css">
+</head>
+<body>
+<main>
+<header class="fileheader"><div class="kind">Run artifact</div><h1>workspace/targets/toml/blueprint/FEATURE-Strings.md</h1><div class="filenav"><a href="../../../../../index.html">&larr; Report</a><a href="../../../../../workspace/targets/toml/blueprint/FEATURE-Strings.md">Raw file</a></div></header>
+<article class="doc"><h1>FEATURE: TOML Strings</h1>
+<div class="scroll"><table><thead><tr><th>Field</th><th>Value</th></tr></thead><tbody><tr><td>Version</td><td>20260816 V1</td></tr><tr><td>Description</td><td>Defines TOML 1.0.0 basic, literal, multiline basic, and multiline literal string parsing.</td></tr><tr><td>Depends On</td><td>ARCHITECTURE.md</td></tr><tr><td>Provides</td><td>TOML string parsing</td></tr><tr><td>Consumes</td><td>internal/toml</td></tr></tbody></table></div>
+<h2>Scope</h2>
+<p>Support basic and literal strings, multiline delimiters, required escapes, Unicode scalar escapes, newline trimming, line-ending continuation, embedded quotes, preserved whitespace, and prohibited-control validation according to TOML 1.0.0.</p>
+<h2>Programmatic Acceptance</h2>
+<p>=== AC strings-valid-suite ===<br>Intent: The authoritative conformance suite passes every valid string case owned by this feature.</p>
+<p>import subprocess</p>
+<p>result = subprocess.run( [&quot;sh&quot;, &quot;sources/stage_test.sh&quot;, &quot;valid/string/**&quot;], capture_output=True, text=True, ) print(result.stdout) print(result.stderr) assert result.returncode == 0 === END AC strings-valid-suite ===</p>
+<p>=== AC strings-invalid-suite ===<br>Intent: The authoritative conformance suite rejects every invalid string case owned by this feature.</p>
+<p>import subprocess</p>
+<p>result = subprocess.run( [&quot;sh&quot;, &quot;sources/stage_test.sh&quot;, &quot;invalid/string/**&quot;], capture_output=True, text=True, ) print(result.stdout) print(result.stderr) assert result.returncode == 0 === END AC strings-invalid-suite ===</p>
+<p>=== AC strings-bounded-suites ===<br>Intent: Both string conformance invocations complete successfully as separate executable checks.</p>
+<p>import subprocess</p>
+<p>patterns = [&quot;valid/string/<strong>&quot;, &quot;invalid/string/</strong>&quot;] for pattern in patterns: result = subprocess.run( [&quot;sh&quot;, &quot;sources/stage_test.sh&quot;, pattern], capture_output=True, text=True, ) print(result.stdout) print(result.stderr) assert result.returncode == 0 === END AC strings-bounded-suites ===</p>
+<h2>User Acceptance</h2>
+<ul><li>None.</li></ul>
+<h2>Guardrails</h2>
+<ul><li>Basic-string escapes must be decoded only when TOML 1.0.0 permits them.</li><li>Literal strings must preserve backslashes and reject unescaped delimiters.</li><li>Multiline strings must enforce delimiter, trimming, continuation, and control-character rules.</li><li>Invalid UTF-8 and prohibited controls must not be accepted as string content.</li></ul></article>
+</main>
+</body>
+</html>

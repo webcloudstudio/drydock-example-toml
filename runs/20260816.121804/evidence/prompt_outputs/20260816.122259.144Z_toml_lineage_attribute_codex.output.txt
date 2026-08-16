@@ -1,0 +1,15 @@
+<requirement name="run-toml-conformance" stories="conformance">
+Run the upstream toml-test conformance suite against the built decoder.
+</requirement>
+<requirement name="standardize-harness-exit-status" stories="conformance">
+Exit code follows the harness exit-status standard in prompts/UAT_SETUP_INSTRUCTIONS.md: 0 only when every test passes, 2 when this harness could not run at all, and any other nonzero when it ran and the decoder failed.
+</requirement>
+<unattached story="architecture"/>
+<unattached story="decoder-contract"/>
+<unattached story="parser-strings"/>
+<unattached story="parser-keys"/>
+<unattached story="parser-lexical-scalars"/>
+<unattached story="parser-lexical-boundaries"/>
+<unattached story="parser-tables"/>
+<unattached story="parser-datetimes"/>
+<unattached story="parser-arrays-inline"/>

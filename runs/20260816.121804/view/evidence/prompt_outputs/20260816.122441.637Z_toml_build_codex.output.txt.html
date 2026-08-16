@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>evidence/prompt_outputs/20260816.122441.637Z_toml_build_codex.output.txt</title>
+<link rel="stylesheet" href="../../../assets/kit.css">
+</head>
+<body>
+<main>
+<header class="fileheader"><div class="kind">Run artifact</div><h1>evidence/prompt_outputs/20260816.122441.637Z_toml_build_codex.output.txt</h1><div class="filenav"><a href="../../../index.html">&larr; Report</a><a href="../../../evidence/prompt_outputs/20260816.122441.637Z_toml_build_codex.output.txt">Raw file</a></div></header>
+<article class="doc"><pre>&lt;reusable-compact filename=&quot;ARCHITECTURE.md&quot;&gt;
+Go module `github.com/owner/toml-decoder` using Go 1.22+ and no dependencies. `cmd/toml-decoder` reads stdin, invokes `internal/toml`, emits tagged JSON on stdout, and reports errors on stderr with non-zero exit. `internal/toml` owns TOML parsing. Scalars use `{type, value}` string fields; tables and arrays map to JSON objects and arrays.
+&lt;/reusable-compact&gt;
+
+RESULT: SUCCESS
+
+FILES CHANGED:
+- go.mod
+- cmd/toml-decoder/main.go
+- internal/toml/toml.go
+- internal/toml/toml_test.go
+
+SUMMARY:
+Created the standard-library-only Go module and decoder command scaffold. `go test`, `go vet`, `go build`, formatting checks, and the architecture contract all pass.
+
+BLOCKERS:
+- None</pre></article>
+</main>
+</body>
+</html>

@@ -1,0 +1,4 @@
+{"type":"thread.started","thread_id":"01a00a86-b6d0-7802-aae4-4a247a90f36d"}
+{"type":"turn.started"}
+{"type":"item.completed","item":{"id":"item_0","type":"agent_message","text":"<requirement name=\"install-conformance-harness\" stories=\"conformance\">\nOne-time installation of the upstream toml-test conformance harness.\n</requirement>\n<unattached story=\"architecture\"/>\n<unattached story=\"decoder-contract\"/>\n<unattached story=\"parser-strings\"/>\n<unattached story=\"parser-keys\"/>\n<unattached story=\"parser-lexical-scalars\"/>\n<unattached story=\"parser-lexical-boundaries\"/>\n<unattached story=\"parser-tables\"/>\n<unattached story=\"parser-datetimes\"/>\n<unattached story=\"parser-arrays-inline\"/>"}}
+{"type":"turn.completed","usage":{"input_tokens":13022,"cached_input_tokens":8960,"cache_write_input_tokens":0,"output_tokens":509,"reasoning_output_tokens":384}}

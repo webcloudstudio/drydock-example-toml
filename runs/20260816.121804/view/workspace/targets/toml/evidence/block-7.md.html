@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>workspace/targets/toml/evidence/block-7.md</title>
+<link rel="stylesheet" href="../../../../../assets/kit.css">
+</head>
+<body>
+<main>
+<header class="fileheader"><div class="kind">Run artifact</div><h1>workspace/targets/toml/evidence/block-7.md</h1><div class="filenav"><a href="../../../../../index.html">&larr; Report</a><a href="../../../../../workspace/targets/toml/evidence/block-7.md">Raw file</a></div></header>
+<article class="doc"><h1>Evidence: Block 7 · Service (block-7)</h1>
+<ul><li>block type: block</li><li>date: 2026-08-16</li><li>resulting state: closed/verified</li><li>story points (combined assembled cost): 7658</li><li>execution id: 20260816.125657.658Z-e4cf954c</li></ul>
+<h2>Stories built</h2>
+<ul><li>Parse arrays and inline tables with closure and conflict semantics. (parser-arrays-inline) [story]</li></ul>
+<h2>Acceptance tooling authorization</h2>
+<ul><li>FEATURE-Arrays-Inline.md#arrays-valid: executable=go; scope=test; authorization=existing Target environment</li><li>FEATURE-Arrays-Inline.md#inline-valid: executable=go; scope=test; authorization=existing Target environment</li><li>FEATURE-Arrays-Inline.md#arrays-invalid: executable=go; scope=test; authorization=existing Target environment</li><li>FEATURE-Arrays-Inline.md#inline-invalid: executable=go; scope=test; authorization=existing Target environment</li></ul>
+<h2>Missing context</h2>
+<ul><li>context: toml-v1.0.0.md</li></ul>
+<h2>Stacked context</h2>
+<ul><li>compass: COMPASS.md (SP 2942)</li><li>implements: FEATURE-Arrays-Inline.md (SP 718)</li><li>context: stage_test.sh (SP 161)</li><li>context: ARCHITECTURE_compact.md (SP 123)</li><li>stack: go.md (SP 3646)</li></ul>
+<h2>Build directory changes</h2>
+<ul><li>internal/toml/toml_test.go</li></ul>
+<h2>Pre-build acceptance observation</h2>
+<ul><li>GREEN (prepassed): arrays-valid (FEATURE-Arrays-Inline.md)</li></ul>
+<p>intent: The decoder passes all authoritative valid TOML array cases owned by this feature. return code: 0 stdout: toml-test v2.2.0 [/mnt/c/Users/barlo/projects/drydock/uat/Toml/runs/20260816.121804/build/toml/toml-decoder] [no encoder] skipped tests: 863 valid tests:  21 passed,  0 failed encoder tests: no encoder command given invalid tests:   0 passed,  0 failed</p>
+<p>harness: /home/barlo/.local/bin/toml-test toml-test v2.2.0; go1.24.6 linux/amd64; race=false; cgo=true</p>
+<ul><li>GREEN (prepassed): inline-valid (FEATURE-Arrays-Inline.md)</li></ul>
+<p>intent: The decoder passes all authoritative valid TOML inline-table cases owned by this feature. return code: 0 stdout: toml-test v2.2.0 [/mnt/c/Users/barlo/projects/drydock/uat/Toml/runs/20260816.121804/build/toml/toml-decoder] [no encoder] skipped tests: 867 valid tests:  17 passed,  0 failed encoder tests: no encoder command given invalid tests:   0 passed,  0 failed</p>
+<p>harness: /home/barlo/.local/bin/toml-test toml-test v2.2.0; go1.24.6 linux/amd64; race=false; cgo=true</p>
+<ul><li>GREEN (prepassed): arrays-invalid (FEATURE-Arrays-Inline.md)</li></ul>
+<p>intent: The decoder rejects all authoritative invalid TOML array cases owned by this feature. return code: 0 stdout: toml-test v2.2.0 [/mnt/c/Users/barlo/projects/drydock/uat/Toml/runs/20260816.121804/build/toml/toml-decoder] [no encoder] skipped tests: 858 valid tests:   0 passed,  0 failed encoder tests: no encoder command given invalid tests:  26 passed,  0 failed</p>
+<p>harness: /home/barlo/.local/bin/toml-test toml-test v2.2.0; go1.24.6 linux/amd64; race=false; cgo=true</p>
+<ul><li>GREEN (prepassed): inline-invalid (FEATURE-Arrays-Inline.md)</li></ul>
+<p>intent: The decoder rejects all authoritative invalid TOML inline-table cases owned by this feature. return code: 0 stdout: toml-test v2.2.0 [/mnt/c/Users/barlo/projects/drydock/uat/Toml/runs/20260816.121804/build/toml/toml-decoder] [no encoder] skipped tests: 856 valid tests:   0 passed,  0 failed encoder tests: no encoder command given invalid tests:  28 passed,  0 failed</p>
+<p>harness: /home/barlo/.local/bin/toml-test toml-test v2.2.0; go1.24.6 linux/amd64; race=false; cgo=true</p>
+<h2>Post-build programmatic acceptance</h2>
+<ul><li>PASS: arrays-valid (FEATURE-Arrays-Inline.md)</li></ul>
+<p>intent: The decoder passes all authoritative valid TOML array cases owned by this feature. target interpreter: /mnt/c/Users/barlo/projects/drydock/.venv/bin/python3 provisioning: not required return code: 0 stdout: toml-test v2.2.0 [/mnt/c/Users/barlo/projects/drydock/uat/Toml/runs/20260816.121804/build/toml/toml-decoder] [no encoder] skipped tests: 863 valid tests:  21 passed,  0 failed encoder tests: no encoder command given invalid tests:   0 passed,  0 failed</p>
+<p>harness: /home/barlo/.local/bin/toml-test toml-test v2.2.0; go1.24.6 linux/amd64; race=false; cgo=true</p>
+<ul><li>PASS: inline-valid (FEATURE-Arrays-Inline.md)</li></ul>
+<p>intent: The decoder passes all authoritative valid TOML inline-table cases owned by this feature. target interpreter: /mnt/c/Users/barlo/projects/drydock/.venv/bin/python3 provisioning: not required return code: 0 stdout: toml-test v2.2.0 [/mnt/c/Users/barlo/projects/drydock/uat/Toml/runs/20260816.121804/build/toml/toml-decoder] [no encoder] skipped tests: 867 valid tests:  17 passed,  0 failed encoder tests: no encoder command given invalid tests:   0 passed,  0 failed</p>
+<p>harness: /home/barlo/.local/bin/toml-test toml-test v2.2.0; go1.24.6 linux/amd64; race=false; cgo=true</p>
+<ul><li>PASS: arrays-invalid (FEATURE-Arrays-Inline.md)</li></ul>
+<p>intent: The decoder rejects all authoritative invalid TOML array cases owned by this feature. target interpreter: /mnt/c/Users/barlo/projects/drydock/.venv/bin/python3 provisioning: not required return code: 0 stdout: toml-test v2.2.0 [/mnt/c/Users/barlo/projects/drydock/uat/Toml/runs/20260816.121804/build/toml/toml-decoder] [no encoder] skipped tests: 858 valid tests:   0 passed,  0 failed encoder tests: no encoder command given invalid tests:  26 passed,  0 failed</p>
+<p>harness: /home/barlo/.local/bin/toml-test toml-test v2.2.0; go1.24.6 linux/amd64; race=false; cgo=true</p>
+<ul><li>PASS: inline-invalid (FEATURE-Arrays-Inline.md)</li></ul>
+<p>intent: The decoder rejects all authoritative invalid TOML inline-table cases owned by this feature. target interpreter: /mnt/c/Users/barlo/projects/drydock/.venv/bin/python3 provisioning: not required return code: 0 stdout: toml-test v2.2.0 [/mnt/c/Users/barlo/projects/drydock/uat/Toml/runs/20260816.121804/build/toml/toml-decoder] [no encoder] skipped tests: 856 valid tests:   0 passed,  0 failed encoder tests: no encoder command given invalid tests:  28 passed,  0 failed</p>
+<p>harness: /home/barlo/.local/bin/toml-test toml-test v2.2.0; go1.24.6 linux/amd64; race=false; cgo=true</p>
+<h2>Build summary</h2>
+<p>RESULT: SUCCESS</p>
+<p>FILES CHANGED:</p>
+<ul><li>internal/toml/toml_test.go</li></ul>
+<p>SUMMARY: Added regression tests for nested/commented arrays, trailing commas, dotted inline tables, closure conflicts, and invalid inline-table syntax. All gates pass:</p>
+<ul><li>Full suite: 205 valid, 474 invalid</li><li>Scoped array/inline suites: all pass</li><li><code>go test</code>, <code>gofmt</code>, and <code>go vet</code>: pass</li></ul>
+<p>BLOCKERS:</p>
+<ul><li>None</li></ul></article>
+</main>
+</body>
+</html>

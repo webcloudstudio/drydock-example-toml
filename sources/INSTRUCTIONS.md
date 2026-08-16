@@ -46,9 +46,11 @@ repair.
 
 ## Interface Contract
 
-The program is a filter: read TOML from **stdin**, write tagged JSON to
-**stdout**, exit `0`. On invalid TOML, write a diagnostic to **stderr** and exit
-non-zero. No arguments, no config, no side effects.
+The program is a filter: read TOML from **stdin**, write tagged JSON to **stdout**, exit `0`. 
+
+On invalid TOML, write a diagnostic to **stderr** and exit non-zero. 
+
+The program takes no arguments, reads no configuration files, and produces no side effects.
 
 Minimal shape (`cmd/toml-decoder/main.go`):
 
