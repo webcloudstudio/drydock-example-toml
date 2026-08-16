@@ -1,4 +1,0 @@
-{"type":"thread.started","thread_id":"01a00811-e0ff-7182-8bcf-44d7ab901766"}
-{"type":"turn.started"}
-{"type":"item.completed","item":{"id":"item_0","type":"agent_message","text":"<requirement name=\"build-decoder\" stories=\"architecture\">\nbuild the decoder\n</requirement>\n<requirement name=\"run-authoritative-stage-suite\" stories=\"conformance\">\nRuns one slice of the authoritative suite.\n</requirement>\n<unattached story=\"decoder-contract\"/>\n<unattached story=\"parser-strings\"/>\n<unattached story=\"parser-lexical-scalars\"/>\n<unattached story=\"parser-lexical-boundaries\"/>\n<unattached story=\"parser-keys\"/>\n<unattached story=\"parser-tables\"/>\n<unattached story=\"parser-arrays-inline\"/>\n<unattached story=\"parser-datetimes\"/>"}}
-{"type":"turn.completed","usage":{"input_tokens":12801,"cached_input_tokens":8960,"cache_write_input_tokens":0,"output_tokens":631,"reasoning_output_tokens":497}}

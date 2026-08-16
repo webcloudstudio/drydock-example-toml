@@ -1,1 +1,0 @@
-{"criteria":[{"id":"st-001","verdict":"MET","rationale":"The governed full gate passed with exit code 0.","evidence":["sh sources/full_test.sh: return code 0","toml-test: 205 valid tests and 474 invalid tests passed"]}],"improvements":["Review the reported uncommitted changes before release."]}

@@ -1,4 +1,0 @@
-error: acceptance verification failed for toml: 1 of 29 criteria
-  decoder-no-arguments  decoder-contract  FEATURE-Decoder-Contract.md
-    assertion: assert result.returncode != 0 → AssertionError
-    process exit code: 1

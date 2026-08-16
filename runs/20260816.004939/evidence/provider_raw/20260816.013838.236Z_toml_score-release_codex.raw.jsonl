@@ -1,4 +1,0 @@
-{"type":"thread.started","thread_id":"01a00838-8b88-74a2-a4a5-b9686129657d"}
-{"type":"turn.started"}
-{"type":"item.completed","item":{"id":"item_0","type":"agent_message","text":"{\"criteria\":[{\"id\":\"st-001\",\"verdict\":\"MET\",\"rationale\":\"The governed full gate exited zero and reported all 205 valid and 474 invalid tests passed.\",\"evidence\":[\"sh sources/full_test.sh returned code 0\",\"governed gate stdout: valid tests 205 passed, invalid tests 474 passed\"]}],\"improvements\":[]}"}}
-{"type":"turn.completed","usage":{"input_tokens":13264,"cached_input_tokens":0,"cache_write_input_tokens":0,"output_tokens":123,"reasoning_output_tokens":43}}

@@ -1,4 +1,0 @@
-2026-08-14T05:59:01.101427Z ERROR codex_core::tools::router: error=exec_command failed for `/bin/bash -lc 'rm -f /tmp/toml-order-out /tmp/toml-order-err
-git diff -- internal/toml/decode.go internal/toml/value_test.go
-git status --short
-go test -race ./...'`: CreateProcess { message: "Rejected(\"`/bin/bash -lc 'rm -f /tmp/toml-order-out /tmp/toml-order-err\\ngit diff -- internal/toml/decode.go internal/toml/value_test.go\\ngit status --short\\ngo test -race ./...'` rejected: rm -f style commands are not permitted. Use a safer approach\")" }

@@ -1,1 +1,0 @@
-{"criteria":[{"id":"st-001","verdict":"MET","rationale":"The supplied scoring script exited zero with all 205 valid and 474 invalid tests passing.","evidence":["sh sources/full_test.sh returned code 0","toml-test reported 205 valid tests passed and 474 invalid tests passed"]}],"improvements":[]}

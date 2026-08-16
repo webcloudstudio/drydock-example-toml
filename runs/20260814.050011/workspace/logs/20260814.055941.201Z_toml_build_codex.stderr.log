@@ -1,3 +1,0 @@
-2026-08-14T06:00:44.898717Z ERROR codex_core::tools::router: error=apply_patch verification failed: Failed to find expected lines in /mnt/c/Users/barlo/projects/drydock/uat/Toml/runs/20260814.050011/build/toml/internal/toml/decode.go:
-func validInteger(s string) bool {
-	unsigned := strings.TrimPrefix(strings.TrimPrefix(s, "+"), "-")

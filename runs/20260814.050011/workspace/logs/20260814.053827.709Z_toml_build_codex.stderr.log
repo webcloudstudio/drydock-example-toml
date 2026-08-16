@@ -1,7 +1,0 @@
-2026-08-14T05:40:58.715523Z ERROR codex_core::tools::router: error=apply_patch verification failed: Failed to find expected lines in /mnt/c/Users/barlo/projects/drydock/uat/Toml/runs/20260814.050011/build/toml/internal/toml/decode.go:
-		if strings.HasPrefix(line, "[[") && strings.HasSuffix(line, "]]" ) {
-			path, err := parseKey(line[2 : len(line)-2])
-2026-08-14T05:41:04.311569Z ERROR codex_core::tools::router: error=apply_patch verification failed: Failed to find expected lines in /mnt/c/Users/barlo/projects/drydock/uat/Toml/runs/20260814.050011/build/toml/internal/toml/decode.go:
-		if strings.HasPrefix(line, "[[") && strings.HasSuffix(line, "]]" ) {
-2026-08-14T05:41:07.683975Z ERROR codex_core::tools::router: error=apply_patch verification failed: Failed to find expected lines in /mnt/c/Users/barlo/projects/drydock/uat/Toml/runs/20260814.050011/build/toml/internal/toml/decode.go:
-		if strings.HasPrefix(line, "[[") && strings.HasSuffix(line, "]]" ) {

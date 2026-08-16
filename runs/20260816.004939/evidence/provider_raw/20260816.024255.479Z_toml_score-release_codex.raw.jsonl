@@ -1,4 +1,0 @@
-{"type":"thread.started","thread_id":"01a00873-696a-7b80-8186-3c2c045bd0fa"}
-{"type":"turn.started"}
-{"type":"item.completed","item":{"id":"item_0","type":"agent_message","text":"{\"criteria\":[{\"id\":\"st-001\",\"verdict\":\"MET\",\"rationale\":\"The governed full scoring script exited zero and reported all valid and invalid tests passed.\",\"evidence\":[\"sources/full_test.sh: governed gate returned code 0\",\"toml-test: 205 valid tests passed and 474 invalid tests passed\"],\"next_step\":\"\"}],\"improvements\":[]}"}}
-{"type":"turn.completed","usage":{"input_tokens":13356,"cached_input_tokens":8960,"cache_write_input_tokens":0,"output_tokens":132,"reasoning_output_tokens":50}}

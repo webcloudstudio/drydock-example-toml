@@ -1,4 +1,0 @@
-{"type":"thread.started","thread_id":"01a0031f-a128-7563-afc3-f16c7f1cd8b4"}
-{"type":"turn.started"}
-{"type":"item.completed","item":{"id":"item_0","type":"agent_message","text":"<requirement name=\"pin-conformance-version\" stories=\"conformance\">\nThe version setup_harness.sh installs. run_conformance.sh refuses a different one, so a passing verdict names a specific exam rather than whichever harness was on PATH.\n</requirement>\n<requirement name=\"build-and-run-conformance\" stories=\"architecture,decoder-contract,parser-strings,parser-lexical-scalars,parser-lexical-boundaries,parser-keys,parser-tables,parser-datetimes,parser-arrays-inline,conformance\">\ngo build -o toml-decoder ./cmd/toml-decoder\nDECODER=\"$PWD/toml-decoder\" exec sh sources/run_conformance.sh\n</requirement>"}}
-{"type":"turn.completed","usage":{"input_tokens":13054,"cached_input_tokens":8960,"cache_write_input_tokens":0,"output_tokens":669,"reasoning_output_tokens":516}}
