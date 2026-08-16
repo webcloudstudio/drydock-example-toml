@@ -11,20 +11,20 @@
 | Target completion check passed | PASS | drydock status toml --check exited 0. | [evidence/commands/11-initial-complete.stdout.log](evidence/commands/11-initial-complete.stdout.log) |
 | Acceptance score passed | FAIL | drydock score acceptance exited 1. | [evidence/commands/16-score-acceptance.stdout.log](evidence/commands/16-score-acceptance.stdout.log) |
 | Release score passed | PASS | drydock score release exited 0. | [evidence/commands/18-score-release.stdout.log](evidence/commands/18-score-release.stdout.log) |
-| Integrity verification passed | PASS | 332 files digested; verify with sha256sum -c SHA256SUMS. | [SHA256SUMS](SHA256SUMS) |
+| Integrity verification passed | PASS | 344 files digested; verify with sha256sum -c SHA256SUMS. | [SHA256SUMS](SHA256SUMS) |
 
 ## Run facts
 
-- Drydock: `0.1.8` (commit `35c5ec72ea0aac8c772a0a3b989dafb575352311`)
+- Drydock: `0.1.8` (commit `3f2d0d7fa06faa2e89efcfd9139ce10daa74b1c4`)
 - Provider and model: `codex` / `gpt-5.6-luna`
 - Platform: `Linux-6.6.87.2-microsoft-standard-WSL2-x86_64-with-glibc2.35` on Python `3.12.13`
 - Target: `toml`
 - Run: `20260816.004939`
-- Ran: 2026-08-15 22:41:46 EDT — 2026-08-15 22:43:09 EDT
-- Elapsed: 82.7s
-- LLM calls: 26
-- Tokens: cached 10,474,752; uncached 816,636; output 110,858
-- LLM elapsed: 2701.3s
+- Ran: 2026-08-15 23:26:00 EDT — 2026-08-15 23:27:29 EDT
+- Elapsed: 89.5s
+- LLM calls: 27
+- Tokens: cached 10,483,712; uncached 820,937; output 110,979
+- LLM elapsed: 2709.5s
 - Build passes: 1; repairs: 6 attempts allowed
 - Conformance: passed
 - Verdict: expected PASSED, observed PASSED
@@ -60,9 +60,9 @@
 | 13-after-initial-build-target-status | `/mnt/c/Users/barlo/projects/drydock/.venv/bin/python3 -m drydock status toml` | 0 | 0.6s | [stdout](evidence/commands/13-after-initial-build-target-status.stdout.log) · [stderr](evidence/commands/13-after-initial-build-target-status.stderr.log) |
 | 14-after-initial-build-workspace-status | `/mnt/c/Users/barlo/projects/drydock/.venv/bin/python3 -m drydock status` | 0 | 0.3s | [stdout](evidence/commands/14-after-initial-build-workspace-status.stdout.log) · [stderr](evidence/commands/14-after-initial-build-workspace-status.stderr.log) |
 | 15-test | `sh sources/full_test.sh` | 0 | 2.9s | [stdout](evidence/commands/15-test.stdout.log) · [stderr](evidence/commands/15-test.stderr.log) |
-| 16-score-acceptance | `/mnt/c/Users/barlo/projects/drydock/.venv/bin/python -m drydock score ac toml` | 1 | 61.3s | [stdout](evidence/commands/16-score-acceptance.stdout.log) · [stderr](evidence/commands/16-score-acceptance.stderr.log) |
-| 17-score-build-report | `/mnt/c/Users/barlo/projects/drydock/.venv/bin/python -m drydock score build toml` | 0 | 0.6s | [stdout](evidence/commands/17-score-build-report.stdout.log) · [stderr](evidence/commands/17-score-build-report.stderr.log) |
-| 18-score-release | `/mnt/c/Users/barlo/projects/drydock/.venv/bin/python -m drydock score release toml` | 0 | 15.6s | [stdout](evidence/commands/18-score-release.stdout.log) · [stderr](evidence/commands/18-score-release.stderr.log) · [llm](evidence/llm_logs/20260816.024255.479Z_toml_score-release_codex.llm.log) |
+| 16-score-acceptance | `/mnt/c/Users/barlo/projects/drydock/.venv/bin/python -m drydock score ac toml` | 1 | 62.4s | [stdout](evidence/commands/16-score-acceptance.stdout.log) · [stderr](evidence/commands/16-score-acceptance.stderr.log) |
+| 17-score-build-report | `/mnt/c/Users/barlo/projects/drydock/.venv/bin/python -m drydock score build toml` | 0 | 0.5s | [stdout](evidence/commands/17-score-build-report.stdout.log) · [stderr](evidence/commands/17-score-build-report.stderr.log) |
+| 18-score-release | `/mnt/c/Users/barlo/projects/drydock/.venv/bin/python -m drydock score release toml` | 0 | 15.0s | [stdout](evidence/commands/18-score-release.stdout.log) · [stderr](evidence/commands/18-score-release.stderr.log) · [llm](evidence/llm_logs/20260816.032708.567Z_toml_score-release_codex.llm.log) |
 
 ## Evidence
 

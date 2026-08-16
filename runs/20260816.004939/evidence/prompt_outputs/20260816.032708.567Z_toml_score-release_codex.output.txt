@@ -1,0 +1,1 @@
+{"criteria":[{"id":"st-001","verdict":"MET","rationale":"The governed full test passed with exit code 0.","evidence":["sh sources/full_test.sh returned 0","toml-test reported 205 valid tests and 474 invalid tests passed"]}],"improvements":[]}

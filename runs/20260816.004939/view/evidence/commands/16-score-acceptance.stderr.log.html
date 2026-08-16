@@ -14,6 +14,8 @@
     assertion: assert result.returncode != 0 → AssertionError
     raised at: decoder-no-arguments.py:13
     process exit code: 1
+    values at failure:
+      result = CompletedProcess(args=[&#x27;./toml-decoder&#x27;, &#x27;--unsupported&#x27;], returncode=0, stdout=&#x27;{&quot;answer&quot;:{&quot;type&quot;:&quot;integer&quot;,&quot;value&quot;:&quot;42&quot;}}\n&#x27;, stderr=&#x27;&#x27;)
     criterion code:
          1 | import subprocess
          2 |

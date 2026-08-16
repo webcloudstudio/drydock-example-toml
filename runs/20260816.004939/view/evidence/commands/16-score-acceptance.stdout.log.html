@@ -13,10 +13,8 @@
 Target - setup project workspace git store
 Target - committed project workspace git store
 
-Acceptance verification: toml  (2026-08-16T02:41:48+00:00)
+Acceptance verification: toml  (2026-08-16T03:26:02+00:00)
   PASS 14   FAIL 1   UNVERIFIED 0   PREPASSED 14   (29 AC)
-  14 criterion(s) were green before their block built. Either they do not exercise the story&#x27;s work,
-  or the deliverable already existed. Not counted as proven; the build is not blocked on them.
 
   ✓ PASS        architecture-module                 architecture               ARCHITECTURE.md
   ✓ PASS        architecture-boundary               architecture               ARCHITECTURE.md
@@ -27,6 +25,8 @@ Acceptance verification: toml  (2026-08-16T02:41:48+00:00)
         assertion: assert result.returncode != 0 → AssertionError
         raised at: decoder-no-arguments.py:13
         process exit code: 1
+        values at failure:
+          result = CompletedProcess(args=[&#x27;./toml-decoder&#x27;, &#x27;--unsupported&#x27;], returncode=0, stdout=&#x27;{&quot;answer&quot;:{&quot;type&quot;:&quot;integer&quot;,&quot;value&quot;:&quot;42&quot;}}\n&#x27;, stderr=&#x27;&#x27;)
         criterion code:
              1 | import subprocess
              2 |
@@ -114,6 +114,38 @@ Acceptance verification: toml  (2026-08-16T02:41:48+00:00)
         intent: The decoder builds successfully through the same Go command used by the scoring harness.
         green at this block&#x27;s baseline too, before its code existed — confirm the criterion exercises the story&#x27;s work
 
+
+  Proof coverage: 14 of 29 criteria are proof — green here, and observed red before the work that turned them green.
+    14 are not. Each names a story whose acceptance did not test it.
+
+    PREPASSED  parser-strings-invalid  parser-strings  FEATURE-Parser-Strings.md
+               green before its block built
+    PREPASSED  parser-scalars-valid  parser-lexical-scalars  FEATURE-Parser-Lexical-Scalars.md
+               green before its block built
+    PREPASSED  parser-scalars-invalid  parser-lexical-scalars  FEATURE-Parser-Lexical-Scalars.md
+               green before its block built
+    PREPASSED  parser-scalars-integer-contract  parser-lexical-scalars  FEATURE-Parser-Lexical-Scalars.md
+               green before its block built
+    PREPASSED  parser-keys-conformance  parser-keys  FEATURE-Parser-Keys.md
+               green before its block built
+    PREPASSED  parser-keys-duplicate  parser-keys  FEATURE-Parser-Keys.md
+               green before its block built
+    PREPASSED  parser-tables-conformance  parser-tables  FEATURE-Parser-Tables.md
+               green before its block built
+    PREPASSED  parser-tables-array-conflict  parser-tables  FEATURE-Parser-Tables.md
+               green before its block built
+    PREPASSED  parser-arrays-inline-conformance  parser-arrays-inline  FEATURE-Parser-Arrays-Inline.md
+               green before its block built
+    PREPASSED  parser-arrays-trailing-comma  parser-arrays-inline  FEATURE-Parser-Arrays-Inline.md
+               green before its block built
+    PREPASSED  parser-datetimes-conformance  parser-datetimes  FEATURE-Parser-Datetimes.md
+               green before its block built
+    PREPASSED  parser-datetimes-types  parser-datetimes  FEATURE-Parser-Datetimes.md
+               green before its block built
+    PREPASSED  conformance-harness-integrity  conformance  FEATURE-Conformance.md
+               green before its block built
+    PREPASSED  conformance-decoder-build  conformance  FEATURE-Conformance.md
+               green before its block built
 
 Soundings: /mnt/c/Users/barlo/projects/drydock/uat/Toml/runs/20260816.004939/workspace/targets/toml/SOUNDINGS.md
 Target - committed project workspace git store

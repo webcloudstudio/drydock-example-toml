@@ -293,7 +293,7 @@
         "toml"
       ],
       "cwd": "workspace",
-      "elapsed_ms": 61308,
+      "elapsed_ms": 62388,
       "label": "16-score-acceptance",
       "llm_executions": [],
       "returncode": 1,
@@ -310,7 +310,7 @@
         "toml"
       ],
       "cwd": "workspace",
-      "elapsed_ms": 570,
+      "elapsed_ms": 530,
       "label": "17-score-build-report",
       "llm_executions": [],
       "returncode": 0,
@@ -327,10 +327,10 @@
         "toml"
       ],
       "cwd": "workspace",
-      "elapsed_ms": 15604,
+      "elapsed_ms": 15022,
       "label": "18-score-release",
       "llm_executions": [
-        "20260816.024255.479Z-d6416f97"
+        "20260816.032708.567Z-4e5bc0e4"
       ],
       "returncode": 0,
       "stderr_path": "evidence/commands/18-score-release.stderr.log",
@@ -338,17 +338,17 @@
     }
   ],
   "degraded": [],
-  "elapsed_ms": 82660,
+  "elapsed_ms": 89547,
   "environment": {
     "drydock_version": "0.1.8",
     "effort": "",
-    "finished_at": "2026-08-16T02:43:09.362158Z",
-    "git_commit": "35c5ec72ea0aac8c772a0a3b989dafb575352311",
+    "finished_at": "2026-08-16T03:27:29.992916Z",
+    "git_commit": "3f2d0d7fa06faa2e89efcfd9139ce10daa74b1c4",
     "model": "gpt-5.6-luna",
     "platform": "Linux-6.6.87.2-microsoft-standard-WSL2-x86_64-with-glibc2.35",
     "provider": "codex",
     "python_version": "3.12.13",
-    "started_at": "2026-08-16T02:41:46.655164Z"
+    "started_at": "2026-08-16T03:26:00.297754Z"
   },
   "error": "",
   "evidence_dir": "evidence",
@@ -367,12 +367,12 @@
   "status": "passed",
   "target": "toml",
   "usage": {
-    "cached_input_tokens": 10474752,
-    "calls": 26,
-    "fresh_input_tokens": 816636,
-    "input_tokens": 11291388,
+    "cached_input_tokens": 10483712,
+    "calls": 27,
+    "fresh_input_tokens": 820937,
+    "input_tokens": 11304649,
     "invalid_records": 0,
-    "llm_elapsed_ms": 2701270,
-    "output_tokens": 110858
+    "llm_elapsed_ms": 2709542,
+    "output_tokens": 110979
   }
 }

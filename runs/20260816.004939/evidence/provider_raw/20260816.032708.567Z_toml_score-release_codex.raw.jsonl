@@ -1,0 +1,4 @@
+{"type":"thread.started","thread_id":"01a0089b-e687-70e0-8181-b29bcfa4e3d1"}
+{"type":"turn.started"}
+{"type":"item.completed","item":{"id":"item_0","type":"agent_message","text":"{\"criteria\":[{\"id\":\"st-001\",\"verdict\":\"MET\",\"rationale\":\"The governed full test passed with exit code 0.\",\"evidence\":[\"sh sources/full_test.sh returned 0\",\"toml-test reported 205 valid tests and 474 invalid tests passed\"]}],\"improvements\":[]}"}}
+{"type":"turn.completed","usage":{"input_tokens":13261,"cached_input_tokens":8960,"cache_write_input_tokens":0,"output_tokens":121,"reasoning_output_tokens":53}}

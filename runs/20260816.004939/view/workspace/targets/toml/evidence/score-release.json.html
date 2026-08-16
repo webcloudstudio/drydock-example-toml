@@ -11,11 +11,11 @@
 <header class="fileheader"><div class="kind">Run artifact</div><h1>workspace/targets/toml/evidence/score-release.json</h1><div class="filenav"><a href="../../../../../index.html">&larr; Report</a><a href="../../../../../workspace/targets/toml/evidence/score-release.json">Raw file</a></div></header>
 <article class="doc"><pre>{
   &quot;schema_version&quot;: 5,
-  &quot;recorded_at&quot;: &quot;2026-08-16T02:43:02+00:00&quot;,
+  &quot;recorded_at&quot;: &quot;2026-08-16T03:27:17+00:00&quot;,
   &quot;target&quot;: &quot;toml&quot;,
   &quot;verdict&quot;: &quot;PASSED&quot;,
   &quot;verdict_line&quot;: &quot;toml: PASSED \u2014 1 of 1&quot;,
-  &quot;statement&quot;: &quot;toml: PASSED \u2014 1 of 1\n\n  st-001  MET       sources/full_test.sh: governed gate returned code 0; toml-test: 205 valid tests passed and 474 invalid tests passed\n  reported: Build directory has uncommitted changes&quot;,
+  &quot;statement&quot;: &quot;toml: PASSED \u2014 1 of 1\n\n  st-001  MET       sh sources/full_test.sh returned 0; toml-test reported 205 valid tests and 474 invalid tests passed\n  reported: Build directory has uncommitted changes&quot;,
   &quot;complete&quot;: true,
   &quot;governed_gate&quot;: {
     &quot;name&quot;: &quot;full&quot;,
@@ -25,10 +25,10 @@
       &quot;sources/full_test.sh&quot;
     ],
     &quot;return_code&quot;: 0,
-    &quot;duration_ms&quot;: 3863,
+    &quot;duration_ms&quot;: 3011,
     &quot;detail&quot;: &quot;&quot;,
     &quot;timed_out&quot;: false,
-    &quot;build_identity&quot;: &quot;8f1a00a541c7130c&quot;,
+    &quot;build_identity&quot;: &quot;ba1905fe4b3f3419&quot;,
     &quot;stdout&quot;: &quot;toml-test v2.2.0 [/mnt/c/Users/barlo/projects/drydock/uat/Toml/runs/20260816.004939/build/toml/toml-decoder] [no encoder]\n  valid tests: 205 passed,  0 failed\nencoder tests: no encoder command given\ninvalid tests: 474 passed,  0 failed\n&quot;,
     &quot;stderr&quot;: &quot;harness: /home/barlo/.local/bin/toml-test toml-test v2.2.0; go1.24.6 linux/amd64; race=false; cgo=true\n&quot;
   },
@@ -36,10 +36,10 @@
     {
       &quot;criterion_id&quot;: &quot;st-001&quot;,
       &quot;verdict&quot;: &quot;MET&quot;,
-      &quot;rationale&quot;: &quot;The governed full scoring script exited zero and reported all valid and invalid tests passed.&quot;,
+      &quot;rationale&quot;: &quot;The governed full test passed with exit code 0.&quot;,
       &quot;evidence&quot;: [
-        &quot;sources/full_test.sh: governed gate returned code 0&quot;,
-        &quot;toml-test: 205 valid tests passed and 474 invalid tests passed&quot;
+        &quot;sh sources/full_test.sh returned 0&quot;,
+        &quot;toml-test reported 205 valid tests and 474 invalid tests passed&quot;
       ]
     }
   ],
@@ -53,7 +53,7 @@
   ],
   &quot;improvements&quot;: [],
   &quot;identities&quot;: {
-    &quot;code&quot;: &quot;45074b80ef9a6aa57e99729354888025ad180a98&quot;,
+    &quot;code&quot;: &quot;f55abbd07438c6f09ac810c0f7b59952076076f9&quot;,
     &quot;sea_trials&quot;: &quot;30b259abc2d3688f5186ceaae44c6fcba1c044dc48d139e573917222ba90b90a&quot;,
     &quot;blueprint&quot;: {
       &quot;ARCHITECTURE.md&quot;: &quot;196feb56a8e9381d5fafe9f6400ca9200bdf6ea9cf0c3e1f2f937f542af805cb&quot;,
@@ -70,7 +70,7 @@
       &quot;stage_test_compact.md&quot;: &quot;f5b369934c66c50e73af31a2a86a5c8ab77faeeaa8c7125293839f607fe5d210&quot;
     }
   },
-  &quot;execution_id&quot;: &quot;20260816.024255.479Z-d6416f97&quot;
+  &quot;execution_id&quot;: &quot;20260816.032708.567Z-4e5bc0e4&quot;
 }
 </pre></article>
 </main>
