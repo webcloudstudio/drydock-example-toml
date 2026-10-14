@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>evidence/prompt_outputs/20261014.125538.882Z_toml_build_claude.output.txt</title>
+<link rel="stylesheet" href="../../../assets/kit.css">
+</head>
+<body>
+<main>
+<header class="fileheader"><div class="kind">Run artifact</div><h1>evidence/prompt_outputs/20261014.125538.882Z_toml_build_claude.output.txt</h1><div class="filenav"><a href="../../../index.html">&larr; Report</a><a href="../../../evidence/prompt_outputs/20261014.125538.882Z_toml_build_claude.output.txt">Raw file</a></div></header>
+<article class="doc"><pre>The build directory holds only the staged `sources/` and a git repo, with Go 1.24.6 available. I&#x27;ll create the module, the command, and the stub package, then write tests that build and run the binary and read back its output.Next, the tests. Each one acts on the system and reads the state back. Binary builds go to `t.TempDir()` so nothing is left in the build directory.Everything passes. Source tree is untouched (`sources/` does not appear in status).
+
+&lt;reusable-compact filename=&quot;ARCHITECTURE.md&quot;&gt;
+Module: github.com/owner/toml-decoder (go 1.22, no require directives, stdlib only).
+Packages:
+- cmd/toml-decoder (package main): reads stdin, calls toml.Decode, JSON-encodes result to stdout; errors to stderr, exit 1. No args, no config, no side effects.
+- internal/toml: Decode(r io.Reader) (map[string]any, error); ErrNotImplemented sentinel (stub in this block).
+Constraints: no third-party TOML modules; malformed input exits non-zero; scoring assets under sources/ are read-only.
+&lt;/reusable-compact&gt;
+
+&lt;blueprint-decisions&gt;
+[{&quot;spec&quot;:&quot;ARCHITECTURE.md&quot;,&quot;severity&quot;:&quot;Low&quot;,&quot;subject&quot;:&quot;Stub Decode signature&quot;,&quot;decision&quot;:&quot;Decode returns (map[string]any, error) and always returns ErrNotImplemented, so the command&#x27;s JSON encoding path is wired and testable before the parser exists. The tagged-value model will replace map[string]any in a later block. Is that acceptable, or should the stub use a different shape?&quot;}]
+&lt;/blueprint-decisions&gt;
+
+RESULT: SUCCESS
+
+FILES CHANGED:
+- go.mod
+- cmd/toml-decoder/main.go
+- cmd/toml-decoder/main_test.go
+- internal/toml/toml.go
+- internal/toml/toml_test.go
+
+SUMMARY:
+- `go.mod` declares `github.com/owner/toml-decoder` with `go 1.22` and no `require` directives.
+- `cmd/toml-decoder/main.go` is a `package main` that reads stdin, calls `toml.Decode`, JSON-encodes the result to stdout, and writes errors to stderr with exit 1.
+- `internal/toml/toml.go` is a stub `Decode` returning `ErrNotImplemented`, so the module builds on the standard library alone.
+- Tests cover the three declared acceptance assertions: go.mod has no `require` and names the module, `main.go` is `package main` and `internal/toml` exists, and `go build ./cmd/toml-decoder` succeeds. Extra tests check the stub&#x27;s error path, `run`&#x27;s stdout on failure, and that the built binary exits non-zero with empty stdout and a stderr diagnostic. Binaries are built into `t.TempDir()`, so nothing is left in the build directory.
+- Verification: `gofmt -l .` prints nothing, `go vet` and `go build ./...` pass, and `go test -race -cover ./...` passes (all 5 command tests and 1 stub test green; coverage 42.9% for the command, 100% for `internal/toml`).
+- I did not run the staged `sources/` conformance scripts; this block&#x27;s criteria do not invoke them, and `sources/` is unmodified.
+- The Python acceptance snippets from ARCHITECTURE.md were not executed literally. Their equivalent checks are in the Go tests above.
+
+BLOCKERS:
+- None.</pre></article>
+</main>
+</body>
+</html>

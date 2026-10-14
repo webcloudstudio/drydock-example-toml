@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>workspace/targets/toml/blueprint/FEATURE-Parser-Lexical-Boundaries.md</title>
+<link rel="stylesheet" href="../../../../../assets/kit.css">
+</head>
+<body>
+<main>
+<header class="fileheader"><div class="kind">Run artifact</div><h1>workspace/targets/toml/blueprint/FEATURE-Parser-Lexical-Boundaries.md</h1><div class="filenav"><a href="../../../../../index.html">&larr; Report</a><a href="../../../../../workspace/targets/toml/blueprint/FEATURE-Parser-Lexical-Boundaries.md">Raw file</a></div></header>
+<article class="doc"><h1>FEATURE: Parser Lexical Boundaries</h1>
+<div class="scroll"><table><thead><tr><th>Field</th><th>Value</th></tr></thead><tbody><tr><td>Version</td><td>20261014 V1</td></tr><tr><td>Description</td><td>Comment syntax, forbidden control characters, and UTF-8 validity of TOML input.</td></tr><tr><td>Depends On</td><td>ARCHITECTURE.md, FEATURE-Parser-Strings.md, FEATURE-Parser-Lexical-Scalars.md</td></tr><tr><td>Provides</td><td>comment handling and control-character and UTF-8 validation</td></tr><tr><td>Consumes</td><td>None</td></tr></tbody></table></div>
+<h2>Purpose</h2>
+<p>A hash begins a comment that runs to end of line, except inside a string. Control characters other than tab are rejected in comments and literal strings. Input that is not valid UTF-8 is rejected.</p>
+<h2>Programmatic Acceptance</h2>
+<p>=== AC boundaries-comment-round-trip ===<br>Intent: A trailing comment is ignored and the value before it decodes normally.<br>Requires: executable=go; scope=test</p>
+<p>import json import subprocess import sys</p>
+<p>build = subprocess.run( [&quot;go&quot;, &quot;build&quot;, &quot;-o&quot;, &quot;toml-decoder&quot;, &quot;./cmd/toml-decoder&quot;], capture_output=True, text=True, ) print(build.stderr, file=sys.stderr) assert build.returncode == 0</p>
+<p>key = &quot;n&quot; value = &quot;1&quot; note = &quot;note&quot; source = f&quot;{key} = {value} # {note}\n&quot; result = subprocess.run([&quot;./toml-decoder&quot;], input=source, capture_output=True, text=True) print(result.stderr, file=sys.stderr) assert result.returncode == 0 decoded = json.loads(result.stdout) assert decoded == {key: {&quot;type&quot;: &quot;integer&quot;, &quot;value&quot;: value}} === END AC boundaries-comment-round-trip ===</p>
+<p>=== AC boundaries-control-in-comment ===<br>Intent: A control character in a comment is rejected with a non-zero exit.<br>Requires: executable=go; scope=test</p>
+<p>import subprocess import sys</p>
+<p>build = subprocess.run( [&quot;go&quot;, &quot;build&quot;, &quot;-o&quot;, &quot;toml-decoder&quot;, &quot;./cmd/toml-decoder&quot;], capture_output=True, text=True, ) print(build.stderr, file=sys.stderr) assert build.returncode == 0</p>
+<p>control = chr(1) source = f&quot;# {control}\nn = 1\n&quot; result = subprocess.run([&quot;./toml-decoder&quot;], input=source, capture_output=True, text=True) print(result.stderr, file=sys.stderr) assert result.returncode != 0 assert result.stdout == &quot;&quot; === END AC boundaries-control-in-comment ===</p>
+<p>=== AC boundaries-invalid-utf8 ===<br>Intent: Input that is not valid UTF-8 is rejected with a non-zero exit.<br>Requires: executable=go; scope=test</p>
+<p>import subprocess import sys</p>
+<p>build = subprocess.run( [&quot;go&quot;, &quot;build&quot;, &quot;-o&quot;, &quot;toml-decoder&quot;, &quot;./cmd/toml-decoder&quot;], capture_output=True, text=True, ) print(build.stderr, file=sys.stderr) assert build.returncode == 0</p>
+<p>result = subprocess.run([&quot;./toml-decoder&quot;], input=b&quot;\xff&quot;, capture_output=True) print(result.stderr, file=sys.stderr) assert result.returncode != 0 === END AC boundaries-invalid-utf8 ===</p>
+<p>=== AC boundaries-suite-slice ===<br>Intent: The toml-test comment, control, and encoding slices execute and every case passes.<br>Suite: scoped<br>Requires: executable=sh; scope=test<br>Requires: executable=go; scope=test<br>Requires: executable=toml-test; scope=test</p>
+<p>import subprocess import sys</p>
+<p>pattern = &quot;valid/comment/<strong>|invalid/control/</strong>|invalid/encoding/**&quot; result = subprocess.run( [&quot;sh&quot;, &quot;sources/stage_test.sh&quot;, pattern], capture_output=True, text=True, ) print(result.stdout) print(result.stderr, file=sys.stderr) assert result.returncode == 0 === END AC boundaries-suite-slice ===</p>
+<h2>User Acceptance</h2>
+<ul><li>None.</li></ul>
+<h2>Guardrails</h2>
+<ul><li>Control characters other than tab are rejected in comments and literal strings.</li><li>Invalid UTF-8 input is never decoded partially.</li></ul></article>
+</main>
+</body>
+</html>

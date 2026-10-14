@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>workspace/targets/toml/blueprint/FEATURE-Parser-Lexical-Scalars.md</title>
+<link rel="stylesheet" href="../../../../../assets/kit.css">
+</head>
+<body>
+<main>
+<header class="fileheader"><div class="kind">Run artifact</div><h1>workspace/targets/toml/blueprint/FEATURE-Parser-Lexical-Scalars.md</h1><div class="filenav"><a href="../../../../../index.html">&larr; Report</a><a href="../../../../../workspace/targets/toml/blueprint/FEATURE-Parser-Lexical-Scalars.md">Raw file</a></div></header>
+<article class="doc"><h1>FEATURE: Parser Lexical Scalars</h1>
+<div class="scroll"><table><thead><tr><th>Field</th><th>Value</th></tr></thead><tbody><tr><td>Version</td><td>20261014 V1</td></tr><tr><td>Description</td><td>Decoding of booleans, integers, and floats, with range and form rules from the specification.</td></tr><tr><td>Depends On</td><td>ARCHITECTURE.md</td></tr><tr><td>Provides</td><td>boolean, integer, and float decoding in internal/toml</td></tr><tr><td>Consumes</td><td>None</td></tr></tbody></table></div>
+<h2>Purpose</h2>
+<p>Decode booleans, decimal and prefixed integers (<code>0x</code>, <code>0o</code>, <code>0b</code>) with underscores, and floats with fractional and exponent parts, plus the special floats <code>inf</code>, <code>nan</code>, and their signed forms. Integers must fit signed 64-bit and are rejected otherwise.</p>
+<h2>Programmatic Acceptance</h2>
+<p>=== AC scalars-integer-round-trip ===<br>Intent: The largest signed 64-bit integer decodes losslessly as a tagged integer.<br>Requires: executable=go; scope=test</p>
+<p>import json import subprocess import sys</p>
+<p>build = subprocess.run( [&quot;go&quot;, &quot;build&quot;, &quot;-o&quot;, &quot;toml-decoder&quot;, &quot;./cmd/toml-decoder&quot;], capture_output=True, text=True, ) print(build.stderr, file=sys.stderr) assert build.returncode == 0</p>
+<p>key = &quot;n&quot; number = str(2**63 - 1) source = f&quot;{key} = {number}\n&quot; result = subprocess.run([&quot;./toml-decoder&quot;], input=source, capture_output=True, text=True) print(result.stderr, file=sys.stderr) assert result.returncode == 0 decoded = json.loads(result.stdout) assert decoded == {key: {&quot;type&quot;: &quot;integer&quot;, &quot;value&quot;: number}} === END AC scalars-integer-round-trip ===</p>
+<p>=== AC scalars-integer-overflow ===<br>Intent: An integer one past the signed 64-bit maximum is rejected.<br>Requires: executable=go; scope=test</p>
+<p>import subprocess import sys</p>
+<p>build = subprocess.run( [&quot;go&quot;, &quot;build&quot;, &quot;-o&quot;, &quot;toml-decoder&quot;, &quot;./cmd/toml-decoder&quot;], capture_output=True, text=True, ) print(build.stderr, file=sys.stderr) assert build.returncode == 0</p>
+<p>key = &quot;n&quot; over = str(2**63) source = f&quot;{key} = {over}\n&quot; result = subprocess.run([&quot;./toml-decoder&quot;], input=source, capture_output=True, text=True) print(result.stderr, file=sys.stderr) assert result.returncode != 0 assert result.stdout == &quot;&quot; === END AC scalars-integer-overflow ===</p>
+<p>=== AC scalars-suite-slice ===<br>Intent: The toml-test slices for booleans, integers, and floats execute and every case passes.<br>Suite: scoped<br>Requires: executable=sh; scope=test<br>Requires: executable=go; scope=test<br>Requires: executable=toml-test; scope=test</p>
+<p>import subprocess import sys</p>
+<p>pattern = &quot;valid/bool/<strong>|valid/integer/</strong>|valid/float/<strong>|invalid/bool/</strong>|invalid/integer/<strong>|invalid/float/</strong>&quot; result = subprocess.run( [&quot;sh&quot;, &quot;sources/stage_test.sh&quot;, pattern], capture_output=True, text=True, ) print(result.stdout) print(result.stderr, file=sys.stderr) assert result.returncode == 0 === END AC scalars-suite-slice ===</p>
+<h2>User Acceptance</h2>
+<ul><li>None.</li></ul>
+<h2>Guardrails</h2>
+<ul><li>Integers are never silently rounded or truncated.</li><li>Leading <code>+</code> is not allowed on prefixed integers.</li></ul></article>
+</main>
+</body>
+</html>

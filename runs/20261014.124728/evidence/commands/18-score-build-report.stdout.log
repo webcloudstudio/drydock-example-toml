@@ -1,0 +1,27 @@
+Drydock 0.2.0  Copyright (c) 2026 Web Cloud Studio. All rights reserved.
+
+Build report: toml
+  evidence: /mnt/c/Users/barlo/projects/drydock/uat/Toml/runs/20261014.124728/workspace/targets/toml/evidence
+  usage:    /mnt/c/Users/barlo/projects/drydock/uat/Toml/runs/20261014.124728/workspace/logs/llm.jsonl
+
+  Blueprint acceptance (last `score ac`): PASS 12  FAIL 0  UNVERIFIED 0  PREPASSED 23  (35 AC)
+
+  Block                     Build AC  Calls     Cached  Uncached     Hit   Output     Time
+  ────────────────────────────────────────────────────────────────────────────────────────
+  ✓ Block 1 · Foundational       3/3      1    108,286        10  100.0%    6,514      47s
+  ✓ Block 2 · Service            2/2      1  1,132,833        44  100.0%   43,182   3m 29s
+  ✓ Block 3 · Service            2/2      1    658,828        30  100.0%   24,388   2m 09s
+  ✓ Block 4 · Service            3/3      1    518,232        24  100.0%   17,936   2m 06s
+  ✓ Block 5 · Service            3/3      1  1,372,126        54  100.0%   25,512  11m 28s
+  ✓ Block 6 · Service            3/3      1  1,279,853        44  100.0%   40,174   4m 15s
+  ✓ Block 7 · Service            3/3      1  1,153,323        40  100.0%   41,030   4m 36s
+  ✓ Block 8 · Service            4/4      1    382,596        22  100.0%   10,499   1m 48s
+  ✓ Block 9 · Service            3/3      1    859,076        38  100.0%   23,945   2m 24s
+  ✓ Block 10 · Feature           2/2      1    178,017        14  100.0%    3,247   1m 11s
+  ────────────────────────────────────────────────────────────────────────────────────────
+  TOTAL                        28/28     10  7,643,170       320  100.0%  236,427  34m 18s
+
+  Blocks: 10/10 verified · 10 on first call · 0 repaired
+  Model:  claude-haiku-5-5
+  Tokens: 7,643,170 cached · 320 uncached · 236,427 out
+

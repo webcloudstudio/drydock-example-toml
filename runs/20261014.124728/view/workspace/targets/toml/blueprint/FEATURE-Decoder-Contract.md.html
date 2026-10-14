@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>workspace/targets/toml/blueprint/FEATURE-Decoder-Contract.md</title>
+<link rel="stylesheet" href="../../../../../assets/kit.css">
+</head>
+<body>
+<main>
+<header class="fileheader"><div class="kind">Run artifact</div><h1>workspace/targets/toml/blueprint/FEATURE-Decoder-Contract.md</h1><div class="filenav"><a href="../../../../../index.html">&larr; Report</a><a href="../../../../../workspace/targets/toml/blueprint/FEATURE-Decoder-Contract.md">Raw file</a></div></header>
+<article class="doc"><h1>FEATURE: Decoder Contract</h1>
+<div class="scroll"><table><thead><tr><th>Field</th><th>Value</th></tr></thead><tbody><tr><td>Version</td><td>20261014 V1</td></tr><tr><td>Description</td><td>Stdin-to-tagged-JSON contract, diagnostic stream, and exit status of the decoder command.</td></tr><tr><td>Depends On</td><td>ARCHITECTURE.md, FEATURE-Parser-Keys.md, FEATURE-Parser-Lexical-Scalars.md, FEATURE-Parser-Arrays-Inline.md</td></tr><tr><td>Provides</td><td>toml-decoder stdin/stdout filter contract</td></tr><tr><td>Consumes</td><td>toml.Decode</td></tr></tbody></table></div>
+<h2>Purpose</h2>
+<p>The decoder reads TOML from stdin and writes tagged JSON to stdout with exit status 0. On invalid TOML it writes a diagnostic to stderr, writes nothing to stdout, and exits non-zero. It takes no arguments and reads no configuration.</p>
+<h2>Tagged JSON Encoding</h2>
+<ul><li>Tables encode as JSON objects. Empty tables encode as <code>{}</code>.</li><li>Arrays encode as JSON arrays. Empty arrays encode as <code>[]</code>.</li><li>Every value encodes as <code>{&quot;type&quot;: &quot;&lt;TYPE&gt;&quot;, &quot;value&quot;: &quot;&lt;VALUE&gt;&quot;}</code>, with <code>value</code> always a JSON string.</li><li><code>type</code> is one of <code>string</code>, <code>integer</code>, <code>float</code>, <code>bool</code>, <code>datetime</code>, <code>datetime-local</code>, <code>date-local</code>, <code>time-local</code>.</li></ul>
+<h2>Programmatic Acceptance</h2>
+<p>=== AC decoder-stage-gate ===<br>Intent: The governed decoder gate passes: the decoder decodes a scalar and rejects an unterminated array.<br>Requires: executable=sh; scope=test<br>Requires: executable=go; scope=test<br>Requires: executable=python; scope=test</p>
+<p>import subprocess import sys</p>
+<p>result = subprocess.run( [&quot;sh&quot;, &quot;sources/stage_contract.sh&quot;, &quot;decoder&quot;], capture_output=True, text=True, ) print(result.stdout) print(result.stderr, file=sys.stderr) assert result.returncode == 0 === END AC decoder-stage-gate ===</p>
+<p>=== AC decoder-scalar-round-trip ===<br>Intent: A scalar integer is written to stdout as a tagged value and exit status is zero.<br>Requires: executable=go; scope=test</p>
+<p>import json import subprocess import sys</p>
+<p>build = subprocess.run( [&quot;go&quot;, &quot;build&quot;, &quot;-o&quot;, &quot;toml-decoder&quot;, &quot;./cmd/toml-decoder&quot;], capture_output=True, text=True, ) print(build.stderr, file=sys.stderr) assert build.returncode == 0</p>
+<p>key = &quot;answer&quot; value = &quot;42&quot; source = f&quot;{key} = {value}\n&quot; result = subprocess.run([&quot;./toml-decoder&quot;], input=source, capture_output=True, text=True) print(result.stderr, file=sys.stderr) assert result.returncode == 0 decoded = json.loads(result.stdout) assert decoded == {key: {&quot;type&quot;: &quot;integer&quot;, &quot;value&quot;: value}} === END AC decoder-scalar-round-trip ===</p>
+<p>=== AC decoder-table-round-trip ===<br>Intent: A standard table encodes as a nested JSON object with tagged values.<br>Requires: executable=go; scope=test</p>
+<p>import json import subprocess import sys</p>
+<p>build = subprocess.run( [&quot;go&quot;, &quot;build&quot;, &quot;-o&quot;, &quot;toml-decoder&quot;, &quot;./cmd/toml-decoder&quot;], capture_output=True, text=True, ) print(build.stderr, file=sys.stderr) assert build.returncode == 0</p>
+<p>table = &quot;tbl&quot; key = &quot;a&quot; value = &quot;7&quot; source = f&quot;[{table}]\n{key} = {value}\n&quot; result = subprocess.run([&quot;./toml-decoder&quot;], input=source, capture_output=True, text=True) print(result.stderr, file=sys.stderr) assert result.returncode == 0 decoded = json.loads(result.stdout) assert decoded == {table: {key: {&quot;type&quot;: &quot;integer&quot;, &quot;value&quot;: value}}} === END AC decoder-table-round-trip ===</p>
+<p>=== AC decoder-invalid-exit ===<br>Intent: Malformed TOML exits non-zero, writes nothing to stdout, and writes a diagnostic to stderr.<br>Requires: executable=go; scope=test</p>
+<p>import subprocess import sys</p>
+<p>build = subprocess.run( [&quot;go&quot;, &quot;build&quot;, &quot;-o&quot;, &quot;toml-decoder&quot;, &quot;./cmd/toml-decoder&quot;], capture_output=True, text=True, ) print(build.stderr, file=sys.stderr) assert build.returncode == 0</p>
+<p>source = &quot;answer = [\n&quot; result = subprocess.run([&quot;./toml-decoder&quot;], input=source, capture_output=True, text=True) print(result.stderr, file=sys.stderr) assert result.returncode != 0 assert result.stdout == &quot;&quot; assert result.stderr != &quot;&quot; === END AC decoder-invalid-exit ===</p>
+<h2>User Acceptance</h2>
+<ul><li>None.</li></ul>
+<h2>Guardrails</h2>
+<ul><li>The decoder accepts no command-line arguments and reads no configuration file.</li><li>Diagnostics go to stderr only. Stdout carries only tagged JSON.</li></ul></article>
+</main>
+</body>
+</html>

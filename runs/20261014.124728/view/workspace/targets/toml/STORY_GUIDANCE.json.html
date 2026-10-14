@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>workspace/targets/toml/STORY_GUIDANCE.json</title>
+<link rel="stylesheet" href="../../../../assets/kit.css">
+</head>
+<body>
+<main>
+<header class="fileheader"><div class="kind">Run artifact</div><h1>workspace/targets/toml/STORY_GUIDANCE.json</h1><div class="filenav"><a href="../../../../index.html">&larr; Report</a><a href="../../../../workspace/targets/toml/STORY_GUIDANCE.json">Raw file</a></div></header>
+<article class="doc"><pre>{
+  &quot;stories&quot;: [
+    {
+      &quot;id&quot;: &quot;architecture&quot;,
+      &quot;provenance&quot;: &quot;commander&quot;,
+      &quot;gate&quot;: [
+        &quot;sh&quot;,
+        &quot;sources/stage_contract.sh&quot;,
+        &quot;architecture&quot;
+      ]
+    },
+    {
+      &quot;id&quot;: &quot;decoder-contract&quot;,
+      &quot;provenance&quot;: &quot;commander&quot;,
+      &quot;gate&quot;: [
+        &quot;sh&quot;,
+        &quot;sources/stage_contract.sh&quot;,
+        &quot;decoder&quot;
+      ]
+    },
+    {
+      &quot;id&quot;: &quot;parser-lexical-scalars&quot;,
+      &quot;provenance&quot;: &quot;commander&quot;,
+      &quot;gate&quot;: [
+        &quot;sh&quot;,
+        &quot;sources/stage_test.sh&quot;,
+        &quot;valid/bool/**|valid/integer/**|valid/float/**|invalid/bool/**|invalid/integer/**|invalid/float/**&quot;
+      ]
+    },
+    {
+      &quot;id&quot;: &quot;parser-strings&quot;,
+      &quot;provenance&quot;: &quot;commander&quot;,
+      &quot;gate&quot;: [
+        &quot;sh&quot;,
+        &quot;sources/stage_test.sh&quot;,
+        &quot;valid/string/**|invalid/string/**&quot;
+      ]
+    },
+    {
+      &quot;id&quot;: &quot;parser-lexical-boundaries&quot;,
+      &quot;provenance&quot;: &quot;commander&quot;,
+      &quot;gate&quot;: [
+        &quot;sh&quot;,
+        &quot;sources/stage_test.sh&quot;,
+        &quot;valid/comment/**|invalid/control/**|invalid/encoding/**&quot;
+      ]
+    },
+    {
+      &quot;id&quot;: &quot;parser-keys&quot;,
+      &quot;provenance&quot;: &quot;commander&quot;,
+      &quot;gate&quot;: [
+        &quot;sh&quot;,
+        &quot;sources/stage_test.sh&quot;,
+        &quot;valid/key/**|invalid/key/**&quot;
+      ]
+    },
+    {
+      &quot;id&quot;: &quot;parser-tables&quot;,
+      &quot;provenance&quot;: &quot;commander&quot;,
+      &quot;gate&quot;: [
+        &quot;sh&quot;,
+        &quot;sources/stage_test.sh&quot;,
+        &quot;valid/table/**|invalid/table/**&quot;
+      ]
+    },
+    {
+      &quot;id&quot;: &quot;parser-arrays-inline&quot;,
+      &quot;provenance&quot;: &quot;commander&quot;,
+      &quot;gate&quot;: [
+        &quot;sh&quot;,
+        &quot;sources/stage_test.sh&quot;,
+        &quot;valid/array/**|valid/inline-table/**|invalid/array/**|invalid/inline-table/**&quot;
+      ]
+    },
+    {
+      &quot;id&quot;: &quot;parser-datetimes&quot;,
+      &quot;provenance&quot;: &quot;commander&quot;,
+      &quot;gate&quot;: [
+        &quot;sh&quot;,
+        &quot;sources/stage_test.sh&quot;,
+        &quot;valid/datetime/**|invalid/datetime/**|invalid/local-date/**|invalid/local-datetime/**|invalid/local-time/**&quot;
+      ]
+    },
+    {
+      &quot;id&quot;: &quot;conformance&quot;,
+      &quot;provenance&quot;: &quot;commander&quot;,
+      &quot;gate&quot;: [
+        &quot;sh&quot;,
+        &quot;sources/full_test.sh&quot;
+      ]
+    }
+  ]
+}
+</pre></article>
+</main>
+</body>
+</html>

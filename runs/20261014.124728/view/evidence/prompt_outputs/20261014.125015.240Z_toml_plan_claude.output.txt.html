@@ -1,0 +1,545 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>evidence/prompt_outputs/20261014.125015.240Z_toml_plan_claude.output.txt</title>
+<link rel="stylesheet" href="../../../assets/kit.css">
+</head>
+<body>
+<main>
+<header class="fileheader"><div class="kind">Run artifact</div><h1>evidence/prompt_outputs/20261014.125015.240Z_toml_plan_claude.output.txt</h1><div class="filenav"><a href="../../../index.html">&larr; Report</a><a href="../../../evidence/prompt_outputs/20261014.125015.240Z_toml_plan_claude.output.txt">Raw file</a></div></header>
+<article class="doc"><pre>=== BEGIN ARTIFACT ARCHITECTURE.md ===
+# ARCHITECTURE: TOML Decoder
+
+| Field       | Value |
+|-------------|-------|
+| Version     | 20261014 V1 |
+| Description | Module layout, package boundaries, and technology stack for a standard-library TOML v1.0.0 decoder. |
+| Depends On  | None |
+| Provides    | cmd/toml-decoder, internal/toml |
+| Consumes    | None |
+
+## Questions
+
+- None.
+
+## Purpose
+
+A command-line filter. It reads a TOML document on stdin, decodes it with a hand-written parser in `internal/toml`, and writes tagged JSON to stdout. Invalid input produces a diagnostic on stderr and a non-zero exit. The program takes no arguments, reads no configuration, and has no side effects.
+
+## Modules
+
+| Path | Responsibility |
+|---|---|
+| `go.mod` | Module `github.com/owner/toml-decoder`. Declares no `require` directives. Go 1.22 or newer. |
+| `cmd/toml-decoder` | `package main`. Reads stdin, calls `internal/toml`, encodes the result to stdout, and writes errors to stderr. |
+| `internal/toml` | Hand-written TOML v1.0.0 lexer, parser, and tagged-value model. Not importable outside the module. |
+
+## Technology Stack
+
+- Go, standard library only. Imports limited to `encoding/json`, `strconv`, `strings`, `unicode`, `unicode/utf8`, `time`, `math`, `fmt`, `io`, `os`, `errors`.
+- No third-party TOML module, including `BurntSushi/toml`, `pelletier/go-toml`, and `naoina/toml`.
+- The conformance harness is shell and Go tooling staged under `sources/`. It is scoring instrumentation, not part of the deliverable.
+
+## Module Ownership
+
+| Boundary | Owner | May access |
+|---|---|---|
+| stdin, stdout, stderr, exit status | `cmd/toml-decoder` | `os`, `io`, `encoding/json` |
+| TOML syntax and semantics | `internal/toml` | `strings`, `strconv`, `unicode`, `unicode/utf8`, `time`, `math` |
+| Persistence, configuration, external services | None | Not applicable |
+
+## Programmatic Acceptance
+
+=== AC architecture-go-mod ===
+Intent: go.mod declares no require directive and names a module.
+Requires: executable=go; scope=test
+
+from pathlib import Path
+
+text = Path(&quot;go.mod&quot;).read_text(encoding=&quot;utf-8&quot;)
+assert &quot;require&quot; not in text
+assert &quot;module&quot; in text
+=== END AC architecture-go-mod ===
+
+=== AC architecture-build ===
+Intent: The decoder command builds using only the standard library.
+Requires: executable=go; scope=test
+
+import subprocess
+import sys
+
+build = subprocess.run(
+    [&quot;go&quot;, &quot;build&quot;, &quot;-o&quot;, &quot;toml-decoder&quot;, &quot;./cmd/toml-decoder&quot;],
+    capture_output=True, text=True,
+)
+print(build.stdout)
+print(build.stderr, file=sys.stderr)
+assert build.returncode == 0
+=== END AC architecture-build ===
+
+=== AC architecture-entry-point ===
+Intent: The internal parser package is present and the entry point is a main package.
+Requires: executable=go; scope=test
+
+from pathlib import Path
+
+entry = Path(&quot;cmd/toml-decoder/main.go&quot;).read_text(encoding=&quot;utf-8&quot;)
+assert &quot;package main&quot; in entry
+assert Path(&quot;internal/toml&quot;).is_dir()
+=== END AC architecture-entry-point ===
+
+## User Acceptance
+
+- None.
+
+## Guardrails
+
+- Never import a third-party TOML module.
+- `go.mod` declares no `require` directive.
+- The scoring assets under `sources/` are read-only and are never modified.
+=== END ARTIFACT ===
+=== BEGIN ARTIFACT FEATURE-Decoder-Contract.md ===
+# FEATURE: Decoder Contract
+
+| Field       | Value |
+|-------------|-------|
+| Version     | 20261014 V1 |
+| Description | Stdin-to-tagged-JSON contract, diagnostic stream, and exit status of the decoder command. |
+| Depends On  | ARCHITECTURE.md, FEATURE-Parser-Keys.md, FEATURE-Parser-Lexical-Scalars.md, FEATURE-Parser-Arrays-Inline.md |
+| Provides    | toml-decoder stdin/stdout filter contract |
+| Consumes    | toml.Decode |
+
+## Questions
+
+- None.
+
+## Purpose
+
+The decoder reads TOML from stdin and writes tagged JSON to stdout with exit status 0. On invalid TOML it writes a diagnostic to stderr, writes nothing to stdout, and exits non-zero. It takes no arguments and reads no configuration.
+
+## Tagged JSON Encoding
+
+- Tables encode as JSON objects. Empty tables encode as `{}`.
+- Arrays encode as JSON arrays. Empty arrays encode as `[]`.
+- Every value encodes as `{&quot;type&quot;: &quot;&lt;TYPE&gt;&quot;, &quot;value&quot;: &quot;&lt;VALUE&gt;&quot;}`, with `value` always a JSON string.
+- `type` is one of `string`, `integer`, `float`, `bool`, `datetime`, `datetime-local`, `date-local`, `time-local`.
+
+## Programmatic Acceptance
+
+=== AC decoder-stage-gate ===
+Intent: The governed decoder gate passes: the decoder decodes a scalar and rejects an unterminated array.
+Requires: executable=sh; scope=test
+Requires: executable=go; scope=test
+Requires: executable=python; scope=test
+
+import subprocess
+import sys
+
+result = subprocess.run(
+    [&quot;sh&quot;, &quot;sources/stage_contract.sh&quot;, &quot;decoder&quot;],
+    capture_output=True, text=True,
+)
+print(result.stdout)
+print(result.stderr, file=sys.stderr)
+assert result.returncode == 0
+=== END AC decoder-stage-gate ===
+
+=== AC decoder-scalar-round-trip ===
+Intent: A scalar integer is written to stdout as a tagged value and exit status is zero.
+Requires: executable=go; scope=test
+
+import json
+import subprocess
+import sys
+
+build = subprocess.run(
+    [&quot;go&quot;, &quot;build&quot;, &quot;-o&quot;, &quot;toml-decoder&quot;, &quot;./cmd/toml-decoder&quot;],
+    capture_output=True, text=True,
+)
+print(build.stderr, file=sys.stderr)
+assert build.returncode == 0
+
+key = &quot;answer&quot;
+value = &quot;42&quot;
+source = f&quot;{key} = {value}\n&quot;
+result = subprocess.run([&quot;./toml-decoder&quot;], input=source, capture_output=True, text=True)
+print(result.stderr, file=sys.stderr)
+assert result.returncode == 0
+decoded = json.loads(result.stdout)
+assert decoded == {key: {&quot;type&quot;: &quot;integer&quot;, &quot;value&quot;: value}}
+=== END AC decoder-scalar-round-trip ===
+
+=== AC decoder-table-round-trip ===
+Intent: A standard table encodes as a nested JSON object with tagged values.
+Requires: executable=go; scope=test
+
+import json
+import subprocess
+import sys
+
+build = subprocess.run(
+    [&quot;go&quot;, &quot;build&quot;, &quot;-o&quot;, &quot;toml-decoder&quot;, &quot;./cmd/toml-decoder&quot;],
+    capture_output=True, text=True,
+)
+print(build.stderr, file=sys.stderr)
+assert build.returncode == 0
+
+table = &quot;tbl&quot;
+key = &quot;a&quot;
+value = &quot;7&quot;
+source = f&quot;[{table}]\n{key} = {value}\n&quot;
+result = subprocess.run([&quot;./toml-decoder&quot;], input=source, capture_output=True, text=True)
+print(result.stderr, file=sys.stderr)
+assert result.returncode == 0
+decoded = json.loads(result.stdout)
+assert decoded == {table: {key: {&quot;type&quot;: &quot;integer&quot;, &quot;value&quot;: value}}}
+=== END AC decoder-table-round-trip ===
+
+=== AC decoder-invalid-exit ===
+Intent: Malformed TOML exits non-zero, writes nothing to stdout, and writes a diagnostic to stderr.
+Requires: executable=go; scope=test
+
+import subprocess
+import sys
+
+build = subprocess.run(
+    [&quot;go&quot;, &quot;build&quot;, &quot;-o&quot;, &quot;toml-decoder&quot;, &quot;./cmd/toml-decoder&quot;],
+    capture_output=True, text=True,
+)
+print(build.stderr, file=sys.stderr)
+assert build.returncode == 0
+
+source = &quot;answer = [\n&quot;
+result = subprocess.run([&quot;./toml-decoder&quot;], input=source, capture_output=True, text=True)
+print(result.stderr, file=sys.stderr)
+assert result.returncode != 0
+assert result.stdout == &quot;&quot;
+assert result.stderr != &quot;&quot;
+=== END AC decoder-invalid-exit ===
+
+## User Acceptance
+
+- None.
+
+## Guardrails
+
+- The decoder accepts no command-line arguments and reads no configuration file.
+- Diagnostics go to stderr only. Stdout carries only tagged JSON.
+=== END ARTIFACT ===
+=== BEGIN ARTIFACT FEATURE-Parser-Strings.md ===
+# FEATURE: Parser Strings
+
+| Field       | Value |
+|-------------|-------|
+| Version     | 20261014 V1 |
+| Description | Decoding of the four TOML string forms: basic, multi-line basic, literal, and multi-line literal. |
+| Depends On  | ARCHITECTURE.md |
+| Provides    | string value decoding in internal/toml |
+| Consumes    | None |
+
+## Questions
+
+- None.
+
+## Purpose
+
+Decode basic strings with the listed escapes only, multi-line basic strings with newline trimming and the line-ending backslash rule, literal strings with no escaping, and multi-line literal strings. Reject any other backslash escape and any control character not permitted by the specification.
+
+## Programmatic Acceptance
+
+=== AC strings-basic-round-trip ===
+Intent: A basic string value is decoded and written as a tagged string.
+Requires: executable=go; scope=test
+
+import json
+import subprocess
+import sys
+
+build = subprocess.run(
+    [&quot;go&quot;, &quot;build&quot;, &quot;-o&quot;, &quot;toml-decoder&quot;, &quot;./cmd/toml-decoder&quot;],
+    capture_output=True, text=True,
+)
+print(build.stderr, file=sys.stderr)
+assert build.returncode == 0
+
+key = &quot;s&quot;
+payload = &quot;text&quot;
+source = f&#x27;{key} = &quot;{payload}&quot;\n&#x27;
+result = subprocess.run([&quot;./toml-decoder&quot;], input=source, capture_output=True, text=True)
+print(result.stderr, file=sys.stderr)
+assert result.returncode == 0
+decoded = json.loads(result.stdout)
+assert decoded == {key: {&quot;type&quot;: &quot;string&quot;, &quot;value&quot;: payload}}
+=== END AC strings-basic-round-trip ===
+
+=== AC strings-bad-escape ===
+Intent: A basic string containing an unlisted backslash escape is rejected.
+Requires: executable=go; scope=test
+
+import subprocess
+import sys
+
+build = subprocess.run(
+    [&quot;go&quot;, &quot;build&quot;, &quot;-o&quot;, &quot;toml-decoder&quot;, &quot;./cmd/toml-decoder&quot;],
+    capture_output=True, text=True,
+)
+print(build.stderr, file=sys.stderr)
+assert build.returncode == 0
+
+escape = &quot;\\q&quot;
+source = f&#x27;bad = &quot;{escape}&quot;\n&#x27;
+result = subprocess.run([&quot;./toml-decoder&quot;], input=source, capture_output=True, text=True)
+print(result.stderr, file=sys.stderr)
+assert result.returncode != 0
+assert result.stdout == &quot;&quot;
+=== END AC strings-bad-escape ===
+
+=== AC strings-suite-slice ===
+Intent: The toml-test string slice executes and every string case passes.
+Suite: scoped
+Requires: executable=sh; scope=test
+Requires: executable=go; scope=test
+Requires: executable=toml-test; scope=test
+
+import subprocess
+import sys
+
+pattern = &quot;valid/string/**|invalid/string/**&quot;
+result = subprocess.run(
+    [&quot;sh&quot;, &quot;sources/stage_test.sh&quot;, pattern],
+    capture_output=True, text=True,
+)
+print(result.stdout)
+print(result.stderr, file=sys.stderr)
+assert result.returncode == 0
+=== END AC strings-suite-slice ===
+
+## User Acceptance
+
+- None.
+
+## Guardrails
+
+- Only the escapes listed in the specification are accepted in basic strings.
+- Multi-line basic strings trim a newline immediately after the opening delimiter.
+=== END ARTIFACT ===
+=== BEGIN ARTIFACT FEATURE-Parser-Lexical-Scalars.md ===
+# FEATURE: Parser Lexical Scalars
+
+| Field       | Value |
+|-------------|-------|
+| Version     | 20261014 V1 |
+| Description | Decoding of booleans, integers, and floats, with range and form rules from the specification. |
+| Depends On  | ARCHITECTURE.md |
+| Provides    | boolean, integer, and float decoding in internal/toml |
+| Consumes    | None |
+
+## Questions
+
+- None.
+
+## Purpose
+
+Decode booleans, decimal and prefixed integers (`0x`, `0o`, `0b`) with underscores, and floats with fractional and exponent parts, plus the special floats `inf`, `nan`, and their signed forms. Integers must fit signed 64-bit and are rejected otherwise.
+
+## Programmatic Acceptance
+
+=== AC scalars-integer-round-trip ===
+Intent: The largest signed 64-bit integer decodes losslessly as a tagged integer.
+Requires: executable=go; scope=test
+
+import json
+import subprocess
+import sys
+
+build = subprocess.run(
+    [&quot;go&quot;, &quot;build&quot;, &quot;-o&quot;, &quot;toml-decoder&quot;, &quot;./cmd/toml-decoder&quot;],
+    capture_output=True, text=True,
+)
+print(build.stderr, file=sys.stderr)
+assert build.returncode == 0
+
+key = &quot;n&quot;
+number = str(2**63 - 1)
+source = f&quot;{key} = {number}\n&quot;
+result = subprocess.run([&quot;./toml-decoder&quot;], input=source, capture_output=True, text=True)
+print(result.stderr, file=sys.stderr)
+assert result.returncode == 0
+decoded = json.loads(result.stdout)
+assert decoded == {key: {&quot;type&quot;: &quot;integer&quot;, &quot;value&quot;: number}}
+=== END AC scalars-integer-round-trip ===
+
+=== AC scalars-integer-overflow ===
+Intent: An integer one past the signed 64-bit maximum is rejected.
+Requires: executable=go; scope=test
+
+import subprocess
+import sys
+
+build = subprocess.run(
+    [&quot;go&quot;, &quot;build&quot;, &quot;-o&quot;, &quot;toml-decoder&quot;, &quot;./cmd/toml-decoder&quot;],
+    capture_output=True, text=True,
+)
+print(build.stderr, file=sys.stderr)
+assert build.returncode == 0
+
+key = &quot;n&quot;
+over = str(2**63)
+source = f&quot;{key} = {over}\n&quot;
+result = subprocess.run([&quot;./toml-decoder&quot;], input=source, capture_output=True, text=True)
+print(result.stderr, file=sys.stderr)
+assert result.returncode != 0
+assert result.stdout == &quot;&quot;
+=== END AC scalars-integer-overflow ===
+
+=== AC scalars-suite-slice ===
+Intent: The toml-test slices for booleans, integers, and floats execute and every case passes.
+Suite: scoped
+Requires: executable=sh; scope=test
+Requires: executable=go; scope=test
+Requires: executable=toml-test; scope=test
+
+import subprocess
+import sys
+
+pattern = &quot;valid/bool/**|valid/integer/**|valid/float/**|invalid/bool/**|invalid/integer/**|invalid/float/**&quot;
+result = subprocess.run(
+    [&quot;sh&quot;, &quot;sources/stage_test.sh&quot;, pattern],
+    capture_output=True, text=True,
+)
+print(result.stdout)
+print(result.stderr, file=sys.stderr)
+assert result.returncode == 0
+=== END AC scalars-suite-slice ===
+
+## User Acceptance
+
+- None.
+
+## Guardrails
+
+- Integers are never silently rounded or truncated.
+- Leading `+` is not allowed on prefixed integers.
+=== END ARTIFACT ===
+=== BEGIN ARTIFACT FEATURE-Parser-Lexical-Boundaries.md ===
+# FEATURE: Parser Lexical Boundaries
+
+| Field       | Value |
+|-------------|-------|
+| Version     | 20261014 V1 |
+| Description | Comment syntax, forbidden control characters, and UTF-8 validity of TOML input. |
+| Depends On  | ARCHITECTURE.md, FEATURE-Parser-Strings.md, FEATURE-Parser-Lexical-Scalars.md |
+| Provides    | comment handling and control-character and UTF-8 validation |
+| Consumes    | None |
+
+## Questions
+
+- None.
+
+## Purpose
+
+A hash begins a comment that runs to end of line, except inside a string. Control characters other than tab are rejected in comments and literal strings. Input that is not valid UTF-8 is rejected.
+
+## Programmatic Acceptance
+
+=== AC boundaries-comment-round-trip ===
+Intent: A trailing comment is ignored and the value before it decodes normally.
+Requires: executable=go; scope=test
+
+import json
+import subprocess
+import sys
+
+build = subprocess.run(
+    [&quot;go&quot;, &quot;build&quot;, &quot;-o&quot;, &quot;toml-decoder&quot;, &quot;./cmd/toml-decoder&quot;],
+    capture_output=True, text=True,
+)
+print(build.stderr, file=sys.stderr)
+assert build.returncode == 0
+
+key = &quot;n&quot;
+value = &quot;1&quot;
+note = &quot;note&quot;
+source = f&quot;{key} = {value} # {note}\n&quot;
+result = subprocess.run([&quot;./toml-decoder&quot;], input=source, capture_output=True, text=True)
+print(result.stderr, file=sys.stderr)
+assert result.returncode == 0
+decoded = json.loads(result.stdout)
+assert decoded == {key: {&quot;type&quot;: &quot;integer&quot;, &quot;value&quot;: value}}
+=== END AC boundaries-comment-round-trip ===
+
+=== AC boundaries-control-in-comment ===
+Intent: A control character in a comment is rejected with a non-zero exit.
+Requires: executable=go; scope=test
+
+import subprocess
+import sys
+
+build = subprocess.run(
+    [&quot;go&quot;, &quot;build&quot;, &quot;-o&quot;, &quot;toml-decoder&quot;, &quot;./cmd/toml-decoder&quot;],
+    capture_output=True, text=True,
+)
+print(build.stderr, file=sys.stderr)
+assert build.returncode == 0
+
+control = chr(1)
+source = f&quot;# {control}\nn = 1\n&quot;
+result = subprocess.run([&quot;./toml-decoder&quot;], input=source, capture_output=True, text=True)
+print(result.stderr, file=sys.stderr)
+assert result.returncode != 0
+assert result.stdout == &quot;&quot;
+=== END AC boundaries-control-in-comment ===
+
+=== AC boundaries-invalid-utf8 ===
+Intent: Input that is not valid UTF-8 is rejected with a non-zero exit.
+Requires: executable=go; scope=test
+
+import subprocess
+import sys
+
+build = subprocess.run(
+    [&quot;go&quot;, &quot;build&quot;, &quot;-o&quot;, &quot;toml-decoder&quot;, &quot;./cmd/toml-decoder&quot;],
+    capture_output=True, text=True,
+)
+print(build.stderr, file=sys.stderr)
+assert build.returncode == 0
+
+result = subprocess.run([&quot;./toml-decoder&quot;], input=b&quot;\xff&quot;, capture_output=True)
+print(result.stderr, file=sys.stderr)
+assert result.returncode != 0
+=== END AC boundaries-invalid-utf8 ===
+
+=== AC boundaries-suite-slice ===
+Intent: The toml-test comment, control, and encoding slices execute and every case passes.
+Suite: scoped
+Requires: executable=sh; scope=test
+Requires: executable=go; scope=test
+Requires: executable=toml-test; scope=test
+
+import subprocess
+import sys
+
+pattern = &quot;valid/comment/**|invalid/control/**|invalid/encoding/**&quot;
+result = subprocess.run(
+    [&quot;sh&quot;, &quot;sources/stage_test.sh&quot;, pattern],
+    capture_output=True, text=True,
+)
+print(result.stdout)
+print(result.stderr, file=sys.stderr)
+assert result.returncode == 0
+=== END AC boundaries-suite-slice ===
+
+## User Acceptance
+
+- None.
+
+## Guardrails
+
+- Control characters other than tab are rejected in comments and literal strings.
+- Invalid UTF-8 input is never decoded partially.
+=== END ARTIFACT ===</pre></article>
+</main>
+</body>
+</html>

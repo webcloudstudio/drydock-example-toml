@@ -1,0 +1,20 @@
+```json
+{
+  "criteria": [
+    {
+      "id": "st-001",
+      "verdict": "MET",
+      "rationale": "The governed gate `full` ran `sh sources/full_test.sh` against this tree and exited 0 with outcome PASS, which pins the verdict.",
+      "evidence": [
+        "governed_gate full: outcome PASS, return_code 0, timed_out false, build_identity ab50ead6181bb8ac",
+        "stdout: valid tests 205 passed, 0 failed; invalid tests 474 passed, 0 failed; encoder tests not run (no encoder command given)",
+        "stderr: toml-test v2.2.0 under go1.24.6 linux/amd64"
+      ]
+    }
+  ],
+  "improvements": [
+    "The build tree has uncommitted changes (code.dirty is true), so the recorded identity 4c804881d05911b5264a944ef5c279462f85c438 does not fully describe the graded tree. Commit or stash before grading so the verdict is tied to an exact revision.",
+    "The encoder suite did not run because no encoder command was supplied. If encoding is in scope for release, add an encoder command to the gate so that part is also covered."
+  ]
+}
+```

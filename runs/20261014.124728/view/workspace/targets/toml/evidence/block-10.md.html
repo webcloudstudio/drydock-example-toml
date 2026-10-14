@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>workspace/targets/toml/evidence/block-10.md</title>
+<link rel="stylesheet" href="../../../../../assets/kit.css">
+</head>
+<body>
+<main>
+<header class="fileheader"><div class="kind">Run artifact</div><h1>workspace/targets/toml/evidence/block-10.md</h1><div class="filenav"><a href="../../../../../index.html">&larr; Report</a><a href="../../../../../workspace/targets/toml/evidence/block-10.md">Raw file</a></div></header>
+<article class="doc"><h1>Evidence: Block 10 · Feature (block-10)</h1>
+<ul><li>block type: block</li><li>date: 2026-10-14</li><li>resulting state: closed/verified</li><li>story points (combined assembled cost): 9119</li><li>execution id: 20261014.133552.021Z-fb0d01d8</li></ul>
+<h2>Stories built</h2>
+<ul><li>The complete unfiltered toml-test suite after all implementation stories. (conformance) [story]</li></ul>
+<h2>Acceptance tooling authorization</h2>
+<ul><li>FEATURE-Conformance.md#conformance-full-suite: executable=sh; scope=test; authorization=existing Target environment</li><li>FEATURE-Conformance.md#conformance-full-suite: executable=go; scope=test; authorization=existing Target environment</li><li>FEATURE-Conformance.md#conformance-full-suite: executable=toml-test; scope=test; authorization=existing Target environment</li><li>FEATURE-Conformance.md#conformance-no-third-party: executable=go; scope=test; authorization=existing Target environment</li></ul>
+<h2>Stacked context</h2>
+<ul><li>compass: COMPASS.md (SP 945)</li><li>implements: FEATURE-Conformance.md (SP 739)</li><li>context: ARCHITECTURE_compact.md (SP 244)</li><li>stack: go.md (SP 5918)</li><li>stack: common_compact.md (SP 1199)</li></ul>
+<h2>Build directory changes</h2>
+<ul><li>toml-decoder</li></ul>
+<h2>Pre-build acceptance observation</h2>
+<ul><li>GREEN (prepassed): conformance-full-suite (FEATURE-Conformance.md)</li></ul>
+<p>intent: The complete unfiltered conformance suite exits zero. return code: 0 stdout: toml-test v2.2.0 [/mnt/c/Users/barlo/projects/drydock/uat/Toml/runs/20261014.124728/build/toml/toml-decoder] [no encoder] valid tests: 205 passed,  0 failed encoder tests: no encoder command given invalid tests: 474 passed,  0 failed stderr: harness: /home/barlo/.local/bin/toml-test toml-test v2.2.0; go1.24.6 linux/amd64; race=false; cgo=true</p>
+<ul><li>GREEN (prepassed): conformance-no-third-party (FEATURE-Conformance.md)</li></ul>
+<p>intent: go.mod declares no required module, so no third-party TOML module is present. return code: 0</p>
+<h2>Post-build programmatic acceptance</h2>
+<ul><li>PASS: conformance-full-suite (FEATURE-Conformance.md)</li></ul>
+<p>intent: The complete unfiltered conformance suite exits zero. target interpreter: /mnt/c/Users/barlo/projects/drydock/.venv/bin/python provisioning: not required return code: 0 stdout: toml-test v2.2.0 [/mnt/c/Users/barlo/projects/drydock/uat/Toml/runs/20261014.124728/build/toml/toml-decoder] [no encoder] valid tests: 205 passed,  0 failed encoder tests: no encoder command given invalid tests: 474 passed,  0 failed stderr: harness: /home/barlo/.local/bin/toml-test toml-test v2.2.0; go1.24.6 linux/amd64; race=false; cgo=true</p>
+<ul><li>PASS: conformance-no-third-party (FEATURE-Conformance.md)</li></ul>
+<p>intent: go.mod declares no required module, so no third-party TOML module is present. target interpreter: /mnt/c/Users/barlo/projects/drydock/.venv/bin/python provisioning: not required return code: 0</p>
+<h2>Build summary</h2>
+<p>I&#x27;ll start by inspecting the build directory and the staged conformance scripts.The scoring entry point is <code>sh sources/full_test.sh</code>. Before running it, I&#x27;ll check the harness version and the current decoder state.The decoder is partial and the existing tests pass. Now I&#x27;ll run the full suite, the declared verdict, in the background and capture the output to a file outside the build directory.The background run finished. I&#x27;ll read its output.The full suite exits 0: 205/205 valid and 474/474 invalid pass. I&#x27;ll confirm the second declared assertion and formatting, then check which files changed.The full conformance suite passes and the step needed no source changes. The verdict is <code>sh sources/full_test.sh</code> exiting 0.</p>
+<ul><li><strong>Full suite:</strong> toml-test v2.2.0, <code>-toml 1.0</code>, against the built decoder. Valid tests: 205 passed, 0 failed. Invalid tests: 474 passed, 0 failed. Exit status 0.</li><li><strong><code>conformance-no-third-party</code>:</strong> the declared Python check passes, since <code>go.mod</code> contains no <code>require</code>.</li><li><strong>Existing project tests:</strong> <code>go test ./...</code> passed earlier in this session (<code>cmd/toml-decoder</code> and <code>internal/toml</code>).</li><li><strong>Formatting:</strong> <code>gofmt -l .</code> prints nothing.</li></ul>
+<p>I didn&#x27;t write new tests. The two declared assertions are already covered, and the staged suite is the coverage for this story. The <code>toml-decoder</code> binary is rebuilt by <code>full_test.sh</code> on each run. It was already modified in the working tree when I started, so I haven&#x27;t touched it beyond that rebuild. I didn&#x27;t stage or commit anything.</p>
+<p>RESULT: SUCCESS</p>
+<p>FILES CHANGED:</p>
+<ul><li>toml-decoder (binary rebuilt by <code>sources/full_test.sh</code>; no source changes)</li></ul>
+<p>SUMMARY: Ran <code>sh sources/full_test.sh</code> unfiltered from the application root. It exited 0 with 205/205 valid and 474/474 invalid toml-test cases passing under toml-test v2.2.0. The <code>conformance-no-third-party</code> assertion passes (go.mod has no <code>require</code>). <code>gofmt -l .</code> is clean and <code>go test ./...</code> was green. Source files were not modified, and no new tests were written because the staged suite covers this story.</p>
+<p>BLOCKERS:</p>
+<ul><li>None.</li></ul></article>
+</main>
+</body>
+</html>

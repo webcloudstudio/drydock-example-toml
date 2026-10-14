@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>evidence/prompt_outputs/20261014.124950.156Z_toml_plan_claude.output.txt</title>
+<link rel="stylesheet" href="../../../assets/kit.css">
+</head>
+<body>
+<main>
+<header class="fileheader"><div class="kind">Run artifact</div><h1>evidence/prompt_outputs/20261014.124950.156Z_toml_plan_claude.output.txt</h1><div class="filenav"><a href="../../../index.html">&larr; Report</a><a href="../../../evidence/prompt_outputs/20261014.124950.156Z_toml_plan_claude.output.txt">Raw file</a></div></header>
+<article class="doc"><pre>=== BEGIN ARTIFACT TOPOLOGY.md ===
+## Declarations
+
+## story architecture
+summary:      Standard-library Go module and decoder command boundary.
+type:         foundational
+kind:         capability
+phase:        1
+implements:   ARCHITECTURE.md
+covers:       architecture
+accepts:      st-001
+stack:        go.md, common.md
+provides:     go.mod, cmd/toml-decoder, internal/toml
+depends:
+acceptance:   yes
+instructions: |
+  Create go.mod with the module path github.com/owner/toml-decoder and no require directives.
+  Create cmd/toml-decoder/main.go as a package main that reads stdin, delegates to internal/toml, and encodes to stdout.
+  Create internal/toml as a package with a stub Decode function so the module builds with the standard library only.
+
+## story decoder-contract
+summary:      Stdin, tagged JSON, diagnostic-stream, and exit-status contract.
+type:         service
+kind:         capability
+phase:        1
+implements:   FEATURE-Decoder-Contract.md
+covers:       decoder-contract
+accepts:      st-001
+stack:        go.md, common.md
+context:      ARCHITECTURE.md
+provides:     toml-decoder stdin/stdout filter contract
+consumes:     toml.Decode
+depends:      architecture, parser-lexical-scalars, parser-keys, parser-arrays-inline
+acceptance:   yes
+instructions: |
+  Wire the stdin to tagged-JSON contract in cmd/toml-decoder.
+  Encode tables as objects, arrays as arrays, and every value as {&quot;type&quot;, &quot;value&quot;} with value as a JSON string.
+  On invalid input write a diagnostic to stderr and exit non-zero; write nothing to stdout.
+  Accept no arguments and read no configuration.
+
+## story parser-strings
+summary:      TOML string forms: basic, multi-line basic, literal, multi-line literal.
+type:         service
+kind:         capability
+phase:        1
+implements:   FEATURE-Parser-Strings.md
+covers:       parser-strings
+accepts:      st-001
+stack:        go.md
+context:      ARCHITECTURE.md
+provides:     string value decoding in internal/toml
+depends:      architecture
+acceptance:   yes
+instructions: |
+  Implement the four string forms in internal/toml per sources/toml-v1.0.0.md &quot;String&quot;.
+  Basic strings accept only the listed escapes; any other backslash escape is rejected.
+  Multi-line basic strings trim a newline after the opening delimiter and apply the line-ending backslash rule.
+
+## story parser-lexical-scalars
+summary:      Booleans, integers, and floats.
+type:         service
+kind:         capability
+phase:        1
+implements:   FEATURE-Parser-Lexical-Scalars.md
+covers:       parser-lexical-scalars
+accepts:      st-001
+stack:        go.md
+context:      ARCHITECTURE.md
+provides:     boolean, integer, and float decoding in internal/toml
+depends:      architecture
+acceptance:   yes
+instructions: |
+  Implement booleans, integers (signed 64-bit, lossless, with 0x, 0o, 0b prefixes and underscores), and floats (IEEE 754 binary64, inf, nan, exponents).
+  Reject out-of-range integers and malformed float forms.
+
+## story parser-lexical-boundaries
+summary:      Comments, control characters, and UTF-8 encoding.
+type:         service
+kind:         capability
+phase:        1
+implements:   FEATURE-Parser-Lexical-Boundaries.md
+covers:       parser-lexical-boundaries
+accepts:      st-001
+stack:        go.md
+context:      ARCHITECTURE.md
+provides:     comment handling and control-character and UTF-8 validation
+depends:      parser-strings, parser-lexical-scalars
+acceptance:   yes
+instructions: |
+  Treat # as a comment start outside strings to end of line.
+  Reject control characters other than tab in comments and literal strings.
+  Reject input that is not valid UTF-8.
+
+## story parser-keys
+summary:      Key forms and key-definition semantics.
+type:         service
+kind:         capability
+phase:        1
+implements:   FEATURE-Parser-Keys.md
+covers:       parser-keys
+accepts:      st-001
+stack:        go.md
+context:      ARCHITECTURE.md
+provides:     bare, quoted, and dotted key parsing with redefinition checks
+depends:      parser-strings, parser-lexical-scalars
+acceptance:   yes
+instructions: |
+  Parse bare keys (A-Za-z0-9_-), quoted keys (basic or literal strings), and dotted keys.
+  Reject defining the same key twice; bare and quoted keys with the same name are equivalent.
+
+## story parser-tables
+summary:      Standard tables, redefinition, arrays of tables, and ordering.
+type:         service
+kind:         capability
+phase:        1
+implements:   FEATURE-Parser-Tables.md
+covers:       parser-tables
+accepts:      st-001
+stack:        go.md
+context:      ARCHITECTURE.md
+provides:     table headers and arrays of tables in internal/toml
+depends:      parser-keys
+acceptance:   yes
+instructions: |
+  Implement [table] and [[array of tables]] headers, implicit super-tables, and the redefinition rules.
+  Reject defining a standard table twice and reject a [[name]] header that conflicts with a static table or array.
+
+## story parser-arrays-inline
+summary:      Arrays and inline tables, including inline-table closure.
+type:         service
+kind:         capability
+phase:        1
+implements:   FEATURE-Parser-Arrays-Inline.md
+covers:       parser-arrays-inline
+accepts:      st-001
+stack:        go.md
+context:      ARCHITECTURE.md
+provides:     array and inline-table parsing in internal/toml
+depends:      parser-strings, parser-lexical-scalars, parser-keys
+acceptance:   yes
+instructions: |
+  Parse arrays with optional trailing comma, nested arrays, and mixed types, including multi-line arrays with comments.
+  Parse inline tables on one line with no trailing comma; reject later extension through dotted keys or table headers.
+
+## story parser-datetimes
+summary:      Offset and local date, time, and datetime forms.
+type:         service
+kind:         capability
+phase:        1
+implements:   FEATURE-Parser-Datetimes.md
+covers:       parser-datetimes
+accepts:      st-001
+stack:        go.md
+context:      ARCHITECTURE.md
+provides:     offset datetime, local datetime, local date, and local time decoding
+depends:      parser-lexical-scalars
+acceptance:   yes
+instructions: |
+  Decode RFC 3339 offset datetimes (T or space delimiter), local datetimes, local dates, and local times.
+  Truncate fractional seconds beyond supported precision; do not round.
+
+## story conformance
+summary:      The complete unfiltered toml-test suite after all implementation stories.
+type:         feature
+kind:         test harness
+phase:        1
+implements:   FEATURE-Conformance.md
+covers:       conformance
+accepts:      st-001
+stack:        go.md, common.md
+context:      ARCHITECTURE.md
+depends:      architecture, decoder-contract, parser-strings, parser-lexical-scalars, parser-lexical-boundaries, parser-keys, parser-tables, parser-arrays-inline, parser-datetimes
+acceptance:   yes
+instructions: |
+  Assembly story. Run sh sources/full_test.sh unfiltered from the application root and assert it exits zero.
+  This is the only story that runs the full suite; its acceptance declares Suite: full.
+=== END ARTIFACT ===
+=== BEGIN ARTIFACT DECISIONS.json ===
+[
+  {
+    &quot;id&quot;: &quot;Q-001&quot;,
+    &quot;type&quot;: &quot;text&quot;,
+    &quot;severity&quot;: &quot;material&quot;,
+    &quot;blueprint&quot;: &quot;ARCHITECTURE.md&quot;,
+    &quot;story&quot;: &quot;architecture&quot;,
+    &quot;title&quot;: &quot;ACCEPTANCE.json not among imported sources&quot;,
+    &quot;description&quot;: &quot;ANALYSIS.md notes that ACCEPTANCE.json is cited by INSTRUCTIONS.md but was not imported. Story IDs were therefore preserved from the INSTRUCTIONS.md Governed Stage Boundaries list and from STORY_GUIDANCE.json.&quot;,
+    &quot;options&quot;: [],
+    &quot;system_choice&quot;: &quot;Use the ten story IDs from STORY_GUIDANCE.json unchanged and record the missing ACCEPTANCE.json as a disclosure.&quot;
+  },
+  {
+    &quot;id&quot;: &quot;Q-002&quot;,
+    &quot;type&quot;: &quot;text&quot;,
+    &quot;severity&quot;: &quot;low&quot;,
+    &quot;blueprint&quot;: &quot;ARCHITECTURE.md&quot;,
+    &quot;story&quot;: &quot;architecture&quot;,
+    &quot;title&quot;: &quot;Module path is a placeholder&quot;,
+    &quot;description&quot;: &quot;The sources name github.com/owner/toml-decoder only as a sample module path.&quot;,
+    &quot;options&quot;: [],
+    &quot;system_choice&quot;: &quot;Use github.com/owner/toml-decoder as the module path because the sources name no other.&quot;
+  },
+  {
+    &quot;id&quot;: &quot;Q-003&quot;,
+    &quot;type&quot;: &quot;text&quot;,
+    &quot;severity&quot;: &quot;low&quot;,
+    &quot;blueprint&quot;: &quot;FEATURE-Decoder-Contract.md&quot;,
+    &quot;story&quot;: &quot;decoder-contract&quot;,
+    &quot;title&quot;: &quot;decoder-contract ordering is set by depends, not list position&quot;,
+    &quot;description&quot;: &quot;The governed gate for decoder-contract decodes answer = 42 and rejects an unterminated array, so it requires parser-keys, parser-lexical-scalars, and parser-arrays-inline to exist first.&quot;,
+    &quot;options&quot;: [],
+    &quot;system_choice&quot;: &quot;Declare those three stories in depends so the Manifest orders decoder-contract after them, regardless of list position.&quot;
+  }
+]
+=== END ARTIFACT ===</pre></article>
+</main>
+</body>
+</html>

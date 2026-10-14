@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>evidence/prompts/20261014.125228.785Z_toml_lineage_attribute_claude.prompt.md</title>
+<link rel="stylesheet" href="../../../assets/kit.css">
+</head>
+<body>
+<main>
+<header class="fileheader"><div class="kind">Run artifact</div><h1>evidence/prompts/20261014.125228.785Z_toml_lineage_attribute_claude.prompt.md</h1><div class="filenav"><a href="../../../index.html">&larr; Report</a><a href="../../../evidence/prompts/20261014.125228.785Z_toml_lineage_attribute_claude.prompt.md">Raw file</a></div></header>
+<article class="doc"><h1>Attribute Stories to Source Requirements</h1>
+<p>You are the lineage attribution agent. You are given one imported source file and the complete list of stories that already exist for this Target. Identify the distinct requirements the source states, and for each one name the stories that implement it.</p>
+<p>This is a matching task against a closed set. Every story you may name is listed in <code>&lt;stories&gt;</code>. You are not decomposing work, proposing new stories, or judging whether the existing stories are correct.</p>
+<h2>Method</h2>
+<ol><li>Read the source and identify each distinct requirement it states. A requirement is a thing the</li></ol>
+<p>system must do, at whatever granularity the author wrote it. One sentence may state one requirement that several stories implement — for example &quot;add a table and show it on screen&quot; is one requirement implemented by a schema story, a route story, and a view story. Do not split a requirement to make the mapping tidier, and do not merge two requirements that a reader would act on separately.</p>
+<ol><li>Give each requirement a short kebab-case name that describes it. The name is an identifier, not</li></ol>
+<p>a summary: <code>mark-book-read</code>, not <code>the-reader-can-mark-a-book-as-read</code>.</p>
+<ol><li>For each requirement, list every story that implements any part of it. A story may implement</li></ol>
+<p>more than one requirement; a requirement may need more than one story.</p>
+<ol><li>List any story that implements no requirement in the source as <code>&lt;unattached&gt;</code>. This is expected</li></ol>
+<p>and correct for foundational work — application scaffolding, configuration, shared UI framing, test harnesses — that the author never asked for by name. Do not force such a story onto an unrelated requirement.</p>
+<h2>Rules</h2>
+<ul><li>Use only story ids that appear in <code>&lt;stories&gt;</code>. Never invent one.</li><li>Every story must appear exactly once, either inside a <code>stories</code> attribute or as <code>&lt;unattached&gt;</code>.</li><li>Quote the requirement text verbatim from the source in the tag body. Do not paraphrase it.</li><li>Emit nothing but the tags below. No preamble, no commentary, no explanation.</li></ul>
+<h2>Output</h2>
+<pre><code>&lt;requirement name=&quot;add-remove-books&quot; stories=&quot;add-book,remove-book,database&quot;&gt;
+The reader can add a book with a title and author, view the books in the order added, and remove a book.
+&lt;/requirement&gt;
+&lt;requirement name=&quot;reject-empty-fields&quot; stories=&quot;validate-book&quot;&gt;
+An empty title or author is rejected with a clear error message.
+&lt;/requirement&gt;
+&lt;unattached story=&quot;architecture&quot;/&gt;
+&lt;unattached story=&quot;ui-general&quot;/&gt;</code></pre>
+<h1>Attribution job</h1>
+<p>&lt;source name=&quot;run_conformance.sh&quot;&gt; #!/bin/sh</p>
+<h1>Run the upstream toml-test conformance suite against the built decoder.</h1>
+<p>#</p>
+<h1>Imported sources land in sources/ inside the application directory, so this is</h1>
+<h1>normally invoked as <code>sh sources/run_conformance.sh</code> from that directory.</h1>
+<p>#</p>
+<h1>Usage:</h1>
+<h1>DECODER=./toml-decoder sh sources/run_conformance.sh                        # full suite</h1>
+<h1>DECODER=./toml-decoder sh sources/run_conformance.sh -run &#x27;valid/string/*&#x27;  # one group</h1>
+<h1>DECODER=./toml-decoder sh sources/run_conformance.sh -json                  # machine-readable</h1>
+<p>#</p>
+<h1>Environment:</h1>
+<h1>DECODER    decoder command. Required — this harness is language-neutral and</h1>
+<h1>deliberately has no default implementation language.</h1>
+<h1>TOML_TEST  absolute path to the toml-test binary (default: found on PATH)</h1>
+<p>#</p>
+<h1>Exit code follows the harness exit-status standard in prompts/UAT_SETUP_INSTRUCTIONS.md:</h1>
+<h1>0 only when every test passes, 2 when this harness could not run at all, and any other nonzero</h1>
+<h1>when it ran and the decoder failed. A precondition of the harness is never charged to the build.</h1>
+<p>set -u</p>
+<p>if [ -z &quot;${DECODER:-}&quot; ]; then echo &quot;error: DECODER is not set; give the command that runs your decoder.&quot; &gt;&amp;2 exit 2 fi</p>
+<p>if [ -n &quot;${TOML_TEST:-}&quot; ] &amp;&amp; [ -x &quot;${TOML_TEST}&quot; ]; then HARNESS=&quot;${TOML_TEST}&quot; elif command -v toml-test &gt;/dev/null 2&gt;&amp;1; then HARNESS=&quot;$(command -v toml-test)&quot; else cat &gt;&amp;2 &lt;&lt;&#x27;EOF&#x27; error: toml-test not found.</p>
+<p>Install the harness once:</p>
+<p>sh sources/setup_harness.sh</p>
+<p>or set TOML_TEST to an existing binary:</p>
+<p>TOML_TEST=/path/to/toml-test sh sources/run_conformance.sh EOF # 2, not the shell&#x27;s own 127: an uninstalled harness says nothing about the decoder, and 127 # would be read as an ordinary nonzero exit and charged against the build as a product FAIL. exit 2 fi</p>
+<h1>The suite&#x27;s identity is part of the verdict. Without this, &quot;the authoritative suite passed&quot;</h1>
+<h1>names no particular suite: whichever toml-test happened to be on PATH decided the run, and a</h1>
+<h1>different version on a different machine is a different exam. Recorded always, and enforced</h1>
+<h1>when the caller states which version it expects.</h1>
+<p>HARNESS_VERSION=&quot;$(&quot;${HARNESS}&quot; version 2&gt;/dev/null | head -n 1 || true)&quot; echo &quot;harness: ${HARNESS} ${HARNESS_VERSION:-(version unknown)}&quot; &gt;&amp;2 if [ -n &quot;${TOML_TEST_VERSION:-}&quot; ] &amp;&amp; [ -n &quot;${HARNESS_VERSION}&quot; ]; then case &quot;${HARNESS_VERSION}&quot; in <em>&quot;${TOML_TEST_VERSION}&quot;</em>) ;; *) echo &quot;error: harness is ${HARNESS_VERSION}, expected ${TOML_TEST_VERSION}.&quot; &gt;&amp;2 echo &quot;Run: sh sources/setup_harness.sh&quot; &gt;&amp;2 exit 2 ;; esac fi</p>
+<p>NO_COLOR=1 exec &quot;${HARNESS}&quot; test -toml 1.0 -decoder &quot;${DECODER}&quot; &quot;$@&quot; &lt;/source&gt;</p>
+<p>&lt;stories&gt; &lt;story id=&quot;architecture&quot; implements=&quot;ARCHITECTURE.md&quot;&gt;Standard-library Go module and decoder command boundary.&lt;/story&gt; &lt;story id=&quot;parser-strings&quot; implements=&quot;FEATURE-Parser-Strings.md&quot;&gt;TOML string forms: basic, multi-line basic, literal, multi-line literal.&lt;/story&gt; &lt;story id=&quot;parser-lexical-scalars&quot; implements=&quot;FEATURE-Parser-Lexical-Scalars.md&quot;&gt;Booleans, integers, and floats.&lt;/story&gt; &lt;story id=&quot;parser-lexical-boundaries&quot; implements=&quot;FEATURE-Parser-Lexical-Boundaries.md&quot;&gt;Comments, control characters, and UTF-8 encoding.&lt;/story&gt; &lt;story id=&quot;parser-keys&quot; implements=&quot;FEATURE-Parser-Keys.md&quot;&gt;Key forms and key-definition semantics.&lt;/story&gt; &lt;story id=&quot;parser-tables&quot; implements=&quot;FEATURE-Parser-Tables.md&quot;&gt;Standard tables, redefinition, arrays of tables, and ordering.&lt;/story&gt; &lt;story id=&quot;parser-arrays-inline&quot; implements=&quot;FEATURE-Parser-Arrays-Inline.md&quot;&gt;Arrays and inline tables, including inline-table closure.&lt;/story&gt; &lt;story id=&quot;decoder-contract&quot; implements=&quot;FEATURE-Decoder-Contract.md&quot;&gt;Stdin, tagged JSON, diagnostic-stream, and exit-status contract.&lt;/story&gt; &lt;story id=&quot;parser-datetimes&quot; implements=&quot;FEATURE-Parser-Datetimes.md&quot;&gt;Offset and local date, time, and datetime forms.&lt;/story&gt; &lt;story id=&quot;conformance&quot; implements=&quot;FEATURE-Conformance.md&quot;&gt;The complete unfiltered toml-test suite after all implementation stories.&lt;/story&gt; &lt;/stories&gt;</p></article>
+</main>
+</body>
+</html>

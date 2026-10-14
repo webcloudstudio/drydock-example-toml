@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>workspace/targets/toml/blueprint/ARCHITECTURE.md</title>
+<link rel="stylesheet" href="../../../../../assets/kit.css">
+</head>
+<body>
+<main>
+<header class="fileheader"><div class="kind">Run artifact</div><h1>workspace/targets/toml/blueprint/ARCHITECTURE.md</h1><div class="filenav"><a href="../../../../../index.html">&larr; Report</a><a href="../../../../../workspace/targets/toml/blueprint/ARCHITECTURE.md">Raw file</a></div></header>
+<article class="doc"><h1>ARCHITECTURE: TOML Decoder</h1>
+<div class="scroll"><table><thead><tr><th>Field</th><th>Value</th></tr></thead><tbody><tr><td>Version</td><td>20261014 V1</td></tr><tr><td>Description</td><td>Module layout, package boundaries, and technology stack for a standard-library TOML v1.0.0 decoder.</td></tr><tr><td>Depends On</td><td>None</td></tr><tr><td>Provides</td><td>cmd/toml-decoder, internal/toml</td></tr><tr><td>Consumes</td><td>None</td></tr></tbody></table></div>
+<h2>Purpose</h2>
+<p>A command-line filter. It reads a TOML document on stdin, decodes it with a hand-written parser in <code>internal/toml</code>, and writes tagged JSON to stdout. Invalid input produces a diagnostic on stderr and a non-zero exit. The program takes no arguments, reads no configuration, and has no side effects.</p>
+<h2>Modules</h2>
+<div class="scroll"><table><thead><tr><th>Path</th><th>Responsibility</th></tr></thead><tbody><tr><td><code>go.mod</code></td><td>Module <code>github.com/owner/toml-decoder</code>. Declares no <code>require</code> directives. Go 1.22 or newer.</td></tr><tr><td><code>cmd/toml-decoder</code></td><td><code>package main</code>. Reads stdin, calls <code>internal/toml</code>, encodes the result to stdout, and writes errors to stderr.</td></tr><tr><td><code>internal/toml</code></td><td>Hand-written TOML v1.0.0 lexer, parser, and tagged-value model. Not importable outside the module.</td></tr></tbody></table></div>
+<h2>Technology Stack</h2>
+<ul><li>Go, standard library only. Imports limited to <code>encoding/json</code>, <code>strconv</code>, <code>strings</code>, <code>unicode</code>, <code>unicode/utf8</code>, <code>time</code>, <code>math</code>, <code>fmt</code>, <code>io</code>, <code>os</code>, <code>errors</code>.</li><li>No third-party TOML module, including <code>BurntSushi/toml</code>, <code>pelletier/go-toml</code>, and <code>naoina/toml</code>.</li><li>The conformance harness is shell and Go tooling staged under <code>sources/</code>. It is scoring instrumentation, not part of the deliverable.</li></ul>
+<h2>Module Ownership</h2>
+<div class="scroll"><table><thead><tr><th>Boundary</th><th>Owner</th><th>May access</th></tr></thead><tbody><tr><td>stdin, stdout, stderr, exit status</td><td><code>cmd/toml-decoder</code></td><td><code>os</code>, <code>io</code>, <code>encoding/json</code></td></tr><tr><td>TOML syntax and semantics</td><td><code>internal/toml</code></td><td><code>strings</code>, <code>strconv</code>, <code>unicode</code>, <code>unicode/utf8</code>, <code>time</code>, <code>math</code></td></tr><tr><td>Persistence, configuration, external services</td><td>None</td><td>Not applicable</td></tr></tbody></table></div>
+<h2>Programmatic Acceptance</h2>
+<p>=== AC architecture-go-mod ===<br>Intent: go.mod declares no require directive and names a module.<br>Requires: executable=go; scope=test</p>
+<p>from pathlib import Path</p>
+<p>text = Path(&quot;go.mod&quot;).read_text(encoding=&quot;utf-8&quot;) assert &quot;require&quot; not in text assert &quot;module&quot; in text === END AC architecture-go-mod ===</p>
+<p>=== AC architecture-build ===<br>Intent: The decoder command builds using only the standard library.<br>Requires: executable=go; scope=test</p>
+<p>import subprocess import sys</p>
+<p>build = subprocess.run( [&quot;go&quot;, &quot;build&quot;, &quot;-o&quot;, &quot;toml-decoder&quot;, &quot;./cmd/toml-decoder&quot;], capture_output=True, text=True, ) print(build.stdout) print(build.stderr, file=sys.stderr) assert build.returncode == 0 === END AC architecture-build ===</p>
+<p>=== AC architecture-entry-point ===<br>Intent: The internal parser package is present and the entry point is a main package.<br>Requires: executable=go; scope=test</p>
+<p>from pathlib import Path</p>
+<p>entry = Path(&quot;cmd/toml-decoder/main.go&quot;).read_text(encoding=&quot;utf-8&quot;) assert &quot;package main&quot; in entry assert Path(&quot;internal/toml&quot;).is_dir() === END AC architecture-entry-point ===</p>
+<h2>User Acceptance</h2>
+<ul><li>None.</li></ul>
+<h2>Guardrails</h2>
+<ul><li>Never import a third-party TOML module.</li><li><code>go.mod</code> declares no <code>require</code> directive.</li><li>The scoring assets under <code>sources/</code> are read-only and are never modified.</li></ul></article>
+</main>
+</body>
+</html>

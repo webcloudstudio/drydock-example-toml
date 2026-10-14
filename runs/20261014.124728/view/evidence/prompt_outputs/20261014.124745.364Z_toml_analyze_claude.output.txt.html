@@ -1,0 +1,325 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>evidence/prompt_outputs/20261014.124745.364Z_toml_analyze_claude.output.txt</title>
+<link rel="stylesheet" href="../../../assets/kit.css">
+</head>
+<body>
+<main>
+<header class="fileheader"><div class="kind">Run artifact</div><h1>evidence/prompt_outputs/20261014.124745.364Z_toml_analyze_claude.output.txt</h1><div class="filenav"><a href="../../../index.html">&larr; Report</a><a href="../../../evidence/prompt_outputs/20261014.124745.364Z_toml_analyze_claude.output.txt">Raw file</a></div></header>
+<article class="doc"><pre>=== BEGIN ARTIFACT ANALYSIS.md ===
+# Blueprint Analysis: toml
+
+## Commander Expectations
+
+- assert the decoder reads TOML from stdin and writes tagged JSON to stdout
+- assert the decoder exits non-zero and writes a diagnostic to stderr on invalid TOML
+- assert the full unfiltered conformance suite, run through `sh sources/full_test.sh`, is the acceptance verdict
+- assert the parser is hand-written and uses no third-party TOML module
+
+## Crew
+
+| Crew | Charge |
+|---|---|
+| Commander | Defines intent and decides what done means. |
+| Team Lead | Confirms epic completeness and stakeholder expectations. |
+| Planning Crew | Authors atomic specifications and the ordered Manifest. |
+| Shipyard Crew | Builds the tickets without synchronous Commander access. |
+
+## Story List
+
+The story IDs below are the Commander-owned governed boundary IDs from `INSTRUCTIONS.md`, used unchanged. Each boundary is one story and is not split.
+
+### Feature: Decoder Contract
+
+| ID | Story | High-level AC |
+|---|---|---|
+| architecture | Standard-library Go module and decoder command boundary | `go.mod` has no `require` directive; `./cmd/toml-decoder` builds |
+| decoder-contract | Stdin, tagged JSON, diagnostic-stream, and exit-status contract | Stdin in, tagged JSON on stdout, diagnostic on stderr with non-zero exit on invalid input |
+
+### Feature: Lexical Grammar
+
+| ID | Story | High-level AC |
+|---|---|---|
+| parser-strings | TOML string forms | Basic, multi-line basic, literal, and multi-line literal strings decode per spec |
+| parser-lexical-scalars | Booleans, integers, and floats | Scalar forms, underscores, prefixes, special floats, and range rules decode per spec |
+| parser-lexical-boundaries | Comments, control characters, and encoding | Comments and strings reject forbidden control characters; input must be valid UTF-8 |
+
+### Feature: Document Model
+
+| ID | Story | High-level AC |
+|---|---|---|
+| parser-keys | Key forms and key-definition semantics | Bare, quoted, and dotted keys decode; redefinition is rejected |
+| parser-tables | Standard tables, redefinition, arrays of tables, and ordering | Table headers, implicit super-tables, and array-of-tables rules hold |
+| parser-arrays-inline | Arrays, inline tables, and inline-table closure | Arrays and inline tables decode; inline tables cannot be extended |
+| parser-datetimes | Offset and local date/time forms | Offset and local date, time, and datetime forms decode with the required precision rules |
+
+### Feature: Conformance
+
+| ID | Story | High-level AC |
+|---|---|---|
+| conformance | The complete unfiltered suite after every implementation stage | `sh sources/full_test.sh` is run unfiltered; its exit status is the verdict |
+
+## Surfaced Acceptance Criteria
+
+| ID | Story ID | Criterion |
+|---|---|---|
+| AC-001 | architecture | `go.mod` declares no `require` directive, and `go build ./cmd/toml-decoder` succeeds using only standard-library imports. |
+| AC-002 | architecture | The decoder entry point is the `cmd/toml-decoder` main package, and the parser lives under `internal/toml`. |
+| AC-003 | decoder-contract | The decoder takes no arguments, reads no configuration file, and writes only to stdout and stderr. |
+| AC-004 | decoder-contract | Tables encode as JSON objects, arrays as JSON arrays, and each value as `{&quot;type&quot;: ..., &quot;value&quot;: ...}` with `value` as a JSON string. |
+| AC-005 | decoder-contract | Offset datetimes encode as RFC 3339, local datetimes encode without an offset, local dates as the date part, and local times as the time part. |
+| AC-006 | parser-strings | Basic strings decode `\b \t \n \f \r \&quot; \\ \uXXXX \UXXXXXXXX`, and any other backslash escape is rejected. |
+| AC-007 | parser-strings | A multi-line basic string trims a newline immediately after its opening delimiter and applies the line-ending backslash rule. |
+| AC-008 | parser-lexical-scalars | Integers in the signed 64-bit range decode losslessly, and values outside that range are rejected. |
+| AC-009 | parser-lexical-scalars | The special floats `inf`, `+inf`, `-inf`, `nan`, `+nan`, and `-nan` decode as IEEE 754 values. |
+| AC-010 | parser-lexical-boundaries | Control characters other than tab are rejected in comments and literal strings. |
+| AC-011 | parser-keys | Defining the same key twice is rejected, and bare and quoted keys with the same name are equivalent. |
+| AC-012 | parser-tables | Defining a standard table twice is rejected, and a `[[name]]` header that conflicts with a static table or array is rejected. |
+| AC-013 | parser-arrays-inline | Inline tables reject later extension through dotted keys or table headers. |
+| AC-014 | parser-datetimes | Fractional seconds beyond the supported precision are truncated, not rounded. |
+| AC-015 | conformance | The verdict is the exit status of `sh sources/full_test.sh` run from the application root. |
+
+## Relationship Model
+
+| Source or group | Relationship type | Related source or group | Evidence | Delivery implication |
+|---|---|---|---|---|
+| `sources/INSTRUCTIONS.md` | instruction-to-test | `sources/full_test.sh` | Run Harness section names `full_test.sh` as the scoring entry point | Conformance story gates on `full_test.sh` unchanged. |
+| `sources/full_test.sh` | dependency | `sources/run_conformance.sh` | `exec sh sources/run_conformance.sh` | Harness must be staged with the entry point. |
+| `sources/run_conformance.sh` | dependency | `sources/setup_harness.sh` | Exit 2 when `toml-test` is absent; version check against `TOML_TEST_VERSION` | Harness install is a precondition, not a build charge. |
+| `sources/stage_test.sh` | dependency | `sources/run_conformance.sh` | `exec sh sources/run_conformance.sh -run &quot;$1&quot;` | Parser stories are bounded by pattern through this runner. |
+| `sources/stage_contract.sh` | instruction-to-test | `cmd/toml-decoder` | `architecture` and `decoder` stage gates | Governs the architecture and decoder-contract stories. |
+| `sources/toml-v1.0.0.md` | reference-to-replacement | `internal/toml` | Spec is normative; INSTRUCTIONS forbids third-party TOML modules | Parser is written from the spec, not from a library. |
+
+## Source Roles
+
+| Path | Role | Plan disposition | Build disposition |
+|---|---|---|---|
+| sources/INSTRUCTIONS.md | author intent | compass | prompt-only |
+| sources/toml-v1.0.0.md | normative specification | context | prompt-only |
+| sources/full_test.sh | conformance harness | context | stage |
+| sources/run_conformance.sh | conformance harness | context | stage |
+| sources/setup_harness.sh | test helper | context | stage |
+| sources/stage_contract.sh | test helper | context | stage |
+| sources/stage_test.sh | test helper | context | stage |
+
+## Planning Instructions
+
+### Delivery Shape
+
+A command-line filter. It reads a TOML document from stdin, decodes it with a hand-written parser in `internal/toml`, and writes tagged JSON to stdout. Invalid input produces a stderr diagnostic and a non-zero exit. The program has no arguments, configuration, or persistence.
+
+### Story Realization Map
+
+- **architecture**: scope is `go.mod` and the `cmd/toml-decoder` boundary. Evidence: INSTRUCTIONS &quot;Interface Contract&quot; minimal shape and &quot;Definition of Done&quot;. Related: `stage_contract.sh architecture`. Requires an acceptance contract and a stdlib-only module.
+- **decoder-contract**: scope is stdin, tagged JSON, stderr, and exit status. Evidence: INSTRUCTIONS &quot;Tagged JSON encoding&quot; table. Related: `stage_contract.sh decoder`. Requires a capability.
+- **parser-strings**: scope is TOML string forms. Evidence: spec &quot;String&quot;. Related: `valid/string`, `invalid/string` groups via `stage_test.sh`. Requires a capability and a test slice.
+- **parser-lexical-scalars**: scope is booleans, integers, and floats. Evidence: spec &quot;Integer&quot;, &quot;Float&quot;, &quot;Boolean&quot;. Related: `valid/bool`, `valid/integer`, `valid/float` and their invalid groups. Requires a capability and a test slice.
+- **parser-lexical-boundaries**: scope is comments, control characters, and UTF-8. Evidence: spec &quot;Spec&quot; and &quot;Comment&quot;. Related: `valid/comment`, `invalid/comment`, `invalid/control`, `invalid/encoding`. Requires a capability and a test slice.
+- **parser-keys**: scope is bare, quoted, and dotted keys. Evidence: spec &quot;Keys&quot;. Related: `valid/key`, `invalid/key`. Requires a capability and a test slice.
+- **parser-tables**: scope is standard tables, array-of-tables, and ordering. Evidence: spec &quot;Table&quot;, &quot;Array of Tables&quot;. Related: `valid/table`, `invalid/table`. Requires a capability and a test slice.
+- **parser-arrays-inline**: scope is arrays and inline tables. Evidence: spec &quot;Array&quot;, &quot;Inline Table&quot;. Related: `valid/array`, `valid/inline-table`, and their invalid groups. Requires a capability and a test slice.
+- **parser-datetimes**: scope is the four datetime forms. Evidence: spec datetime sections. Related: `valid/datetime`, `invalid/datetime`, `invalid/local-date`, `invalid/local-datetime`, `invalid/local-time`. Requires a capability and a test slice.
+- **conformance**: scope is the terminal unfiltered run. Evidence: `full_test.sh`. Requires a proof gate, not a capability.
+
+### Test and Acceptance Strategy
+
+- The terminal story `conformance` is the only story that runs the complete suite. It depends on all nine implementation stories and declares `Suite: full`. Its gate is `sh sources/full_test.sh`, with no selector.
+- Every other story is bounded. The `architecture` and `decoder-contract` stories run `sh sources/stage_contract.sh &lt;architecture|decoder&gt;`. The parser stories run `sh sources/stage_test.sh &lt;group patterns&gt;` scoped to the groups they own, and declare `Suite: scoped`.
+- Verdicts are exit statuses. No story asserts the text of the summary line or a case count.
+- A stdlib-only, no-third-party guardrail is verified by `stage_contract.sh architecture` and by SEA st-002.
+- No source supplies a numeric release threshold. The universal &quot;all cases pass&quot; requirement is kept in its universal form and proven by the full-suite run.
+
+### Sequencing and Dependencies
+
+- `architecture` → `decoder-contract` → `parser-strings` → `parser-lexical-scalars` → `parser-lexical-boundaries` → `parser-keys` → `parser-tables` → `parser-arrays-inline` → `parser-datetimes` → `conformance`.
+- `decoder-contract` must follow `parser-keys` and `parser-lexical-scalars` in the Manifest. Its governed gate `stage_contract.sh decoder` decodes `answer = 42` and rejects an unterminated array, so it cannot pass before key and integer parsing exist. Its position in the list is governed; the Manifest order carries this constraint.
+- `parser-tables` depends on `parser-keys`. `parser-arrays-inline` depends on `parser-strings`, `parser-lexical-scalars`, and `parser-keys`.
+- `conformance` depends on all implementation stories.
+
+### Source Conflicts and Gaps
+
+- No contradictions among the imported sources. The toml-test version `v2.2.0` is consistent across `full_test.sh`, `run_conformance.sh`, `stage_test.sh`, and `setup_harness.sh`.
+- The story boundaries are taken from the list in `INSTRUCTIONS.md`. The `ACCEPTANCE.json` file it cites is not among the imported sources, so Plan should preserve those boundary IDs as written.
+- The sample module path `github.com/owner/toml-decoder` is a placeholder. The builder uses it as the module path, because the sources name no other.
+- `stage_contract.sh` uses `python` to check JSON. That is harness tooling only and does not make Python part of the deliverable.
+- The `setup_harness.sh` install requires network access. That is a one-time precondition, not a product dependency.
+
+## Analysis Notes
+
+generated: 2026-10-14
+blueprint: /mnt/c/Users/barlo/projects/drydock/uat/Toml/runs/20261014.124728/workspace/targets/toml/blueprint
+
+Quality: Questions
+  blockers: 0
+  questions: 1
+  features: 4
+  stories: 10
+  stack: Go, standard library only
+  display_name: not proposed
+  short_description: A TOML v1.0.0 decoder that reads TOML on stdin and writes tagged JSON to stdout, written in Go with the standard library only and verified against the toml-test conformance suite.
+
+Project type: `cli`. The program is a stdin-to-stdout filter with no subcommands and no arguments.
+Core baseline (cli): the program has no commands or sub-verbs and takes no arguments, so the sources define no help surface. This is satisfied, not a gap.
+Gap checklist: no persistence, auth, or external service calls are involved in the product. The deployment target is derived as a local `go build -o toml-decoder ./cmd/toml-decoder` executable.
+SEA_TRIALS st-001 is preserved from the prior project contract with the same ID and criterion.
+=== END ARTIFACT ===
+
+=== BEGIN ARTIFACT SEA_TRIALS.md ===
+# Sea Trials: toml
+
+## st-001: The supplied scoring script passes
+
+Type: technical
+Required: yes
+Criterion: The completed parser shall make sh sources/full_test.sh exit zero; that script&#x27;s exit status is the sole acceptance verdict.
+Verification: proof
+Pattern: ubiquitous
+Command: [&quot;sh&quot;, &quot;sources/full_test.sh&quot;]
+
+## st-002: The decoder uses no third-party TOML module
+
+Type: guardrail
+Required: yes
+Criterion: The decoder shall not import any third-party TOML module, and go.mod shall declare no required dependencies.
+Verification: proof
+Pattern: ubiquitous
+Command: [&quot;sh&quot;, &quot;sources/stage_contract.sh&quot;, &quot;architecture&quot;]
+
+## st-003: The decoder honours the stdin and exit-status contract
+
+Type: behavioral
+Required: yes
+Criterion: When TOML is supplied on stdin, the decoder shall write tagged JSON to stdout and exit zero; when the input is invalid TOML, the decoder shall write a diagnostic to stderr and exit non-zero.
+Verification: proof
+Pattern: event
+Command: [&quot;sh&quot;, &quot;sources/stage_contract.sh&quot;, &quot;decoder&quot;]
+
+## Questions
+
+- None.
+=== END ARTIFACT ===
+
+=== BEGIN ARTIFACT TECHNOLOGY_STACK.md ===
+# Technology Stack
+
+| Technology | Rigging | Notes |
+|---|---|---|
+| Go (toolchain 1.22 or later) | go.md | Language for the deliverable. Floor of 1.22 is stated in `setup_harness.sh`. |
+| Go standard library | — | `encoding/json`, `strconv`, `strings`, `unicode`, `unicode/utf8`, `time`, `math`, `fmt`, `io`, `os`, `errors`. No third-party modules. |
+| Command-line filter (`cmd/toml-decoder`) | cli.md | Entry point with exit-code and stdin/stdout contract. |
+| Project layout and workflow | common.md | Module layout and Git hygiene. |
+| toml-test v2.2.0 | — | Conformance harness installed by `setup_harness.sh`. A scoring instrument, not part of the deliverable. |
+| POSIX sh | — | Runs the harness and gate scripts. |
+| Python 3 | — | Used only by `stage_contract.sh` for JSON checks. Not part of the deliverable. |
+=== END ARTIFACT ===
+
+=== BEGIN ARTIFACT COMPASS.md ===
+# COMPASS: toml
+
+## Compass
+A standard-library Go decoder for TOML v1.0.0. It reads a TOML document on stdin and writes the tagged-JSON description of it to stdout, so that conformance can be judged by the upstream toml-test suite. It serves anyone needing a faithful, dependency-free TOML reader, and it is judged by the exit status of the supplied scoring script. Rejecting invalid input counts as much as accepting valid input.
+
+## Constraints
+- Filter contract only: stdin in, stdout out, no arguments, no configuration files, no side effects.
+- Standard library only; `go.mod` declares no required modules.
+- No network use at test time once the harness is installed.
+- Scoring assets under `sources/` are read-only and hash-verified.
+- Every TOML value is encoded as `{&quot;type&quot;, &quot;value&quot;}` with `value` as a JSON string.
+- Diagnostics go to stderr; malformed input exits non-zero.
+
+## Guardrails
+- Never import a third-party TOML module, including `BurntSushi/toml`, `pelletier/go-toml`, `naoina/toml`, or any other.
+- Never modify, skip, filter, or reinterpret the scoring scripts or harness inputs.
+- Never special-case fixture input or hard-code expected outputs.
+- Never assert on the text of the conformance summary; the exit status is the verdict.
+- Never assert a suite case count.
+- Reject invalid TOML as strictly as valid TOML is accepted.
+=== END ARTIFACT ===
+
+=== BEGIN ARTIFACT discovery-identity.json ===
+{
+  &quot;id&quot;: &quot;discovery-identity&quot;,
+  &quot;title&quot;: &quot;Discovery: Project Identity&quot;,
+  &quot;purpose&quot;: &quot;Confirm the proposed display name and short description before planning.&quot;,
+  &quot;questions&quot;: [
+    {
+      &quot;id&quot;: &quot;display_name&quot;,
+      &quot;label&quot;: &quot;Display Name&quot;,
+      &quot;prompt&quot;: &quot;The display name Drydock will use for this project. Edit to override the proposal.&quot;,
+      &quot;input&quot;: &quot;text&quot;,
+      &quot;proposed&quot;: &quot;toml&quot;,
+      &quot;answer&quot;: &quot;toml&quot;
+    },
+    {
+      &quot;id&quot;: &quot;short_description&quot;,
+      &quot;label&quot;: &quot;Short Description&quot;,
+      &quot;prompt&quot;: &quot;One-sentence description of what this project does. Edit to override the proposal.&quot;,
+      &quot;input&quot;: &quot;textarea&quot;,
+      &quot;proposed&quot;: &quot;A TOML v1.0.0 decoder that reads TOML on stdin and writes tagged JSON to stdout, written in Go with the standard library only and verified against the toml-test conformance suite.&quot;,
+      &quot;answer&quot;: &quot;A TOML v1.0.0 decoder that reads TOML on stdin and writes tagged JSON to stdout, written in Go with the standard library only and verified against the toml-test conformance suite.&quot;
+    }
+  ]
+}
+=== END ARTIFACT ===
+
+=== BEGIN ARTIFACT STORY_GUIDANCE.json ===
+{
+  &quot;stories&quot;: [
+    {
+      &quot;id&quot;: &quot;architecture&quot;,
+      &quot;gate&quot;: [&quot;sh&quot;, &quot;sources/stage_contract.sh&quot;, &quot;architecture&quot;],
+      &quot;note&quot;: &quot;INSTRUCTIONS.md, Governed Stage Boundaries: architecture&quot;
+    },
+    {
+      &quot;id&quot;: &quot;decoder-contract&quot;,
+      &quot;gate&quot;: [&quot;sh&quot;, &quot;sources/stage_contract.sh&quot;, &quot;decoder&quot;],
+      &quot;note&quot;: &quot;INSTRUCTIONS.md, Governed Stage Boundaries: decoder-contract&quot;
+    },
+    {
+      &quot;id&quot;: &quot;parser-strings&quot;,
+      &quot;gate&quot;: [&quot;sh&quot;, &quot;sources/stage_test.sh&quot;, &quot;valid/string/*,invalid/string/*&quot;],
+      &quot;note&quot;: &quot;INSTRUCTIONS.md, Governed Stage Boundaries: parser-strings&quot;
+    },
+    {
+      &quot;id&quot;: &quot;parser-lexical-scalars&quot;,
+      &quot;gate&quot;: [&quot;sh&quot;, &quot;sources/stage_test.sh&quot;, &quot;valid/bool/*,valid/integer/*,valid/float/*,invalid/bool/*,invalid/integer/*,invalid/float/*&quot;],
+      &quot;note&quot;: &quot;INSTRUCTIONS.md, Governed Stage Boundaries: parser-lexical-scalars&quot;
+    },
+    {
+      &quot;id&quot;: &quot;parser-lexical-boundaries&quot;,
+      &quot;gate&quot;: [&quot;sh&quot;, &quot;sources/stage_test.sh&quot;, &quot;valid/comment/*,invalid/comment/*,invalid/control/*,invalid/encoding/*&quot;],
+      &quot;note&quot;: &quot;INSTRUCTIONS.md, Governed Stage Boundaries: parser-lexical-boundaries&quot;
+    },
+    {
+      &quot;id&quot;: &quot;parser-keys&quot;,
+      &quot;gate&quot;: [&quot;sh&quot;, &quot;sources/stage_test.sh&quot;, &quot;valid/key/*,invalid/key/*&quot;],
+      &quot;note&quot;: &quot;INSTRUCTIONS.md, Governed Stage Boundaries: parser-keys&quot;
+    },
+    {
+      &quot;id&quot;: &quot;parser-tables&quot;,
+      &quot;gate&quot;: [&quot;sh&quot;, &quot;sources/stage_test.sh&quot;, &quot;valid/table/*,invalid/table/*&quot;],
+      &quot;note&quot;: &quot;INSTRUCTIONS.md, Governed Stage Boundaries: parser-tables&quot;
+    },
+    {
+      &quot;id&quot;: &quot;parser-arrays-inline&quot;,
+      &quot;gate&quot;: [&quot;sh&quot;, &quot;sources/stage_test.sh&quot;, &quot;valid/array/*,valid/inline-table/*,invalid/array/*,invalid/inline-table/*&quot;],
+      &quot;note&quot;: &quot;INSTRUCTIONS.md, Governed Stage Boundaries: parser-arrays-inline&quot;
+    },
+    {
+      &quot;id&quot;: &quot;parser-datetimes&quot;,
+      &quot;gate&quot;: [&quot;sh&quot;, &quot;sources/stage_test.sh&quot;, &quot;valid/datetime/*,invalid/datetime/*,invalid/local-date/*,invalid/local-datetime/*,invalid/local-time/*&quot;],
+      &quot;note&quot;: &quot;INSTRUCTIONS.md, Governed Stage Boundaries: parser-datetimes&quot;
+    },
+    {
+      &quot;id&quot;: &quot;conformance&quot;,
+      &quot;note&quot;: &quot;INSTRUCTIONS.md, Governed Stage Boundaries: conformance. Terminal story; runs the unfiltered suite through sh sources/full_test.sh, which takes no scope selector.&quot;
+    }
+  ]
+}
+=== END ARTIFACT ===</pre></article>
+</main>
+</body>
+</html>

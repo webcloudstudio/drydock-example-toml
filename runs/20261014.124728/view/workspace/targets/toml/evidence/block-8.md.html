@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>workspace/targets/toml/evidence/block-8.md</title>
+<link rel="stylesheet" href="../../../../../assets/kit.css">
+</head>
+<body>
+<main>
+<header class="fileheader"><div class="kind">Run artifact</div><h1>workspace/targets/toml/evidence/block-8.md</h1><div class="filenav"><a href="../../../../../index.html">&larr; Report</a><a href="../../../../../workspace/targets/toml/evidence/block-8.md">Raw file</a></div></header>
+<article class="doc"><h1>Evidence: Block 8 · Service (block-8)</h1>
+<ul><li>block type: block</li><li>date: 2026-10-14</li><li>resulting state: closed/verified</li><li>story points (combined assembled cost): 9945</li><li>execution id: 20261014.132940.698Z-0a155b5f</li></ul>
+<h2>Stories built</h2>
+<ul><li>Stdin, tagged JSON, diagnostic-stream, and exit-status contract. (decoder-contract) [story]</li></ul>
+<h2>Acceptance tooling authorization</h2>
+<ul><li>FEATURE-Decoder-Contract.md#decoder-stage-gate: executable=sh; scope=test; authorization=existing Target environment</li><li>FEATURE-Decoder-Contract.md#decoder-stage-gate: executable=go; scope=test; authorization=existing Target environment</li><li>FEATURE-Decoder-Contract.md#decoder-stage-gate: executable=python; scope=test; authorization=existing Target environment</li><li>FEATURE-Decoder-Contract.md#decoder-scalar-round-trip: executable=go; scope=test; authorization=existing Target environment</li><li>FEATURE-Decoder-Contract.md#decoder-table-round-trip: executable=go; scope=test; authorization=existing Target environment</li><li>FEATURE-Decoder-Contract.md#decoder-invalid-exit: executable=go; scope=test; authorization=existing Target environment</li></ul>
+<h2>Stacked context</h2>
+<ul><li>compass: COMPASS.md (SP 945)</li><li>implements: FEATURE-Decoder-Contract.md (SP 1521)</li><li>context: ARCHITECTURE_compact.md (SP 244)</li><li>stack: go.md (SP 5918)</li><li>stack: common_compact.md (SP 1199)</li></ul>
+<h2>Build directory changes</h2>
+<ul><li>cmd/toml-decoder/contract_test.go</li><li>cmd/toml-decoder/main.go</li><li>toml-decoder</li></ul>
+<h2>Pre-build acceptance observation</h2>
+<ul><li>GREEN (prepassed): decoder-stage-gate (FEATURE-Decoder-Contract.md)</li></ul>
+<p>intent: The governed decoder gate passes: the decoder decodes a scalar and rejects an unterminated array. return code: 0</p>
+<ul><li>GREEN (prepassed): decoder-scalar-round-trip (FEATURE-Decoder-Contract.md)</li></ul>
+<p>intent: A scalar integer is written to stdout as a tagged value and exit status is zero. return code: 0</p>
+<ul><li>GREEN (prepassed): decoder-table-round-trip (FEATURE-Decoder-Contract.md)</li></ul>
+<p>intent: A standard table encodes as a nested JSON object with tagged values. return code: 0</p>
+<ul><li>GREEN (prepassed): decoder-invalid-exit (FEATURE-Decoder-Contract.md)</li></ul>
+<p>intent: Malformed TOML exits non-zero, writes nothing to stdout, and writes a diagnostic to stderr. return code: 0 stderr: toml-decoder: decode: invalid TOML: line 2: unterminated array</p>
+<h2>Post-build programmatic acceptance</h2>
+<ul><li>PASS: decoder-stage-gate (FEATURE-Decoder-Contract.md)</li></ul>
+<p>intent: The governed decoder gate passes: the decoder decodes a scalar and rejects an unterminated array. target interpreter: /mnt/c/Users/barlo/projects/drydock/.venv/bin/python provisioning: not required return code: 0</p>
+<ul><li>PASS: decoder-scalar-round-trip (FEATURE-Decoder-Contract.md)</li></ul>
+<p>intent: A scalar integer is written to stdout as a tagged value and exit status is zero. target interpreter: /mnt/c/Users/barlo/projects/drydock/.venv/bin/python provisioning: not required return code: 0</p>
+<ul><li>PASS: decoder-table-round-trip (FEATURE-Decoder-Contract.md)</li></ul>
+<p>intent: A standard table encodes as a nested JSON object with tagged values. target interpreter: /mnt/c/Users/barlo/projects/drydock/.venv/bin/python provisioning: not required return code: 0</p>
+<ul><li>PASS: decoder-invalid-exit (FEATURE-Decoder-Contract.md)</li></ul>
+<p>intent: Malformed TOML exits non-zero, writes nothing to stdout, and writes a diagnostic to stderr. target interpreter: /mnt/c/Users/barlo/projects/drydock/.venv/bin/python provisioning: not required return code: 0 stderr: toml-decoder: decode: invalid TOML: line 2: unterminated array</p>
+<h2>Build summary</h2>
+<p>I&#x27;ll start by inspecting the build directory and the staged sources.The directory already has a built parser and a command package. Next I&#x27;ll read the current entry point and the <code>toml</code> package API.The stdin-to-JSON path already exists in <code>main.go</code>. Before deciding what&#x27;s missing, I&#x27;ll run the existing test suite and the declared decoder gate to see where things stand.Tests, vet, gofmt, and the stage gate are all clean. The spec&#x27;s encoding rules go further than the existing tests check, so I&#x27;ll probe the built binary directly against them.The contract mostly holds already: tables, arrays, empty <code>{}</code>/<code>[]</code>, and the invalid-input exit path all behave as specified. Two things stand out. The entry point silently ignores command-line arguments, but the spec says it accepts none. Datetime values are rejected, which belongs to a scalar feature outside this block. I&#x27;ll check the existing command tests for style and whether any cover arguments.Nothing in the command checks arguments, and no test covers that contract. I&#x27;ll make the one code change this block needs: reject any argument with a usage diagnostic and exit 2, while keeping <code>run</code> unchanged. Then I&#x27;ll add tests for the declared stdin, stdout, stderr, and exit behavior.Next, the tests. They act on the built binary and read back stdout as parsed JSON, not as scraped text.Now I&#x27;ll run gofmt, vet, and the full test suite with the race detector, then run each declared acceptance assertion as written.Everything passes. I&#x27;ll confirm the new tests actually ran and that only the intended files changed, with <code>sources/</code> untouched.The decoder contract is in place and every declared acceptance assertion passes. The one code change adds the &quot;accepts no arguments&quot; rule, which the entry point did not enforce.</p>
+<p>&lt;blueprint-decisions&gt; [{&quot;spec&quot;:&quot;FEATURE-Decoder-Contract.md&quot;,&quot;severity&quot;:&quot;Low&quot;,&quot;subject&quot;:&quot;Exit status for command-line arguments&quot;,&quot;decision&quot;:&quot;The spec requires that the decoder accept no arguments but does not name an exit code for rejecting them. I exit 2, the conventional usage-error code, with a diagnostic on stderr and nothing on stdout. Decode failures keep exit 1. Is 2 acceptable, or should arguments use 1 like other failures?&quot;}] &lt;/blueprint-decisions&gt;</p>
+<p>RESULT: SUCCESS</p>
+<p>FILES CHANGED:</p>
+<ul><li>cmd/toml-decoder/main.go</li><li>cmd/toml-decoder/contract_test.go</li><li>toml-decoder (rebuilt binary; the acceptance scripts rebuild it, and it was already modified in the working tree before this step)</li></ul>
+<p>SUMMARY:</p>
+<ul><li><strong>Argument rejection (new):</strong> <code>main</code> now calls <code>checkNoArgs(os.Args[1:])</code> before decoding. Any argument prints <code>toml-decoder: takes no arguments, got [...]</code> to stderr and exits 2. Before this change, arguments were silently ignored.</li><li><strong>Contract tests (new):</strong> <code>contract_test.go</code> drives the built binary and reads stdout back as parsed JSON. It covers: an empty document gives <code>{}</code>; a table gives a nested tagged object; an array gives an array of tagged values; an empty array gives <code>[]</code>; a successful run writes nothing to stderr; and arguments give a non-zero exit, empty stdout, and a stderr diagnostic. It also has unit tests for <code>checkNoArgs</code>.</li><li><strong>Acceptance assertions, all passing:</strong><ul><li><code>decoder-stage-gate</code> (<code>sh sources/stage_contract.sh decoder</code>): exit 0.</li><li><code>decoder-scalar-round-trip</code>: pass.</li><li><code>decoder-table-round-trip</code>: pass.</li><li><code>decoder-invalid-exit</code>: pass.</li></ul></li><li><strong>Project checks:</strong> <code>gofmt -l .</code> is empty, <code>go vet ./...</code> is clean, and <code>go test -race -cover ./...</code> passes in both packages (cmd 53.8%, internal/toml 97.0%). Coverage in <code>cmd</code> dropped from 57.1% because the new <code>main</code> lines are uncovered; <code>main</code> itself is not exercised by tests.</li><li><strong>Suite runs:</strong> I did not run the staged <code>toml-test</code> suite. This block&#x27;s declared criteria don&#x27;t invoke it, so I left it alone.</li><li><strong>Not in this block:</strong> datetime values (<code>1979-05-27T07:32:00Z</code>) are rejected with a syntax error. The spec lists datetime as a valid tagged type, but datetime scalar parsing belongs to a later feature, so I did not implement it here.</li><li><strong>Git:</strong> nothing committed or staged. <code>sources/</code> is unmodified.</li></ul>
+<p>BLOCKERS:</p>
+<ul><li>None.</li></ul></article>
+</main>
+</body>
+</html>

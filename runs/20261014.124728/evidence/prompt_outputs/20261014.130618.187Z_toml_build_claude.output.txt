@@ -1,0 +1,50 @@
+Block 5 covers key forms. The current code rejects dotted keys, and an existing test asserts that, so that test has to change. The toml-test harness isn't installed yet, so I'll install it (the setup script needs network, which is available) while I write the code.The harness is installed and pinned at v2.2.0. Now I'll implement the key forms. I'm moving key parsing into a new `keys.go`, following the per-feature file layout (`string.go`, `scalar.go`), and adding the dotted-key insertion there.Next, the existing `toml_test.go` case asserts that `a.b = "v"` is rejected. That is the behavior this step changes, so I'll move it out of the rejection list and cover dotted keys in a new test file.Now a binary-level test in `cmd/toml-decoder`, reusing the existing build and run helpers, so the dotted-key and redefinition behavior is also checked through the real filter contract.Formatting, vet, and all Go tests pass under `-race`. Next I'll run the declared acceptance checks. I'm writing the three Python checks to a scratch directory outside the build tree and running them from the build directory, since they build and invoke `./toml-decoder` relative to the cwd.Now the declared scoped suite gate, invoked exactly as the `keys-suite-slice` criterion declares (`stage_test.sh` with the key pattern), using the installed harness.The gate exits 0, but it ran zero cases: "valid tests: 0 passed, 0 failed" and 884 skipped. That is a vacuous pass, so I won't count it. I'll check the runner's `-run` syntax.The runner separates patterns with commas, not `|`, so the declared pattern matches nothing and the gate passes vacuously. The criterion and stage script are fixed, so I can't correct them. I'll run the same key-scoped stage gate with comma-separated patterns to see whether the key cases really pass.With real cases running, 18 valid and 61 invalid key cases pass and 10 valid cases fail. I'll list the failing cases to see whether any failure is a key-form problem rather than a table-header or inline-table case, which belong to later blocks.Most failures stop at a `[table]` header, which is the table feature for a later block. I need to confirm that for each one, including `like-date` line 18, and check the remaining cases (`alphanum`, `case-sensitive`, `space`, `dotted-04`).That `find /` was too broad and got backgrounded. I'll stop it and read the failing inputs straight from the suite output instead.The background task was reported as failed. My `pkill -f` pattern probably matched the shell's own command line, so I'll avoid that and read the suite output file directly.All 10 valid failures stop at a `[table]` or `[[array]]` header. Table headers are not part of the key story, and they are the feature for a later block. Before I say that, I'll check that the key lines preceding those headers decode to the right values. I'll run the pre-header lines through the built binary.The decoded values are correct for the pre-header lines. Last, I'll confirm the set of files changed in the build directory.The key forms are implemented and the Go suite passes, but the step is not done. The declared suite gate passes only because it runs zero cases, and the key cases that do run show 10 failures that need table headers.
+
+**What's in place**
+- **Bare, quoted, and dotted keys** are parsed in a new `internal/toml/keys.go`. Dotted keys build nested tables, and spaces around dots are ignored.
+- **Redefinition** is rejected for bare, quoted, and dotted keys alike, and a key holding a value cannot later be used as a table.
+- **Go tests** pass under `go vet` and `go test -race -cover`, and `gofmt -l` is clean. The coverage is 96.3% for `internal/toml` and 57.1% for `cmd/toml-decoder`.
+- **Declared acceptance checks** (`keys-bare-round-trip`, `keys-dotted-round-trip`, `keys-redefinition-rejected`) all pass. I ran them from a scratch script outside the build tree.
+
+**Why the suite gate is not a real pass**
+- `sources/stage_test.sh "valid/key/**|invalid/key/**"` exits 0, but toml-test reports `valid tests: 0 passed, 0 failed`. The runner separates patterns with commas, not `|`, so nothing ran.
+- I ran the same gate with `"valid/key/*,invalid/key/*"`. Results: valid 18 passed and 10 failed; invalid 61 passed and 0 failed.
+- All 10 valid failures stop at a `[table]` or `[[array]]` header (for example `valid/key/alphanum` at `[2018_10]`). Table headers are outside this story. I spot-checked the key lines before those headers and their decoded values are correct.
+- I did not edit the criterion or the stage script, since both are fixed. I also did not emit `AC_BROKEN`, because the criterion did not fail; it passes vacuously.
+
+**Choices I made**
+- Moved key parsing into `keys.go`, following the per-feature file layout.
+- Changed the existing `toml_test.go` case that asserted `a.b = "v"` is rejected, since dotted keys are now required. The rest of its rejection list is unchanged.
+- Internal nested tables use a separate type from tagged leaves, so a table is never mistaken for a value.
+
+**Files changed** (in the build directory; nothing in `sources/` or the protected paths was touched)
+- `internal/toml/toml.go`
+- `internal/toml/keys.go` (new)
+- `internal/toml/keys_test.go` (new)
+- `internal/toml/toml_test.go`
+- `cmd/toml-decoder/keys_test.go` (new)
+- `toml-decoder` (rebuilt binary; already tracked as modified)
+
+RESULT: FAILED
+
+FILES CHANGED:
+- internal/toml/toml.go
+- internal/toml/keys.go
+- internal/toml/keys_test.go
+- internal/toml/toml_test.go
+- cmd/toml-decoder/keys_test.go
+- toml-decoder
+
+SUMMARY:
+Implemented bare, quoted, and dotted keys with redefinition checks in `internal/toml/keys.go`. All three declared key acceptance checks pass, and `go test -race` is green. Key-scoped toml-test run with comma-separated patterns: valid 18 passed / 10 failed, invalid 61 passed / 0 failed. The declared `|`-separated pattern runs zero cases and exits 0. The 10 valid failures all stop at table headers, which this story does not cover.
+
+BLOCKERS:
+- `keys-suite-slice` cannot verify anything as written: `|` is not a toml-test separator, so the gate passes with zero cases. The pattern should be `valid/key/*,invalid/key/*` (or equivalent) for the criterion to mean anything. Needs the criterion owner to fix.
+- The 10 valid key cases that include `[table]` and `[[array]]` headers need the tables feature, which belongs to a later block.
+
+<blueprint-decisions>
+[{"spec":"FEATURE-Parser-Keys.md","severity":"Low","subject":"Internal representation of dotted-key tables","decision":"Nested tables are built with an internal table type that is distinct from tagged leaf maps, then exported as plain map[string]any. This keeps a table from being mistaken for a value when checking redefinition. Acceptable, or should the representation change on replan?"}]
+</blueprint-decisions>
+
+FAILURE_SUMMARY: Declared key suite gate runs zero cases; the real key slice fails 10 valid cases that need table headers.
+FAILURE_DETAIL: The key forms and redefinition rules are implemented and pass the three declared acceptance checks and the Go tests. The `keys-suite-slice` criterion passes vacuously because its pattern uses `|`, which toml-test does not accept, so zero cases run. With a comma-separated pattern, 10 valid key cases fail only because they contain `[table]` or `[[array]]` headers, which are a later block. To pass the criterion as intended, either the pattern must be corrected by the criterion owner and table headers must be implemented in their own block.

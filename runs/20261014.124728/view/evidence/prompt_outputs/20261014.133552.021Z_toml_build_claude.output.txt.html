@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>evidence/prompt_outputs/20261014.133552.021Z_toml_build_claude.output.txt</title>
+<link rel="stylesheet" href="../../../assets/kit.css">
+</head>
+<body>
+<main>
+<header class="fileheader"><div class="kind">Run artifact</div><h1>evidence/prompt_outputs/20261014.133552.021Z_toml_build_claude.output.txt</h1><div class="filenav"><a href="../../../index.html">&larr; Report</a><a href="../../../evidence/prompt_outputs/20261014.133552.021Z_toml_build_claude.output.txt">Raw file</a></div></header>
+<article class="doc"><pre>I&#x27;ll start by inspecting the build directory and the staged conformance scripts.The scoring entry point is `sh sources/full_test.sh`. Before running it, I&#x27;ll check the harness version and the current decoder state.The decoder is partial and the existing tests pass. Now I&#x27;ll run the full suite, the declared verdict, in the background and capture the output to a file outside the build directory.The background run finished. I&#x27;ll read its output.The full suite exits 0: 205/205 valid and 474/474 invalid pass. I&#x27;ll confirm the second declared assertion and formatting, then check which files changed.The full conformance suite passes and the step needed no source changes. The verdict is `sh sources/full_test.sh` exiting 0.
+
+- **Full suite:** toml-test v2.2.0, `-toml 1.0`, against the built decoder. Valid tests: 205 passed, 0 failed. Invalid tests: 474 passed, 0 failed. Exit status 0.
+- **`conformance-no-third-party`:** the declared Python check passes, since `go.mod` contains no `require`.
+- **Existing project tests:** `go test ./...` passed earlier in this session (`cmd/toml-decoder` and `internal/toml`).
+- **Formatting:** `gofmt -l .` prints nothing.
+
+I didn&#x27;t write new tests. The two declared assertions are already covered, and the staged suite is the coverage for this story. The `toml-decoder` binary is rebuilt by `full_test.sh` on each run. It was already modified in the working tree when I started, so I haven&#x27;t touched it beyond that rebuild. I didn&#x27;t stage or commit anything.
+
+RESULT: SUCCESS
+
+FILES CHANGED:
+- toml-decoder (binary rebuilt by `sources/full_test.sh`; no source changes)
+
+SUMMARY:
+Ran `sh sources/full_test.sh` unfiltered from the application root. It exited 0 with 205/205 valid and 474/474 invalid toml-test cases passing under toml-test v2.2.0. The `conformance-no-third-party` assertion passes (go.mod has no `require`). `gofmt -l .` is clean and `go test ./...` was green. Source files were not modified, and no new tests were written because the staged suite covers this story.
+
+BLOCKERS:
+- None.</pre></article>
+</main>
+</body>
+</html>

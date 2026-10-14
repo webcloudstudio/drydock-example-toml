@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>evidence/prompt_outputs/20261014.130325.537Z_toml_build_claude.output.txt</title>
+<link rel="stylesheet" href="../../../assets/kit.css">
+</head>
+<body>
+<main>
+<header class="fileheader"><div class="kind">Run artifact</div><h1>evidence/prompt_outputs/20261014.130325.537Z_toml_build_claude.output.txt</h1><div class="filenav"><a href="../../../index.html">&larr; Report</a><a href="../../../evidence/prompt_outputs/20261014.130325.537Z_toml_build_claude.output.txt">Raw file</a></div></header>
+<article class="doc"><pre>I&#x27;ll start by inspecting the build directory and the staged sources.The harness is in place. Next I&#x27;ll read the existing decoder code and tests so the change fits what&#x27;s already there.Most of the lexical boundary behavior already exists in `endOfLine`, `isDisallowedControl`, `literalString`, and the UTF-8 check in `Decode`. Before changing anything, I&#x27;ll confirm the current state: the existing tests, the harness version, and the declared scoped suite slice.The suite exited 0, but it reports `valid tests: 0 passed` and `skipped tests: 884`. That looks like the pattern matched nothing, which would be a vacuous pass. I&#x27;ll check how `-run` parses patterns before trusting that exit status.The `-run` flag doesn&#x27;t accept `|`. It takes comma-separated names with `filepath.Match` globs, and `*` doesn&#x27;t cross `/`. So the declared pattern matches no cases, and the scoped suite run above passes vacuously. I can&#x27;t change `stage_test.sh` or the pattern, so I&#x27;ll report that rather than count the exit 0 as verification.
+
+The implementation already handles the spec&#x27;s rules. The gap is test coverage for this block&#x27;s boundaries, so I&#x27;ll add Go tests in the project&#x27;s style. I&#x27;ll write the decoder-level tests first.Next, the binary-level tests. These check the three declared behaviors through the real filter contract: stdin, stdout, and exit status.I&#x27;ll put the `error` return last, the Go convention, before running anything.Now I&#x27;ll run gofmt, vet, and the full test suite with the race detector.Everything passes on the first run. A green run only counts if the new tests actually executed, so I&#x27;ll confirm that with verbose output.The new tests run and pass, and gofmt and vet are clean. The declared suite gate is a problem, so the step result is FAILED.
+
+RESULT: FAILED
+
+FILES CHANGED:
+- internal/toml/lexical_test.go
+- cmd/toml-decoder/boundaries_test.go
+- toml-decoder (rebuilt as a side effect of the declared `stage_test.sh` run; it was already modified in git before this step)
+
+SUMMARY:
+- **Implementation:** The existing decoder already met this block&#x27;s rules, so I made no changes to `internal/toml` or `cmd/`. `#` comments run to end of line outside strings. Control characters other than tab are rejected in comments and literal strings. Invalid UTF-8 is rejected before any parsing, so nothing decodes partially.
+- **Tests added (Go, stdlib, act-then-read-back):**
+  - Comment placement: trailing, own-line, CRLF, end of input, and `#` inside strings.
+  - Tab allowed in comments and literal strings.
+  - Every disallowed control byte (U+0000–U+001F except tab and LF, plus U+007F) rejected in four contexts, plus a bare CR inside a comment.
+  - Invalid UTF-8 (lone continuation, truncated, overlong, surrogate, beyond U+10FFFF) rejected in keys, strings, comments, and multi-line strings, with a nil document.
+  - Valid multi-byte UTF-8 accepted in comments and strings.
+  - Binary-level checks through stdin, stdout, and exit status. These cover the three declared Python checks: value before trailing comment decodes to JSON with exit 0; control character in comment exits non-zero with empty stdout; invalid UTF-8 exits non-zero with empty stdout.
+- **Verification:** `gofmt -l .` is clean. `go vet ./...` is clean. `go test -race -cover -count=1 ./...` passes: `cmd/toml-decoder` at 57.1% coverage and `internal/toml` at 95.7%. The 13 new top-level tests run and pass.
+- **Declared suite gate:** `sh sources/stage_test.sh &#x27;valid/comment/**|invalid/control/**|invalid/encoding/**&#x27;` exits 0 but runs zero cases (`valid tests: 0 passed, 0 failed`; `invalid tests: 0 passed, 0 failed`; 884 skipped). The gate passes without testing anything.
+- **Cause:** `toml-test -run` takes comma-separated names with `filepath.Match` globs. It does not accept `|`, and `*` does not cross `/`, so `valid/comment/**` matches nothing. I did not run other patterns through the harness, because this step&#x27;s invocation is declared and fixed. I also did not emit `AC_BROKEN`, since the criterion passes. It is vacuous, not unsatisfiable.
+- **Suggested fix:** Pass the slices as comma-separated globs, for example `sh sources/stage_test.sh &#x27;valid/comment/*,invalid/control/*,invalid/encoding/*&#x27;`. Also have the gate fail when zero cases run. Then rerun. I have not verified these slice names against the suite&#x27;s directory layout.
+- **Coverage tally:** Conformance: 0 passed, 0 failed, with 884 skipped (the scoped run matched nothing). Go tests: all pass.
+
+FAILURE_SUMMARY: Declared suite slice matched zero cases; the `|`-joined pattern is not valid toml-test `-run` syntax, so the criterion passed vacuously.
+FAILURE_DETAIL: The decoder code for this block was already complete, and the new Go tests covering comments, control characters, and UTF-8 pass under `-race`. The staged criterion `boundaries-suite-slice` invokes `stage_test.sh` with `valid/comment/**|invalid/control/**|invalid/encoding/**`. toml-test v2.2.0 treats that as one literal glob with no matches, prints `0 passed, 0 failed`, and exits 0. The step therefore has no verified conformance result for its slices. Before a rerun, change the staged pattern to comma-separated single-segment globs and make the gate fail when zero cases run. The staged scripts are read-only here, so I left them alone.
+
+BLOCKERS:
+- The declared suite gate `boundaries-suite-slice` is vacuous (zero cases executed) and needs its pattern corrected in staging.</pre></article>
+</main>
+</body>
+</html>

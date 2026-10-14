@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>workspace/targets/toml/blueprint/FEATURE-Parser-Tables.md</title>
+<link rel="stylesheet" href="../../../../../assets/kit.css">
+</head>
+<body>
+<main>
+<header class="fileheader"><div class="kind">Run artifact</div><h1>workspace/targets/toml/blueprint/FEATURE-Parser-Tables.md</h1><div class="filenav"><a href="../../../../../index.html">&larr; Report</a><a href="../../../../../workspace/targets/toml/blueprint/FEATURE-Parser-Tables.md">Raw file</a></div></header>
+<article class="doc"><h1>FEATURE: Parser Tables</h1>
+<div class="scroll"><table><thead><tr><th>Field</th><th>Value</th></tr></thead><tbody><tr><td>Version</td><td>20261014 V1</td></tr><tr><td>Description</td><td>Standard table headers, implicit super-tables, arrays of tables, and their redefinition and ordering rules.</td></tr><tr><td>Depends On</td><td>ARCHITECTURE.md, FEATURE-Parser-Keys.md</td></tr><tr><td>Provides</td><td>table headers and arrays of tables in internal/toml</td></tr><tr><td>Consumes</td><td>None</td></tr></tbody></table></div>
+<h2>Purpose</h2>
+<p>Parse <code>[table]</code> headers and <code>[[array]]</code> headers. Create implicit super-tables for <code>[a.b.c]</code>. Each <code>[[name]]</code> header appends a new table element to the array named <code>name</code>, and later sub-tables attach to the most recent element. Reject a standard table defined twice, and reject a <code>[[name]]</code> header that conflicts with a static table or static array.</p>
+<h2>Programmatic Acceptance</h2>
+<p>=== AC tables-header-round-trip ===<br>Intent: A standard table header creates a nested table holding its keys.<br>Requires: executable=go; scope=test</p>
+<p>import json import subprocess import sys</p>
+<p>build = subprocess.run( [&quot;go&quot;, &quot;build&quot;, &quot;-o&quot;, &quot;toml-decoder&quot;, &quot;./cmd/toml-decoder&quot;], capture_output=True, text=True, ) print(build.stderr, file=sys.stderr) assert build.returncode == 0</p>
+<p>table = &quot;owner&quot; key = &quot;name&quot; payload = &quot;Regina&quot; source = f&#x27;[{table}]\n{key} = &quot;{payload}&quot;\n&#x27; result = subprocess.run([&quot;./toml-decoder&quot;], input=source, capture_output=True, text=True) print(result.stderr, file=sys.stderr) assert result.returncode == 0 decoded = json.loads(result.stdout) assert decoded == {table: {key: {&quot;type&quot;: &quot;string&quot;, &quot;value&quot;: payload}}} === END AC tables-header-round-trip ===</p>
+<p>=== AC tables-array-of-tables ===<br>Intent: Two array-of-tables headers produce a JSON array of two objects.<br>Requires: executable=go; scope=test</p>
+<p>import json import subprocess import sys</p>
+<p>build = subprocess.run( [&quot;go&quot;, &quot;build&quot;, &quot;-o&quot;, &quot;toml-decoder&quot;, &quot;./cmd/toml-decoder&quot;], capture_output=True, text=True, ) print(build.stderr, file=sys.stderr) assert build.returncode == 0</p>
+<p>name = &quot;products&quot; key = &quot;sku&quot; first = &quot;738594937&quot; second = &quot;284758393&quot; source = f&quot;[[{name}]]\n{key} = {first}\n\n[[{name}]]\n{key} = {second}\n&quot; result = subprocess.run([&quot;./toml-decoder&quot;], input=source, capture_output=True, text=True) print(result.stderr, file=sys.stderr) assert result.returncode == 0 decoded = json.loads(result.stdout) assert decoded == {name: [ {key: {&quot;type&quot;: &quot;integer&quot;, &quot;value&quot;: first}}, {key: {&quot;type&quot;: &quot;integer&quot;, &quot;value&quot;: second}}, ]} === END AC tables-array-of-tables ===</p>
+<p>=== AC tables-duplicate-header-rejected ===<br>Intent: Defining the same standard table twice is rejected with a non-zero exit.<br>Requires: executable=go; scope=test</p>
+<p>import subprocess import sys</p>
+<p>build = subprocess.run( [&quot;go&quot;, &quot;build&quot;, &quot;-o&quot;, &quot;toml-decoder&quot;, &quot;./cmd/toml-decoder&quot;], capture_output=True, text=True, ) print(build.stderr, file=sys.stderr) assert build.returncode == 0</p>
+<p>table = &quot;fruit&quot; source = f&quot;[{table}]\napple = 1\n\n[{table}]\norange = 2\n&quot; result = subprocess.run([&quot;./toml-decoder&quot;], input=source, capture_output=True, text=True) print(result.stderr, file=sys.stderr) assert result.returncode != 0 assert result.stdout == &quot;&quot; === END AC tables-duplicate-header-rejected ===</p>
+<p>=== AC tables-suite-slice ===<br>Intent: The toml-test table slices execute and every table case passes.<br>Suite: scoped<br>Requires: executable=sh; scope=test<br>Requires: executable=go; scope=test<br>Requires: executable=toml-test; scope=test</p>
+<p>import subprocess import sys</p>
+<p>pattern = &quot;valid/table/<strong>|invalid/table/</strong>&quot; result = subprocess.run( [&quot;sh&quot;, &quot;sources/stage_test.sh&quot;, pattern], capture_output=True, text=True, ) print(result.stdout) print(result.stderr, file=sys.stderr) assert result.returncode == 0 === END AC tables-suite-slice ===</p>
+<h2>User Acceptance</h2>
+<ul><li>None.</li></ul>
+<h2>Guardrails</h2>
+<ul><li>A static table or static array may not be redefined by a <code>[[name]]</code> header.</li><li>Implicit super-tables created by a header may later be defined explicitly.</li></ul></article>
+</main>
+</body>
+</html>

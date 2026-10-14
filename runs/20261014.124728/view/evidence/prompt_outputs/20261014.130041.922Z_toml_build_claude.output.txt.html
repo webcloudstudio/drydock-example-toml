@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>evidence/prompt_outputs/20261014.130041.922Z_toml_build_claude.output.txt</title>
+<link rel="stylesheet" href="../../../assets/kit.css">
+</head>
+<body>
+<main>
+<header class="fileheader"><div class="kind">Run artifact</div><h1>evidence/prompt_outputs/20261014.130041.922Z_toml_build_claude.output.txt</h1><div class="filenav"><a href="../../../index.html">&larr; Report</a><a href="../../../evidence/prompt_outputs/20261014.130041.922Z_toml_build_claude.output.txt">Raw file</a></div></header>
+<article class="doc"><pre>The existing tests reject `n = 1` and `b = true` as &quot;not decoded yet,&quot; which this step changes, so I&#x27;ll update those specific cases. Let me check the harness version and the test-only baseline first.Baseline is green and the harness is v2.2.0. Now I&#x27;ll add the scalar decoder.Now I&#x27;ll route non-string values through the scalar path and update the stale doc comments.Next, I&#x27;ll remove the now-wrong rejection cases from the existing tests and write the scalar tests.Two of those tests are weak: the NaN test checks nothing real, and the overflow test asserts on error text. I&#x27;ll remove both.That failure is a mistake in my test, not the code. `0x8000000000000000` is 2^63, outside signed 64-bit, and it&#x27;s already in the reject list. I&#x27;ll drop the bogus accept case.Unit tests, vet, and gofmt are clean, with coverage of 95.7% for the decoder package. Next I&#x27;ll run the two integer acceptance checks as written in the spec.Both integer checks pass. Now the scoped conformance slice, using the exact invocation the spec declares.The harness exited 0, but it ran zero cases: &quot;0 passed, 0 failed&quot; with 884 skipped. That is a vacuous pass, and I won&#x27;t report it as success. I&#x27;ll check how toml-test interprets `-run` patterns.The declared pattern is the problem. `-run` takes comma-separated globs, and `|` is not a separator, so the spec&#x27;s pattern matches nothing, and the harness reports success on zero cases. I&#x27;ll rerun the same staged script with the equivalent comma-separated pattern to get a real verdict.RESULT: SUCCESS
+
+Booleans, integers, and floats now decode in `internal/toml`. Both integer acceptance checks pass. The suite slice passes, but the pattern written in the spec selects nothing, so I ran the same script with a corrected pattern.
+
+**Acceptance results**
+- `scalars-integer-round-trip`: passes. `9223372036854775807` decodes to `{&quot;type&quot;:&quot;integer&quot;,&quot;value&quot;:&quot;9223372036854775807&quot;}`.
+- `scalars-integer-overflow`: passes. `9223372036854775808` exits 1 with empty stdout.
+- `scalars-suite-slice`: the criterion&#x27;s exit-0 check passes, but the spec&#x27;s pattern is wrong. `-run` takes comma-separated globs, and `|` is not a separator. With the spec&#x27;s pattern the harness ran 0 cases and reported &quot;0 passed, 0 failed&quot; with 884 skipped, which is a vacuous green. With the same script and `valid/bool/*,valid/integer/*,valid/float/*,invalid/bool/*,invalid/integer/*,invalid/float/*`, the real verdict is 14 valid passed, 96 invalid passed, 0 failed, exit 0. The spec pattern needs fixing before this gate means anything.
+
+**Other checks**
+- `gofmt -l` is clean, `go vet` is clean, and `go test -race -cover ./...` passes. Coverage of `internal/toml` is 95.7%.
+- I did not run `full_test.sh`, since it is not declared for this step.
+
+**Choices I made**
+- Scalars are read as a bare token and must match one full TOML grammar, so partial matches are rejected rather than truncated. Prefixed integers take no sign, and underscores appear only between digits.
+- Integers are emitted as decimal strings after an int64 range check. Hex, octal, and binary inputs are converted to decimal.
+- Floats are emitted with `strconv.FormatFloat(f, &#x27;g&#x27;, -1, 64)`, and special values as `nan`, `inf`, and `-inf`. Out-of-range floats are rejected. The suite passed with this format, so the format is accepted by the harness.
+- I removed the existing &quot;integer&quot; and &quot;boolean&quot; rejection cases from `toml_test.go` and `string_test.go`, because this step makes those valid.
+
+**Files changed**
+- `internal/toml/scalar.go` (new)
+- `internal/toml/scalar_test.go` (new)
+- `internal/toml/toml.go` (routes non-string values to the scalar path; doc comments updated)
+- `internal/toml/toml_test.go` (removed two stale rejection cases)
+- `internal/toml/string_test.go` (removed two stale rejection cases)
+- `toml-decoder` (rebuilt binary; it was already modified in the working tree)
+
+&lt;blueprint-decisions&gt;
+[{&quot;spec&quot;:&quot;FEATURE-Parser-Lexical-Scalars.md&quot;,&quot;severity&quot;:&quot;Low&quot;,&quot;subject&quot;:&quot;Float output format&quot;,&quot;decision&quot;:&quot;Finite floats are emitted with strconv &#x27;g&#x27; shortest form (for example 1e6 becomes 1e+06). The spec does not fix a float string format, and the staged suite accepted this format. Is that acceptable, or should floats use a fixed notation?&quot;},{&quot;spec&quot;:&quot;FEATURE-Parser-Lexical-Scalars.md&quot;,&quot;severity&quot;:&quot;Material&quot;,&quot;subject&quot;:&quot;Scoped suite pattern&quot;,&quot;decision&quot;:&quot;The declared pattern uses &#x27;|&#x27; separators, which toml-test does not support. It selects 0 cases and exits 0. I verified the slice with the comma-separated equivalent (110 cases, all passing). The criterion&#x27;s pattern should be corrected on replan.&quot;}]
+&lt;/blueprint-decisions&gt;
+
+FILES CHANGED:
+- internal/toml/scalar.go
+- internal/toml/scalar_test.go
+- internal/toml/toml.go
+- internal/toml/toml_test.go
+- internal/toml/string_test.go
+- toml-decoder
+
+SUMMARY:
+Implemented booleans, integers (signed 64-bit, lossless, with 0x/0o/0b prefixes and underscores), and floats (binary64, inf, nan, exponents) in the `internal/toml` decoder. Out-of-range integers and malformed float forms are rejected with ErrSyntax. Acceptance checks: integer round-trip passes, integer overflow passes, and the scoped suite slice passes 110/110 with the corrected pattern (14 valid, 96 invalid; the declared pattern itself selects 0 cases). gofmt, go vet, and go test -race pass.
+
+BLOCKERS:
+- The `scalars-suite-slice` pattern in the spec uses `|`, which toml-test does not parse, so the declared invocation runs zero cases and reports a false green. It needs correcting on replan.</pre></article>
+</main>
+</body>
+</html>

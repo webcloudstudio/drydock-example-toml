@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>evidence/prompt_outputs/20261014.133227.267Z_toml_build_claude.output.txt</title>
+<link rel="stylesheet" href="../../../assets/kit.css">
+</head>
+<body>
+<main>
+<header class="fileheader"><div class="kind">Run artifact</div><h1>evidence/prompt_outputs/20261014.133227.267Z_toml_build_claude.output.txt</h1><div class="filenav"><a href="../../../index.html">&larr; Report</a><a href="../../../evidence/prompt_outputs/20261014.133227.267Z_toml_build_claude.output.txt">Raw file</a></div></header>
+<article class="doc"><pre>The datetime forms aren&#x27;t implemented yet, so I&#x27;ll add a `temporal` scanner to the scalar path. First I&#x27;ll check the existing test helpers so the new tests match them.Now the scanner. I&#x27;m putting it in its own file, `datetime.go`, next to `scalar.go`.Next I&#x27;ll hook it into `scalar()` so it runs before the bare-token path, which can&#x27;t read `:` or spaces.Now the tests: unit tests for the forms and rejections, plus binary-level tests that mirror the acceptance assertions.I wrote the &quot;hour twenty-four&quot; case with the same input as &quot;minute sixty&quot;, so I&#x27;ll fix that before going on.Unit and binary tests pass, and gofmt and vet are clean. Next is the declared conformance slice, run through its own invocation (`stage_test.sh` with the scoped pattern).The run exited 0, but it ran zero cases (884 skipped, 0 passed, 0 failed). That&#x27;s a vacuous pass, so I won&#x27;t count it. I need the right `-run` syntax.The declared pattern uses `|`, but toml-test&#x27;s `-run` doesn&#x27;t support alternation. It takes globs separated by commas, so the gate matched zero cases and exited 0. I&#x27;ll report that rather than read the pass as evidence. To check the actual datetime cases, I&#x27;ll run the same scoped slice with the correct comma syntax, through the same harness script.The real slice passes: 9 valid and 70 invalid datetime cases, 0 failed. Last, I&#x27;ll run the three declared round-trip assertions directly against the built binary, since I only covered them through Go tests so far.Block 9 (parser-datetimes) is implemented and verified. The declared suite gate, though, passes without testing anything, so it needs fixing before it can be trusted.
+
+- **Declared suite gate is vacuous:** `datetimes-suite-slice` passes `valid/datetime/**|invalid/datetime/**|...` as one `-run` argument. toml-test has no `|` alternation; it takes comma-separated globs. The pattern matched 0 cases (884 skipped, 0 passed, 0 failed), and the script still exited 0. I did not edit the staged `sources/` asset or the criterion.
+- **Real check:** I ran the same five datetime slices through `sources/run_conformance.sh` with comma-separated globs: **9 valid passed, 70 invalid passed, 0 failed**, exit 0. This is a diagnostic run of the scoped slice, not the declared invocation.
+
+**What I built**
+- `internal/toml/datetime.go` (new): a temporal scanner for offset date-time, local date-time, local date, and local time. It validates month, day (including leap years), hour, minute, second (60 allowed), and offset ranges. Anything that is not a complete form is rejected.
+- `internal/toml/scalar.go`: `scalar()` tries the temporal scanner first.
+- `internal/toml/datetime_test.go` (new): valid forms and invalid-input rejections.
+- `cmd/toml-decoder/datetimes_test.go` (new): binary-level round-trips for the two local forms, and an invalid date with empty stdout and a nonzero exit.
+- `internal/toml/toml.go`: doc comment updated to list date-times.
+
+**Verification**
+- `gofmt -l .` is clean, `go vet ./...` passes, and `go test -race -cover ./...` passes (cmd 53.8%, internal 97.4%).
+- The three declared Python round-trip and rejection checks were replicated by hand against the built binary: `d = 1979-05-27` gives `date-local`, `t = 07:32:00` gives `time-local`, and `d = 1979-13-01` exits 1 with empty stdout.
+
+**Choices I made (not settled by the spec)**
+- Lowercase `t` as a delimiter and lowercase `z` as an offset are accepted, following the TOML ABNF&#x27;s case-insensitive letters. The spec says &quot;T or a space&quot;, so this is a judgment call.
+- Fractional seconds are kept up to 9 digits and truncated after that. Fewer digits are not padded.
+- A seconds value of 60 is accepted (leap second).
+- Output normalizes the delimiter to `T` and a lowercase `z` to `Z`; any other offset is kept as written.
+
+**Not done:** I did not stage, commit, or change the staged `sources/` or `toml-test` harness. The unscoped full suite was not run, since it is another step&#x27;s gate.
+
+RESULT: SUCCESS
+
+FILES CHANGED:
+- internal/toml/datetime.go
+- internal/toml/datetime_test.go
+- internal/toml/scalar.go
+- internal/toml/toml.go
+- cmd/toml-decoder/datetimes_test.go
+- toml-decoder
+
+SUMMARY:
+Added offset date-time, local date-time, local date, and local time decoding. The scanner runs at the head of `scalar()`, validates ranges and leap years, truncates fractions past 9 digits, and rejects partial or out-of-range forms. Unit and binary tests pass under `-race`; gofmt and vet are clean. Scoped conformance slice (comma-separated globs, same harness): 9 valid and 70 invalid datetime cases pass, 0 fail. Coverage for this step&#x27;s suite was run only via the scoped slice.
+
+&lt;blueprint-decisions&gt;
+[{&quot;spec&quot;:&quot;FEATURE-Parser-Datetimes.md&quot;,&quot;severity&quot;:&quot;Low&quot;,&quot;subject&quot;:&quot;Delimiter and offset letter case&quot;,&quot;decision&quot;:&quot;Accepted lowercase t and z as well as T, Z and space, following the TOML ABNF&#x27;s case-insensitive literals. The spec names only T or a space. Is that acceptable, or should lowercase be rejected?&quot;},{&quot;spec&quot;:&quot;FEATURE-Parser-Datetimes.md&quot;,&quot;severity&quot;:&quot;Low&quot;,&quot;subject&quot;:&quot;Fractional-second precision&quot;,&quot;decision&quot;:&quot;Kept up to 9 fractional digits (nanosecond precision), truncating anything beyond, never rounding or padding. The spec does not name a precision. Is 9 digits acceptable?&quot;}]
+&lt;/blueprint-decisions&gt;
+
+BLOCKERS:
+- `datetimes-suite-slice` (AC) is defective: its `-run` pattern uses `|`, which toml-test does not support. It matches 0 cases and exits 0, so it passes regardless of the code. It should use comma-separated globs (`valid/datetime/*,invalid/datetime/*,invalid/local-date/*,invalid/local-datetime/*,invalid/local-time/*`). The criterion is staged and I did not edit it. I did not emit `AC_BROKEN`, because that token is for criteria that cannot pass, and this one passes trivially.</pre></article>
+</main>
+</body>
+</html>

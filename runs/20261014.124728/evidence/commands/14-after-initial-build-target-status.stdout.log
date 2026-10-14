@@ -1,0 +1,22 @@
+Drydock 0.2.0  Copyright (c) 2026 Web Cloud Studio. All rights reserved.
+Drydock status
+
+  Target          /mnt/c/Users/barlo/projects/drydock/uat/Toml/runs/20261014.124728/workspace/targets/toml
+  Name            toml
+  Description     A TOML v1.0.0 decoder that reads TOML on stdin and writes tagged JSON to stdout, written in Go with
+                  the standard library only and verified against the toml-test conformance suite.
+  Phase           Loop
+  State           10 closed/verified
+  Metadata        built · complete
+  Sources         7 imported · 10 authored blueprint files
+  Analysis        Ready · 10 stories · 0 questions · 0 blockers
+  Blueprint       ✓  0 errors · 0 warnings
+  Plan            10 closed/verified
+  Frontier        (none)
+  Workflow        5 steps
+                  Initialize         complete at 2026-10-14T12:47:34.049+00:00
+                  Import             complete at 2026-10-14T12:47:41.083+00:00
+                  Analyze            complete at 2026-10-14T12:49:37.512+00:00
+                  Plan               complete at 2026-10-14T12:54:48.551+00:00
+                  Build              complete at 2026-10-14T13:38:02.722+00:00
+  Next step       drydock refit toml BOTH <Scope> <Change>

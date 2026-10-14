@@ -1,0 +1,16 @@
+Drydock 0.2.0  Copyright (c) 2026 Web Cloud Studio. All rights reserved.
+Drydock status — workspace
+
+Target: toml
+   Phase:     Implement
+   State:     10 pending
+   Detail:    7 imported · 10 authored · metadata planned
+   Analysis:  Ready · 10 stories · 0 questions · 0 blockers
+   Plan:      10 pending
+   Next Step: drydock build toml  (frontier: Standard-library Go module and decoder command boundary.)
+   10-14:     ✅  drydock build status toml
+   10-14:     ✅  drydock plan verify toml
+   10-14:     ✅  drydock plan toml --override
+   10-14:     ✅  drydock analyze toml
+   10-14:     ✅  drydock import toml /mnt/c/Users/barlo/projects/drydock/uat/Toml/runs/20261014.124728/sources --format markdown
+

@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>workspace/targets/toml/blueprint/FEATURE-Parser-Keys.md</title>
+<link rel="stylesheet" href="../../../../../assets/kit.css">
+</head>
+<body>
+<main>
+<header class="fileheader"><div class="kind">Run artifact</div><h1>workspace/targets/toml/blueprint/FEATURE-Parser-Keys.md</h1><div class="filenav"><a href="../../../../../index.html">&larr; Report</a><a href="../../../../../workspace/targets/toml/blueprint/FEATURE-Parser-Keys.md">Raw file</a></div></header>
+<article class="doc"><h1>FEATURE: Parser Keys</h1>
+<div class="scroll"><table><thead><tr><th>Field</th><th>Value</th></tr></thead><tbody><tr><td>Version</td><td>20261014 V1</td></tr><tr><td>Description</td><td>Bare, quoted, and dotted key forms, and the key-definition rules that reject redefinition.</td></tr><tr><td>Depends On</td><td>ARCHITECTURE.md, FEATURE-Parser-Strings.md, FEATURE-Parser-Lexical-Scalars.md</td></tr><tr><td>Provides</td><td>bare, quoted, and dotted key parsing with redefinition checks</td></tr><tr><td>Consumes</td><td>None</td></tr></tbody></table></div>
+<h2>Purpose</h2>
+<p>Parse bare keys (<code>A-Za-z0-9_-</code>), quoted keys (basic or literal strings), and dotted keys that create intermediate tables. Reject defining the same key twice. A bare key and a quoted key with the same name are equivalent. A key that holds an integer cannot later be used as a table.</p>
+<h2>Programmatic Acceptance</h2>
+<p>=== AC keys-bare-round-trip ===<br>Intent: A bare key decodes as the named key with a tagged value.<br>Requires: executable=go; scope=test</p>
+<p>import json import subprocess import sys</p>
+<p>build = subprocess.run( [&quot;go&quot;, &quot;build&quot;, &quot;-o&quot;, &quot;toml-decoder&quot;, &quot;./cmd/toml-decoder&quot;], capture_output=True, text=True, ) print(build.stderr, file=sys.stderr) assert build.returncode == 0</p>
+<p>key = &quot;bare-key_1&quot; value = &quot;5&quot; source = f&quot;{key} = {value}\n&quot; result = subprocess.run([&quot;./toml-decoder&quot;], input=source, capture_output=True, text=True) print(result.stderr, file=sys.stderr) assert result.returncode == 0 decoded = json.loads(result.stdout) assert decoded == {key: {&quot;type&quot;: &quot;integer&quot;, &quot;value&quot;: value}} === END AC keys-bare-round-trip ===</p>
+<p>=== AC keys-dotted-round-trip ===<br>Intent: A dotted key creates the intermediate table and stores the value at its leaf.<br>Requires: executable=go; scope=test</p>
+<p>import json import subprocess import sys</p>
+<p>build = subprocess.run( [&quot;go&quot;, &quot;build&quot;, &quot;-o&quot;, &quot;toml-decoder&quot;, &quot;./cmd/toml-decoder&quot;], capture_output=True, text=True, ) print(build.stderr, file=sys.stderr) assert build.returncode == 0</p>
+<p>outer = &quot;physical&quot; inner = &quot;color&quot; payload = &quot;orange&quot; source = f&#x27;{outer}.{inner} = &quot;{payload}&quot;\n&#x27; result = subprocess.run([&quot;./toml-decoder&quot;], input=source, capture_output=True, text=True) print(result.stderr, file=sys.stderr) assert result.returncode == 0 decoded = json.loads(result.stdout) assert decoded == {outer: {inner: {&quot;type&quot;: &quot;string&quot;, &quot;value&quot;: payload}}} === END AC keys-dotted-round-trip ===</p>
+<p>=== AC keys-redefinition-rejected ===<br>Intent: Defining the same key twice in one table is rejected with a non-zero exit.<br>Requires: executable=go; scope=test</p>
+<p>import subprocess import sys</p>
+<p>build = subprocess.run( [&quot;go&quot;, &quot;build&quot;, &quot;-o&quot;, &quot;toml-decoder&quot;, &quot;./cmd/toml-decoder&quot;], capture_output=True, text=True, ) print(build.stderr, file=sys.stderr) assert build.returncode == 0</p>
+<p>key = &quot;name&quot; source = f&#x27;{key} = &quot;Tom&quot;\n{key} = &quot;Pradyun&quot;\n&#x27; result = subprocess.run([&quot;./toml-decoder&quot;], input=source, capture_output=True, text=True) print(result.stderr, file=sys.stderr) assert result.returncode != 0 assert result.stdout == &quot;&quot; === END AC keys-redefinition-rejected ===</p>
+<p>=== AC keys-suite-slice ===<br>Intent: The toml-test key slices execute and every key case passes.<br>Suite: scoped<br>Requires: executable=sh; scope=test<br>Requires: executable=go; scope=test<br>Requires: executable=toml-test; scope=test</p>
+<p>import subprocess import sys</p>
+<p>pattern = &quot;valid/key/<strong>|invalid/key/</strong>&quot; result = subprocess.run( [&quot;sh&quot;, &quot;sources/stage_test.sh&quot;, pattern], capture_output=True, text=True, ) print(result.stdout) print(result.stderr, file=sys.stderr) assert result.returncode == 0 === END AC keys-suite-slice ===</p>
+<h2>User Acceptance</h2>
+<ul><li>None.</li></ul>
+<h2>Guardrails</h2>
+<ul><li>A key defined twice is an error, whether bare or quoted.</li><li>Whitespace around dot-separated key parts is ignored.</li></ul></article>
+</main>
+</body>
+</html>

@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>workspace/targets/toml/evidence/score-release.json</title>
+<link rel="stylesheet" href="../../../../../assets/kit.css">
+</head>
+<body>
+<main>
+<header class="fileheader"><div class="kind">Run artifact</div><h1>workspace/targets/toml/evidence/score-release.json</h1><div class="filenav"><a href="../../../../../index.html">&larr; Report</a><a href="../../../../../workspace/targets/toml/evidence/score-release.json">Raw file</a></div></header>
+<article class="doc"><pre>{
+  &quot;schema_version&quot;: 5,
+  &quot;recorded_at&quot;: &quot;2026-10-14T13:39:06+00:00&quot;,
+  &quot;target&quot;: &quot;toml&quot;,
+  &quot;verdict&quot;: &quot;PASSED&quot;,
+  &quot;verdict_line&quot;: &quot;toml: PASSED \u2014 1 of 1&quot;,
+  &quot;statement&quot;: &quot;toml: PASSED \u2014 1 of 1\n\n  st-001  MET       governed_gate full: outcome PASS, return_code 0, timed_out false, build_identity ab50ead6181bb8ac; stdout: valid tests 205 passed, 0 failed; invalid tests 474 passed, 0 failed; encoder tests not run (no encoder command given); stderr: toml-test v2.2.0 under go1.24.6 linux/amd64\n  reported: Build directory has uncommitted changes&quot;,
+  &quot;complete&quot;: true,
+  &quot;governed_gate&quot;: {
+    &quot;name&quot;: &quot;full&quot;,
+    &quot;outcome&quot;: &quot;PASS&quot;,
+    &quot;argv&quot;: [
+      &quot;sh&quot;,
+      &quot;sources/full_test.sh&quot;
+    ],
+    &quot;return_code&quot;: 0,
+    &quot;duration_ms&quot;: 2314,
+    &quot;detail&quot;: &quot;&quot;,
+    &quot;timed_out&quot;: false,
+    &quot;build_identity&quot;: &quot;ab50ead6181bb8ac&quot;,
+    &quot;stdout&quot;: &quot;toml-test v2.2.0 [/mnt/c/Users/barlo/projects/drydock/uat/Toml/runs/20261014.124728/build/toml/toml-decoder] [no encoder]\n  valid tests: 205 passed,  0 failed\nencoder tests: no encoder command given\ninvalid tests: 474 passed,  0 failed\n&quot;,
+    &quot;stderr&quot;: &quot;harness: /home/barlo/.local/bin/toml-test toml-test v2.2.0; go1.24.6 linux/amd64; race=false; cgo=true\n&quot;
+  },
+  &quot;criteria&quot;: [
+    {
+      &quot;criterion_id&quot;: &quot;st-001&quot;,
+      &quot;verdict&quot;: &quot;MET&quot;,
+      &quot;rationale&quot;: &quot;The governed gate `full` ran `sh sources/full_test.sh` against this tree and exited 0 with outcome PASS, which pins the verdict.&quot;,
+      &quot;evidence&quot;: [
+        &quot;governed_gate full: outcome PASS, return_code 0, timed_out false, build_identity ab50ead6181bb8ac&quot;,
+        &quot;stdout: valid tests 205 passed, 0 failed; invalid tests 474 passed, 0 failed; encoder tests not run (no encoder command given)&quot;,
+        &quot;stderr: toml-test v2.2.0 under go1.24.6 linux/amd64&quot;
+      ]
+    }
+  ],
+  &quot;guardrail_ids&quot;: [],
+  &quot;observations&quot;: [],
+  &quot;blockers&quot;: [],
+  &quot;attestations&quot;: [],
+  &quot;kit_faults&quot;: [],
+  &quot;warnings&quot;: [
+    &quot;Build directory has uncommitted changes&quot;
+  ],
+  &quot;improvements&quot;: [
+    &quot;The build tree has uncommitted changes (code.dirty is true), so the recorded identity 4c804881d05911b5264a944ef5c279462f85c438 does not fully describe the graded tree. Commit or stash before grading so the verdict is tied to an exact revision.&quot;,
+    &quot;The encoder suite did not run because no encoder command was supplied. If encoding is in scope for release, add an encoder command to the gate so that part is also covered.&quot;
+  ],
+  &quot;identities&quot;: {
+    &quot;code&quot;: &quot;4c804881d05911b5264a944ef5c279462f85c438&quot;,
+    &quot;sea_trials&quot;: &quot;30b259abc2d3688f5186ceaae44c6fcba1c044dc48d139e573917222ba90b90a&quot;,
+    &quot;blueprint&quot;: {
+      &quot;ARCHITECTURE.md&quot;: &quot;97687a3f941d71ba070274e7fe1318c1951bc871777f1e85bac25312dc5ed387&quot;,
+      &quot;ARCHITECTURE_compact.md&quot;: &quot;5b8855b225fea341d444ecc7ca611183da3a15c92e858898c5a8e682c9817ebf&quot;,
+      &quot;FEATURE-Conformance.md&quot;: &quot;aced4eb3e95a72718bb6e4d469a0f8cab2a6152b747991a5b3ead9a819dd49b9&quot;,
+      &quot;FEATURE-Decoder-Contract.md&quot;: &quot;0b4eafd6199276643f842fc039427edeb25a21d31ed2e8ef41c9b6d51315179c&quot;,
+      &quot;FEATURE-Parser-Arrays-Inline.md&quot;: &quot;6fc45d37577cb6bc8eb6f723ed5b9369b11f7be1375967213724562fa8e92bb4&quot;,
+      &quot;FEATURE-Parser-Datetimes.md&quot;: &quot;92ea7b03b39157bed042f0d9f6ec27dda75998118e6bf5652acc945cba5296eb&quot;,
+      &quot;FEATURE-Parser-Keys.md&quot;: &quot;aaf9bf6d4ecbc8be7b3ed0905d4c44680b775ef27271286386e99463e6019366&quot;,
+      &quot;FEATURE-Parser-Lexical-Boundaries.md&quot;: &quot;590cf8c0d4077cd3001bd05c90d8392d6c12fcebfc4e79aa9fb1c6f839b316a9&quot;,
+      &quot;FEATURE-Parser-Lexical-Scalars.md&quot;: &quot;b587b41c7cadd9f1ac78d1153716f40df7eb8f00263dd820de19a85ef4ad4cde&quot;,
+      &quot;FEATURE-Parser-Strings.md&quot;: &quot;165b41774d545509acdce9b04e126c2d5dd8d1205f815d6ed88fde4fdfd814ea&quot;,
+      &quot;FEATURE-Parser-Tables.md&quot;: &quot;fdd2f88fe46b1481b02d45777e39a01fd1b54fe0b754328c896cc8f204dfa535&quot;
+    }
+  },
+  &quot;execution_id&quot;: &quot;20261014.133857.978Z-4101189b&quot;
+}
+</pre></article>
+</main>
+</body>
+</html>

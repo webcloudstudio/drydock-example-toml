@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>evidence/prompt_outputs/20261014.125328.079Z_toml_lineage_attribute_claude.output.txt</title>
+<link rel="stylesheet" href="../../../assets/kit.css">
+</head>
+<body>
+<main>
+<header class="fileheader"><div class="kind">Run artifact</div><h1>evidence/prompt_outputs/20261014.125328.079Z_toml_lineage_attribute_claude.output.txt</h1><div class="filenav"><a href="../../../index.html">&larr; Report</a><a href="../../../evidence/prompt_outputs/20261014.125328.079Z_toml_lineage_attribute_claude.output.txt">Raw file</a></div></header>
+<article class="doc"><pre>&lt;requirement name=&quot;case-sensitive&quot; stories=&quot;parser-lexical-boundaries&quot;&gt;
+TOML is case-sensitive.
+&lt;/requirement&gt;
+&lt;requirement name=&quot;utf8-document&quot; stories=&quot;parser-lexical-boundaries&quot;&gt;
+A TOML file must be a valid UTF-8 encoded Unicode document.
+&lt;/requirement&gt;
+&lt;requirement name=&quot;whitespace-and-newline&quot; stories=&quot;parser-lexical-boundaries&quot;&gt;
+Whitespace means tab (0x09) or space (0x20).
+Newline means LF (0x0A) or CRLF (0x0D 0x0A).
+&lt;/requirement&gt;
+&lt;requirement name=&quot;comment-marker&quot; stories=&quot;parser-lexical-boundaries&quot;&gt;
+A hash symbol marks the rest of the line as a comment, except when inside a string.
+&lt;/requirement&gt;
+&lt;requirement name=&quot;comment-control-characters&quot; stories=&quot;parser-lexical-boundaries&quot;&gt;
+Control characters other than tab (U+0000 to U+0008, U+000A to U+001F, U+007F)
+are not permitted in comments.
+&lt;/requirement&gt;
+&lt;requirement name=&quot;key-value-pair&quot; stories=&quot;parser-keys,parser-strings,parser-arrays-inline&quot;&gt;
+Keys are on the left of the equals sign and values are on the right. Whitespace is ignored around key names and values. The key, equals sign, and value must be on the same line (though some values can be broken over multiple lines).
+&lt;/requirement&gt;
+&lt;requirement name=&quot;key-value-line-end&quot; stories=&quot;parser-keys,parser-arrays-inline&quot;&gt;
+There must be a newline (or EOF) after a key/value pair.
+&lt;/requirement&gt;
+&lt;requirement name=&quot;values-typed&quot; stories=&quot;parser-strings,parser-lexical-scalars,parser-datetimes,parser-arrays-inline&quot;&gt;
+Values must have one of the following types.
+Unspecified values are invalid.
+&lt;/requirement&gt;
+&lt;requirement name=&quot;maps-to-hash-table&quot; stories=&quot;parser-keys,parser-tables,parser-arrays-inline&quot;&gt;
+TOML is designed to map unambiguously to a hash table.
+&lt;/requirement&gt;
+&lt;requirement name=&quot;bare-keys&quot; stories=&quot;parser-keys&quot;&gt;
+Bare keys may only contain ASCII letters, ASCII digits, underscores, and dashes (`A-Za-z0-9_-`).
+&lt;/requirement&gt;
+&lt;requirement name=&quot;bare-keys-digits-are-strings&quot; stories=&quot;parser-keys&quot;&gt;
+Note that bare keys are allowed to be composed of only ASCII digits, e.g. `1234`, but are always interpreted as strings.
+&lt;/requirement&gt;
+&lt;requirement name=&quot;quoted-keys&quot; stories=&quot;parser-keys&quot;&gt;
+Quoted keys follow the exact same rules as either basic strings or literal strings and allow you to use a much broader set of key names.
+&lt;/requirement&gt;
+&lt;requirement name=&quot;empty-keys&quot; stories=&quot;parser-keys&quot;&gt;
+A bare key must be non-empty, but an empty quoted key is allowed (though discouraged).
+&lt;/requirement&gt;
+&lt;requirement name=&quot;dotted-keys&quot; stories=&quot;parser-keys,parser-tables&quot;&gt;
+Dotted keys are a sequence of bare or quoted keys joined with a dot.
+&lt;/requirement&gt;
+&lt;requirement name=&quot;dotted-key-whitespace&quot; stories=&quot;parser-keys&quot;&gt;
+Whitespace around dot-separated parts is ignored.
+&lt;/requirement&gt;
+&lt;requirement name=&quot;key-defined-once&quot; stories=&quot;parser-keys&quot;&gt;
+Defining a key multiple times is invalid.
+&lt;/requirement&gt;
+&lt;requirement name=&quot;bare-and-quoted-keys-equivalent&quot; stories=&quot;parser-keys&quot;&gt;
+Note that bare keys and quoted keys are equivalent:
+&lt;/requirement&gt;
+&lt;requirement name=&quot;dotted-key-extension&quot; stories=&quot;parser-keys&quot;&gt;
+As long as a key hasn&#x27;t been directly defined, you may still write to it and to names within it.
+&lt;/requirement&gt;
+&lt;requirement name=&quot;dotted-keys-out-of-order&quot; stories=&quot;parser-keys&quot;&gt;
+Defining dotted keys out-of-order is discouraged.
+&lt;/requirement&gt;
+&lt;requirement name=&quot;dotted-keys-float-lookalike&quot; stories=&quot;parser-keys&quot;&gt;
+Since bare keys can be composed of only ASCII integers, it is possible to write dotted keys that look like floats but are 2-part dotted keys.
+&lt;/requirement&gt;
+&lt;requirement name=&quot;indentation-ignored&quot; stories=&quot;parser-keys,parser-tables&quot;&gt;
+Indentation is treated as whitespace and ignored.
+&lt;/requirement&gt;
+&lt;requirement name=&quot;string-basic&quot; stories=&quot;parser-strings&quot;&gt;
+Basic strings are surrounded by quotation marks (`&quot;`). Any Unicode character may be used except those that must be escaped: quotation mark, backslash, and the control characters other than tab (U+0000 to U+0008, U+000A to U+001F, U+007F).
+&lt;/requirement&gt;
+&lt;requirement name=&quot;string-compact-escapes&quot; stories=&quot;parser-strings&quot;&gt;
+For convenience, some popular characters have a compact escape sequence.
+&lt;/requirement&gt;
+&lt;requirement name=&quot;string-unicode-escapes&quot; stories=&quot;parser-strings&quot;&gt;
+Any Unicode character may be escaped with the `\uXXXX` or `\UXXXXXXXX` forms. The escape codes must be valid Unicode scalar values.
+&lt;/requirement&gt;
+&lt;requirement name=&quot;string-reserved-escapes&quot; stories=&quot;parser-strings&quot;&gt;
+All other escape sequences not listed above are reserved; if they are used, TOML should produce an error.
+&lt;/requirement&gt;
+&lt;requirement name=&quot;string-multiline-basic&quot; stories=&quot;parser-strings&quot;&gt;
+Multi-line basic strings are surrounded by three quotation marks on each side and allow newlines. A newline immediately following the opening delimiter will be trimmed. All other whitespace and newline characters remain intact.
+&lt;/requirement&gt;
+&lt;requirement name=&quot;string-newline-normalization&quot; stories=&quot;parser-strings&quot;&gt;
+TOML parsers should feel free to normalize newline to whatever makes sense for their platform.
+&lt;/requirement&gt;
+&lt;requirement name=&quot;string-line-ending-backslash&quot; stories=&quot;parser-strings&quot;&gt;
+When the last non-whitespace character on a line is an unescaped `\`, it will be trimmed along with all whitespace (including newlines) up to the next non-whitespace character or closing delimiter.
+&lt;/requirement&gt;
+&lt;requirement name=&quot;string-multiline-basic-quotes&quot; stories=&quot;parser-strings&quot;&gt;
+You can write a quotation mark, or two adjacent quotation marks, anywhere inside a multi-line basic string.
+&lt;/requirement&gt;
+&lt;requirement name=&quot;string-multiline-basic-control-characters&quot; stories=&quot;parser-strings&quot;&gt;
+Any Unicode character may be used except those that must be escaped: backslash and the control characters other than tab, line feed, and carriage return (U+0000 to U+0008, U+000B, U+000C, U+000E to U+001F, U+007F).
+&lt;/requirement&gt;
+&lt;requirement name=&quot;string-literal&quot; stories=&quot;parser-strings&quot;&gt;
+Literal strings are surrounded by single quotes. Like basic strings, they must appear on a single line.
+&lt;/requirement&gt;
+&lt;requirement name=&quot;string-multiline-literal&quot; stories=&quot;parser-strings&quot;&gt;
+Multi-line literal strings are surrounded by three single quotes on each side and allow newlines. Like literal strings, there is no escaping whatsoever. A newline immediately following the opening delimiter will be trimmed. All other content between the delimiters is interpreted as-is without modification.
+&lt;/requirement&gt;
+&lt;requirement name=&quot;string-multiline-literal-quote-limit&quot; stories=&quot;parser-strings&quot;&gt;
+You can write 1 or 2 single quotes anywhere within a multi-line literal string, but sequences of three or more single quotes are not permitted.
+&lt;/requirement&gt;
+&lt;requirement name=&quot;string-literal-control-characters&quot; stories=&quot;parser-strings&quot;&gt;
+Control characters other than tab are not permitted in a literal string.
+&lt;/requirement&gt;
+&lt;requirement name=&quot;integer-forms&quot; stories=&quot;parser-lexical-scalars&quot;&gt;
+Integers are whole numbers. Positive numbers may be prefixed with a plus sign. Negative numbers are prefixed with a minus sign.
+&lt;/requirement&gt;
+&lt;requirement name=&quot;integer-underscores&quot; stories=&quot;parser-lexical-scalars&quot;&gt;
+For large numbers, you may use underscores between digits to enhance readability. Each underscore must be surrounded by at least one digit on each side.
+&lt;/requirement&gt;
+&lt;requirement name=&quot;integer-leading-zeros&quot; stories=&quot;parser-lexical-scalars&quot;&gt;
+Leading zeros are not allowed. Integer values `-0` and `+0` are valid and identical to an unprefixed zero.
+&lt;/requirement&gt;
+&lt;requirement name=&quot;integer-radix-prefixes&quot; stories=&quot;parser-lexical-scalars&quot;&gt;
+Non-negative integer values may also be expressed in hexadecimal, octal, or binary. In these formats, leading `+` is not allowed and leading zeros are allowed (after the prefix).
+&lt;/requirement&gt;
+&lt;requirement name=&quot;integer-64-bit-range&quot; stories=&quot;parser-lexical-scalars&quot;&gt;
+Arbitrary 64-bit signed integers (from −2^63 to 2^63−1) should be accepted and handled losslessly. If an integer cannot be represented losslessly, an error must be thrown.
+&lt;/requirement&gt;
+&lt;requirement name=&quot;float-ieee-binary64&quot; stories=&quot;parser-lexical-scalars&quot;&gt;
+Floats should be implemented as IEEE 754 binary64 values.
+&lt;/requirement&gt;
+&lt;requirement name=&quot;float-structure&quot; stories=&quot;parser-lexical-scalars&quot;&gt;
+A float consists of an integer part (which follows the same rules as decimal integer values) followed by a fractional part and/or an exponent part. If both a fractional part and exponent part are present, the fractional part must precede the exponent part.
+&lt;/requirement&gt;
+&lt;requirement name=&quot;float-fractional-part&quot; stories=&quot;parser-lexical-scalars&quot;&gt;
+A fractional part is a decimal point followed by one or more digits. The decimal point, if used, must be surrounded by at least one digit on each side.
+&lt;/requirement&gt;
+&lt;requirement name=&quot;float-exponent-part&quot; stories=&quot;parser-lexical-scalars&quot;&gt;
+An exponent part is an E (upper or lower case) followed by an integer part (which follows the same rules as decimal integer values but may include leading zeros).
+&lt;/requirement&gt;
+&lt;requirement name=&quot;float-underscores&quot; stories=&quot;parser-lexical-scalars&quot;&gt;
+Similar to integers, you may use underscores to enhance readability. Each underscore must be surrounded by at least one digit.
+&lt;/requirement&gt;
+&lt;requirement name=&quot;float-signed-zero&quot; stories=&quot;parser-lexical-scalars&quot;&gt;
+Float values `-0.0` and `+0.0` are valid and should map according to IEEE 754.
+&lt;/requirement&gt;
+&lt;requirement name=&quot;float-special-values&quot; stories=&quot;parser-lexical-scalars&quot;&gt;
+Special float values can also be expressed. They are always lowercase.
+&lt;/requirement&gt;
+&lt;requirement name=&quot;boolean&quot; stories=&quot;parser-lexical-scalars&quot;&gt;
+Booleans are just the tokens you&#x27;re used to. Always lowercase.
+&lt;/requirement&gt;
+&lt;requirement name=&quot;offset-datetime&quot; stories=&quot;parser-datetimes&quot;&gt;
+To unambiguously represent a specific instant in time, you may use an RFC 3339 formatted date-time with offset.
+&lt;/requirement&gt;
+&lt;requirement name=&quot;datetime-space-separator&quot; stories=&quot;parser-datetimes&quot;&gt;
+For the sake of readability, you may replace the T delimiter between date and time with a space character (as permitted by RFC 3339 section 5.6).
+&lt;/requirement&gt;
+&lt;requirement name=&quot;datetime-fractional-precision&quot; stories=&quot;parser-datetimes&quot;&gt;
+Millisecond precision is required. Further precision of fractional seconds is implementation-specific. If the value contains greater precision than the implementation can support, the additional precision must be truncated, not rounded.
+&lt;/requirement&gt;
+&lt;requirement name=&quot;local-datetime&quot; stories=&quot;parser-datetimes&quot;&gt;
+If you omit the offset from an RFC 3339 formatted date-time, it will represent the given date-time without any relation to an offset or timezone.
+&lt;/requirement&gt;
+&lt;requirement name=&quot;local-date&quot; stories=&quot;parser-datetimes&quot;&gt;
+If you include only the date portion of an RFC 3339 formatted date-time, it will represent that entire day without any relation to an offset or timezone.
+&lt;/requirement&gt;
+&lt;requirement name=&quot;local-time&quot; stories=&quot;parser-datetimes&quot;&gt;
+If you include only the time portion of an RFC 3339 formatted date-time, it will represent that time of day without any relation to a specific day or any offset or timezone.
+&lt;/requirement&gt;
+&lt;requirement name=&quot;array-values&quot; stories=&quot;parser-arrays-inline&quot;&gt;
+Arrays are square brackets with values inside. Whitespace is ignored. Elements are separated by commas. Arrays can contain values of the same data types as allowed in key/value pairs. Values of different types may be mixed.
+&lt;/requirement&gt;
+&lt;requirement name=&quot;array-multiline&quot; stories=&quot;parser-arrays-inline&quot;&gt;
+Arrays can span multiple lines. A terminating comma (also called a trailing comma) is permitted after the last value of the array. Any number of newlines and comments may precede values, commas, and the closing bracket. Indentation between array values and commas is treated as whitespace and ignored.
+&lt;/requirement&gt;
+&lt;requirement name=&quot;inline-table-syntax&quot; stories=&quot;parser-arrays-inline&quot;&gt;
+Inline tables are fully defined within curly braces: `{` and `}`. Within the braces, zero or more comma-separated key/value pairs may appear. Key/value pairs take the same form as key/value pairs in standard tables. All value types are allowed, including inline tables.
+&lt;/requirement&gt;
+&lt;requirement name=&quot;inline-table-single-line&quot; stories=&quot;parser-arrays-inline&quot;&gt;
+Inline tables are intended to appear on a single line. A terminating comma (also called trailing comma) is not permitted after the last key/value pair in an inline table. No newlines are allowed between the curly braces unless they are valid within a value.
+&lt;/requirement&gt;
+&lt;requirement name=&quot;inline-table-closed&quot; stories=&quot;parser-arrays-inline&quot;&gt;
+Inline tables are fully self-contained and define all keys and sub-tables within them. Keys and sub-tables cannot be added outside the braces.
+&lt;/requirement&gt;
+&lt;requirement name=&quot;inline-table-no-extension&quot; stories=&quot;parser-arrays-inline&quot;&gt;
+Similarly, inline tables cannot be used to add keys or sub-tables to an already-defined table.
+&lt;/requirement&gt;
+&lt;requirement name=&quot;table-headers&quot; stories=&quot;parser-tables&quot;&gt;
+Tables (also known as hash tables or dictionaries) are collections of key/value pairs. They are defined by headers, with square brackets on a line by themselves.
+&lt;/requirement&gt;
+&lt;requirement name=&quot;table-scope&quot; stories=&quot;parser-tables&quot;&gt;
+Under that, and until the next header or EOF, are the key/values of that table.
+&lt;/requirement&gt;
+&lt;requirement name=&quot;table-no-order&quot; stories=&quot;parser-tables&quot;&gt;
+Key/value pairs within tables are not guaranteed to be in any specific order.
+&lt;/requirement&gt;
+&lt;requirement name=&quot;table-naming&quot; stories=&quot;parser-tables&quot;&gt;
+Naming rules for tables are the same as for keys
+&lt;/requirement&gt;
+&lt;requirement name=&quot;table-whitespace&quot; stories=&quot;parser-tables&quot;&gt;
+Whitespace around the key is ignored.
+&lt;/requirement&gt;
+&lt;requirement name=&quot;implicit-super-tables&quot; stories=&quot;parser-tables&quot;&gt;
+You don&#x27;t need to specify all the super-tables if you don&#x27;t want to. TOML knows how to do it for you.
+&lt;/requirement&gt;
+&lt;requirement name=&quot;empty-tables&quot; stories=&quot;parser-tables&quot;&gt;
+Empty tables are allowed and simply have no key/value pairs within them.
+&lt;/requirement&gt;
+&lt;requirement name=&quot;table-defined-once&quot; stories=&quot;parser-tables&quot;&gt;
+Like keys, you cannot define a table more than once. Doing so is invalid.
+&lt;/requirement&gt;
+&lt;requirement name=&quot;tables-out-of-order&quot; stories=&quot;parser-tables&quot;&gt;
+Defining tables out-of-order is discouraged.
+&lt;/requirement&gt;
+&lt;requirement name=&quot;root-table&quot; stories=&quot;parser-tables&quot;&gt;
+The top-level table, also called the root table, starts at the beginning of the document and ends just before the first table header (or EOF). Unlike other tables, it is nameless and cannot be relocated.
+&lt;/requirement&gt;
+&lt;requirement name=&quot;dotted-keys-define-tables&quot; stories=&quot;parser-tables&quot;&gt;
+Dotted keys create and define a table for each key part before the last one, provided that such tables were not previously created.
+&lt;/requirement&gt;
+&lt;requirement name=&quot;table-header-and-dotted-key-conflicts&quot; stories=&quot;parser-tables&quot;&gt;
+Since tables cannot be defined more than once, redefining such tables using a `[table]` header is not allowed. Likewise, using dotted keys to redefine tables already defined in `[table]` form is not allowed. The `[table]` form can, however, be used to define sub-tables within tables defined via dotted keys.
+&lt;/requirement&gt;
+&lt;requirement name=&quot;array-of-tables&quot; stories=&quot;parser-tables&quot;&gt;
+These can be expressed by using a header with a name in double brackets. The first instance of that header defines the array and its first table element, and each subsequent instance creates and defines a new table element in that array. The tables are inserted into the array in the order encountered.
+&lt;/requirement&gt;
+&lt;requirement name=&quot;array-of-tables-reference&quot; stories=&quot;parser-tables&quot;&gt;
+Any reference to an array of tables points to the most recently defined table element of the array.
+&lt;/requirement&gt;
+&lt;requirement name=&quot;array-parent-defined-first&quot; stories=&quot;parser-tables&quot;&gt;
+If the parent of a table or array of tables is an array element, that element must already have been defined before the child can be defined. Attempts to reverse that ordering must produce an error at parse time.
+&lt;/requirement&gt;
+&lt;requirement name=&quot;static-array-no-append&quot; stories=&quot;parser-tables&quot;&gt;
+Attempting to append to a statically defined array, even if that array is empty, must produce an error at parse time.
+&lt;/requirement&gt;
+&lt;requirement name=&quot;table-array-conflict&quot; stories=&quot;parser-tables&quot;&gt;
+Attempting to define a normal table with the same name as an already established array must produce an error at parse time. Attempting to redefine a normal table as an array must likewise produce a parse-time error.
+&lt;/requirement&gt;
+&lt;unattached story=&quot;architecture&quot;/&gt;
+&lt;unattached story=&quot;decoder-contract&quot;/&gt;
+&lt;unattached story=&quot;conformance&quot;/&gt;</pre></article>
+</main>
+</body>
+</html>

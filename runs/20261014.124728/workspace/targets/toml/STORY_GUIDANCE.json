@@ -1,0 +1,93 @@
+{
+  "stories": [
+    {
+      "id": "architecture",
+      "provenance": "commander",
+      "gate": [
+        "sh",
+        "sources/stage_contract.sh",
+        "architecture"
+      ]
+    },
+    {
+      "id": "decoder-contract",
+      "provenance": "commander",
+      "gate": [
+        "sh",
+        "sources/stage_contract.sh",
+        "decoder"
+      ]
+    },
+    {
+      "id": "parser-lexical-scalars",
+      "provenance": "commander",
+      "gate": [
+        "sh",
+        "sources/stage_test.sh",
+        "valid/bool/**|valid/integer/**|valid/float/**|invalid/bool/**|invalid/integer/**|invalid/float/**"
+      ]
+    },
+    {
+      "id": "parser-strings",
+      "provenance": "commander",
+      "gate": [
+        "sh",
+        "sources/stage_test.sh",
+        "valid/string/**|invalid/string/**"
+      ]
+    },
+    {
+      "id": "parser-lexical-boundaries",
+      "provenance": "commander",
+      "gate": [
+        "sh",
+        "sources/stage_test.sh",
+        "valid/comment/**|invalid/control/**|invalid/encoding/**"
+      ]
+    },
+    {
+      "id": "parser-keys",
+      "provenance": "commander",
+      "gate": [
+        "sh",
+        "sources/stage_test.sh",
+        "valid/key/**|invalid/key/**"
+      ]
+    },
+    {
+      "id": "parser-tables",
+      "provenance": "commander",
+      "gate": [
+        "sh",
+        "sources/stage_test.sh",
+        "valid/table/**|invalid/table/**"
+      ]
+    },
+    {
+      "id": "parser-arrays-inline",
+      "provenance": "commander",
+      "gate": [
+        "sh",
+        "sources/stage_test.sh",
+        "valid/array/**|valid/inline-table/**|invalid/array/**|invalid/inline-table/**"
+      ]
+    },
+    {
+      "id": "parser-datetimes",
+      "provenance": "commander",
+      "gate": [
+        "sh",
+        "sources/stage_test.sh",
+        "valid/datetime/**|invalid/datetime/**|invalid/local-date/**|invalid/local-datetime/**|invalid/local-time/**"
+      ]
+    },
+    {
+      "id": "conformance",
+      "provenance": "commander",
+      "gate": [
+        "sh",
+        "sources/full_test.sh"
+      ]
+    }
+  ]
+}

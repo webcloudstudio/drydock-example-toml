@@ -1,0 +1,12 @@
+Drydock 0.2.0  Copyright (c) 2026 Web Cloud Studio. All rights reserved.
+2026-10-14 09:38:57 EDT  Calling CLAUDE/claude-haiku-5-5 (score release)...
+  Completed CLAUDE/claude-haiku-5-5 (score release)  rc=0
+
+toml: PASSED — 1 of 1
+
+  st-001  MET       governed_gate full: outcome PASS, return_code 0, timed_out false, build_identity ab50ead6181bb8ac; stdout: valid tests 205 passed, 0 failed; invalid tests 474 passed, 0 failed; encoder tests not run (no encoder command given); stderr: toml-test v2.2.0 under go1.24.6 linux/amd64
+  reported: Build directory has uncommitted changes
+
+Scorecard: /mnt/c/Users/barlo/projects/drydock/uat/Toml/runs/20261014.124728/workspace/targets/toml/SCORECARD.md
+Evidence: /mnt/c/Users/barlo/projects/drydock/uat/Toml/runs/20261014.124728/workspace/targets/toml/evidence/score-release.json
+Target - committed project workspace git store

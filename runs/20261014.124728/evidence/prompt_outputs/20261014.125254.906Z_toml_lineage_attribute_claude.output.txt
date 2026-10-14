@@ -1,0 +1,25 @@
+<requirement name="architecture-boundary" stories="architecture">
+if grep -Eq '^[[:space:]]*require[[:space:](]' go.mod; then
+  echo "go.mod declares a forbidden third-party dependency" >&2
+  exit 1
+fi
+go build ./cmd/toml-decoder
+</requirement>
+<requirement name="decode-integer-assignment" stories="decoder-contract,parser-keys,parser-lexical-scalars">
+printf 'answer = 42\n' | ./toml-decoder >"$stage_dir/valid.json" 2>"$stage_dir/valid.err"
+test ! -s "$stage_dir/valid.err"
+assert decoded == {"answer": {"type": "integer", "value": "42"}}
+</requirement>
+<requirement name="reject-malformed-toml" stories="decoder-contract,parser-arrays-inline">
+if printf 'answer = [\n' | ./toml-decoder >"$stage_dir/invalid.out" 2>"$stage_dir/invalid.err"; then
+  echo "malformed TOML exited successfully" >&2
+  exit 1
+fi
+test ! -s "$stage_dir/invalid.out"
+test -s "$stage_dir/invalid.err"
+</requirement>
+<unattached story="parser-strings"/>
+<unattached story="parser-lexical-boundaries"/>
+<unattached story="parser-tables"/>
+<unattached story="parser-datetimes"/>
+<unattached story="conformance"/>

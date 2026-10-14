@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>build/toml/README.md</title>
+<link rel="stylesheet" href="../../../assets/kit.css">
+</head>
+<body>
+<main>
+<header class="fileheader"><div class="kind">Run artifact</div><h1>build/toml/README.md</h1><div class="filenav"><a href="../../../index.html">&larr; Report</a><a href="../../../build/toml/README.md">Raw file</a></div></header>
+<article class="doc"><h1>toml</h1>
+<p>A TOML v1.0.0 decoder that reads TOML on stdin and writes tagged JSON to stdout, written in Go with the standard library only and verified against the toml-test conformance suite.</p>
+<h2>Intent</h2>
+<p>A standard-library Go decoder for TOML v1.0.0. It reads a TOML document on stdin and writes the tagged-JSON description of it to stdout, so that conformance can be judged by the upstream toml-test suite. It serves anyone needing a faithful, dependency-free TOML reader, and it is judged by the exit status of the supplied scoring script. Rejecting invalid input counts as much as accepting valid input.</p>
+<h2>What It Does</h2>
+<p>This is the only story that runs the complete suite. It runs <code>sh sources/full_test.sh</code> from the application root with no filter and takes its exit status as the verdict. The exit status is the whole verdict: the summary text and case counts are not asserted.</p>
+<p>The decoder reads TOML from stdin and writes tagged JSON to stdout with exit status 0. On invalid TOML it writes a diagnostic to stderr, writes nothing to stdout, and exits non-zero. It takes no arguments and reads no configuration.</p>
+<p>Parse arrays of mixed value types, with nesting, optional trailing comma, and multi-line layout with comments. Parse inline tables on a single line with no trailing comma. An inline table is closed: keys cannot be added to it through dotted keys or table headers.</p>
+<p>Decode RFC 3339 offset date-times, accepting either <code>T</code> or a space as the delimiter. Decode local date-times, local dates, and local times without an offset. Fractional seconds beyond the supported precision are truncated, not rounded.</p>
+<p>Parse bare keys (<code>A-Za-z0-9_-</code>), quoted keys (basic or literal strings), and dotted keys that create intermediate tables. Reject defining the same key twice. A bare key and a quoted key with the same name are equivalent. A key that holds an integer cannot later be used as a table.</p>
+<p>A hash begins a comment that runs to end of line, except inside a string. Control characters other than tab are rejected in comments and literal strings. Input that is not valid UTF-8 is rejected.</p>
+<p>Decode booleans, decimal and prefixed integers (<code>0x</code>, <code>0o</code>, <code>0b</code>) with underscores, and floats with fractional and exponent parts, plus the special floats <code>inf</code>, <code>nan</code>, and their signed forms. Integers must fit signed 64-bit and are rejected otherwise.</p>
+<p>Decode basic strings with the listed escapes only, multi-line basic strings with newline trimming and the line-ending backslash rule, literal strings with no escaping, and multi-line literal strings. Reject any other backslash escape and any control character not permitted by the specification.</p>
+<p>Parse <code>[table]</code> headers and <code>[[array]]</code> headers. Create implicit super-tables for <code>[a.b.c]</code>. Each <code>[[name]]</code> header appends a new table element to the array named <code>name</code>, and later sub-tables attach to the most recent element. Reject a standard table defined twice, and reject a <code>[[name]]</code> header that conflicts with a static table or static array.</p>
+<h2>Next Steps</h2>
+<ul><li>Complete the first-run checks above.</li></ul></article>
+</main>
+</body>
+</html>

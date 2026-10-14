@@ -1,0 +1,223 @@
+Drydock 0.2.0  Copyright (c) 2026 Web Cloud Studio. All rights reserved.
+  ✓ PASS        [1/35]  architecture-go-mod               architecture               ARCHITECTURE.md
+  ✓ PASS        [2/35]  architecture-build                architecture               ARCHITECTURE.md
+  ✓ PASS        [3/35]  architecture-entry-point          architecture               ARCHITECTURE.md
+  ✓ PASS        [4/35]  strings-basic-round-trip          parser-strings             FEATURE-Parser-Strings.md
+  ✓ PASS        [5/35]  strings-bad-escape                parser-strings             FEATURE-Parser-Strings.md
+  ✓ PASS        [6/35]  strings-suite-slice               parser-strings             FEATURE-Parser-Strings.md
+  ✓ PASS        [7/35]  scalars-integer-round-trip        parser-lexical-scalars     FEATURE-Parser-Lexical-Scalars.md
+  ✓ PASS        [8/35]  scalars-integer-overflow          parser-lexical-scalars     FEATURE-Parser-Lexical-Scalars.md
+  ✓ PASS        [9/35]  scalars-suite-slice               parser-lexical-scalars     FEATURE-Parser-Lexical-Scalars.md
+  ✓ PASS        [10/35]  boundaries-comment-round-trip     parser-lexical-boundaries  FEATURE-Parser-Lexical-Boundaries.md
+  ✓ PASS        [11/35]  boundaries-control-in-comment     parser-lexical-boundaries  FEATURE-Parser-Lexical-Boundaries.md
+  ✓ PASS        [12/35]  boundaries-invalid-utf8           parser-lexical-boundaries  FEATURE-Parser-Lexical-Boundaries.md
+  ✓ PASS        [13/35]  boundaries-suite-slice            parser-lexical-boundaries  FEATURE-Parser-Lexical-Boundaries.md
+  ✓ PASS        [14/35]  keys-bare-round-trip              parser-keys                FEATURE-Parser-Keys.md
+  ✓ PASS        [15/35]  keys-dotted-round-trip            parser-keys                FEATURE-Parser-Keys.md
+  ✓ PASS        [16/35]  keys-redefinition-rejected        parser-keys                FEATURE-Parser-Keys.md
+  ✓ PASS        [17/35]  keys-suite-slice                  parser-keys                FEATURE-Parser-Keys.md
+  ✓ PASS        [18/35]  tables-header-round-trip          parser-tables              FEATURE-Parser-Tables.md
+  ✓ PASS        [19/35]  tables-array-of-tables            parser-tables              FEATURE-Parser-Tables.md
+  ✓ PASS        [20/35]  tables-duplicate-header-rejected  parser-tables              FEATURE-Parser-Tables.md
+  ✓ PASS        [21/35]  tables-suite-slice                parser-tables              FEATURE-Parser-Tables.md
+  ✓ PASS        [22/35]  arrays-round-trip                 parser-arrays-inline       FEATURE-Parser-Arrays-Inline.md
+  ✓ PASS        [23/35]  inline-table-round-trip           parser-arrays-inline       FEATURE-Parser-Arrays-Inline.md
+  ✓ PASS        [24/35]  inline-table-closed               parser-arrays-inline       FEATURE-Parser-Arrays-Inline.md
+  ✓ PASS        [25/35]  arrays-inline-suite-slice         parser-arrays-inline       FEATURE-Parser-Arrays-Inline.md
+  ✓ PASS        [26/35]  decoder-stage-gate                decoder-contract           FEATURE-Decoder-Contract.md
+  ✓ PASS        [27/35]  decoder-scalar-round-trip         decoder-contract           FEATURE-Decoder-Contract.md
+  ✓ PASS        [28/35]  decoder-table-round-trip          decoder-contract           FEATURE-Decoder-Contract.md
+  ✓ PASS        [29/35]  decoder-invalid-exit              decoder-contract           FEATURE-Decoder-Contract.md
+  ✓ PASS        [30/35]  datetimes-local-date-round-trip   parser-datetimes           FEATURE-Parser-Datetimes.md
+  ✓ PASS        [31/35]  datetimes-local-time-round-trip   parser-datetimes           FEATURE-Parser-Datetimes.md
+  ✓ PASS        [32/35]  datetimes-invalid-date-rejected   parser-datetimes           FEATURE-Parser-Datetimes.md
+  ✓ PASS        [33/35]  datetimes-suite-slice             parser-datetimes           FEATURE-Parser-Datetimes.md
+  ✓ PASS        [34/35]  conformance-full-suite            conformance                FEATURE-Conformance.md
+  ✓ PASS        [35/35]  conformance-no-third-party        conformance                FEATURE-Conformance.md
+
+Acceptance verification: toml  (2026-10-14T13:38:11+00:00)
+  PASS 12   FAIL 0   UNVERIFIED 0   PREPASSED 23   (35 AC)
+
+  ✓ PASS        architecture-go-mod               architecture               ARCHITECTURE.md
+  ✓ PASS        architecture-build                architecture               ARCHITECTURE.md
+  ✓ PASS        architecture-entry-point          architecture               ARCHITECTURE.md
+  ✓ PASS        strings-basic-round-trip          parser-strings             FEATURE-Parser-Strings.md
+  ~ PREPASSED   strings-bad-escape                parser-strings             FEATURE-Parser-Strings.md
+  ~ PREPASSED   strings-suite-slice               parser-strings             FEATURE-Parser-Strings.md
+  ✓ PASS        scalars-integer-round-trip        parser-lexical-scalars     FEATURE-Parser-Lexical-Scalars.md
+  ~ PREPASSED   scalars-integer-overflow          parser-lexical-scalars     FEATURE-Parser-Lexical-Scalars.md
+  ~ PREPASSED   scalars-suite-slice               parser-lexical-scalars     FEATURE-Parser-Lexical-Scalars.md
+  ~ PREPASSED   boundaries-comment-round-trip     parser-lexical-boundaries  FEATURE-Parser-Lexical-Boundaries.md
+  ~ PREPASSED   boundaries-control-in-comment     parser-lexical-boundaries  FEATURE-Parser-Lexical-Boundaries.md
+  ~ PREPASSED   boundaries-invalid-utf8           parser-lexical-boundaries  FEATURE-Parser-Lexical-Boundaries.md
+  ~ PREPASSED   boundaries-suite-slice            parser-lexical-boundaries  FEATURE-Parser-Lexical-Boundaries.md
+  ~ PREPASSED   keys-bare-round-trip              parser-keys                FEATURE-Parser-Keys.md
+  ✓ PASS        keys-dotted-round-trip            parser-keys                FEATURE-Parser-Keys.md
+  ~ PREPASSED   keys-redefinition-rejected        parser-keys                FEATURE-Parser-Keys.md
+  ~ PREPASSED   keys-suite-slice                  parser-keys                FEATURE-Parser-Keys.md
+  ✓ PASS        tables-header-round-trip          parser-tables              FEATURE-Parser-Tables.md
+  ✓ PASS        tables-array-of-tables            parser-tables              FEATURE-Parser-Tables.md
+  ~ PREPASSED   tables-duplicate-header-rejected  parser-tables              FEATURE-Parser-Tables.md
+  ~ PREPASSED   tables-suite-slice                parser-tables              FEATURE-Parser-Tables.md
+  ✓ PASS        arrays-round-trip                 parser-arrays-inline       FEATURE-Parser-Arrays-Inline.md
+  ✓ PASS        inline-table-round-trip           parser-arrays-inline       FEATURE-Parser-Arrays-Inline.md
+  ~ PREPASSED   inline-table-closed               parser-arrays-inline       FEATURE-Parser-Arrays-Inline.md
+  ~ PREPASSED   arrays-inline-suite-slice         parser-arrays-inline       FEATURE-Parser-Arrays-Inline.md
+  ~ PREPASSED   decoder-stage-gate                decoder-contract           FEATURE-Decoder-Contract.md
+  ~ PREPASSED   decoder-scalar-round-trip         decoder-contract           FEATURE-Decoder-Contract.md
+  ~ PREPASSED   decoder-table-round-trip          decoder-contract           FEATURE-Decoder-Contract.md
+  ~ PREPASSED   decoder-invalid-exit              decoder-contract           FEATURE-Decoder-Contract.md
+  ✓ PASS        datetimes-local-date-round-trip   parser-datetimes           FEATURE-Parser-Datetimes.md
+  ✓ PASS        datetimes-local-time-round-trip   parser-datetimes           FEATURE-Parser-Datetimes.md
+  ~ PREPASSED   datetimes-invalid-date-rejected   parser-datetimes           FEATURE-Parser-Datetimes.md
+  ~ PREPASSED   datetimes-suite-slice             parser-datetimes           FEATURE-Parser-Datetimes.md
+  ~ PREPASSED   conformance-full-suite            conformance                FEATURE-Conformance.md
+  ~ PREPASSED   conformance-no-third-party        conformance                FEATURE-Conformance.md
+
+  ~ PREPASSED   strings-bad-escape
+        intent: A basic string containing an unlisted backslash escape is rejected.
+        green at this block's baseline too, before its code existed — confirm the criterion exercises the story's work
+
+  ~ PREPASSED   strings-suite-slice
+        intent: The toml-test string slice executes and every string case passes.
+        green at this block's baseline too, before its code existed — confirm the criterion exercises the story's work
+
+  ~ PREPASSED   scalars-integer-overflow
+        intent: An integer one past the signed 64-bit maximum is rejected.
+        green at this block's baseline too, before its code existed — confirm the criterion exercises the story's work
+
+  ~ PREPASSED   scalars-suite-slice
+        intent: The toml-test slices for booleans, integers, and floats execute and every case passes.
+        green at this block's baseline too, before its code existed — confirm the criterion exercises the story's work
+
+  ~ PREPASSED   boundaries-comment-round-trip
+        intent: A trailing comment is ignored and the value before it decodes normally.
+        green at this block's baseline too, before its code existed — confirm the criterion exercises the story's work
+
+  ~ PREPASSED   boundaries-control-in-comment
+        intent: A control character in a comment is rejected with a non-zero exit.
+        green at this block's baseline too, before its code existed — confirm the criterion exercises the story's work
+
+  ~ PREPASSED   boundaries-invalid-utf8
+        intent: Input that is not valid UTF-8 is rejected with a non-zero exit.
+        green at this block's baseline too, before its code existed — confirm the criterion exercises the story's work
+
+  ~ PREPASSED   boundaries-suite-slice
+        intent: The toml-test comment, control, and encoding slices execute and every case passes.
+        green at this block's baseline too, before its code existed — confirm the criterion exercises the story's work
+
+  ~ PREPASSED   keys-bare-round-trip
+        intent: A bare key decodes as the named key with a tagged value.
+        green at this block's baseline too, before its code existed — confirm the criterion exercises the story's work
+
+  ~ PREPASSED   keys-redefinition-rejected
+        intent: Defining the same key twice in one table is rejected with a non-zero exit.
+        green at this block's baseline too, before its code existed — confirm the criterion exercises the story's work
+
+  ~ PREPASSED   keys-suite-slice
+        intent: The toml-test key slices execute and every key case passes.
+        green at this block's baseline too, before its code existed — confirm the criterion exercises the story's work
+
+  ~ PREPASSED   tables-duplicate-header-rejected
+        intent: Defining the same standard table twice is rejected with a non-zero exit.
+        green at this block's baseline too, before its code existed — confirm the criterion exercises the story's work
+
+  ~ PREPASSED   tables-suite-slice
+        intent: The toml-test table slices execute and every table case passes.
+        green at this block's baseline too, before its code existed — confirm the criterion exercises the story's work
+
+  ~ PREPASSED   inline-table-closed
+        intent: Adding a key to an inline table through a later table header is rejected.
+        green at this block's baseline too, before its code existed — confirm the criterion exercises the story's work
+
+  ~ PREPASSED   arrays-inline-suite-slice
+        intent: The toml-test array and inline-table slices execute and every case passes.
+        green at this block's baseline too, before its code existed — confirm the criterion exercises the story's work
+
+  ~ PREPASSED   decoder-stage-gate
+        intent: The governed decoder gate passes: the decoder decodes a scalar and rejects an unterminated array.
+        green at this block's baseline too, before its code existed — confirm the criterion exercises the story's work
+
+  ~ PREPASSED   decoder-scalar-round-trip
+        intent: A scalar integer is written to stdout as a tagged value and exit status is zero.
+        green at this block's baseline too, before its code existed — confirm the criterion exercises the story's work
+
+  ~ PREPASSED   decoder-table-round-trip
+        intent: A standard table encodes as a nested JSON object with tagged values.
+        green at this block's baseline too, before its code existed — confirm the criterion exercises the story's work
+
+  ~ PREPASSED   decoder-invalid-exit
+        intent: Malformed TOML exits non-zero, writes nothing to stdout, and writes a diagnostic to stderr.
+        green at this block's baseline too, before its code existed — confirm the criterion exercises the story's work
+
+  ~ PREPASSED   datetimes-invalid-date-rejected
+        intent: A date with an out-of-range month is rejected with a non-zero exit.
+        green at this block's baseline too, before its code existed — confirm the criterion exercises the story's work
+
+  ~ PREPASSED   datetimes-suite-slice
+        intent: The toml-test datetime slices execute and every datetime case passes.
+        green at this block's baseline too, before its code existed — confirm the criterion exercises the story's work
+
+  ~ PREPASSED   conformance-full-suite
+        intent: The complete unfiltered conformance suite exits zero.
+        green at this block's baseline too, before its code existed — confirm the criterion exercises the story's work
+
+  ~ PREPASSED   conformance-no-third-party
+        intent: go.mod declares no required module, so no third-party TOML module is present.
+        green at this block's baseline too, before its code existed — confirm the criterion exercises the story's work
+
+  Run `drydock score ac toml --full` for untruncated output per failure.
+
+
+  Proof coverage: 12 of 35 criteria are proof — green here, and observed red before the work that turned them green.
+    23 are not. Each names a story whose acceptance did not test it.
+
+    PREPASSED  strings-bad-escape  parser-strings  FEATURE-Parser-Strings.md
+               green before its block built
+    PREPASSED  strings-suite-slice  parser-strings  FEATURE-Parser-Strings.md
+               green before its block built
+    PREPASSED  scalars-integer-overflow  parser-lexical-scalars  FEATURE-Parser-Lexical-Scalars.md
+               green before its block built
+    PREPASSED  scalars-suite-slice  parser-lexical-scalars  FEATURE-Parser-Lexical-Scalars.md
+               green before its block built
+    PREPASSED  boundaries-comment-round-trip  parser-lexical-boundaries  FEATURE-Parser-Lexical-Boundaries.md
+               green before its block built
+    PREPASSED  boundaries-control-in-comment  parser-lexical-boundaries  FEATURE-Parser-Lexical-Boundaries.md
+               green before its block built
+    PREPASSED  boundaries-invalid-utf8  parser-lexical-boundaries  FEATURE-Parser-Lexical-Boundaries.md
+               green before its block built
+    PREPASSED  boundaries-suite-slice  parser-lexical-boundaries  FEATURE-Parser-Lexical-Boundaries.md
+               green before its block built
+    PREPASSED  keys-bare-round-trip  parser-keys  FEATURE-Parser-Keys.md
+               green before its block built
+    PREPASSED  keys-redefinition-rejected  parser-keys  FEATURE-Parser-Keys.md
+               green before its block built
+    PREPASSED  keys-suite-slice  parser-keys  FEATURE-Parser-Keys.md
+               green before its block built
+    PREPASSED  tables-duplicate-header-rejected  parser-tables  FEATURE-Parser-Tables.md
+               green before its block built
+    PREPASSED  tables-suite-slice  parser-tables  FEATURE-Parser-Tables.md
+               green before its block built
+    PREPASSED  inline-table-closed  parser-arrays-inline  FEATURE-Parser-Arrays-Inline.md
+               green before its block built
+    PREPASSED  arrays-inline-suite-slice  parser-arrays-inline  FEATURE-Parser-Arrays-Inline.md
+               green before its block built
+    PREPASSED  decoder-stage-gate  decoder-contract  FEATURE-Decoder-Contract.md
+               green before its block built
+    PREPASSED  decoder-scalar-round-trip  decoder-contract  FEATURE-Decoder-Contract.md
+               green before its block built
+    PREPASSED  decoder-table-round-trip  decoder-contract  FEATURE-Decoder-Contract.md
+               green before its block built
+    PREPASSED  decoder-invalid-exit  decoder-contract  FEATURE-Decoder-Contract.md
+               green before its block built
+    PREPASSED  datetimes-invalid-date-rejected  parser-datetimes  FEATURE-Parser-Datetimes.md
+               green before its block built
+    PREPASSED  datetimes-suite-slice  parser-datetimes  FEATURE-Parser-Datetimes.md
+               green before its block built
+    PREPASSED  conformance-full-suite  conformance  FEATURE-Conformance.md
+               green before its block built
+    PREPASSED  conformance-no-third-party  conformance  FEATURE-Conformance.md
+               green before its block built
+
+Soundings: /mnt/c/Users/barlo/projects/drydock/uat/Toml/runs/20261014.124728/workspace/targets/toml/SOUNDINGS.md
+Target - committed project workspace git store

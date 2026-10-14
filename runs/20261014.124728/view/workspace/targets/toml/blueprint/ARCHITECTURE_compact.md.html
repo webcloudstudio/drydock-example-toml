@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>workspace/targets/toml/blueprint/ARCHITECTURE_compact.md</title>
+<link rel="stylesheet" href="../../../../../assets/kit.css">
+</head>
+<body>
+<main>
+<header class="fileheader"><div class="kind">Run artifact</div><h1>workspace/targets/toml/blueprint/ARCHITECTURE_compact.md</h1><div class="filenav"><a href="../../../../../index.html">&larr; Report</a><a href="../../../../../workspace/targets/toml/blueprint/ARCHITECTURE_compact.md">Raw file</a></div></header>
+<article class="doc"><p>&lt;!-- Compacted from ARCHITECTURE.md sha256=97687a3f941d71ba070274e7fe1318c1951bc871777f1e85bac25312dc5ed387 on 2026-10-14 by drydock build agent --&gt;</p>
+<p>Module: github.com/owner/toml-decoder (go 1.22, no require directives, stdlib only). Packages:</p>
+<ul><li>cmd/toml-decoder (package main): reads stdin, calls toml.Decode, JSON-encodes result to stdout; errors to stderr, exit 1. No args, no config, no side effects.</li><li>internal/toml: Decode(r io.Reader) (map[string]any, error); ErrNotImplemented sentinel (stub in this block).</li></ul>
+<p>Constraints: no third-party TOML modules; malformed input exits non-zero; scoring assets under sources/ are read-only.</p></article>
+</main>
+</body>
+</html>

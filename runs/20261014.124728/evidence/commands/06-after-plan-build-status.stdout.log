@@ -1,0 +1,39 @@
+Drydock 0.2.0  Copyright (c) 2026 Web Cloud Studio. All rights reserved.
+Next: drydock build toml
+
+Blueprint: toml
+Target: /mnt/c/Users/barlo/projects/drydock/uat/Toml/runs/20261014.124728/workspace/targets/toml
+Rows: <state> <type>  <Name>  [<id>]   — pass [<id>] to --step
+
+Block: Build Block 1 · Foundational  [block-1]   — 0/1 stories complete
+  [pending] story  Standard-library Go module and decoder command boundary.  [architecture]  <- next
+
+Block: Build Block 2 · Service  [block-2]   — 0/1 stories complete
+  [pending] story  TOML string forms: basic, multi-line basic, literal, multi-line literal.  [parser-strings]
+
+Block: Build Block 3 · Service  [block-3]   — 0/1 stories complete
+  [pending] story  Booleans, integers, and floats.  [parser-lexical-scalars]
+
+Block: Build Block 4 · Service  [block-4]   — 0/1 stories complete
+  [pending] story  Comments, control characters, and UTF-8 encoding.  [parser-lexical-boundaries]
+
+Block: Build Block 5 · Service  [block-5]   — 0/1 stories complete
+  [pending] story  Key forms and key-definition semantics.  [parser-keys]
+
+Block: Build Block 6 · Service  [block-6]   — 0/1 stories complete
+  [pending] story  Standard tables, redefinition, arrays of tables, and ordering.  [parser-tables]
+
+Block: Build Block 7 · Service  [block-7]   — 0/1 stories complete
+  [pending] story  Arrays and inline tables, including inline-table closure.  [parser-arrays-inline]
+
+Block: Build Block 8 · Service  [block-8]   — 0/1 stories complete
+  [pending] story  Stdin, tagged JSON, diagnostic-stream, and exit-status contract.  [decoder-contract]
+
+Block: Build Block 9 · Service  [block-9]   — 0/1 stories complete
+  [pending] story  Offset and local date, time, and datetime forms.  [parser-datetimes]
+
+Block: Build Block 10 · Feature  [block-10]   — 0/1 stories complete
+  [pending] story  The complete unfiltered toml-test suite after all implementation stories.  [conformance]
+
+Steps: 10 total — 0 done, 0 built (await verify), 0 in review, 10 pending, 0 blocked by questions, 0 failed (0% complete)
+Buildable now: block-1

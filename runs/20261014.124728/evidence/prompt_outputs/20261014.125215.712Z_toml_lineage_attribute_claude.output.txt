@@ -1,0 +1,17 @@
+<requirement name="build-decoder-command" stories="architecture">
+go build -o toml-decoder ./cmd/toml-decoder
+</requirement>
+<requirement name="pin-toml-test-version" stories="conformance">
+The version setup_harness.sh installs. run_conformance.sh refuses a different one, so a passing verdict names a specific exam rather than whichever harness was on PATH.
+</requirement>
+<requirement name="run-unfiltered-conformance" stories="conformance">
+scoring entry point. Do not filter, skip, or reinterpret.
+</requirement>
+<unattached story="parser-strings"/>
+<unattached story="parser-lexical-scalars"/>
+<unattached story="parser-lexical-boundaries"/>
+<unattached story="parser-keys"/>
+<unattached story="parser-tables"/>
+<unattached story="parser-arrays-inline"/>
+<unattached story="decoder-contract"/>
+<unattached story="parser-datetimes"/>

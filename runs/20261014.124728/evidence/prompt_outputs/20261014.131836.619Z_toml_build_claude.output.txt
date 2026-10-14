@@ -1,0 +1,46 @@
+I'll start by inspecting the build directory and the staged sources.Go 1.24.6 meets the 1.22 floor. Next I'll read the existing decoder code, since the table work has to fit into it.The current `document()` loop has no table-header handling. Before changing it, I'll check which existing tests depend on `[` being rejected and how the tests are written.The existing tests constrain the design. `keys_test.go` expects `a.b = "v"` followed by `[a]` to be rejected, which means header and dotted-key definitions must be tracked. `toml_test.go:98` pins the old "table header is rejected" behavior, which this block now contradicts. Next I'll check whether the toml-test harness is installed.The harness is installed at v2.2.0 and its module source is in the Go module cache, so I can read the table cases directly instead of guessing at the rules.The authoritative cases are in the module cache. I'll read the table-relevant invalid ones, since those define the redefinition rules.These cases settle the rules. Dotted keys cannot extend a header-defined table, a header cannot define a table created by dotted keys, `[[name]]` cannot land on any table, and an implicit super-table can later be defined by a header. Next I'll check the header-syntax and valid cases.I have what I need to design this. The rules, checked against the toml-test cases:
+
+- Each table records how it was created: implicitly by a header path, by its own `[header]`, or by a dotted key.
+- A `[header]` may only define a table that is still implicit. It may walk through any table, but dotted keys may only extend tables created by dotted keys.
+- `[[name]]` builds a `tableArray` and fails on any existing table or value.
+
+I'll restructure the table type into `tables.go` and keep key parsing in `keys.go`.Next, `keys.go`: drop the old map-based table type, make dotted keys respect the origin rules, and fix the stale comment about headers.Now `toml.go`: wire headers into the document loop, track the current scope, and update the doc comment.The old reject case `"table header"` in `toml_test.go` now describes a valid document, so I need to update it. I'll look at the surrounding block first.Now the unit tests for the new behavior. They follow the table-driven style of `keys_test.go` and check the decoded structure, not message text. Error cases assert only `ErrSyntax` and a nil document.The test uses `"bool"` as the type tag for `true`. I'll confirm that against the scalar encoder before running anything.Format, vet, and unit tests are clean. Next I'll add binary-level tests for the cmd package, matching the acceptance round trips, using the existing `keys_test.go` helpers.Next I'll run the full Go test suite, then the declared scoped conformance slice, using the invocation the acceptance criteria name.The scoped run exited 0 but executed zero table cases: "0 passed, 0 failed, 884 skipped". A zero-test pass is not a real verdict, so I need to find out why the pattern matched nothing. I'll check how toml-test parses `-run`.`-run` takes a comma-separated list of `filepath.Match` globs, not a `|` alternation. The declared pattern therefore matches nothing, and toml-test exits 0 anyway. The staged scripts and the criterion are read-only, so I will not change them. Instead I'll run the same slice with a pattern that actually selects the table cases, so I can see the real result.All 24 valid and 62 invalid table cases pass under the pattern that actually selects them. I'll also run the three declared round-trip and rejection assertions as written, using scripts kept outside the build directory, plus the race-enabled Go tests the stack requires.Everything passes. I'll confirm the set of changed files before reporting.The table-header work is in place. All Go tests pass with `-race`, and all 24 valid and 62 invalid table cases from toml-test pass.
+
+**The declared suite gate is vacuous as written.** `tables-suite-slice` passes `valid/table/**|invalid/table/**`. toml-test's `-run` takes comma-separated `filepath.Match` globs, not `|` alternation, so the pattern selects zero cases and the run exits 0 with "0 passed, 0 failed, 884 skipped". The staged scripts and the criterion are read-only, so I left them alone. I ran the same slice with `'valid/table/*,invalid/table/*'`, which is the real verdict above. The criterion needs fixing on replan.
+
+**What changed** (in `internal/toml`, plus cmd tests):
+- `tables.go` (new): each table carries an origin (implicit, header-defined, or dotted-defined). `[name]` and `[[name]]` headers are parsed here. `[[name]]` builds a `tableArray`, which exports as a JSON array of objects. Sub-tables attach to the most recent element.
+- `keys.go`: the old map-based table type is gone. Dotted keys may extend only dotted-created tables.
+- `toml.go`: `document()` tracks the current scope and dispatches `[` lines to header parsing.
+- `tables_test.go` and `cmd/toml-decoder/tables_test.go` (new): the three declared round-trip and rejection behaviors plus boundary and redefinition cases. They assert on decoded structure and `ErrSyntax`, not message text.
+
+**Choices I made:**
+- I removed the `"table header"` case from `TestDecodeRejectsMalformedDocuments` in `toml_test.go`. That case pinned the previous block's "headers not supported" stub, and the spec now makes it valid. This was not one of the declared acceptance assertions.
+- A dotted key that walks into a header-implied table (for example, `[x.y.z]`, then `[x]`, then `y.w = 1`) is rejected. The spec says dotted keys may not touch tables that were "previously created", and no toml-test case contradicts it.
+
+**Verification:**
+- `gofmt -l .` prints nothing; `go vet ./...` is clean.
+- `go test -race ./...` passes.
+- The three declared round-trip and rejection assertions, run as written from outside the build directory, all pass.
+- `toml-decoder` was rebuilt by the harness scripts, so the binary changed as well.
+
+RESULT: SUCCESS
+
+FILES CHANGED:
+- internal/toml/tables.go
+- internal/toml/tables_test.go
+- internal/toml/keys.go
+- internal/toml/toml.go
+- internal/toml/toml_test.go
+- cmd/toml-decoder/tables_test.go
+- toml-decoder
+
+SUMMARY:
+Implemented standard table headers, implicit super-tables, arrays of tables, and the redefinition rules for FEATURE-Parser-Tables. Dotted-key and header definitions are tracked by origin so redefinitions are rejected. Scoped conformance slice, run with a pattern that actually selects cases: valid/table 24 passed / 0 failed; invalid/table 62 passed / 0 failed. The declared pattern `valid/table/**|invalid/table/**` selects zero cases and exits 0, so it proves nothing.
+
+BLOCKERS:
+- `tables-suite-slice` uses `|` as an alternation, which toml-test does not support, so the declared gate runs zero cases and passes vacuously. It needs `valid/table/*,invalid/table/*` on replan. I did not modify the staged script or criterion.
+
+<blueprint-decisions>
+[{"spec":"FEATURE-Parser-Tables.md","severity":"Low","subject":"Dotted key into a header-implied table","decision":"A dotted key that walks into a super-table created implicitly by a header (for example, [x.y.z], then [x], then y.w = 1) is rejected. The spec says dotted keys may not touch tables already created, and the suite passes. Is that acceptable, or should it change on replan?"}]
+</blueprint-decisions>

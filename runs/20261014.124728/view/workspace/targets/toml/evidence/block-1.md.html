@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>workspace/targets/toml/evidence/block-1.md</title>
+<link rel="stylesheet" href="../../../../../assets/kit.css">
+</head>
+<body>
+<main>
+<header class="fileheader"><div class="kind">Run artifact</div><h1>workspace/targets/toml/evidence/block-1.md</h1><div class="filenav"><a href="../../../../../index.html">&larr; Report</a><a href="../../../../../workspace/targets/toml/evidence/block-1.md">Raw file</a></div></header>
+<article class="doc"><h1>Evidence: Block 1 · Foundational (block-1)</h1>
+<ul><li>block type: block</li><li>date: 2026-10-14</li><li>resulting state: closed/verified</li><li>story points (combined assembled cost): 10953</li><li>execution id: 20261014.125538.882Z-7dab416f</li></ul>
+<h2>Stories built</h2>
+<ul><li>Standard-library Go module and decoder command boundary. (architecture) [story]</li></ul>
+<h2>Acceptance tooling authorization</h2>
+<ul><li>ARCHITECTURE.md#architecture-go-mod: executable=go; scope=test; authorization=existing Target environment</li><li>ARCHITECTURE.md#architecture-build: executable=go; scope=test; authorization=existing Target environment</li><li>ARCHITECTURE.md#architecture-entry-point: executable=go; scope=test; authorization=existing Target environment</li></ul>
+<h2>Reusable compacts</h2>
+<ul><li>ARCHITECTURE_compact.md</li></ul>
+<h2>Stacked context</h2>
+<ul><li>compass: COMPASS.md (SP 945)</li><li>implements: ARCHITECTURE.md (SP 1196)</li><li>stack: go.md (SP 5918)</li><li>stack: common.md (SP 2769)</li></ul>
+<h2>Build directory changes</h2>
+<ul><li>cmd/toml-decoder/main.go</li><li>cmd/toml-decoder/main_test.go</li><li>go.mod</li><li>internal/toml/toml.go</li><li>internal/toml/toml_test.go</li></ul>
+<h2>Pre-build acceptance observation</h2>
+<ul><li>RED: architecture-go-mod (ARCHITECTURE.md)</li></ul>
+<p>intent: go.mod declares no require directive and names a module. return code: 1 stderr: --- drydock: values at failure --- self = PosixPath(&#x27;go.mod&#x27;) mode = &#x27;r&#x27; buffering = -1 encoding = &#x27;utf-8&#x27; errors = None newline = None --- drydock: end values --- Traceback (most recent call last): File &quot;architecture-go-mod.py&quot;, line 3, in &lt;module&gt; text = Path(&quot;go.mod&quot;).read_text(encoding=&quot;utf-8&quot;) ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ File &quot;/home/barlo/.local/share/uv/python/cpython-3.12.13-linux-x86_64-gnu/lib/python3.12/pathlib.py&quot;, line 1027, in read_text with self.open(mode=&#x27;r&#x27;, encoding=encoding, errors=errors) as f: ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ File &quot;/home/barlo/.local/share/uv/python/cpython-3.12.13-linux-x86_64-gnu/lib/python3.12/pathlib.py&quot;, line 1013, in open return io.open(self, mode, buffering, encoding, errors, newline) ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^<br>FileNotFoundError: [Errno 2] No such file or directory: &#x27;go.mod&#x27;</p>
+<ul><li>RED: architecture-build (ARCHITECTURE.md)</li></ul>
+<p>intent: The decoder command builds using only the standard library. return code: 1 stderr: go: cannot find main module, but found .git/config in /mnt/c/Users/barlo/projects/drydock/uat/Toml/runs/20261014.124728/build/toml to create a module there, run: go mod init</p>
+<p>--- drydock: values at failure --- build = CompletedProcess(args=[&#x27;go&#x27;, &#x27;build&#x27;, &#x27;-o&#x27;, &#x27;toml-decoder&#x27;, &#x27;./cmd/toml-decoder&#x27;], returncode=1, stdout=&#x27;&#x27;, stderr=&#x27;go: cannot find main module, but found .git/config in /mnt/c/Users/barlo/projects/drydock/uat/Toml/runs/20261014.124728/build/toml\n\tto create a module there, run:\n\tgo mod init\n&#x27;) --- drydock: end values --- Traceback (most recent call last): File &quot;architecture-build.py&quot;, line 10, in &lt;module&gt; assert build.returncode == 0 ^^^^^^^^^^^^^^^^^^^^^ AssertionError</p>
+<ul><li>RED: architecture-entry-point (ARCHITECTURE.md)</li></ul>
+<p>intent: The internal parser package is present and the entry point is a main package. return code: 1 stderr: --- drydock: values at failure --- self = PosixPath(&#x27;cmd/toml-decoder/main.go&#x27;) mode = &#x27;r&#x27; buffering = -1 encoding = &#x27;utf-8&#x27; errors = None newline = None --- drydock: end values --- Traceback (most recent call last): File &quot;architecture-entry-point.py&quot;, line 3, in &lt;module&gt; entry = Path(&quot;cmd/toml-decoder/main.go&quot;).read_text(encoding=&quot;utf-8&quot;) ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ File &quot;/home/barlo/.local/share/uv/python/cpython-3.12.13-linux-x86_64-gnu/lib/python3.12/pathlib.py&quot;, line 1027, in read_text with self.open(mode=&#x27;r&#x27;, encoding=encoding, errors=errors) as f: ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ File &quot;/home/barlo/.local/share/uv/python/cpython-3.12.13-linux-x86_64-gnu/lib/python3.12/pathlib.py&quot;, line 1013, in open return io.open(self, mode, buffering, encoding, errors, newline) ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^<br>FileNotFoundError: [Errno 2] No such file or directory: &#x27;cmd/toml-decoder/main.go&#x27;</p>
+<h2>Post-build programmatic acceptance</h2>
+<ul><li>PASS: architecture-go-mod (ARCHITECTURE.md)</li></ul>
+<p>intent: go.mod declares no require directive and names a module. target interpreter: /mnt/c/Users/barlo/projects/drydock/.venv/bin/python provisioning: not required return code: 0</p>
+<ul><li>PASS: architecture-build (ARCHITECTURE.md)</li></ul>
+<p>intent: The decoder command builds using only the standard library. target interpreter: /mnt/c/Users/barlo/projects/drydock/.venv/bin/python provisioning: not required return code: 0</p>
+<ul><li>PASS: architecture-entry-point (ARCHITECTURE.md)</li></ul>
+<p>intent: The internal parser package is present and the entry point is a main package. target interpreter: /mnt/c/Users/barlo/projects/drydock/.venv/bin/python provisioning: not required return code: 0</p>
+<h2>Build summary</h2>
+<p>The build directory holds only the staged <code>sources/</code> and a git repo, with Go 1.24.6 available. I&#x27;ll create the module, the command, and the stub package, then write tests that build and run the binary and read back its output.Next, the tests. Each one acts on the system and reads the state back. Binary builds go to <code>t.TempDir()</code> so nothing is left in the build directory.Everything passes. Source tree is untouched (<code>sources/</code> does not appear in status).</p>
+<p>&lt;reusable-compact filename=&quot;ARCHITECTURE.md&quot;&gt;<br>Module: github.com/owner/toml-decoder (go 1.22, no require directives, stdlib only). Packages:</p>
+<ul><li>cmd/toml-decoder (package main): reads stdin, calls toml.Decode, JSON-encodes result to stdout; errors to stderr, exit 1. No args, no config, no side effects.</li><li>internal/toml: Decode(r io.Reader) (map[string]any, error); ErrNotImplemented sentinel (stub in this block).</li></ul>
+<p>Constraints: no third-party TOML modules; malformed input exits non-zero; scoring assets under sources/ are read-only. &lt;/reusable-compact&gt;</p>
+<p>&lt;blueprint-decisions&gt; [{&quot;spec&quot;:&quot;ARCHITECTURE.md&quot;,&quot;severity&quot;:&quot;Low&quot;,&quot;subject&quot;:&quot;Stub Decode signature&quot;,&quot;decision&quot;:&quot;Decode returns (map[string]any, error) and always returns ErrNotImplemented, so the command&#x27;s JSON encoding path is wired and testable before the parser exists. The tagged-value model will replace map[string]any in a later block. Is that acceptable, or should the stub use a different shape?&quot;}] &lt;/blueprint-decisions&gt;</p>
+<p>RESULT: SUCCESS</p>
+<p>FILES CHANGED:</p>
+<ul><li>go.mod</li><li>cmd/toml-decoder/main.go</li><li>cmd/toml-decoder/main_test.go</li><li>internal/toml/toml.go</li><li>internal/toml/toml_test.go</li></ul>
+<p>SUMMARY:</p>
+<ul><li><code>go.mod</code> declares <code>github.com/owner/toml-decoder</code> with <code>go 1.22</code> and no <code>require</code> directives.</li><li><code>cmd/toml-decoder/main.go</code> is a <code>package main</code> that reads stdin, calls <code>toml.Decode</code>, JSON-encodes the result to stdout, and writes errors to stderr with exit 1.</li><li><code>internal/toml/toml.go</code> is a stub <code>Decode</code> returning <code>ErrNotImplemented</code>, so the module builds on the standard library alone.</li><li>Tests cover the three declared acceptance assertions: go.mod has no <code>require</code> and names the module, <code>main.go</code> is <code>package main</code> and <code>internal/toml</code> exists, and <code>go build ./cmd/toml-decoder</code> succeeds. Extra tests check the stub&#x27;s error path, <code>run</code>&#x27;s stdout on failure, and that the built binary exits non-zero with empty stdout and a stderr diagnostic. Binaries are built into <code>t.TempDir()</code>, so nothing is left in the build directory.</li><li>Verification: <code>gofmt -l .</code> prints nothing, <code>go vet</code> and <code>go build ./...</code> pass, and <code>go test -race -cover ./...</code> passes (all 5 command tests and 1 stub test green; coverage 42.9% for the command, 100% for <code>internal/toml</code>).</li><li>I did not run the staged <code>sources/</code> conformance scripts; this block&#x27;s criteria do not invoke them, and <code>sources/</code> is unmodified.</li><li>The Python acceptance snippets from ARCHITECTURE.md were not executed literally. Their equivalent checks are in the Go tests above.</li></ul>
+<p>BLOCKERS:</p>
+<ul><li>None.</li></ul></article>
+</main>
+</body>
+</html>

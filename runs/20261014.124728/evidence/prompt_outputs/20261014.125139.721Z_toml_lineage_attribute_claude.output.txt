@@ -1,0 +1,75 @@
+<requirement name="parse-toml-v1-spec" stories="parser-strings,parser-lexical-scalars,parser-lexical-boundaries,parser-keys,parser-tables,parser-arrays-inline,parser-datetimes">
+Build a TOML v1.0.0 parser that conforms to the specification in `sources/toml-v1.0.0.md`.
+</requirement>
+<requirement name="pass-full-suite" stories="conformance">
+The goal is to pass every valid and every invalid case the installed suite supplies, with no case failed, errored, or skipped.
+</requirement>
+<requirement name="reject-invalid-input" stories="decoder-contract,parser-lexical-boundaries,parser-keys,parser-tables,parser-arrays-inline,parser-lexical-scalars,parser-strings,parser-datetimes">
+Rejecting invalid input is scored as heavily as accepting valid input.
+</requirement>
+<requirement name="filter-stdin-stdout" stories="decoder-contract,architecture">
+The program is a filter: read TOML from **stdin**, write tagged JSON to **stdout**, exit `0`.
+</requirement>
+<requirement name="diagnose-invalid-toml" stories="decoder-contract">
+On invalid TOML, write a diagnostic to **stderr** and exit non-zero.
+</requirement>
+<requirement name="no-args-no-side-effects" stories="decoder-contract">
+The program takes no arguments, reads no configuration files, and produces no side effects.
+</requirement>
+<requirement name="tagged-json-value-encoding" stories="decoder-contract">
+Every TOML **value** becomes `{"type": "<TOML_TYPE>", "value": "<TOML_VALUE>"}`.
+</requirement>
+<requirement name="values-always-json-strings" stories="decoder-contract,parser-lexical-scalars">
+`TOML_VALUE` is always a JSON string, including for integers, floats, and booleans.
+</requirement>
+<requirement name="empty-tables-encode-as-objects" stories="decoder-contract,parser-tables">
+Empty tables become `{}`.
+</requirement>
+<requirement name="offset-datetimes-rfc3339" stories="parser-datetimes">
+Offset datetimes are encoded as RFC 3339.
+</requirement>
+<requirement name="parser-in-internal-package" stories="architecture,decoder-contract">
+The parser lives in `internal/toml`; `main` reads, delegates, and encodes.
+</requirement>
+<requirement name="scalars" stories="parser-lexical-scalars">
+booleans, integers (including `0x`, `0o`, `0b`, underscores), floats (including `inf`, `nan`, exponents).
+</requirement>
+<requirement name="string-forms" stories="parser-strings">
+basic and literal strings, then multi-line strings with their line-ending backslash and trimming rules.
+</requirement>
+<requirement name="key-forms" stories="parser-keys">
+bare, quoted, and dotted keys; the redefinition rules.
+</requirement>
+<requirement name="table-forms" stories="parser-tables">
+`[table]`, `[a.b.c]` implicit creation, `[[array of tables]]`, and the rules governing which of these may follow which.
+</requirement>
+<requirement name="inline-tables-and-arrays" stories="parser-arrays-inline">
+Inline tables and arrays — including nesting and the TOML 1.0 restriction that inline tables are closed to later extension.
+</requirement>
+<requirement name="datetime-forms" stories="parser-datetimes">
+offset, local datetime, local date, local time.
+</requirement>
+<requirement name="reject-malformed-input" stories="parser-lexical-boundaries,parser-keys,parser-tables,parser-arrays-inline,parser-strings,parser-datetimes">
+control characters, bad UTF-8, duplicate keys, redefinition after an inline table, unterminated constructs.
+</requirement>
+<requirement name="decoder-scaffolding" stories="architecture,decoder-contract,parser-lexical-boundaries">
+line handling, comments, whitespace, the stdin/stdout/exit contract, tagged JSON emission.
+</requirement>
+<requirement name="scoring-assets-read-only" stories="conformance">
+The scoring assets are read-only.
+</requirement>
+<requirement name="build-decoder-command" stories="architecture,conformance">
+Build `cmd/toml-decoder` so that the supplied entry point succeeds; changing the entry point is not a repair.
+</requirement>
+<requirement name="stdlib-only-module" stories="architecture">
+`go.mod` declares no `require` dependencies.
+</requirement>
+<requirement name="no-network-after-setup" stories="conformance">
+No network access at test time after `setup_harness.sh` has run once.
+</requirement>
+<requirement name="single-scoring-entry-point" stories="conformance">
+`sources/full_test.sh` is the single scoring entry point.
+</requirement>
+<requirement name="clean-run-zero-exit" stories="conformance">
+`sh sources/full_test.sh` runs cleanly with zero errors and exits zero.
+</requirement>

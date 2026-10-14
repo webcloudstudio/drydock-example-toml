@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>workspace/targets/toml/SCORECARD.md</title>
+<link rel="stylesheet" href="../../../../assets/kit.css">
+</head>
+<body>
+<main>
+<header class="fileheader"><div class="kind">Run artifact</div><h1>workspace/targets/toml/SCORECARD.md</h1><div class="filenav"><a href="../../../../index.html">&larr; Report</a><a href="../../../../workspace/targets/toml/SCORECARD.md">Raw file</a></div></header>
+<article class="doc"><h1>Scorecard: toml</h1>
+<h2>Specification</h2>
+<blockquote><p><strong>NOT YET RUN</strong> drydock score spec toml</p></blockquote>
+<h2>Acceptance</h2>
+<blockquote><p><strong>PASSED</strong> drydock score ac toml · 2026-10-14T13:38:50.502+00:00</p></blockquote>
+<p>PASS 12   FAIL 0   UNVERIFIED 0   PREPASSED 23   (35 AC total)</p>
+<h2>Build</h2>
+<blockquote><p><strong>RECORDED</strong> drydock score build toml</p></blockquote>
+<p>Blocks: 10   Repaired: 0   Failed: 0<br>Tokens: 7,879,917 (cached 7,643,170, output 236,427)   Cache hit rate: 100.0%</p>
+<h2>Release</h2>
+<blockquote><p><strong>RELEASED</strong> drydock score release toml · 2026-10-14T13:39:06.567+00:00</p></blockquote>
+<ul><li>Verdict: PASSED</li></ul>
+<p>toml: PASSED — 1 of 1</p>
+<p>st-001  MET       governed_gate full: outcome PASS, return_code 0, timed_out false, build_identity ab50ead6181bb8ac; stdout: valid tests 205 passed, 0 failed; invalid tests 474 passed, 0 failed; encoder tests not run (no encoder command given); stderr: toml-test v2.2.0 under go1.24.6 linux/amd64 reported: Build directory has uncommitted changes</p>
+<h2>Project acceptance</h2>
+<div class="scroll"><table><thead><tr><th>ID</th><th>Type</th><th>Criterion</th><th>Verdict</th><th>Observed</th></tr></thead><tbody><tr><td>st-001</td><td>technical</td><td>The completed parser shall make sh sources/full_test.sh exit zero; that script&#x27;s exit status is the sole acceptance verdict.</td><td>MET</td><td>governed_gate full: outcome PASS, return_code 0, timed_out false, build_identity ab50ead6181bb8ac; stdout: valid tests 205 passed, 0 failed; invalid tests 474 passed, 0 failed; encoder tests not run (no encoder command given); stderr: toml-test v2.2.0 under go1.24.6 linux/amd64</td></tr></tbody></table></div>
+<p><strong>Advisory warnings:</strong></p>
+<ul><li>Build directory has uncommitted changes</li></ul>
+<p><strong>Ranked improvements:</strong></p>
+<ol><li>The build tree has uncommitted changes (code.dirty is true), so the recorded identity 4c804881d05911b5264a944ef5c279462f85c438 does not fully describe the graded tree. Commit or stash before grading so the verdict is tied to an exact revision.</li><li>The encoder suite did not run because no encoder command was supplied. If encoding is in scope for release, add an encoder command to the gate so that part is also covered.</li></ol>
+<p><strong>Material decisions:</strong></p>
+<ul><li>ACCEPTANCE.json not among imported sources — </li><li>Scoped suite pattern — </li></ul></article>
+</main>
+</body>
+</html>

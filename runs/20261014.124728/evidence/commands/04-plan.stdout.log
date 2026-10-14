@@ -1,0 +1,73 @@
+Drydock 0.2.0  Copyright (c) 2026 Web Cloud Studio. All rights reserved.
+2026-10-14 08:49:41 EDT  Calling CLAUDE/claude-haiku-5-5 (plan · topology)...
+  Claude session: start id=9c8d72f4-d693-4fee-bf50-3e830cc769b3
+  Completed CLAUDE/claude-haiku-5-5 (plan · topology)  rc=0
+2026-10-14 08:49:50 EDT  Calling CLAUDE/claude-haiku-5-5 (plan · topology retry)...
+  Claude session: resume id=9c8d72f4-d693-4fee-bf50-3e830cc769b3
+  Completed CLAUDE/claude-haiku-5-5 (plan · topology retry)  rc=0
+========================================================================
+PLAN PROGRESS  ·  STAGE 1 · TOPOLOGY
+========================================================================
+Topology Created:  True
+Blueprints Created: 0 / 10
+Manifest Created:  False
+Blueprints Remaining: 10
+Batch Result:       Topology accepted
+========================================================================
+2026-10-14 08:50:15 EDT  Calling CLAUDE/claude-haiku-5-5 (plan · blueprint batch 1)...
+  Claude session: resume id=9c8d72f4-d693-4fee-bf50-3e830cc769b3
+  Completed CLAUDE/claude-haiku-5-5 (plan · blueprint batch 1)  rc=0
+========================================================================
+PLAN PROGRESS  ·  STAGE 2 · BLUEPRINT BATCH 1
+========================================================================
+Topology Created:  True
+Blueprints Created: 5 / 10
+Manifest Created:  False
+Blueprints Remaining: 5
+Batch Result:       Accepted 5 Blueprint(s)
+========================================================================
+2026-10-14 08:51:01 EDT  Calling CLAUDE/claude-haiku-5-5 (plan · blueprint batch 2)...
+  Claude session: resume id=9c8d72f4-d693-4fee-bf50-3e830cc769b3
+  Completed CLAUDE/claude-haiku-5-5 (plan · blueprint batch 2)  rc=0
+========================================================================
+PLAN PROGRESS  ·  STAGE 2 · BLUEPRINT BATCH 2
+========================================================================
+Topology Created:  True
+Blueprints Created: 10 / 10
+Manifest Created:  False
+Blueprints Remaining: 0
+Batch Result:       Accepted 5 Blueprint(s)
+========================================================================
+========================================================================
+PLAN PROGRESS  ·  STAGE 3 · MANIFEST
+========================================================================
+Topology Created:  True
+Blueprints Created: 10 / 10
+Manifest Created:  True
+Blueprints Remaining: 0
+Batch Result:       Manifest validated and serialized
+========================================================================
+2026-10-14 08:51:39 EDT  Calling CLAUDE/claude-haiku-5-5 (lineage_attribute)...
+  Completed CLAUDE/claude-haiku-5-5 (lineage_attribute)  rc=0
+2026-10-14 08:52:15 EDT  Calling CLAUDE/claude-haiku-5-5 (lineage_attribute)...
+  Completed CLAUDE/claude-haiku-5-5 (lineage_attribute)  rc=0
+2026-10-14 08:52:28 EDT  Calling CLAUDE/claude-haiku-5-5 (lineage_attribute)...
+  Completed CLAUDE/claude-haiku-5-5 (lineage_attribute)  rc=0
+2026-10-14 08:52:44 EDT  Calling CLAUDE/claude-haiku-5-5 (lineage_attribute)...
+  Completed CLAUDE/claude-haiku-5-5 (lineage_attribute)  rc=0
+2026-10-14 08:52:54 EDT  Calling CLAUDE/claude-haiku-5-5 (lineage_attribute)...
+  Completed CLAUDE/claude-haiku-5-5 (lineage_attribute)  rc=0
+2026-10-14 08:53:07 EDT  Calling CLAUDE/claude-haiku-5-5 (lineage_attribute)...
+  Completed CLAUDE/claude-haiku-5-5 (lineage_attribute)  rc=0
+2026-10-14 08:53:28 EDT  Calling CLAUDE/claude-haiku-5-5 (lineage_attribute)...
+  Completed CLAUDE/claude-haiku-5-5 (lineage_attribute)  rc=0
+
+Mode: OVERWRITE (Blueprint specs regenerated from analysis)
+Provider: claude / claude-haiku-5-5
+Graph: 0 features, 10 stories, 0 spikes, 0 acceptance gates
+Warnings: 0
+Outcome: updated
+Execution: 20261014.124950.156Z-c15b6854
+Elapsed: 5 minutes 7 seconds
+Review: /mnt/c/Users/barlo/projects/drydock/uat/Toml/runs/20261014.124728/workspace/targets/toml/QuarterDeck
+Target - committed project workspace git store

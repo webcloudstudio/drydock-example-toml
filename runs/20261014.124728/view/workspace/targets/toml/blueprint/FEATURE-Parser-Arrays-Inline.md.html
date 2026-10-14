@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>workspace/targets/toml/blueprint/FEATURE-Parser-Arrays-Inline.md</title>
+<link rel="stylesheet" href="../../../../../assets/kit.css">
+</head>
+<body>
+<main>
+<header class="fileheader"><div class="kind">Run artifact</div><h1>workspace/targets/toml/blueprint/FEATURE-Parser-Arrays-Inline.md</h1><div class="filenav"><a href="../../../../../index.html">&larr; Report</a><a href="../../../../../workspace/targets/toml/blueprint/FEATURE-Parser-Arrays-Inline.md">Raw file</a></div></header>
+<article class="doc"><h1>FEATURE: Parser Arrays Inline</h1>
+<div class="scroll"><table><thead><tr><th>Field</th><th>Value</th></tr></thead><tbody><tr><td>Version</td><td>20261014 V1</td></tr><tr><td>Description</td><td>Arrays, inline tables, and the closure rule that forbids extending an inline table.</td></tr><tr><td>Depends On</td><td>ARCHITECTURE.md, FEATURE-Parser-Strings.md, FEATURE-Parser-Lexical-Scalars.md, FEATURE-Parser-Keys.md</td></tr><tr><td>Provides</td><td>array and inline-table parsing in internal/toml</td></tr><tr><td>Consumes</td><td>None</td></tr></tbody></table></div>
+<h2>Purpose</h2>
+<p>Parse arrays of mixed value types, with nesting, optional trailing comma, and multi-line layout with comments. Parse inline tables on a single line with no trailing comma. An inline table is closed: keys cannot be added to it through dotted keys or table headers.</p>
+<h2>Programmatic Acceptance</h2>
+<p>=== AC arrays-round-trip ===<br>Intent: An array of two integers encodes as a JSON array of tagged values.<br>Requires: executable=go; scope=test</p>
+<p>import json import subprocess import sys</p>
+<p>build = subprocess.run( [&quot;go&quot;, &quot;build&quot;, &quot;-o&quot;, &quot;toml-decoder&quot;, &quot;./cmd/toml-decoder&quot;], capture_output=True, text=True, ) print(build.stderr, file=sys.stderr) assert build.returncode == 0</p>
+<p>key = &quot;xs&quot; first = &quot;1&quot; second = &quot;2&quot; source = f&quot;{key} = [{first}, {second}]\n&quot; result = subprocess.run([&quot;./toml-decoder&quot;], input=source, capture_output=True, text=True) print(result.stderr, file=sys.stderr) assert result.returncode == 0 decoded = json.loads(result.stdout) assert decoded == {key: [ {&quot;type&quot;: &quot;integer&quot;, &quot;value&quot;: first}, {&quot;type&quot;: &quot;integer&quot;, &quot;value&quot;: second}, ]} === END AC arrays-round-trip ===</p>
+<p>=== AC inline-table-round-trip ===<br>Intent: An inline table on one line encodes as a nested JSON object.<br>Requires: executable=go; scope=test</p>
+<p>import json import subprocess import sys</p>
+<p>build = subprocess.run( [&quot;go&quot;, &quot;build&quot;, &quot;-o&quot;, &quot;toml-decoder&quot;, &quot;./cmd/toml-decoder&quot;], capture_output=True, text=True, ) print(build.stderr, file=sys.stderr) assert build.returncode == 0</p>
+<p>key = &quot;point&quot; inner = &quot;x&quot; value = &quot;1&quot; source = f&quot;{key} = {{ {inner} = {value} }}\n&quot; result = subprocess.run([&quot;./toml-decoder&quot;], input=source, capture_output=True, text=True) print(result.stderr, file=sys.stderr) assert result.returncode == 0 decoded = json.loads(result.stdout) assert decoded == {key: {inner: {&quot;type&quot;: &quot;integer&quot;, &quot;value&quot;: value}}} === END AC inline-table-round-trip ===</p>
+<p>=== AC inline-table-closed ===<br>Intent: Adding a key to an inline table through a later table header is rejected.<br>Requires: executable=go; scope=test</p>
+<p>import subprocess import sys</p>
+<p>build = subprocess.run( [&quot;go&quot;, &quot;build&quot;, &quot;-o&quot;, &quot;toml-decoder&quot;, &quot;./cmd/toml-decoder&quot;], capture_output=True, text=True, ) print(build.stderr, file=sys.stderr) assert build.returncode == 0</p>
+<p>key = &quot;t&quot; source = f&quot;{key} = {{ a = 1 }}\n[{key}]\nb = 2\n&quot; result = subprocess.run([&quot;./toml-decoder&quot;], input=source, capture_output=True, text=True) print(result.stderr, file=sys.stderr) assert result.returncode != 0 assert result.stdout == &quot;&quot; === END AC inline-table-closed ===</p>
+<p>=== AC arrays-inline-suite-slice ===<br>Intent: The toml-test array and inline-table slices execute and every case passes.<br>Suite: scoped<br>Requires: executable=sh; scope=test<br>Requires: executable=go; scope=test<br>Requires: executable=toml-test; scope=test</p>
+<p>import subprocess import sys</p>
+<p>pattern = &quot;valid/array/<strong>|valid/inline-table/</strong>|invalid/array/<strong>|invalid/inline-table/</strong>&quot; result = subprocess.run( [&quot;sh&quot;, &quot;sources/stage_test.sh&quot;, pattern], capture_output=True, text=True, ) print(result.stdout) print(result.stderr, file=sys.stderr) assert result.returncode == 0 === END AC arrays-inline-suite-slice ===</p>
+<h2>User Acceptance</h2>
+<ul><li>None.</li></ul>
+<h2>Guardrails</h2>
+<ul><li>An inline table written with a trailing comma is rejected.</li><li>Inline tables may not span lines unless a value inside them does.</li></ul></article>
+</main>
+</body>
+</html>

@@ -1,0 +1,138 @@
+# Evidence: Block 2 · Service (block-2)
+
+- block type: block
+- date: 2026-10-14
+- resulting state: closed/verified
+- story points (combined assembled cost): 8286
+- execution id: 20261014.125646.809Z-9225cabe
+
+## Stories built
+- TOML string forms: basic, multi-line basic, literal, multi-line literal. (parser-strings) [story]
+
+## Acceptance tooling authorization
+- FEATURE-Parser-Strings.md#strings-basic-round-trip: executable=go; scope=test; authorization=existing Target environment
+- FEATURE-Parser-Strings.md#strings-bad-escape: executable=go; scope=test; authorization=existing Target environment
+- FEATURE-Parser-Strings.md#strings-suite-slice: executable=sh; scope=test; authorization=existing Target environment
+- FEATURE-Parser-Strings.md#strings-suite-slice: executable=go; scope=test; authorization=existing Target environment
+- FEATURE-Parser-Strings.md#strings-suite-slice: executable=toml-test; scope=test; authorization=existing Target environment
+
+## Stacked context
+- compass: COMPASS.md (SP 945)
+- implements: FEATURE-Parser-Strings.md (SP 1071)
+- context: ARCHITECTURE_compact.md (SP 244)
+- stack: go.md (SP 5918)
+
+## Build directory changes
+- cmd/toml-decoder/main_test.go
+- internal/toml/string.go
+- internal/toml/string_test.go
+- internal/toml/toml.go
+- internal/toml/toml_test.go
+- toml-decoder
+
+## Pre-build acceptance observation
+- RED: strings-basic-round-trip (FEATURE-Parser-Strings.md)
+  intent: A basic string value is decoded and written as a tagged string.
+  return code: 1
+  stderr:
+    toml-decoder: decode: toml: decoder not implemented
+    
+    --- drydock: values at failure ---
+      result = CompletedProcess(args=['./toml-decoder'], returncode=1, stdout='', stderr='toml-decoder: decode: toml: decoder not implemented\n')
+    --- drydock: end values ---
+    Traceback (most recent call last):
+      File "strings-basic-round-trip.py", line 17, in <module>
+        assert result.returncode == 0
+               ^^^^^^^^^^^^^^^^^^^^^^
+    AssertionError
+- GREEN (prepassed): strings-bad-escape (FEATURE-Parser-Strings.md)
+  intent: A basic string containing an unlisted backslash escape is rejected.
+  return code: 0
+  stderr:
+    toml-decoder: decode: toml: decoder not implemented
+- GREEN (prepassed): strings-suite-slice (FEATURE-Parser-Strings.md)
+  intent: The toml-test string slice executes and every string case passes.
+  return code: 0
+  stdout:
+    toml-test v2.2.0 [/mnt/c/Users/barlo/projects/drydock/uat/Toml/runs/20261014.124728/build/toml/toml-decoder] [no encoder]
+    skipped tests: 884
+      valid tests:   0 passed,  0 failed
+    encoder tests: no encoder command given
+    invalid tests:   0 passed,  0 failed
+  stderr:
+    harness: /home/barlo/.local/bin/toml-test toml-test v2.2.0; go1.24.6 linux/amd64; race=false; cgo=true
+
+## Post-build programmatic acceptance
+- PASS: strings-basic-round-trip (FEATURE-Parser-Strings.md)
+  intent: A basic string value is decoded and written as a tagged string.
+  target interpreter: /mnt/c/Users/barlo/projects/drydock/.venv/bin/python
+  provisioning: not required
+  return code: 0
+- PASS: strings-bad-escape (FEATURE-Parser-Strings.md)
+  intent: A basic string containing an unlisted backslash escape is rejected.
+  target interpreter: /mnt/c/Users/barlo/projects/drydock/.venv/bin/python
+  provisioning: not required
+  return code: 0
+  stderr:
+    toml-decoder: decode: invalid TOML: line 1: unknown escape \q
+- UNVERIFIED: strings-suite-slice (FEATURE-Parser-Strings.md)
+  intent: The toml-test string slice executes and every string case passes.
+  target interpreter: /mnt/c/Users/barlo/projects/drydock/.venv/bin/python
+  provisioning: not required
+  return code: 0
+  error: unverified acceptance: selector matched zero cases
+  stdout:
+    toml-test v2.2.0 [/mnt/c/Users/barlo/projects/drydock/uat/Toml/runs/20261014.124728/build/toml/toml-decoder] [no encoder]
+    skipped tests: 884
+      valid tests:   0 passed,  0 failed
+    encoder tests: no encoder command given
+    invalid tests:   0 passed,  0 failed
+  stderr:
+    harness: /home/barlo/.local/bin/toml-test toml-test v2.2.0; go1.24.6 linux/amd64; race=false; cgo=true
+
+## Build summary
+The stage slice is all top-level `key = "string"` documents, plus comments and escapes, so the parser needs to cover that surface. Before editing I'm checking the baseline (the declared pattern uses `|`, which toml-test may not parse) and reading the files I'll touch.I'll write the decoder: the document layer in `toml.go`, and the four string forms in `string.go`. The sentinel changes from `ErrNotImplemented` to `ErrSyntax`, because the stub sentinel no longer describes any path.Now the unit tests. The old stub test asserted behavior that no longer exists, so I'm replacing it. The string table is split into a valid file and an invalid file.One entry landed in the wrong section: the `'''` case is a multi-line literal, not a basic string. I'm moving it out, since the literal section already covers that behavior.Next, the command-level tests. The two stub-era tests used `key = 1` as their failure input, and that is now a valid-syntax rejection for a different reason. I'm switching them to a bad escape and adding a success read-back.gofmt, vet, and unit tests are clean. Now the declared acceptance checks. The AC scripts are Python, so I'm checking for an interpreter first.The declared invocation runs zero cases and exits 0. toml-test separates patterns with commas, not `|`, so that AC passes vacuously. I can't edit the AC, so I'll report it. To check the string slice for real, I'm running the same staged script with the documented comma syntax.All 23 valid and 77 invalid string cases pass under the comma pattern. Now the two `Requires: executable=go` acceptance checks for the round trip and the bad escape, run as their stated commands.Both checks pass. I'll clean up my scratch files and confirm the build directory has only the intended changes.The string forms are implemented, the declared acceptance checks pass, and the string slice passes in full under the comma pattern. The declared suite invocation is a different story (see below).
+
+**What changed**
+
+- `internal/toml/toml.go`: `Decode` reads the document, requires valid UTF-8, and parses top-level `key = value` lines, comments, blank lines, CRLF, and quoted or bare keys. Only string values are accepted. Tables, dotted keys, integers, and the rest are syntax errors for now. `ErrNotImplemented` is replaced by `ErrSyntax`, since nothing returns the stub error anymore.
+- `internal/toml/string.go` (new): the four string forms. Basic strings accept only `\b \t \n \f \r \" \\ \uXXXX \UXXXXXXXX`. Unicode escapes must be scalar values (no surrogates, at most U+10FFFF). Multi-line forms trim the opening newline, apply the line-ending backslash rule in basic strings only, and allow up to two extra quotes before the closing delimiter. Control characters are rejected.
+- `internal/toml/toml_test.go` and `string_test.go` (new): table-driven tests that decode and compare the returned model, plus rejection tests that assert `ErrSyntax`.
+- `cmd/toml-decoder/main_test.go`: the two stub-era tests used `key = 1` as their failure input, which is no longer meaningful. They now use a bad escape. I also added a JSON read-back test for `s = "text"`.
+
+**Verification**
+
+- `gofmt -l .` is clean, `go vet ./...` is clean, and `go test -race -cover ./...` passes (decoder 94.7%, command 57.1%).
+- Round-trip AC: `s = "text"` decodes to `{"s": {"type": "string", "value": "text"}}`. Passes.
+- Bad-escape AC: `bad = "\q"` exits 1 with empty stdout. Passes.
+- String slice, run as `sh sources/stage_test.sh 'valid/string/*,invalid/string/*'`: 23/23 valid and 77/77 invalid pass.
+
+**Problem with the declared suite AC**
+
+The `strings-suite-slice` criterion passes the pattern `valid/string/**|invalid/string/**`. toml-test separates patterns with commas, so `|` matches nothing. It runs 0 cases and exits 0, which means it passes even with the stub. The criterion is vacuous as written. I haven't edited it, since criteria are staged and restored. I'd recommend changing its pattern to the comma form. I did not emit `AC_BROKEN`, because the criterion can pass. It just passes without testing anything.
+
+**Choices I made**
+
+- Dotted keys and table headers are rejected as syntax errors. They are out of this block's scope, and the later blocks will need them.
+- Quoted keys are accepted. I added them because the valid string corpus uses them, and the string parser already handles them.
+- `ErrNotImplemented` was removed rather than kept as dead API. `main_test.go` no longer refers to it.
+
+<blueprint-decisions>
+[{"spec":"FEATURE-Parser-Strings.md","severity":"Low","subject":"Dotted keys and table headers","decision":"Rejected as syntax errors in this block; only top-level key = string pairs are decoded. The string slice needs no more than that. Is that acceptable, or should tables and dotted keys land with a later block?"},{"spec":"FEATURE-Parser-Strings.md","severity":"Low","subject":"Quoted keys","decision":"Basic and literal quoted keys are accepted, reusing the string parser. Bare keys are A-Za-z0-9, underscore, and dash. Is that acceptable?"}]
+</blueprint-decisions>
+
+RESULT: SUCCESS
+
+FILES CHANGED:
+- internal/toml/toml.go
+- internal/toml/string.go
+- internal/toml/toml_test.go
+- internal/toml/string_test.go
+- cmd/toml-decoder/main_test.go
+- toml-decoder
+
+SUMMARY:
+Implemented the four TOML string forms (basic, multi-line basic, literal, multi-line literal) with a top-level document parser in internal/toml. Declared ACs: strings-basic-round-trip and strings-bad-escape pass when run as written. strings-suite-slice exits 0 but runs zero cases because its `|` pattern is not valid toml-test syntax, so it is vacuous. The same staged script with the comma pattern `valid/string/*,invalid/string/*` passes 23/23 valid and 77/77 invalid. gofmt, go vet, and go test -race -cover all pass.
+
+BLOCKERS:
+- The declared strings-suite-slice pattern (`valid/string/**|invalid/string/**`) matches nothing and passes vacuously. It needs the comma form to gate anything.

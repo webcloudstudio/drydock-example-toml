@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>workspace/targets/toml/blueprint/FEATURE-Parser-Datetimes.md</title>
+<link rel="stylesheet" href="../../../../../assets/kit.css">
+</head>
+<body>
+<main>
+<header class="fileheader"><div class="kind">Run artifact</div><h1>workspace/targets/toml/blueprint/FEATURE-Parser-Datetimes.md</h1><div class="filenav"><a href="../../../../../index.html">&larr; Report</a><a href="../../../../../workspace/targets/toml/blueprint/FEATURE-Parser-Datetimes.md">Raw file</a></div></header>
+<article class="doc"><h1>FEATURE: Parser Datetimes</h1>
+<div class="scroll"><table><thead><tr><th>Field</th><th>Value</th></tr></thead><tbody><tr><td>Version</td><td>20261014 V1</td></tr><tr><td>Description</td><td>Offset date-time, local date-time, local date, and local time forms, with the fractional-second truncation rule.</td></tr><tr><td>Depends On</td><td>ARCHITECTURE.md, FEATURE-Parser-Lexical-Scalars.md</td></tr><tr><td>Provides</td><td>offset datetime, local datetime, local date, and local time decoding</td></tr><tr><td>Consumes</td><td>None</td></tr></tbody></table></div>
+<h2>Purpose</h2>
+<p>Decode RFC 3339 offset date-times, accepting either <code>T</code> or a space as the delimiter. Decode local date-times, local dates, and local times without an offset. Fractional seconds beyond the supported precision are truncated, not rounded.</p>
+<h2>Programmatic Acceptance</h2>
+<p>=== AC datetimes-local-date-round-trip ===<br>Intent: A local date encodes as a date-local tagged value holding the date part.<br>Requires: executable=go; scope=test</p>
+<p>import json import subprocess import sys</p>
+<p>build = subprocess.run( [&quot;go&quot;, &quot;build&quot;, &quot;-o&quot;, &quot;toml-decoder&quot;, &quot;./cmd/toml-decoder&quot;], capture_output=True, text=True, ) print(build.stderr, file=sys.stderr) assert build.returncode == 0</p>
+<p>key = &quot;d&quot; value = &quot;1979-05-27&quot; source = f&quot;{key} = {value}\n&quot; result = subprocess.run([&quot;./toml-decoder&quot;], input=source, capture_output=True, text=True) print(result.stderr, file=sys.stderr) assert result.returncode == 0 decoded = json.loads(result.stdout) assert decoded == {key: {&quot;type&quot;: &quot;date-local&quot;, &quot;value&quot;: value}} === END AC datetimes-local-date-round-trip ===</p>
+<p>=== AC datetimes-local-time-round-trip ===<br>Intent: A local time encodes as a time-local tagged value holding the time part.<br>Requires: executable=go; scope=test</p>
+<p>import json import subprocess import sys</p>
+<p>build = subprocess.run( [&quot;go&quot;, &quot;build&quot;, &quot;-o&quot;, &quot;toml-decoder&quot;, &quot;./cmd/toml-decoder&quot;], capture_output=True, text=True, ) print(build.stderr, file=sys.stderr) assert build.returncode == 0</p>
+<p>key = &quot;t&quot; value = &quot;07:32:00&quot; source = f&quot;{key} = {value}\n&quot; result = subprocess.run([&quot;./toml-decoder&quot;], input=source, capture_output=True, text=True) print(result.stderr, file=sys.stderr) assert result.returncode == 0 decoded = json.loads(result.stdout) assert decoded == {key: {&quot;type&quot;: &quot;time-local&quot;, &quot;value&quot;: value}} === END AC datetimes-local-time-round-trip ===</p>
+<p>=== AC datetimes-invalid-date-rejected ===<br>Intent: A date with an out-of-range month is rejected with a non-zero exit.<br>Requires: executable=go; scope=test</p>
+<p>import subprocess import sys</p>
+<p>build = subprocess.run( [&quot;go&quot;, &quot;build&quot;, &quot;-o&quot;, &quot;toml-decoder&quot;, &quot;./cmd/toml-decoder&quot;], capture_output=True, text=True, ) print(build.stderr, file=sys.stderr) assert build.returncode == 0</p>
+<p>key = &quot;d&quot; source = f&quot;{key} = 1979-13-01\n&quot; result = subprocess.run([&quot;./toml-decoder&quot;], input=source, capture_output=True, text=True) print(result.stderr, file=sys.stderr) assert result.returncode != 0 assert result.stdout == &quot;&quot; === END AC datetimes-invalid-date-rejected ===</p>
+<p>=== AC datetimes-suite-slice ===<br>Intent: The toml-test datetime slices execute and every datetime case passes.<br>Suite: scoped<br>Requires: executable=sh; scope=test<br>Requires: executable=go; scope=test<br>Requires: executable=toml-test; scope=test</p>
+<p>import subprocess import sys</p>
+<p>pattern = &quot;valid/datetime/<strong>|invalid/datetime/</strong>|invalid/local-date/<strong>|invalid/local-datetime/</strong>|invalid/local-time/**&quot; result = subprocess.run( [&quot;sh&quot;, &quot;sources/stage_test.sh&quot;, pattern], capture_output=True, text=True, ) print(result.stdout) print(result.stderr, file=sys.stderr) assert result.returncode == 0 === END AC datetimes-suite-slice ===</p>
+<h2>User Acceptance</h2>
+<ul><li>None.</li></ul>
+<h2>Guardrails</h2>
+<ul><li>Fractional seconds are truncated, never rounded.</li><li>Precision is not invented: a value with fewer digits is not padded.</li></ul></article>
+</main>
+</body>
+</html>

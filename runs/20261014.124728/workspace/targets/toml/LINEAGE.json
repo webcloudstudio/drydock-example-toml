@@ -1,0 +1,980 @@
+{
+  "version": 1,
+  "import": {
+    "root": "/mnt/c/Users/barlo/projects/drydock/uat/Toml/runs/20261014.124728/sources",
+    "format": "markdown"
+  },
+  "sources": {
+    "INSTRUCTIONS.md": {
+      "state": "current",
+      "versions": [
+        {
+          "commit": "e549f4f",
+          "date": "2026-10-14",
+          "hash": "5f94adab4012709386f8527eaf7ca98638794051b622ea8c8e34e8e532d9622d",
+          "release": "",
+          "state": "consumed",
+          "via": "plan",
+          "ticket": null,
+          "requirements": [
+            {
+              "name": "parse-toml-v1-spec",
+              "text": "Build a TOML v1.0.0 parser that conforms to the specification in `sources/toml-v1.0.0.md`.",
+              "stories": [
+                "parser-strings",
+                "parser-lexical-scalars",
+                "parser-lexical-boundaries",
+                "parser-keys",
+                "parser-tables",
+                "parser-arrays-inline",
+                "parser-datetimes"
+              ]
+            },
+            {
+              "name": "pass-full-suite",
+              "text": "The goal is to pass every valid and every invalid case the installed suite supplies, with no case failed, errored, or skipped.",
+              "stories": [
+                "conformance"
+              ]
+            },
+            {
+              "name": "reject-invalid-input",
+              "text": "Rejecting invalid input is scored as heavily as accepting valid input.",
+              "stories": [
+                "decoder-contract",
+                "parser-lexical-boundaries",
+                "parser-keys",
+                "parser-tables",
+                "parser-arrays-inline",
+                "parser-lexical-scalars",
+                "parser-strings",
+                "parser-datetimes"
+              ]
+            },
+            {
+              "name": "filter-stdin-stdout",
+              "text": "The program is a filter: read TOML from **stdin**, write tagged JSON to **stdout**, exit `0`.",
+              "stories": [
+                "decoder-contract",
+                "architecture"
+              ]
+            },
+            {
+              "name": "diagnose-invalid-toml",
+              "text": "On invalid TOML, write a diagnostic to **stderr** and exit non-zero.",
+              "stories": [
+                "decoder-contract"
+              ]
+            },
+            {
+              "name": "no-args-no-side-effects",
+              "text": "The program takes no arguments, reads no configuration files, and produces no side effects.",
+              "stories": [
+                "decoder-contract"
+              ]
+            },
+            {
+              "name": "tagged-json-value-encoding",
+              "text": "Every TOML **value** becomes `{\"type\": \"<TOML_TYPE>\", \"value\": \"<TOML_VALUE>\"}`.",
+              "stories": [
+                "decoder-contract"
+              ]
+            },
+            {
+              "name": "values-always-json-strings",
+              "text": "`TOML_VALUE` is always a JSON string, including for integers, floats, and booleans.",
+              "stories": [
+                "decoder-contract",
+                "parser-lexical-scalars"
+              ]
+            },
+            {
+              "name": "empty-tables-encode-as-objects",
+              "text": "Empty tables become `{}`.",
+              "stories": [
+                "decoder-contract",
+                "parser-tables"
+              ]
+            },
+            {
+              "name": "offset-datetimes-rfc3339",
+              "text": "Offset datetimes are encoded as RFC 3339.",
+              "stories": [
+                "parser-datetimes"
+              ]
+            },
+            {
+              "name": "parser-in-internal-package",
+              "text": "The parser lives in `internal/toml`; `main` reads, delegates, and encodes.",
+              "stories": [
+                "architecture",
+                "decoder-contract"
+              ]
+            },
+            {
+              "name": "scalars",
+              "text": "booleans, integers (including `0x`, `0o`, `0b`, underscores), floats (including `inf`, `nan`, exponents).",
+              "stories": [
+                "parser-lexical-scalars"
+              ]
+            },
+            {
+              "name": "string-forms",
+              "text": "basic and literal strings, then multi-line strings with their line-ending backslash and trimming rules.",
+              "stories": [
+                "parser-strings"
+              ]
+            },
+            {
+              "name": "key-forms",
+              "text": "bare, quoted, and dotted keys; the redefinition rules.",
+              "stories": [
+                "parser-keys"
+              ]
+            },
+            {
+              "name": "table-forms",
+              "text": "`[table]`, `[a.b.c]` implicit creation, `[[array of tables]]`, and the rules governing which of these may follow which.",
+              "stories": [
+                "parser-tables"
+              ]
+            },
+            {
+              "name": "inline-tables-and-arrays",
+              "text": "Inline tables and arrays \u2014 including nesting and the TOML 1.0 restriction that inline tables are closed to later extension.",
+              "stories": [
+                "parser-arrays-inline"
+              ]
+            },
+            {
+              "name": "datetime-forms",
+              "text": "offset, local datetime, local date, local time.",
+              "stories": [
+                "parser-datetimes"
+              ]
+            },
+            {
+              "name": "reject-malformed-input",
+              "text": "control characters, bad UTF-8, duplicate keys, redefinition after an inline table, unterminated constructs.",
+              "stories": [
+                "parser-lexical-boundaries",
+                "parser-keys",
+                "parser-tables",
+                "parser-arrays-inline",
+                "parser-strings",
+                "parser-datetimes"
+              ]
+            },
+            {
+              "name": "decoder-scaffolding",
+              "text": "line handling, comments, whitespace, the stdin/stdout/exit contract, tagged JSON emission.",
+              "stories": [
+                "architecture",
+                "decoder-contract",
+                "parser-lexical-boundaries"
+              ]
+            },
+            {
+              "name": "scoring-assets-read-only",
+              "text": "The scoring assets are read-only.",
+              "stories": [
+                "conformance"
+              ]
+            },
+            {
+              "name": "build-decoder-command",
+              "text": "Build `cmd/toml-decoder` so that the supplied entry point succeeds; changing the entry point is not a repair.",
+              "stories": [
+                "architecture",
+                "conformance"
+              ]
+            },
+            {
+              "name": "stdlib-only-module",
+              "text": "`go.mod` declares no `require` dependencies.",
+              "stories": [
+                "architecture"
+              ]
+            },
+            {
+              "name": "no-network-after-setup",
+              "text": "No network access at test time after `setup_harness.sh` has run once.",
+              "stories": [
+                "conformance"
+              ]
+            },
+            {
+              "name": "single-scoring-entry-point",
+              "text": "`sources/full_test.sh` is the single scoring entry point.",
+              "stories": [
+                "conformance"
+              ]
+            },
+            {
+              "name": "clean-run-zero-exit",
+              "text": "`sh sources/full_test.sh` runs cleanly with zero errors and exits zero.",
+              "stories": [
+                "conformance"
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    "full_test.sh": {
+      "state": "current",
+      "versions": [
+        {
+          "commit": "e549f4f",
+          "date": "2026-10-14",
+          "hash": "54fcd3c5b0b92e31d7c4c90c3a04ff65617600dcd858947455cda8fbcb2800a6",
+          "release": "",
+          "state": "consumed",
+          "via": "plan",
+          "ticket": null,
+          "requirements": [
+            {
+              "name": "build-decoder-command",
+              "text": "go build -o toml-decoder ./cmd/toml-decoder",
+              "stories": [
+                "architecture"
+              ]
+            },
+            {
+              "name": "pin-toml-test-version",
+              "text": "The version setup_harness.sh installs. run_conformance.sh refuses a different one, so a passing verdict names a specific exam rather than whichever harness was on PATH.",
+              "stories": [
+                "conformance"
+              ]
+            },
+            {
+              "name": "run-unfiltered-conformance",
+              "text": "scoring entry point. Do not filter, skip, or reinterpret.",
+              "stories": [
+                "conformance"
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    "run_conformance.sh": {
+      "state": "current",
+      "versions": [
+        {
+          "commit": "e549f4f",
+          "date": "2026-10-14",
+          "hash": "15ecb784a928f4835ca1620341fcaf8af6bcf97ffd26aa8946c9ceecff475afe",
+          "release": "",
+          "state": "consumed",
+          "via": "plan",
+          "ticket": null,
+          "requirements": [
+            {
+              "name": "run-suite-against-decoder",
+              "text": "Run the upstream toml-test conformance suite against the built decoder.",
+              "stories": [
+                "conformance",
+                "decoder-contract"
+              ]
+            },
+            {
+              "name": "require-decoder-command",
+              "text": "DECODER    decoder command. Required \u2014 this harness is language-neutral and deliberately has no default implementation language.",
+              "stories": [
+                "architecture"
+              ]
+            },
+            {
+              "name": "exit-status-standard",
+              "text": "Exit code follows the harness exit-status standard in prompts/UAT_SETUP_INSTRUCTIONS.md: 0 only when every test passes, 2 when this harness could not run at all, and any other nonzero when it ran and the decoder failed. A precondition of the harness is never charged to the build.",
+              "stories": [
+                "decoder-contract"
+              ]
+            },
+            {
+              "name": "locate-harness-binary",
+              "text": "TOML_TEST  absolute path to the toml-test binary (default: found on PATH)",
+              "stories": [
+                "conformance"
+              ]
+            },
+            {
+              "name": "pin-suite-version",
+              "text": "The suite's identity is part of the verdict. Without this, \"the authoritative suite passed\" names no particular suite: whichever toml-test happened to be on PATH decided the run, and a different version on a different machine is a different exam. Recorded always, and enforced when the caller states which version it expects.",
+              "stories": [
+                "conformance"
+              ]
+            },
+            {
+              "name": "forward-suite-arguments",
+              "text": "DECODER=./toml-decoder sh sources/run_conformance.sh -run 'valid/string/*'  # one group",
+              "stories": [
+                "conformance"
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    "setup_harness.sh": {
+      "state": "current",
+      "versions": [
+        {
+          "commit": "e549f4f",
+          "date": "2026-10-14",
+          "hash": "a94f9cee6ae45b4265e244f40b882f9692f59c67aff16953d2db837fb3885a56",
+          "release": "",
+          "state": "consumed",
+          "via": "plan",
+          "ticket": null,
+          "requirements": [
+            {
+              "name": "install-pinned-toml-test-harness",
+              "text": "One-time installation of the upstream toml-test conformance harness.",
+              "stories": [
+                "conformance"
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    "stage_contract.sh": {
+      "state": "current",
+      "versions": [
+        {
+          "commit": "e549f4f",
+          "date": "2026-10-14",
+          "hash": "c95f3a314d9d8099bf27a64404a7eba213710c2948d41c1ce6c44f87f225227b",
+          "release": "",
+          "state": "consumed",
+          "via": "plan",
+          "ticket": null,
+          "requirements": [
+            {
+              "name": "architecture-boundary",
+              "text": "if grep -Eq '^[[:space:]]*require[[:space:](]' go.mod; then\n  echo \"go.mod declares a forbidden third-party dependency\" >&2\n  exit 1\nfi\ngo build ./cmd/toml-decoder",
+              "stories": [
+                "architecture"
+              ]
+            },
+            {
+              "name": "decode-integer-assignment",
+              "text": "printf 'answer = 42\\n' | ./toml-decoder >\"$stage_dir/valid.json\" 2>\"$stage_dir/valid.err\"\ntest ! -s \"$stage_dir/valid.err\"\nassert decoded == {\"answer\": {\"type\": \"integer\", \"value\": \"42\"}}",
+              "stories": [
+                "decoder-contract",
+                "parser-keys",
+                "parser-lexical-scalars"
+              ]
+            },
+            {
+              "name": "reject-malformed-toml",
+              "text": "if printf 'answer = [\\n' | ./toml-decoder >\"$stage_dir/invalid.out\" 2>\"$stage_dir/invalid.err\"; then\n  echo \"malformed TOML exited successfully\" >&2\n  exit 1\nfi\ntest ! -s \"$stage_dir/invalid.out\"\ntest -s \"$stage_dir/invalid.err\"",
+              "stories": [
+                "decoder-contract",
+                "parser-arrays-inline"
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    "stage_test.sh": {
+      "state": "current",
+      "versions": [
+        {
+          "commit": "e549f4f",
+          "date": "2026-10-14",
+          "hash": "93254a9d7ac72f19345b48fc36faffb1dc79dcc66f55cf18fee48c2cdce988cd",
+          "release": "",
+          "state": "consumed",
+          "via": "plan",
+          "ticket": null,
+          "requirements": [
+            {
+              "name": "run-story-slice",
+              "text": "Same contract as full_test.sh, scoped to the cases a single story owns: build the decoder, then run the installed toml-test suite over the pattern given as $1.",
+              "stories": [
+                "architecture",
+                "decoder-contract"
+              ]
+            },
+            {
+              "name": "verdict-is-exit-status",
+              "text": "Exit status is the verdict and the whole verdict. Do not filter, skip, or reinterpret.",
+              "stories": [
+                "decoder-contract"
+              ]
+            },
+            {
+              "name": "pin-suite-version",
+              "text": "TOML_TEST_VERSION=\"${TOML_TEST_VERSION:-v2.2.0}\"",
+              "stories": [
+                "conformance"
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    "toml-v1.0.0.md": {
+      "state": "current",
+      "versions": [
+        {
+          "commit": "e549f4f",
+          "date": "2026-10-14",
+          "hash": "4cc2468f55b36a27660425430f19c3e63c9da492e6936aded2cf5eed9fcdce45",
+          "release": "",
+          "state": "consumed",
+          "via": "plan",
+          "ticket": null,
+          "requirements": [
+            {
+              "name": "case-sensitive",
+              "text": "TOML is case-sensitive.",
+              "stories": [
+                "parser-lexical-boundaries"
+              ]
+            },
+            {
+              "name": "utf8-document",
+              "text": "A TOML file must be a valid UTF-8 encoded Unicode document.",
+              "stories": [
+                "parser-lexical-boundaries"
+              ]
+            },
+            {
+              "name": "whitespace-and-newline",
+              "text": "Whitespace means tab (0x09) or space (0x20).\nNewline means LF (0x0A) or CRLF (0x0D 0x0A).",
+              "stories": [
+                "parser-lexical-boundaries"
+              ]
+            },
+            {
+              "name": "comment-marker",
+              "text": "A hash symbol marks the rest of the line as a comment, except when inside a string.",
+              "stories": [
+                "parser-lexical-boundaries"
+              ]
+            },
+            {
+              "name": "comment-control-characters",
+              "text": "Control characters other than tab (U+0000 to U+0008, U+000A to U+001F, U+007F)\nare not permitted in comments.",
+              "stories": [
+                "parser-lexical-boundaries"
+              ]
+            },
+            {
+              "name": "key-value-pair",
+              "text": "Keys are on the left of the equals sign and values are on the right. Whitespace is ignored around key names and values. The key, equals sign, and value must be on the same line (though some values can be broken over multiple lines).",
+              "stories": [
+                "parser-keys",
+                "parser-strings",
+                "parser-arrays-inline"
+              ]
+            },
+            {
+              "name": "key-value-line-end",
+              "text": "There must be a newline (or EOF) after a key/value pair.",
+              "stories": [
+                "parser-keys",
+                "parser-arrays-inline"
+              ]
+            },
+            {
+              "name": "values-typed",
+              "text": "Values must have one of the following types.\nUnspecified values are invalid.",
+              "stories": [
+                "parser-strings",
+                "parser-lexical-scalars",
+                "parser-datetimes",
+                "parser-arrays-inline"
+              ]
+            },
+            {
+              "name": "maps-to-hash-table",
+              "text": "TOML is designed to map unambiguously to a hash table.",
+              "stories": [
+                "parser-keys",
+                "parser-tables",
+                "parser-arrays-inline"
+              ]
+            },
+            {
+              "name": "bare-keys",
+              "text": "Bare keys may only contain ASCII letters, ASCII digits, underscores, and dashes (`A-Za-z0-9_-`).",
+              "stories": [
+                "parser-keys"
+              ]
+            },
+            {
+              "name": "bare-keys-digits-are-strings",
+              "text": "Note that bare keys are allowed to be composed of only ASCII digits, e.g. `1234`, but are always interpreted as strings.",
+              "stories": [
+                "parser-keys"
+              ]
+            },
+            {
+              "name": "quoted-keys",
+              "text": "Quoted keys follow the exact same rules as either basic strings or literal strings and allow you to use a much broader set of key names.",
+              "stories": [
+                "parser-keys"
+              ]
+            },
+            {
+              "name": "empty-keys",
+              "text": "A bare key must be non-empty, but an empty quoted key is allowed (though discouraged).",
+              "stories": [
+                "parser-keys"
+              ]
+            },
+            {
+              "name": "dotted-keys",
+              "text": "Dotted keys are a sequence of bare or quoted keys joined with a dot.",
+              "stories": [
+                "parser-keys",
+                "parser-tables"
+              ]
+            },
+            {
+              "name": "dotted-key-whitespace",
+              "text": "Whitespace around dot-separated parts is ignored.",
+              "stories": [
+                "parser-keys"
+              ]
+            },
+            {
+              "name": "key-defined-once",
+              "text": "Defining a key multiple times is invalid.",
+              "stories": [
+                "parser-keys"
+              ]
+            },
+            {
+              "name": "bare-and-quoted-keys-equivalent",
+              "text": "Note that bare keys and quoted keys are equivalent:",
+              "stories": [
+                "parser-keys"
+              ]
+            },
+            {
+              "name": "dotted-key-extension",
+              "text": "As long as a key hasn't been directly defined, you may still write to it and to names within it.",
+              "stories": [
+                "parser-keys"
+              ]
+            },
+            {
+              "name": "dotted-keys-out-of-order",
+              "text": "Defining dotted keys out-of-order is discouraged.",
+              "stories": [
+                "parser-keys"
+              ]
+            },
+            {
+              "name": "dotted-keys-float-lookalike",
+              "text": "Since bare keys can be composed of only ASCII integers, it is possible to write dotted keys that look like floats but are 2-part dotted keys.",
+              "stories": [
+                "parser-keys"
+              ]
+            },
+            {
+              "name": "indentation-ignored",
+              "text": "Indentation is treated as whitespace and ignored.",
+              "stories": [
+                "parser-keys",
+                "parser-tables"
+              ]
+            },
+            {
+              "name": "string-basic",
+              "text": "Basic strings are surrounded by quotation marks (`\"`). Any Unicode character may be used except those that must be escaped: quotation mark, backslash, and the control characters other than tab (U+0000 to U+0008, U+000A to U+001F, U+007F).",
+              "stories": [
+                "parser-strings"
+              ]
+            },
+            {
+              "name": "string-compact-escapes",
+              "text": "For convenience, some popular characters have a compact escape sequence.",
+              "stories": [
+                "parser-strings"
+              ]
+            },
+            {
+              "name": "string-unicode-escapes",
+              "text": "Any Unicode character may be escaped with the `\\uXXXX` or `\\UXXXXXXXX` forms. The escape codes must be valid Unicode scalar values.",
+              "stories": [
+                "parser-strings"
+              ]
+            },
+            {
+              "name": "string-reserved-escapes",
+              "text": "All other escape sequences not listed above are reserved; if they are used, TOML should produce an error.",
+              "stories": [
+                "parser-strings"
+              ]
+            },
+            {
+              "name": "string-multiline-basic",
+              "text": "Multi-line basic strings are surrounded by three quotation marks on each side and allow newlines. A newline immediately following the opening delimiter will be trimmed. All other whitespace and newline characters remain intact.",
+              "stories": [
+                "parser-strings"
+              ]
+            },
+            {
+              "name": "string-newline-normalization",
+              "text": "TOML parsers should feel free to normalize newline to whatever makes sense for their platform.",
+              "stories": [
+                "parser-strings"
+              ]
+            },
+            {
+              "name": "string-line-ending-backslash",
+              "text": "When the last non-whitespace character on a line is an unescaped `\\`, it will be trimmed along with all whitespace (including newlines) up to the next non-whitespace character or closing delimiter.",
+              "stories": [
+                "parser-strings"
+              ]
+            },
+            {
+              "name": "string-multiline-basic-quotes",
+              "text": "You can write a quotation mark, or two adjacent quotation marks, anywhere inside a multi-line basic string.",
+              "stories": [
+                "parser-strings"
+              ]
+            },
+            {
+              "name": "string-multiline-basic-control-characters",
+              "text": "Any Unicode character may be used except those that must be escaped: backslash and the control characters other than tab, line feed, and carriage return (U+0000 to U+0008, U+000B, U+000C, U+000E to U+001F, U+007F).",
+              "stories": [
+                "parser-strings"
+              ]
+            },
+            {
+              "name": "string-literal",
+              "text": "Literal strings are surrounded by single quotes. Like basic strings, they must appear on a single line.",
+              "stories": [
+                "parser-strings"
+              ]
+            },
+            {
+              "name": "string-multiline-literal",
+              "text": "Multi-line literal strings are surrounded by three single quotes on each side and allow newlines. Like literal strings, there is no escaping whatsoever. A newline immediately following the opening delimiter will be trimmed. All other content between the delimiters is interpreted as-is without modification.",
+              "stories": [
+                "parser-strings"
+              ]
+            },
+            {
+              "name": "string-multiline-literal-quote-limit",
+              "text": "You can write 1 or 2 single quotes anywhere within a multi-line literal string, but sequences of three or more single quotes are not permitted.",
+              "stories": [
+                "parser-strings"
+              ]
+            },
+            {
+              "name": "string-literal-control-characters",
+              "text": "Control characters other than tab are not permitted in a literal string.",
+              "stories": [
+                "parser-strings"
+              ]
+            },
+            {
+              "name": "integer-forms",
+              "text": "Integers are whole numbers. Positive numbers may be prefixed with a plus sign. Negative numbers are prefixed with a minus sign.",
+              "stories": [
+                "parser-lexical-scalars"
+              ]
+            },
+            {
+              "name": "integer-underscores",
+              "text": "For large numbers, you may use underscores between digits to enhance readability. Each underscore must be surrounded by at least one digit on each side.",
+              "stories": [
+                "parser-lexical-scalars"
+              ]
+            },
+            {
+              "name": "integer-leading-zeros",
+              "text": "Leading zeros are not allowed. Integer values `-0` and `+0` are valid and identical to an unprefixed zero.",
+              "stories": [
+                "parser-lexical-scalars"
+              ]
+            },
+            {
+              "name": "integer-radix-prefixes",
+              "text": "Non-negative integer values may also be expressed in hexadecimal, octal, or binary. In these formats, leading `+` is not allowed and leading zeros are allowed (after the prefix).",
+              "stories": [
+                "parser-lexical-scalars"
+              ]
+            },
+            {
+              "name": "integer-64-bit-range",
+              "text": "Arbitrary 64-bit signed integers (from \u22122^63 to 2^63\u22121) should be accepted and handled losslessly. If an integer cannot be represented losslessly, an error must be thrown.",
+              "stories": [
+                "parser-lexical-scalars"
+              ]
+            },
+            {
+              "name": "float-ieee-binary64",
+              "text": "Floats should be implemented as IEEE 754 binary64 values.",
+              "stories": [
+                "parser-lexical-scalars"
+              ]
+            },
+            {
+              "name": "float-structure",
+              "text": "A float consists of an integer part (which follows the same rules as decimal integer values) followed by a fractional part and/or an exponent part. If both a fractional part and exponent part are present, the fractional part must precede the exponent part.",
+              "stories": [
+                "parser-lexical-scalars"
+              ]
+            },
+            {
+              "name": "float-fractional-part",
+              "text": "A fractional part is a decimal point followed by one or more digits. The decimal point, if used, must be surrounded by at least one digit on each side.",
+              "stories": [
+                "parser-lexical-scalars"
+              ]
+            },
+            {
+              "name": "float-exponent-part",
+              "text": "An exponent part is an E (upper or lower case) followed by an integer part (which follows the same rules as decimal integer values but may include leading zeros).",
+              "stories": [
+                "parser-lexical-scalars"
+              ]
+            },
+            {
+              "name": "float-underscores",
+              "text": "Similar to integers, you may use underscores to enhance readability. Each underscore must be surrounded by at least one digit.",
+              "stories": [
+                "parser-lexical-scalars"
+              ]
+            },
+            {
+              "name": "float-signed-zero",
+              "text": "Float values `-0.0` and `+0.0` are valid and should map according to IEEE 754.",
+              "stories": [
+                "parser-lexical-scalars"
+              ]
+            },
+            {
+              "name": "float-special-values",
+              "text": "Special float values can also be expressed. They are always lowercase.",
+              "stories": [
+                "parser-lexical-scalars"
+              ]
+            },
+            {
+              "name": "boolean",
+              "text": "Booleans are just the tokens you're used to. Always lowercase.",
+              "stories": [
+                "parser-lexical-scalars"
+              ]
+            },
+            {
+              "name": "offset-datetime",
+              "text": "To unambiguously represent a specific instant in time, you may use an RFC 3339 formatted date-time with offset.",
+              "stories": [
+                "parser-datetimes"
+              ]
+            },
+            {
+              "name": "datetime-space-separator",
+              "text": "For the sake of readability, you may replace the T delimiter between date and time with a space character (as permitted by RFC 3339 section 5.6).",
+              "stories": [
+                "parser-datetimes"
+              ]
+            },
+            {
+              "name": "datetime-fractional-precision",
+              "text": "Millisecond precision is required. Further precision of fractional seconds is implementation-specific. If the value contains greater precision than the implementation can support, the additional precision must be truncated, not rounded.",
+              "stories": [
+                "parser-datetimes"
+              ]
+            },
+            {
+              "name": "local-datetime",
+              "text": "If you omit the offset from an RFC 3339 formatted date-time, it will represent the given date-time without any relation to an offset or timezone.",
+              "stories": [
+                "parser-datetimes"
+              ]
+            },
+            {
+              "name": "local-date",
+              "text": "If you include only the date portion of an RFC 3339 formatted date-time, it will represent that entire day without any relation to an offset or timezone.",
+              "stories": [
+                "parser-datetimes"
+              ]
+            },
+            {
+              "name": "local-time",
+              "text": "If you include only the time portion of an RFC 3339 formatted date-time, it will represent that time of day without any relation to a specific day or any offset or timezone.",
+              "stories": [
+                "parser-datetimes"
+              ]
+            },
+            {
+              "name": "array-values",
+              "text": "Arrays are square brackets with values inside. Whitespace is ignored. Elements are separated by commas. Arrays can contain values of the same data types as allowed in key/value pairs. Values of different types may be mixed.",
+              "stories": [
+                "parser-arrays-inline"
+              ]
+            },
+            {
+              "name": "array-multiline",
+              "text": "Arrays can span multiple lines. A terminating comma (also called a trailing comma) is permitted after the last value of the array. Any number of newlines and comments may precede values, commas, and the closing bracket. Indentation between array values and commas is treated as whitespace and ignored.",
+              "stories": [
+                "parser-arrays-inline"
+              ]
+            },
+            {
+              "name": "inline-table-syntax",
+              "text": "Inline tables are fully defined within curly braces: `{` and `}`. Within the braces, zero or more comma-separated key/value pairs may appear. Key/value pairs take the same form as key/value pairs in standard tables. All value types are allowed, including inline tables.",
+              "stories": [
+                "parser-arrays-inline"
+              ]
+            },
+            {
+              "name": "inline-table-single-line",
+              "text": "Inline tables are intended to appear on a single line. A terminating comma (also called trailing comma) is not permitted after the last key/value pair in an inline table. No newlines are allowed between the curly braces unless they are valid within a value.",
+              "stories": [
+                "parser-arrays-inline"
+              ]
+            },
+            {
+              "name": "inline-table-closed",
+              "text": "Inline tables are fully self-contained and define all keys and sub-tables within them. Keys and sub-tables cannot be added outside the braces.",
+              "stories": [
+                "parser-arrays-inline"
+              ]
+            },
+            {
+              "name": "inline-table-no-extension",
+              "text": "Similarly, inline tables cannot be used to add keys or sub-tables to an already-defined table.",
+              "stories": [
+                "parser-arrays-inline"
+              ]
+            },
+            {
+              "name": "table-headers",
+              "text": "Tables (also known as hash tables or dictionaries) are collections of key/value pairs. They are defined by headers, with square brackets on a line by themselves.",
+              "stories": [
+                "parser-tables"
+              ]
+            },
+            {
+              "name": "table-scope",
+              "text": "Under that, and until the next header or EOF, are the key/values of that table.",
+              "stories": [
+                "parser-tables"
+              ]
+            },
+            {
+              "name": "table-no-order",
+              "text": "Key/value pairs within tables are not guaranteed to be in any specific order.",
+              "stories": [
+                "parser-tables"
+              ]
+            },
+            {
+              "name": "table-naming",
+              "text": "Naming rules for tables are the same as for keys",
+              "stories": [
+                "parser-tables"
+              ]
+            },
+            {
+              "name": "table-whitespace",
+              "text": "Whitespace around the key is ignored.",
+              "stories": [
+                "parser-tables"
+              ]
+            },
+            {
+              "name": "implicit-super-tables",
+              "text": "You don't need to specify all the super-tables if you don't want to. TOML knows how to do it for you.",
+              "stories": [
+                "parser-tables"
+              ]
+            },
+            {
+              "name": "empty-tables",
+              "text": "Empty tables are allowed and simply have no key/value pairs within them.",
+              "stories": [
+                "parser-tables"
+              ]
+            },
+            {
+              "name": "table-defined-once",
+              "text": "Like keys, you cannot define a table more than once. Doing so is invalid.",
+              "stories": [
+                "parser-tables"
+              ]
+            },
+            {
+              "name": "tables-out-of-order",
+              "text": "Defining tables out-of-order is discouraged.",
+              "stories": [
+                "parser-tables"
+              ]
+            },
+            {
+              "name": "root-table",
+              "text": "The top-level table, also called the root table, starts at the beginning of the document and ends just before the first table header (or EOF). Unlike other tables, it is nameless and cannot be relocated.",
+              "stories": [
+                "parser-tables"
+              ]
+            },
+            {
+              "name": "dotted-keys-define-tables",
+              "text": "Dotted keys create and define a table for each key part before the last one, provided that such tables were not previously created.",
+              "stories": [
+                "parser-tables"
+              ]
+            },
+            {
+              "name": "table-header-and-dotted-key-conflicts",
+              "text": "Since tables cannot be defined more than once, redefining such tables using a `[table]` header is not allowed. Likewise, using dotted keys to redefine tables already defined in `[table]` form is not allowed. The `[table]` form can, however, be used to define sub-tables within tables defined via dotted keys.",
+              "stories": [
+                "parser-tables"
+              ]
+            },
+            {
+              "name": "array-of-tables",
+              "text": "These can be expressed by using a header with a name in double brackets. The first instance of that header defines the array and its first table element, and each subsequent instance creates and defines a new table element in that array. The tables are inserted into the array in the order encountered.",
+              "stories": [
+                "parser-tables"
+              ]
+            },
+            {
+              "name": "array-of-tables-reference",
+              "text": "Any reference to an array of tables points to the most recently defined table element of the array.",
+              "stories": [
+                "parser-tables"
+              ]
+            },
+            {
+              "name": "array-parent-defined-first",
+              "text": "If the parent of a table or array of tables is an array element, that element must already have been defined before the child can be defined. Attempts to reverse that ordering must produce an error at parse time.",
+              "stories": [
+                "parser-tables"
+              ]
+            },
+            {
+              "name": "static-array-no-append",
+              "text": "Attempting to append to a statically defined array, even if that array is empty, must produce an error at parse time.",
+              "stories": [
+                "parser-tables"
+              ]
+            },
+            {
+              "name": "table-array-conflict",
+              "text": "Attempting to define a normal table with the same name as an already established array must produce an error at parse time. Attempting to redefine a normal table as an array must likewise produce a parse-time error.",
+              "stories": [
+                "parser-tables"
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  }
+}

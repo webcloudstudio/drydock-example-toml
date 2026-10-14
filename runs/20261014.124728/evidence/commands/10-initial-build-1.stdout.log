@@ -1,0 +1,122 @@
+Drydock 0.2.0  Copyright (c) 2026 Web Cloud Studio. All rights reserved.
+Build: toml
+scope: entire project
+frontier: architecture
+git: baseline toml 2b219d8934ad
+git: baseline toml 73dee4c05dc0
+
+BLOCK block-1  name="Block 1 · Foundational"  calls_max=7
+  story=architecture  "Standard-library Go module and decoder command boundary."
+
+  [call 1/7]  kind=initial  llm=claude/claude-haiku-5-5
+    result=ok  rc=0  execution=20261014.125538.882Z-7dab416f
+    acceptance=3/3
+git: block-1 | ARCHITECTURE.md | call=1 | app=f602a467c2dd target=0a4a660c9caa
+
+  DONE  story=architecture  state=closed/verified  execution=20261014.125538.882Z-7dab416f  elapsed=1m05s
+git: block-1 | ARCHITECTURE.md | step_completed | app=unchanged target=356aede28e1d
+
+BLOCK block-2  name="Block 2 · Service"  calls_max=7
+  story=parser-strings  "TOML string forms: basic, multi-line basic, literal, multi-line literal."
+
+  [call 1/7]  kind=initial  llm=claude/claude-haiku-5-5
+    result=ok  rc=0  execution=20261014.125646.809Z-9225cabe
+    acceptance=2/3  skipped=strings-suite-slice
+git: block-2 | FEATURE-Parser-Strings.md | call=1 | app=7912f20f0c7c target=1cb6bd74e1b8
+
+  DONE  story=parser-strings  state=closed/verified  execution=20261014.125646.809Z-9225cabe  elapsed=3m51s
+git: block-2 | FEATURE-Parser-Strings.md | step_completed | app=unchanged target=627c403ce418
+
+BLOCK block-3  name="Block 3 · Service"  calls_max=7
+  story=parser-lexical-scalars  "Booleans, integers, and floats."
+
+  [call 1/7]  kind=initial  llm=claude/claude-haiku-5-5
+    result=ok  rc=0  execution=20261014.130041.922Z-b7ed98fe
+    acceptance=2/3  skipped=scalars-suite-slice
+git: block-3 | FEATURE-Parser-Lexical-Scalars.md | call=1 | app=4ef4e19be1db target=890acd78e6e4
+
+  DONE  story=parser-lexical-scalars  state=closed/verified  execution=20261014.130041.922Z-b7ed98fe  elapsed=2m41s
+git: block-3 | FEATURE-Parser-Lexical-Scalars.md | step_completed | app=unchanged target=650922ec0359
+
+BLOCK block-4  name="Block 4 · Service"  calls_max=7
+  story=parser-lexical-boundaries  "Comments, control characters, and UTF-8 encoding."
+
+  [call 1/7]  kind=initial  llm=claude/claude-haiku-5-5
+    result=ok  rc=0  execution=20261014.130325.537Z-2a73c0b8
+    acceptance=3/4  skipped=boundaries-suite-slice
+git: block-4 | FEATURE-Parser-Lexical-Boundaries.md | call=1 | app=2e28b80a46f3 target=b097811dd5f2
+
+  DONE  story=parser-lexical-boundaries  state=closed/verified  execution=20261014.130325.537Z-2a73c0b8  elapsed=2m44s
+git: block-4 | FEATURE-Parser-Lexical-Boundaries.md | step_completed | app=unchanged target=d7c174e10a1c
+
+BLOCK block-5  name="Block 5 · Service"  calls_max=7
+  story=parser-keys  "Key forms and key-definition semantics."
+
+  [call 1/7]  kind=initial  llm=claude/claude-haiku-5-5
+    result=ok  rc=0  execution=20261014.130618.187Z-43318821
+    acceptance=3/4  skipped=keys-suite-slice
+git: block-5 | FEATURE-Parser-Keys.md | call=1 | app=3e197f523326 target=7f7f276f82a4
+
+  DONE  story=parser-keys  state=closed/verified  execution=20261014.130618.187Z-43318821  elapsed=12m15s
+git: block-5 | FEATURE-Parser-Keys.md | step_completed | app=unchanged target=02a34986f40e
+
+BLOCK block-6  name="Block 6 · Service"  calls_max=7
+  story=parser-tables  "Standard tables, redefinition, arrays of tables, and ordering."
+
+  [call 1/7]  kind=initial  llm=claude/claude-haiku-5-5
+    result=ok  rc=0  execution=20261014.131836.619Z-ea566702
+    acceptance=3/4  skipped=tables-suite-slice
+git: block-6 | FEATURE-Parser-Tables.md | call=1 | app=28e131013ca6 target=531b84357d33
+
+  DONE  story=parser-tables  state=closed/verified  execution=20261014.131836.619Z-ea566702  elapsed=5m27s
+git: block-6 | FEATURE-Parser-Tables.md | step_completed | app=unchanged target=ed7004f4c8b0
+
+BLOCK block-7  name="Block 7 · Service"  calls_max=7
+  story=parser-arrays-inline  "Arrays and inline tables, including inline-table closure."
+
+  [call 1/7]  kind=initial  llm=claude/claude-haiku-5-5
+    result=ok  rc=0  execution=20261014.132405.837Z-8f9e01f1
+    acceptance=3/4  skipped=arrays-inline-suite-slice
+git: block-7 | FEATURE-Parser-Arrays-Inline.md | call=1 | app=dd78b3334298 target=ae8a29764b4b
+
+  DONE  story=parser-arrays-inline  state=closed/verified  execution=20261014.132405.837Z-8f9e01f1  elapsed=5m38s
+git: block-7 | FEATURE-Parser-Arrays-Inline.md | step_completed | app=unchanged target=b9d0d7e02f7c
+
+BLOCK block-8  name="Block 8 · Service"  calls_max=7
+  story=decoder-contract  "Stdin, tagged JSON, diagnostic-stream, and exit-status contract."
+
+  [call 1/7]  kind=initial  llm=claude/claude-haiku-5-5
+    result=ok  rc=0  execution=20261014.132940.698Z-0a155b5f
+    acceptance=4/4
+git: block-8 | FEATURE-Decoder-Contract.md | call=1 | app=ae07a191d6c9 target=0eb627d055a5
+
+  DONE  story=decoder-contract  state=closed/verified  execution=20261014.132940.698Z-0a155b5f  elapsed=2m41s
+git: block-8 | FEATURE-Decoder-Contract.md | step_completed | app=unchanged target=4da205eeddbd
+
+BLOCK block-9  name="Block 9 · Service"  calls_max=7
+  story=parser-datetimes  "Offset and local date, time, and datetime forms."
+
+  [call 1/7]  kind=initial  llm=claude/claude-haiku-5-5
+    result=ok  rc=0  execution=20261014.133227.267Z-eab8c8b5
+    acceptance=3/4  skipped=datetimes-suite-slice
+git: block-9 | FEATURE-Parser-Datetimes.md | call=1 | app=929db917b6c7 target=9c3c2e493a39
+
+  DONE  story=parser-datetimes  state=closed/verified  execution=20261014.133227.267Z-eab8c8b5  elapsed=3m28s
+git: block-9 | FEATURE-Parser-Datetimes.md | step_completed | app=unchanged target=618f295de7b9
+
+BLOCK block-10  name="Block 10 · Feature"  calls_max=7
+  story=conformance  "The complete unfiltered toml-test suite after all implementation stories."
+
+  [call 1/7]  kind=initial  llm=claude/claude-haiku-5-5
+    result=ok  rc=0  execution=20261014.133552.021Z-fb0d01d8
+    acceptance=2/2
+git: block-10 | FEATURE-Conformance.md | call=1 | app=8324462ae36c target=1660ecbfb45f
+
+  DONE  story=conformance  state=closed/verified  execution=20261014.133552.021Z-fb0d01d8  elapsed=2m13s
+git: block-10 | FEATURE-Conformance.md | step_completed | app=unchanged target=22871eb7820e
+git: build complete toml 4c804881d059
+git: build complete toml 29a47cbdf854
+
+result: 10 built, 0 failed, 0 unchanged
+elapsed: 42 minutes 50 seconds
+Target - committed project workspace git store

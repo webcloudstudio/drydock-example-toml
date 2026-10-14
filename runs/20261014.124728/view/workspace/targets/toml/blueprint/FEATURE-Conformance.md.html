@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>workspace/targets/toml/blueprint/FEATURE-Conformance.md</title>
+<link rel="stylesheet" href="../../../../../assets/kit.css">
+</head>
+<body>
+<main>
+<header class="fileheader"><div class="kind">Run artifact</div><h1>workspace/targets/toml/blueprint/FEATURE-Conformance.md</h1><div class="filenav"><a href="../../../../../index.html">&larr; Report</a><a href="../../../../../workspace/targets/toml/blueprint/FEATURE-Conformance.md">Raw file</a></div></header>
+<article class="doc"><h1>FEATURE: Conformance</h1>
+<div class="scroll"><table><thead><tr><th>Field</th><th>Value</th></tr></thead><tbody><tr><td>Version</td><td>20261014 V1</td></tr><tr><td>Description</td><td>The terminal assembly story: the complete unfiltered toml-test suite run through the supplied scoring entry point.</td></tr><tr><td>Depends On</td><td>ARCHITECTURE.md, FEATURE-Decoder-Contract.md, FEATURE-Parser-Strings.md, FEATURE-Parser-Lexical-Scalars.md, FEATURE-Parser-Lexical-Boundaries.md, FEATURE-Parser-Keys.md, FEATURE-Parser-Tables.md, FEATURE-Parser-Arrays-Inline.md, FEATURE-Parser-Datetimes.md</td></tr><tr><td>Provides</td><td>sh sources/full_test.sh verdict</td></tr><tr><td>Consumes</td><td>toml-decoder stdin/stdout contract</td></tr></tbody></table></div>
+<h2>Purpose</h2>
+<p>This is the only story that runs the complete suite. It runs <code>sh sources/full_test.sh</code> from the application root with no filter and takes its exit status as the verdict. The exit status is the whole verdict: the summary text and case counts are not asserted.</p>
+<h2>Programmatic Acceptance</h2>
+<p>=== AC conformance-full-suite ===<br>Intent: The complete unfiltered conformance suite exits zero.<br>Suite: full<br>Requires: executable=sh; scope=test<br>Requires: executable=go; scope=test<br>Requires: executable=toml-test; scope=test</p>
+<p>import subprocess import sys</p>
+<p>result = subprocess.run( [&quot;sh&quot;, &quot;sources/full_test.sh&quot;], capture_output=True, text=True, ) print(result.stdout) print(result.stderr, file=sys.stderr) assert result.returncode == 0 === END AC conformance-full-suite ===</p>
+<p>=== AC conformance-no-third-party ===<br>Intent: go.mod declares no required module, so no third-party TOML module is present.<br>Requires: executable=go; scope=test</p>
+<p>from pathlib import Path</p>
+<p>text = Path(&quot;go.mod&quot;).read_text(encoding=&quot;utf-8&quot;) assert &quot;require&quot; not in text === END AC conformance-no-third-party ===</p>
+<h2>User Acceptance</h2>
+<ul><li>None.</li></ul>
+<h2>Guardrails</h2>
+<ul><li>The scoring assets under <code>sources/</code> are read-only and are never modified or filtered.</li><li>The conformance verdict is the exit status of <code>sh sources/full_test.sh</code> and nothing else.</li></ul></article>
+</main>
+</body>
+</html>

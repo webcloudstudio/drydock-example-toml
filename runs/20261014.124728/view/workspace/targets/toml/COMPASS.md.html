@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>workspace/targets/toml/COMPASS.md</title>
+<link rel="stylesheet" href="../../../../assets/kit.css">
+</head>
+<body>
+<main>
+<header class="fileheader"><div class="kind">Run artifact</div><h1>workspace/targets/toml/COMPASS.md</h1><div class="filenav"><a href="../../../../index.html">&larr; Report</a><a href="../../../../workspace/targets/toml/COMPASS.md">Raw file</a></div></header>
+<article class="doc"><h1>COMPASS: toml</h1>
+<h2>Compass</h2>
+<p>A standard-library Go decoder for TOML v1.0.0. It reads a TOML document on stdin and writes the tagged-JSON description of it to stdout, so that conformance can be judged by the upstream toml-test suite. It serves anyone needing a faithful, dependency-free TOML reader, and it is judged by the exit status of the supplied scoring script. Rejecting invalid input counts as much as accepting valid input.</p>
+<h2>Constraints</h2>
+<ul><li>Filter contract only: stdin in, stdout out, no arguments, no configuration files, no side effects.</li><li>Standard library only; <code>go.mod</code> declares no required modules.</li><li>No network use at test time once the harness is installed.</li><li>Scoring assets under <code>sources/</code> are read-only and hash-verified.</li><li>Every TOML value is encoded as <code>{&quot;type&quot;, &quot;value&quot;}</code> with <code>value</code> as a JSON string.</li><li>Diagnostics go to stderr; malformed input exits non-zero.</li></ul>
+<h2>Guardrails</h2>
+<ul><li>Never import a third-party TOML module, including <code>BurntSushi/toml</code>, <code>pelletier/go-toml</code>, <code>naoina/toml</code>, or any other.</li><li>Never modify, skip, filter, or reinterpret the scoring scripts or harness inputs.</li><li>Never special-case fixture input or hard-code expected outputs.</li><li>Never assert on the text of the conformance summary; the exit status is the verdict.</li><li>Never assert a suite case count.</li><li>Reject invalid TOML as strictly as valid TOML is accepted.</li></ul>
+<p>&lt;!-- drydock:build-write-guardrail:start --&gt;</p>
+<h2>Build Write Guardrail</h2>
+<ul><li>Authorized build directory: <code>/mnt/c/Users/barlo/projects/drydock/uat/Toml/runs/20261014.124728/build/toml</code></li><li>Authorized Target directory: <code>/mnt/c/Users/barlo/projects/drydock/uat/Toml/runs/20261014.124728/workspace/targets/toml</code></li><li>Build agents have permission to create, modify, and remove files required by the active build block inside these authorized directories.</li><li>No path outside these authorized directories may be modified.</li><li>Protected Drydock artifacts:<ul><li><code>/mnt/c/Users/barlo/projects/drydock/uat/Toml/runs/20261014.124728/workspace/targets/toml/blueprint/</code></li><li><code>/mnt/c/Users/barlo/projects/drydock/uat/Toml/runs/20261014.124728/workspace/targets/toml/MANIFEST.md</code></li><li><code>/mnt/c/Users/barlo/projects/drydock/uat/Toml/runs/20261014.124728/workspace/targets/toml/COMPASS.md</code></li><li><code>/mnt/c/Users/barlo/projects/drydock/uat/Toml/runs/20261014.124728/workspace/targets/toml/QuarterDeck/</code></li><li><code>/mnt/c/Users/barlo/projects/drydock/uat/Toml/runs/20261014.124728/workspace/targets/toml/evidence/</code></li></ul></li></ul>
+<p>&lt;!-- drydock:build-write-guardrail:end --&gt;</p></article>
+</main>
+</body>
+</html>

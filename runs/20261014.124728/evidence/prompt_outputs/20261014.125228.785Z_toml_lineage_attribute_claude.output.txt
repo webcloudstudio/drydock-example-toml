@@ -1,0 +1,25 @@
+<requirement name="run-suite-against-decoder" stories="conformance,decoder-contract">
+Run the upstream toml-test conformance suite against the built decoder.
+</requirement>
+<requirement name="require-decoder-command" stories="architecture">
+DECODER    decoder command. Required — this harness is language-neutral and deliberately has no default implementation language.
+</requirement>
+<requirement name="exit-status-standard" stories="decoder-contract">
+Exit code follows the harness exit-status standard in prompts/UAT_SETUP_INSTRUCTIONS.md: 0 only when every test passes, 2 when this harness could not run at all, and any other nonzero when it ran and the decoder failed. A precondition of the harness is never charged to the build.
+</requirement>
+<requirement name="locate-harness-binary" stories="conformance">
+TOML_TEST  absolute path to the toml-test binary (default: found on PATH)
+</requirement>
+<requirement name="pin-suite-version" stories="conformance">
+The suite's identity is part of the verdict. Without this, "the authoritative suite passed" names no particular suite: whichever toml-test happened to be on PATH decided the run, and a different version on a different machine is a different exam. Recorded always, and enforced when the caller states which version it expects.
+</requirement>
+<requirement name="forward-suite-arguments" stories="conformance">
+DECODER=./toml-decoder sh sources/run_conformance.sh -run 'valid/string/*'  # one group
+</requirement>
+<unattached story="parser-strings"/>
+<unattached story="parser-lexical-scalars"/>
+<unattached story="parser-lexical-boundaries"/>
+<unattached story="parser-keys"/>
+<unattached story="parser-tables"/>
+<unattached story="parser-arrays-inline"/>
+<unattached story="parser-datetimes"/>

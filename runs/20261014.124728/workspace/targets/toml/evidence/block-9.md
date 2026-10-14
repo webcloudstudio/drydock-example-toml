@@ -1,0 +1,156 @@
+# Evidence: Block 9 · Service (block-9)
+
+- block type: block
+- date: 2026-10-14
+- resulting state: closed/verified
+- story points (combined assembled cost): 8580
+- execution id: 20261014.133227.267Z-eab8c8b5
+
+## Stories built
+- Offset and local date, time, and datetime forms. (parser-datetimes) [story]
+
+## Acceptance tooling authorization
+- FEATURE-Parser-Datetimes.md#datetimes-local-date-round-trip: executable=go; scope=test; authorization=existing Target environment
+- FEATURE-Parser-Datetimes.md#datetimes-local-time-round-trip: executable=go; scope=test; authorization=existing Target environment
+- FEATURE-Parser-Datetimes.md#datetimes-invalid-date-rejected: executable=go; scope=test; authorization=existing Target environment
+- FEATURE-Parser-Datetimes.md#datetimes-suite-slice: executable=sh; scope=test; authorization=existing Target environment
+- FEATURE-Parser-Datetimes.md#datetimes-suite-slice: executable=go; scope=test; authorization=existing Target environment
+- FEATURE-Parser-Datetimes.md#datetimes-suite-slice: executable=toml-test; scope=test; authorization=existing Target environment
+
+## Stacked context
+- compass: COMPASS.md (SP 945)
+- implements: FEATURE-Parser-Datetimes.md (SP 1406)
+- context: ARCHITECTURE_compact.md (SP 244)
+- stack: go.md (SP 5918)
+
+## Build directory changes
+- cmd/toml-decoder/datetimes_test.go
+- internal/toml/datetime.go
+- internal/toml/datetime_test.go
+- internal/toml/scalar.go
+- internal/toml/toml.go
+- toml-decoder
+
+## Pre-build acceptance observation
+- RED: datetimes-local-date-round-trip (FEATURE-Parser-Datetimes.md)
+  intent: A local date encodes as a date-local tagged value holding the date part.
+  return code: 1
+  stderr:
+    toml-decoder: decode: invalid TOML: line 1: invalid value "1979-05-27"
+    
+    --- drydock: values at failure ---
+      result = CompletedProcess(args=['./toml-decoder'], returncode=1, stdout='', stderr='toml-decoder: decode: invalid TOML: line 1: invalid value "1979-05-27"\n')
+    --- drydock: end values ---
+    Traceback (most recent call last):
+      File "datetimes-local-date-round-trip.py", line 17, in <module>
+        assert result.returncode == 0
+               ^^^^^^^^^^^^^^^^^^^^^^
+    AssertionError
+- RED: datetimes-local-time-round-trip (FEATURE-Parser-Datetimes.md)
+  intent: A local time encodes as a time-local tagged value holding the time part.
+  return code: 1
+  stderr:
+    toml-decoder: decode: invalid TOML: line 1: invalid value "07"
+    
+    --- drydock: values at failure ---
+      result = CompletedProcess(args=['./toml-decoder'], returncode=1, stdout='', stderr='toml-decoder: decode: invalid TOML: line 1: invalid value "07"\n')
+    --- drydock: end values ---
+    Traceback (most recent call last):
+      File "datetimes-local-time-round-trip.py", line 17, in <module>
+        assert result.returncode == 0
+               ^^^^^^^^^^^^^^^^^^^^^^
+    AssertionError
+- GREEN (prepassed): datetimes-invalid-date-rejected (FEATURE-Parser-Datetimes.md)
+  intent: A date with an out-of-range month is rejected with a non-zero exit.
+  return code: 0
+  stderr:
+    toml-decoder: decode: invalid TOML: line 1: invalid value "1979-13-01"
+- GREEN (prepassed): datetimes-suite-slice (FEATURE-Parser-Datetimes.md)
+  intent: The toml-test datetime slices execute and every datetime case passes.
+  return code: 0
+  stdout:
+    toml-test v2.2.0 [/mnt/c/Users/barlo/projects/drydock/uat/Toml/runs/20261014.124728/build/toml/toml-decoder] [no encoder]
+    skipped tests: 884
+      valid tests:   0 passed,  0 failed
+    encoder tests: no encoder command given
+    invalid tests:   0 passed,  0 failed
+  stderr:
+    harness: /home/barlo/.local/bin/toml-test toml-test v2.2.0; go1.24.6 linux/amd64; race=false; cgo=true
+
+## Post-build programmatic acceptance
+- PASS: datetimes-local-date-round-trip (FEATURE-Parser-Datetimes.md)
+  intent: A local date encodes as a date-local tagged value holding the date part.
+  target interpreter: /mnt/c/Users/barlo/projects/drydock/.venv/bin/python
+  provisioning: not required
+  return code: 0
+- PASS: datetimes-local-time-round-trip (FEATURE-Parser-Datetimes.md)
+  intent: A local time encodes as a time-local tagged value holding the time part.
+  target interpreter: /mnt/c/Users/barlo/projects/drydock/.venv/bin/python
+  provisioning: not required
+  return code: 0
+- PASS: datetimes-invalid-date-rejected (FEATURE-Parser-Datetimes.md)
+  intent: A date with an out-of-range month is rejected with a non-zero exit.
+  target interpreter: /mnt/c/Users/barlo/projects/drydock/.venv/bin/python
+  provisioning: not required
+  return code: 0
+  stderr:
+    toml-decoder: decode: invalid TOML: line 1: month 13 is out of range
+- UNVERIFIED: datetimes-suite-slice (FEATURE-Parser-Datetimes.md)
+  intent: The toml-test datetime slices execute and every datetime case passes.
+  target interpreter: /mnt/c/Users/barlo/projects/drydock/.venv/bin/python
+  provisioning: not required
+  return code: 0
+  error: unverified acceptance: selector matched zero cases
+  stdout:
+    toml-test v2.2.0 [/mnt/c/Users/barlo/projects/drydock/uat/Toml/runs/20261014.124728/build/toml/toml-decoder] [no encoder]
+    skipped tests: 884
+      valid tests:   0 passed,  0 failed
+    encoder tests: no encoder command given
+    invalid tests:   0 passed,  0 failed
+  stderr:
+    harness: /home/barlo/.local/bin/toml-test toml-test v2.2.0; go1.24.6 linux/amd64; race=false; cgo=true
+
+## Build summary
+The datetime forms aren't implemented yet, so I'll add a `temporal` scanner to the scalar path. First I'll check the existing test helpers so the new tests match them.Now the scanner. I'm putting it in its own file, `datetime.go`, next to `scalar.go`.Next I'll hook it into `scalar()` so it runs before the bare-token path, which can't read `:` or spaces.Now the tests: unit tests for the forms and rejections, plus binary-level tests that mirror the acceptance assertions.I wrote the "hour twenty-four" case with the same input as "minute sixty", so I'll fix that before going on.Unit and binary tests pass, and gofmt and vet are clean. Next is the declared conformance slice, run through its own invocation (`stage_test.sh` with the scoped pattern).The run exited 0, but it ran zero cases (884 skipped, 0 passed, 0 failed). That's a vacuous pass, so I won't count it. I need the right `-run` syntax.The declared pattern uses `|`, but toml-test's `-run` doesn't support alternation. It takes globs separated by commas, so the gate matched zero cases and exited 0. I'll report that rather than read the pass as evidence. To check the actual datetime cases, I'll run the same scoped slice with the correct comma syntax, through the same harness script.The real slice passes: 9 valid and 70 invalid datetime cases, 0 failed. Last, I'll run the three declared round-trip assertions directly against the built binary, since I only covered them through Go tests so far.Block 9 (parser-datetimes) is implemented and verified. The declared suite gate, though, passes without testing anything, so it needs fixing before it can be trusted.
+
+- **Declared suite gate is vacuous:** `datetimes-suite-slice` passes `valid/datetime/**|invalid/datetime/**|...` as one `-run` argument. toml-test has no `|` alternation; it takes comma-separated globs. The pattern matched 0 cases (884 skipped, 0 passed, 0 failed), and the script still exited 0. I did not edit the staged `sources/` asset or the criterion.
+- **Real check:** I ran the same five datetime slices through `sources/run_conformance.sh` with comma-separated globs: **9 valid passed, 70 invalid passed, 0 failed**, exit 0. This is a diagnostic run of the scoped slice, not the declared invocation.
+
+**What I built**
+- `internal/toml/datetime.go` (new): a temporal scanner for offset date-time, local date-time, local date, and local time. It validates month, day (including leap years), hour, minute, second (60 allowed), and offset ranges. Anything that is not a complete form is rejected.
+- `internal/toml/scalar.go`: `scalar()` tries the temporal scanner first.
+- `internal/toml/datetime_test.go` (new): valid forms and invalid-input rejections.
+- `cmd/toml-decoder/datetimes_test.go` (new): binary-level round-trips for the two local forms, and an invalid date with empty stdout and a nonzero exit.
+- `internal/toml/toml.go`: doc comment updated to list date-times.
+
+**Verification**
+- `gofmt -l .` is clean, `go vet ./...` passes, and `go test -race -cover ./...` passes (cmd 53.8%, internal 97.4%).
+- The three declared Python round-trip and rejection checks were replicated by hand against the built binary: `d = 1979-05-27` gives `date-local`, `t = 07:32:00` gives `time-local`, and `d = 1979-13-01` exits 1 with empty stdout.
+
+**Choices I made (not settled by the spec)**
+- Lowercase `t` as a delimiter and lowercase `z` as an offset are accepted, following the TOML ABNF's case-insensitive letters. The spec says "T or a space", so this is a judgment call.
+- Fractional seconds are kept up to 9 digits and truncated after that. Fewer digits are not padded.
+- A seconds value of 60 is accepted (leap second).
+- Output normalizes the delimiter to `T` and a lowercase `z` to `Z`; any other offset is kept as written.
+
+**Not done:** I did not stage, commit, or change the staged `sources/` or `toml-test` harness. The unscoped full suite was not run, since it is another step's gate.
+
+RESULT: SUCCESS
+
+FILES CHANGED:
+- internal/toml/datetime.go
+- internal/toml/datetime_test.go
+- internal/toml/scalar.go
+- internal/toml/toml.go
+- cmd/toml-decoder/datetimes_test.go
+- toml-decoder
+
+SUMMARY:
+Added offset date-time, local date-time, local date, and local time decoding. The scanner runs at the head of `scalar()`, validates ranges and leap years, truncates fractions past 9 digits, and rejects partial or out-of-range forms. Unit and binary tests pass under `-race`; gofmt and vet are clean. Scoped conformance slice (comma-separated globs, same harness): 9 valid and 70 invalid datetime cases pass, 0 fail. Coverage for this step's suite was run only via the scoped slice.
+
+<blueprint-decisions>
+[{"spec":"FEATURE-Parser-Datetimes.md","severity":"Low","subject":"Delimiter and offset letter case","decision":"Accepted lowercase t and z as well as T, Z and space, following the TOML ABNF's case-insensitive literals. The spec names only T or a space. Is that acceptable, or should lowercase be rejected?"},{"spec":"FEATURE-Parser-Datetimes.md","severity":"Low","subject":"Fractional-second precision","decision":"Kept up to 9 fractional digits (nanosecond precision), truncating anything beyond, never rounding or padding. The spec does not name a precision. Is 9 digits acceptable?"}]
+</blueprint-decisions>
+
+BLOCKERS:
+- `datetimes-suite-slice` (AC) is defective: its `-run` pattern uses `|`, which toml-test does not support. It matches 0 cases and exits 0, so it passes regardless of the code. It should use comma-separated globs (`valid/datetime/*,invalid/datetime/*,invalid/local-date/*,invalid/local-datetime/*,invalid/local-time/*`). The criterion is staged and I did not edit it. I did not emit `AC_BROKEN`, because that token is for criteria that cannot pass, and this one passes trivially.
