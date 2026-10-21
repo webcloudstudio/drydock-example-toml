@@ -1,0 +1,32 @@
+<requirement name="lexical-boundaries" stories="parser-lexical-boundaries">
+* TOML is case-sensitive.
+* A TOML file must be a valid UTF-8 encoded Unicode document.
+* Whitespace means tab (0x09) or space (0x20).
+* Newline means LF (0x0A) or CRLF (0x0D 0x0A).
+A hash symbol marks the rest of the line as a comment, except when inside a string.
+Control characters other than tab (U+0000 to U+0008, U+000A to U+001F, U+007F) are not permitted in comments.
+</requirement>
+<requirement name="parse-key-value-pairs" stories="parser-keys">
+The primary building block of a TOML document is the key/value pair.
+Keys are on the left of the equals sign and values are on the right. Whitespace is ignored around key names and values. The key, equals sign, and value must be on the same line (though some values can be broken over multiple lines).
+</requirement>
+<requirement name="parse-strings" stories="parser-strings">
+There are four ways to express strings: basic, multi-line basic, literal, and multi-line literal. All strings must contain only valid UTF-8 characters.
+</requirement>
+<requirement name="parse-scalars" stories="parser-lexical-scalars">
+Values must have one of the following types.
+</requirement>
+<requirement name="parse-datetimes" stories="parser-datetimes">
+To unambiguously represent a specific instant in time, you may use an RFC 3339 formatted date-time with offset.
+</requirement>
+<requirement name="parse-arrays-and-inline-tables" stories="parser-arrays-inline">
+Arrays are square brackets with values inside. Whitespace is ignored. Elements are separated by commas.
+Inline tables provide a more compact syntax for expressing tables.
+</requirement>
+<requirement name="parse-tables" stories="parser-tables">
+Tables (also known as hash tables or dictionaries) are collections of key/value pairs.
+The last syntax that has not yet been described allows writing arrays of tables.
+</requirement>
+<unattached story="architecture"/>
+<unattached story="decoder-contract"/>
+<unattached story="conformance"/>

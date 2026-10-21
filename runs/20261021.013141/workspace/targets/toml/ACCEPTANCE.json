@@ -1,0 +1,6 @@
+{
+  "full": [
+    "sh",
+    "sources/full_test.sh"
+  ]
+}

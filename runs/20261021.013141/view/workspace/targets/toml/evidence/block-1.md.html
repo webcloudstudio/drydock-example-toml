@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>workspace/targets/toml/evidence/block-1.md</title>
+<link rel="stylesheet" href="../../../../../assets/kit.css">
+</head>
+<body>
+<main>
+<header class="fileheader"><div class="kind">Run artifact</div><h1>workspace/targets/toml/evidence/block-1.md</h1><div class="filenav"><a href="../../../../../index.html">&larr; Report</a><a href="../../../../../workspace/targets/toml/evidence/block-1.md">Raw file</a></div></header>
+<article class="doc"><h1>Evidence: Block 1 · Foundational (block-1)</h1>
+<ul><li>block type: block</li><li>date: 2026-10-20</li><li>resulting state: closed/verified</li><li>story points (combined assembled cost): 7880</li><li>execution id: 20261021.013514.533Z-e70ca1b7</li></ul>
+<h2>Stories built</h2>
+<ul><li>Establish the standard-library-only Go module and decoder command boundary. (architecture) [story]</li></ul>
+<h2>Reusable compacts</h2>
+<ul><li>ARCHITECTURE_compact.md</li></ul>
+<h2>Missing context</h2>
+<ul><li>context: INSTRUCTIONS.md</li></ul>
+<h2>Stacked context</h2>
+<ul><li>implements: go.md (SP 4743)</li><li>compass: COMPASS.md (SP 521)</li><li>implements: ARCHITECTURE.md (SP 728)</li><li>stack: common.md (SP 1812)</li></ul>
+<h2>Build directory changes</h2>
+<ul><li>cmd/toml-decoder/main.go</li><li>go.mod</li><li>internal/toml/toml.go</li><li>internal/toml/toml_test.go</li><li>toml-decoder</li></ul>
+<h2>Pre-build acceptance observation</h2>
+<ul><li>RED: architecture-gate (ARCHITECTURE.md)</li></ul>
+<p>intent: The Go module and decoder command satisfy the supplied architecture contract. return code: 1 stderr: --- drydock: values at failure --- result = CompletedProcess(args=[&#x27;sh&#x27;, &#x27;sources/stage_contract.sh&#x27;, &#x27;architecture&#x27;], returncode=1, stdout=&#x27;&#x27;, stderr=&#x27;&#x27;) --- drydock: end values --- Traceback (most recent call last): File &quot;architecture-gate.py&quot;, line 10, in &lt;module&gt; assert result.returncode == 0 ^^^^^^^^^^^^^^^^^^^^^^ AssertionError</p>
+<ul><li>RED: architecture-artifacts (ARCHITECTURE.md)</li></ul>
+<p>intent: The foundation exposes the declared Go module and command package. return code: 1 stderr: Traceback (most recent call last): File &quot;architecture-artifacts.py&quot;, line 3, in &lt;module&gt; assert Path(&quot;go.mod&quot;).is_file() ^^^^^^^^^^^^^^^^^^^^^^^^ AssertionError</p>
+<h2>Post-build programmatic acceptance</h2>
+<ul><li>PASS: architecture-gate (ARCHITECTURE.md)</li></ul>
+<p>intent: The Go module and decoder command satisfy the supplied architecture contract. target interpreter: /mnt/c/Users/barlo/projects/drydock/.venv/bin/python provisioning: not required return code: 0</p>
+<ul><li>PASS: architecture-artifacts (ARCHITECTURE.md)</li></ul>
+<p>intent: The foundation exposes the declared Go module and command package. target interpreter: /mnt/c/Users/barlo/projects/drydock/.venv/bin/python provisioning: not required return code: 0</p>
+<h2>Build summary</h2>
+<p>&lt;reusable-compact filename=&quot;ARCHITECTURE.md&quot;&gt;</p>
+<ul><li>Go 1.22+ standard-library-only module.</li><li><code>cmd/toml-decoder</code>: stdin/stdout process boundary, diagnostics on stderr, non-zero on invalid TOML.</li><li><code>internal/toml</code>: TOML lexing, parsing, validation, document structure, and tagged values; no file, environment, or service access.</li><li>No third-party dependencies or persistence.</li><li>Required artifacts: <code>go.mod</code>, <code>cmd/toml-decoder/</code>, <code>internal/toml/</code>.</li></ul>
+<p>&lt;/reusable-compact&gt;</p>
+<p>RESULT: SUCCESS</p>
+<p>FILES CHANGED:</p>
+<ul><li>go.mod</li><li>cmd/toml-decoder/main.go</li><li>internal/toml/toml.go</li><li>internal/toml/toml_test.go</li><li>toml-decoder</li></ul>
+<p>SUMMARY: Created the standard-library-only Go module and decoder/parser boundaries. <code>gofmt</code>, race tests, vet, builds, architecture contract, and decoder smoke tests pass.</p>
+<p>BLOCKERS:</p>
+<ul><li>None</li></ul></article>
+</main>
+</body>
+</html>

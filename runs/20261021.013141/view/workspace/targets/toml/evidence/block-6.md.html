@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>workspace/targets/toml/evidence/block-6.md</title>
+<link rel="stylesheet" href="../../../../../assets/kit.css">
+</head>
+<body>
+<main>
+<header class="fileheader"><div class="kind">Run artifact</div><h1>workspace/targets/toml/evidence/block-6.md</h1><div class="filenav"><a href="../../../../../index.html">&larr; Report</a><a href="../../../../../workspace/targets/toml/evidence/block-6.md">Raw file</a></div></header>
+<article class="doc"><h1>Evidence: Block 6 · Service (block-6)</h1>
+<ul><li>block type: block</li><li>date: 2026-10-20</li><li>resulting state: closed/verified</li><li>story points (combined assembled cost): 5305</li><li>execution id: 20261021.014805.430Z-3ffad54a</li></ul>
+<h2>Stories built</h2>
+<ul><li>Verify the completed decoder against the complete supplied TOML suite. (conformance) [story]</li></ul>
+<h2>Stacked context</h2>
+<ul><li>stack: go_compact.md (SP 1173)</li><li>compass: COMPASS.md (SP 521)</li><li>implements: FEATURE-Conformance.md (SP 469)</li><li>context: full_test.sh (SP 113)</li><li>context: run_conformance.sh (SP 677)</li><li>context: setup_harness.sh (SP 323)</li><li>context: ARCHITECTURE_compact.md (SP 136)</li><li>stack: common.md (SP 1812)</li></ul>
+<h2>Build directory changes</h2>
+<ul><li>internal/toml/toml.go</li><li>internal/toml/toml_test.go</li><li>toml-decoder</li></ul>
+<h2>Pre-build acceptance observation</h2>
+<ul><li>RED: complete-conformance (FEATURE-Conformance.md)</li></ul>
+<p>intent: Run the complete pinned TOML v1.0.0 conformance suite after all parser capabilities are implemented. return code: 1 stdout: FAIL valid/integer/float64-max Values for key &quot;max_int&quot; don&#x27;t match:<br>Expected:     9007199254740991<br>Your encoder: 9_007_199_254_740_991</p>
+<p>input sent to parser-cmd (PID 126809): 1 │[0m # Maximum and minimum safe float64 natural numbers. Mainly here for 2 │[0m # -int-as-float. 3 │[0m max_int =  9_007_199_254_740_991 4 │[0m min_int = -9_007_199_254_740_991</p>
+<p>output from parser-cmd (PID 126809) (stdout): 1 │[0m { 2 │[0m   &quot;max_int&quot;: {&quot;type&quot;: &quot;integer&quot;, &quot;value&quot;: &quot;9_007_199_254_740_991&quot;}, 3 │[0m   &quot;min_int&quot;: {&quot;type&quot;: &quot;integer&quot;, &quot;value&quot;: &quot;-9_007_199_254_740_991&quot;} 4 │[0m }</p>
+<p>want: 1 │[0m { 2 │[0m     &quot;max_int&quot;: {&quot;type&quot;: &quot;integer&quot;, &quot;value&quot;: &quot;9007199254740991&quot;}, 3 │[0m     &quot;min_int&quot;: {&quot;type&quot;: &quot;integer&quot;, &quot;value&quot;: &quot;-9007199254740991&quot;} 4 │[0m }</p>
+<p>FAIL valid/integer/integer Values for key &quot;posanswer&quot; don&#x27;t match:<br>Expected:     42<br>Your encoder: +42</p>
+<p>input sent to parser-cmd (PID 126714): 1 │[0m answer = 42 2 │[0m posanswer = +42 3 │[0m neganswer = -42 4 │[0m zero = 0</p>
+<p>output from parser-cmd (PID 126714) (stdout): 1 │[0m { 2 │[0m   &quot;answer&quot;:    {&quot;type&quot;: &quot;integer&quot;, &quot;value&quot;: &quot;42&quot;}, 3 │[0m   &quot;neganswer&quot;: {&quot;type&quot;: &quot;integer&quot;, &quot;value&quot;: &quot;-42&quot;}, 4 │[0m   &quot;posanswer&quot;: {&quot;type&quot;: &quot;integer&quot;, &quot;value&quot;: &quot;+42&quot;}, 5 │[0m   &quot;zero&quot;:      {&quot;type&quot;: &quot;integer&quot;, &quot;value&quot;: &quot;0&quot;} 6 │[0m }</p>
+<p>want: 1 │[0m { 2 │[0m     &quot;answer&quot;:    {&quot;type&quot;: &quot;integer&quot;, &quot;value&quot;: &quot;42&quot;}, 3 │[0m     &quot;neganswer&quot;: {&quot;type&quot;: &quot;integer&quot;, &quot;value&quot;: &quot;-42&quot;}, 4 │[0m     &quot;posanswer&quot;: {&quot;type&quot;: &quot;integer&quot;, &quot;value&quot;: &quot;42&quot;}, 5 │[0m     &quot;zero&quot;:      {&quot;type&quot;: &quot;integer&quot;, &quot;value&quot;: &quot;0&quot;} 6 │[0m }</p>
+<p>FAIL valid/integer/literals Values for key &quot;bin1&quot; don&#x27;t match:<br>Expected:     214<br>Your encoder: 0b11010110</p>
+<p>input sent to parser-cmd (PID 126801): 1 │[0m bin1 = 0b11010110 2 │[0m bin2 = 0b1_0_1 3 │[0m 4 │[0m oct1 = 0o01234567 5 │[0m oct2 = 0o755 6 │[0m oct3 = 0o7_6_5 7 │[0m 8 │[0m hex1 = 0xDEADBEEF 9 │[0m hex2 = 0xdeadbeef 10 │[0m hex3 = 0xdead_beef 11 │[0m hex4 = 0x00987</p>
+<p>output from parser-cmd (PID 126801) (stdout): 1 │[0m { 2 │[0m   &quot;bin1&quot;: {&quot;type&quot;: &quot;integer&quot;, &quot;value&quot;: &quot;0b11010110&quot;}, 3 │[0m   &quot;bin2&quot;: {&quot;type&quot;: &quot;integer&quot;, &quot;value&quot;: &quot;0b1_0_1&quot;}, 4 │[0m   &quot;hex1&quot;: {&quot;type&quot;: &quot;integer&quot;, &quot;value&quot;: &quot;0xDEADBEEF&quot;}, 5 │[0m   &quot;hex2&quot;: {&quot;type&quot;: &quot;integer&quot;, &quot;value&quot;: &quot;0xdeadbeef&quot;}, 6 │[0m   &quot;hex3&quot;: {&quot;type&quot;: &quot;integer&quot;, &quot;value&quot;: &quot;0xdead_beef&quot;}, 7 │[0m   &quot;hex4&quot;: {&quot;type&quot;: &quot;integer&quot;, &quot;value&quot;: &quot;0x00987&quot;}, 8 │[0m   &quot;oct1&quot;: {&quot;type&quot;: &quot;integer&quot;, &quot;value&quot;: &quot;0o01234567&quot;}, 9 │[0m   &quot;oct2&quot;: {&quot;type&quot;: &quot;integer&quot;, &quot;value&quot;: &quot;0o755&quot;}, 10 │[0m   &quot;oct3&quot;: {&quot;type&quot;: &quot;integer&quot;, &quot;value&quot;: &quot;0o7_6_5&quot;} 11 │[0m }</p>
+<p>want: 1 │[0m { 2 │[0m     &quot;bin1&quot;: {&quot;type&quot;: &quot;integer&quot;, &quot;value&quot;: &quot;214&quot;}, 3 │[0m     &quot;bin2&quot;: {&quot;type&quot;: &quot;integer&quot;, &quot;value&quot;: &quot;5&quot;}, 4 │[0m     &quot;hex1&quot;: {&quot;type&quot;: &quot;integer&quot;, &quot;value&quot;: &quot;3735928559&quot;}, 5 │[0m     &quot;hex2&quot;: {&quot;type&quot;: &quot;integer&quot;, &quot;value&quot;: &quot;3735928559&quot;}, 6 │[0m     &quot;hex3&quot;: {&quot;type&quot;: &quot;integer&quot;, &quot;value&quot;: &quot;3735928559&quot;}, 7 │[0m     &quot;hex4&quot;: {&quot;type&quot;: &quot;integer&quot;, &quot;value&quot;: &quot;2439&quot;}, 8 │[0m     &quot;oct1&quot;: {&quot;type&quot;: &quot;integer&quot;, &quot;value&quot;: &quot;342391&quot;}, 9 │[0m     &quot;oct2&quot;: {&quot;type&quot;: &quot;integer&quot;, &quot;value&quot;: &quot;493&quot;}, 10 │[0m     &quot;oct3&quot;: {&quot;type&quot;: &quot;integer&quot;, &quot;value&quot;: &quot;501&quot;} 11 │[0m }</p>
+<p>FAIL valid/integer/underscore Values for key &quot;kilo&quot; don&#x27;t match:<br>Expected:     1000<br>Your encoder: 1_000</p>
+<p>input sent to parser-cmd (PID 126740): 1 │[0m kilo = 1_000 2 │[0m x = 1_1_1_1</p>
+<p>output from parser-cmd (PID 126740) (stdout): 1 │[0m { 2 │[0m   &quot;kilo&quot;: {&quot;type&quot;: &quot;integer&quot;, &quot;value&quot;: &quot;1_000&quot;}, 3 │[0m   &quot;x&quot;:    {&quot;type&quot;: &quot;integer&quot;, &quot;value&quot;: &quot;1_1_1_1&quot;} 4 │[0m }</p>
+<p>want: 1 │[0m { 2 │[0m     &quot;kilo&quot;: {&quot;type&quot;: &quot;integer&quot;, &quot;value&quot;: &quot;1000&quot;}, 3 │[0m     &quot;x&quot;:    {&quot;type&quot;: &quot;integer&quot;, &quot;value&quot;: &quot;1111&quot;} 4 │[0m }</p>
+<p>FAIL valid/integer/zero Values for key &quot;a2&quot; don&#x27;t match:<br>Expected:     0<br>Your encoder: 0o00</p>
+<p>input sent to parser-cmd (PID 126741): 1 │[0m d1 = 0 2 │[0m d2 = +0 3 │[0m d3 = -0 4 │[0m 5 │[0m h1 = 0x0 6 │[0m h2 = 0x00 7 │[0m h3 = 0x00000 8 │[0m 9 │[0m o1 = 0o0 10 │[0m a2 = 0o00 11 │[0m a3 = 0o00000 12 │[0m 13 │[0m b1 = 0b0 14 │[0m b2 = 0b00 15 │[0m b3 = 0b00000</p>
+<p>output from parser-cmd (PID 126741) (stdout): 1 │[0m { 2 │[0m   &quot;a2&quot;: {&quot;type&quot;: &quot;integer&quot;, &quot;value&quot;: &quot;0o00&quot;}, 3 │[0m   &quot;a3&quot;: {&quot;type&quot;: &quot;integer&quot;, &quot;value&quot;: &quot;0o00000&quot;}, 4 │[0m   &quot;b1&quot;: {&quot;type&quot;: &quot;integer&quot;, &quot;value&quot;: &quot;0b0&quot;}, 5 │[0m   &quot;b2&quot;: {&quot;type&quot;: &quot;integer&quot;, &quot;value&quot;: &quot;0b00&quot;}, 6 │[0m   &quot;b3&quot;: {&quot;type&quot;: &quot;integer&quot;, &quot;value&quot;: &quot;0b00000&quot;}, 7 │[0m   &quot;d1&quot;: {&quot;type&quot;: &quot;integer&quot;, &quot;value&quot;: &quot;0&quot;}, 8 │[0m   &quot;d2&quot;: {&quot;type&quot;: &quot;integer&quot;, &quot;value&quot;: &quot;+0&quot;}, 9 │[0m   &quot;d3&quot;: {&quot;type&quot;: &quot;integer&quot;, &quot;value&quot;: &quot;-0&quot;}, 10 │[0m   &quot;h1&quot;: {&quot;type&quot;: &quot;integer&quot;, &quot;value&quot;: &quot;0x0&quot;}, 11 │[0m   &quot;h2&quot;: {&quot;type&quot;: &quot;integer&quot;, &quot;value&quot;: &quot;0x00&quot;}, 12 │[0m   &quot;h3&quot;: {&quot;type&quot;: &quot;integer&quot;, &quot;value&quot;: &quot;0x00000&quot;}, 13 │[0m   &quot;o1&quot;: {&quot;type&quot;: &quot;integer&quot;, &quot;value&quot;: &quot;0o0&quot;} 14 │[0m }</p>
+<p>want: 1 │[0m { 2 │[0m     &quot;a2&quot;: {&quot;type&quot;: &quot;integer&quot;, &quot;value&quot;: &quot;0&quot;}, 3 │[0m     &quot;a3&quot;: {&quot;type&quot;: &quot;integer&quot;, &quot;value&quot;: &quot;0&quot;}, 4 │[0m     &quot;b1&quot;: {&quot;type&quot;: &quot;integer&quot;, &quot;value&quot;: &quot;0&quot;}, 5 │[0m     &quot;b2&quot;: {&quot;type&quot;: &quot;integer&quot;, &quot;value&quot;: &quot;0&quot;}, 6 │[0m     &quot;b3&quot;: {&quot;type&quot;: &quot;integer&quot;, &quot;value&quot;: &quot;0&quot;}, 7 │[0m     &quot;d1&quot;: {&quot;type&quot;: &quot;integer&quot;, &quot;value&quot;: &quot;0&quot;}, 8 │[0m     &quot;d2&quot;: {&quot;type&quot;: &quot;integer&quot;, &quot;value&quot;: &quot;0&quot;}, 9 │[0m     &quot;d3&quot;: {&quot;type&quot;: &quot;integer&quot;, &quot;value&quot;: &quot;0&quot;}, 10 │[0m     &quot;h1&quot;: {&quot;type&quot;: &quot;integer&quot;, &quot;value&quot;: &quot;0&quot;}, 11 │[0m     &quot;h2&quot;: {&quot;type&quot;: &quot;integer&quot;, &quot;value&quot;: &quot;0&quot;}, 12 │[0m     &quot;h3&quot;: {&quot;type&quot;: &quot;integer&quot;, &quot;value&quot;: &quot;0&quot;}, 13 │[0m     &quot;o1&quot;: {&quot;type&quot;: &quot;integer&quot;, &quot;value&quot;: &quot;0&quot;} 14 │[0m }</p>
+<p>FAIL valid/spec-1.0.0/integer-0 Values for key &quot;int1&quot; don&#x27;t match:<br>Expected:     99<br>Your encoder: +99</p>
+<p>input sent to parser-cmd (PID 126988): 1 │[0m int1 = +99 2 │[0m int2 = 42 3 │[0m int3 = 0 4 │[0m int4 = -17</p>
+<p>output from parser-cmd (PID 126988) (stdout): 1 │[0m { 2 │[0m   &quot;int1&quot;: {&quot;type&quot;: &quot;integer&quot;, &quot;value&quot;: &quot;+99&quot;}, 3 │[0m   &quot;int2&quot;: {&quot;type&quot;: &quot;integer&quot;, &quot;value&quot;: &quot;42&quot;}, 4 │[0m   &quot;int3&quot;: {&quot;type&quot;: &quot;integer&quot;, &quot;value&quot;: &quot;0&quot;}, 5 │[0m   &quot;int4&quot;: {&quot;type&quot;: &quot;integer&quot;, &quot;value&quot;: &quot;-17&quot;} 6 │[0m }</p>
+<p>want: 1 │[0m { 2 │[0m     &quot;int1&quot;: {&quot;type&quot;: &quot;integer&quot;, &quot;value&quot;: &quot;99&quot;}, 3 │[0m     &quot;int2&quot;: {&quot;type&quot;: &quot;integer&quot;, &quot;value&quot;: &quot;42&quot;}, 4 │[0m     &quot;int3&quot;: {&quot;type&quot;: &quot;integer&quot;, &quot;value&quot;: &quot;0&quot;}, 5 │[0m     &quot;int4&quot;: {&quot;type&quot;: &quot;integer&quot;, &quot;value&quot;: &quot;-17&quot;} 6 │[0m }</p>
+<p>FAIL valid/spec-1.0.0/integer-1 Values for key &quot;int5&quot; don&#x27;t match:<br>Expected:     1000<br>Your encoder: 1_000</p>
+<p>input sent to parser-cmd (PID 126989): 1 │[0m int5 = 1_000 2 │[0m int6 = 5_349_221 3 │[0m int7 = 53_49_221  # Indian number system grouping 4 │[0m int8 = 1_2_3_4_5  # VALID but discouraged</p>
+<p>output from parser-cmd (PID 126989) (stdout): 1 │[0m { 2 │[0m   &quot;int5&quot;: {&quot;type&quot;: &quot;integer&quot;, &quot;value&quot;: &quot;1_000&quot;}, 3 │[0m   &quot;int6&quot;: {&quot;type&quot;: &quot;integer&quot;, &quot;value&quot;: &quot;5_349_221&quot;}, 4 │[0m   &quot;int7&quot;: {&quot;type&quot;: &quot;integer&quot;, &quot;value&quot;: &quot;53_49_221&quot;}, 5 │[0m   &quot;int8&quot;: {&quot;type&quot;: &quot;integer&quot;, &quot;value&quot;: &quot;1_2_3_4_5&quot;} 6 │[0m }</p>
+<p>want: 1 │[0m { 2 │[0m     &quot;int5&quot;: {&quot;type&quot;: &quot;integer&quot;, &quot;value&quot;: &quot;1000&quot;}, 3 │[0m     &quot;int6&quot;: {&quot;type&quot;: &quot;integer&quot;, &quot;value&quot;: &quot;5349221&quot;}, 4 │[0m     &quot;int7&quot;: {&quot;type&quot;: &quot;integer&quot;, &quot;value&quot;: &quot;5349221&quot;}, 5 │[0m     &quot;int8&quot;: {&quot;type&quot;: &quot;integer&quot;, &quot;value&quot;: &quot;12345&quot;} 6 │[0m }</p>
+<p>FAIL valid/spec-1.0.0/integer-2 Values for key &quot;bin1&quot; don&#x27;t match:<br>Expected:     214<br>Your encoder: 0b11010110</p>
+<p>input sent to parser-cmd (PID 126990): 1 │[0m # hexadecimal with prefix <code>0x</code> 2 │[0m hex1 = 0xDEADBEEF 3 │[0m hex2 = 0xdeadbeef 4 │[0m hex3 = 0xdead_beef 5 │[0m 6 │[0m # octal with prefix <code>0o</code> 7 │[0m oct1 = 0o01234567 8 │[0m oct2 = 0o755 # useful for Unix file permissions 9 │[0m 10 │[0m # binary with prefix <code>0b</code> 11 │[0m bin1 = 0b11010110</p>
+<p>output from parser-cmd (PID 126990) (stdout): 1 │[0m { 2 │[0m   &quot;bin1&quot;: {&quot;type&quot;: &quot;integer&quot;, &quot;value&quot;: &quot;0b11010110&quot;}, 3 │[0m   &quot;hex1&quot;: {&quot;type&quot;: &quot;integer&quot;, &quot;value&quot;: &quot;0xDEADBEEF&quot;}, 4 │[0m   &quot;hex2&quot;: {&quot;type&quot;: &quot;integer&quot;, &quot;value&quot;: &quot;0xdeadbeef&quot;}, 5 │[0m   &quot;hex3&quot;: {&quot;type&quot;: &quot;integer&quot;, &quot;value&quot;: &quot;0xdead_beef&quot;}, 6 │[0m   &quot;oct1&quot;: {&quot;type&quot;: &quot;integer&quot;, &quot;value&quot;: &quot;0o01234567&quot;}, 7 │[0m   &quot;oct2&quot;: {&quot;type&quot;: &quot;integer&quot;, &quot;value&quot;: &quot;0o755&quot;} 8 │[0m }</p>
+<p>want: 1 │[0m { 2 │[0m     &quot;bin1&quot;: {&quot;type&quot;: &quot;integer&quot;, &quot;value&quot;: &quot;214&quot;}, 3 │[0m     &quot;hex1&quot;: {&quot;type&quot;: &quot;integer&quot;, &quot;value&quot;: &quot;3735928559&quot;}, 4 │[0m     &quot;hex2&quot;: {&quot;type&quot;: &quot;integer&quot;, &quot;value&quot;: &quot;3735928559&quot;}, 5 │[0m     &quot;hex3&quot;: {&quot;type&quot;: &quot;integer&quot;, &quot;value&quot;: &quot;3735928559&quot;}, 6 │[0m     &quot;oct1&quot;: {&quot;type&quot;: &quot;integer&quot;, &quot;value&quot;: &quot;342391&quot;}, 7 │[0m     &quot;oct2&quot;: {&quot;type&quot;: &quot;integer&quot;, &quot;value&quot;: &quot;493&quot;} 8 │[0m }</p>
+<p>FAIL valid/spec-1.0.0/string-3 Values for key &quot;str2&quot; don&#x27;t match:<br>Expected:     The quick brown fox jumps over the lazy dog.<br>Your encoder: The quick brown</p>
+<p>fox jumps over the lazy dog.</p>
+<p>input sent to parser-cmd (PID 127051): 1 │[0m # The following strings are byte-for-byte equivalent: 2 │[0m str1 = &quot;The quick brown fox jumps over the lazy dog.&quot; 3 │[0m 4 │[0m str2 = &quot;&quot;&quot; 5 │[0m The quick brown \ 6 │[0m 7 │[0m 8 │[0m   fox jumps over \ 9 │[0m     the lazy dog.&quot;&quot;&quot; 10 │[0m 11 │[0m str3 = &quot;&quot;&quot;\ 12 │[0m        The quick brown \ 13 │[0m        fox jumps over \ 14 │[0m        the lazy dog.\ 15 │[0m        &quot;&quot;&quot;</p>
+<p>output from parser-cmd (PID 127051) (stdout): 1 │[0m { 2 │[0m   &quot;str1&quot;: {&quot;type&quot;: &quot;string&quot;, &quot;value&quot;: &quot;The quick brown fox jumps over the lazy dog.&quot;}, 3 │[0m   &quot;str2&quot;: {&quot;type&quot;: &quot;string&quot;, &quot;value&quot;: &quot;The quick brown \n\n  fox jumps over the lazy dog.&quot;}, 4 │[0m   &quot;str3&quot;: {&quot;type&quot;: &quot;string&quot;, &quot;value&quot;: &quot;The quick brown fox jumps over the lazy dog.&quot;} 5 │[0m }</p>
+<p>want: 1 │[0m { 2 │[0m     &quot;str1&quot;: {&quot;type&quot;: &quot;string&quot;, &quot;value&quot;: &quot;The quick brown fox jumps over the lazy dog.&quot;}, 3 │[0m     &quot;str2&quot;: {&quot;type&quot;: &quot;string&quot;, &quot;value&quot;: &quot;The quick brown fox jumps over the lazy dog.&quot;}, 4 │[0m     &quot;str3&quot;: {&quot;type&quot;: &quot;string&quot;, &quot;value&quot;: &quot;The quick brown fox jumps over the lazy dog.&quot;} 5 │[0m }</p>
+<p>FAIL valid/spec-1.0.0/string-4 decode TOML: line 7: trailing characters</p>
+<p>Exit 1</p>
+<p>input sent to parser-cmd (PID 127052): 1 │[0m str4 = &quot;&quot;&quot;Here are two quotation marks: &quot;&quot;. Simple enough.&quot;&quot;&quot; 2 │[0m # str5 = &quot;&quot;&quot;Here are three quotation marks: &quot;&quot;&quot;.&quot;&quot;&quot;  # INVALID 3 │[0m str5 = &quot;&quot;&quot;Here are three quotation marks: &quot;&quot;\&quot;.&quot;&quot;&quot; 4 │[0m str6 = &quot;&quot;&quot;Here are fifteen quotation marks: &quot;&quot;\&quot;&quot;&quot;\&quot;&quot;&quot;\&quot;&quot;&quot;\&quot;&quot;&quot;\&quot;.&quot;&quot;&quot; 5 │[0m 6 │[0m # &quot;This,&quot; she said, &quot;is just a pointless statement.&quot; 7 │[0m str7 = &quot;&quot;&quot;&quot;This,&quot; she said, &quot;is just a pointless statement.&quot;&quot;&quot;&quot;</p>
+<p>output from parser-cmd (PID 127052) (stderr): 1 │[0m decode TOML: line 7: trailing characters 2 │[0m 3 │[0m Exit 1</p>
+<p>want: &lt;empty&gt;</p>
+<p>FAIL valid/spec-1.0.0/string-6 decode TOML: line 1: trailing characters</p>
+<p>Exit 1</p>
+<p>input sent to parser-cmd (PID 127138): 1 │[0m regex2 = &#x27;&#x27;&#x27;I [dw]on&#x27;t need \d{2} apples&#x27;&#x27;&#x27; 2 │[0m lines  = &#x27;&#x27;&#x27; 3 │[0m The first newline is 4 │[0m trimmed in raw strings. 5 │[0m    All other whitespace 6 │[0m    is preserved. 7 │[0m &#x27;&#x27;&#x27;</p>
+<p>output from parser-cmd (PID 127138) (stderr): 1 │[0m decode TOML: line 1: trailing characters 2 │[0m 3 │[0m Exit 1</p>
+<p>want: &lt;empty&gt;</p>
+<p>FAIL valid/spec-1.0.0/string-7 decode TOML: line 7: trailing characters</p>
+<p>Exit 1</p>
+<p>input sent to parser-cmd (PID 127086): 1 │[0m quot15 = &#x27;&#x27;&#x27;Here are fifteen quotation marks: &quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&#x27;&#x27;&#x27; 2 │[0m 3 │[0m # apos15 = &#x27;&#x27;&#x27;Here are fifteen apostrophes: &#x27;&#x27;&#x27;&#x27;&#x27;&#x27;&#x27;&#x27;&#x27;&#x27;&#x27;&#x27;&#x27;&#x27;&#x27;&#x27;&#x27;&#x27;  # INVALID 4 │[0m apos15 = &quot;Here are fifteen apostrophes: &#x27;&#x27;&#x27;&#x27;&#x27;&#x27;&#x27;&#x27;&#x27;&#x27;&#x27;&#x27;&#x27;&#x27;&#x27;&quot; 5 │[0m 6 │[0m # &#x27;That,&#x27; she said, &#x27;is still pointless.&#x27; 7 │[0m str = &#x27;&#x27;&#x27;&#x27;That,&#x27; she said, &#x27;is still pointless.&#x27;&#x27;&#x27;&#x27;</p>
+<p>output from parser-cmd (PID 127086) (stderr): 1 │[0m decode TOML: line 7: trailing characters 2 │[0m 3 │[0m Exit 1</p>
+<p>want: &lt;empty&gt;</p>
+<p>FAIL valid/string/ends-in-whitespace-escape decode TOML: line 1: invalid escape</p>
+<p>Exit 1</p>
+<p>input sent to parser-cmd (PID 127286): 1 │[0m beee = &quot;&quot;&quot; 2 │[0m heeee 3 │[0m geeee\ 4 │[0m 5 │[0m 6 │[0m       &quot;&quot;&quot;</p>
+<p>output from parser-cmd (PID 127286) (stderr): 1 │[0m decode TOML: line 1: invalid escape 2 │[0m 3 │[0m Exit 1</p>
+<p>want: &lt;empty&gt;</p>
+<p>FAIL valid/string/escape-tricky decode TOML: line 10: unterminated value</p>
+<p>Exit 1</p>
+<p>input sent to parser-cmd (PID 127241): 1 │[0m end_esc = &quot;String does not end here\&quot; but ends here\\&quot; 2 │[0m lit_end_esc = &#x27;String ends here\&#x27; 3 │[0m 4 │[0m multiline_unicode = &quot;&quot;&quot; 5 │[0m \u00a0&quot;&quot;&quot; 6 │[0m 7 │[0m multiline_not_unicode = &quot;&quot;&quot; 8 │[0m \\u0041&quot;&quot;&quot; 9 │[0m 10 │[0m multiline_end_esc = &quot;&quot;&quot;When will it end? \&quot;&quot;&quot;...&quot;&quot;\&quot; should be here\&quot;&quot;&quot;&quot; 11 │[0m 12 │[0m lit_multiline_not_unicode = &#x27;&#x27;&#x27; 13 │[0m \u007f&#x27;&#x27;&#x27; 14 │[0m 15 │[0m lit_multiline_end = &#x27;&#x27;&#x27;There is no escape\&#x27;&#x27;&#x27;</p>
+<p>output from parser-cmd (PID 127241) (stderr): 1 │[0m decode TOML: line 10: unterminated value 2 │[0m 3 │[0m Exit 1</p>
+<p>want: &lt;empty&gt;</p>
+<p>FAIL valid/string/multiline decode TOML: line 17: invalid escape</p>
+<p>Exit 1</p>
+<p>input sent to parser-cmd (PID 127184): 1 │[0m # NOTE: this file includes some literal tab characters. 2 │[0m 3 │[0m equivalent_one = &quot;The quick brown fox jumps over the lazy dog.&quot; 4 │[0m equivalent_two = &quot;&quot;&quot; 5 │[0m The quick brown \ 6 │[0m 7 │[0m 8 │[0m   fox jumps over \ 9 │[0m     the lazy dog.&quot;&quot;&quot; 10 │[0m 11 │[0m equivalent_three = &quot;&quot;&quot;\ 12 │[0m        The quick brown \ 13 │[0m        fox jumps over \ 14 │[0m        the lazy dog.\ 15 │[0m        &quot;&quot;&quot; 16 │[0m 17 │[0m whitespace-after-bs = &quot;&quot;&quot;\ 18 │[0m        The quick brown \ 19 │[0m        fox jumps over \ 20 │[0m        the lazy dog.\ 21 │[0m        &quot;&quot;&quot; 22 │[0m 23 │[0m no-space = &quot;&quot;&quot;a\ 24 │[0m     b&quot;&quot;&quot; 25 │[0m 26 │[0m # Has tab character. 27 │[0m keep-ws-before = &quot;&quot;&quot;a   	\ 28 │[0m    b&quot;&quot;&quot; 29 │[0m 30 │[0m escape-bs-1 = &quot;&quot;&quot;a \\ 31 │[0m b&quot;&quot;&quot; 32 │[0m 33 │[0m escape-bs-2 = &quot;&quot;&quot;a \\\ 34 │[0m b&quot;&quot;&quot; 35 │[0m 36 │[0m escape-bs-3 = &quot;&quot;&quot;a \\\\ 37 │[0m   b&quot;&quot;&quot;</p>
+<p>output from parser-cmd (PID 127184) (stderr): 1 │[0m decode TOML: line 17: invalid escape 2 │[0m 3 │[0m Exit 1</p>
+<p>want: &lt;empty&gt;</p>
+<p>FAIL valid/string/multiline-empty decode TOML: line 11: invalid escape</p>
+<p>Exit 1</p>
+<p>input sent to parser-cmd (PID 127163): 1 │[0m empty-1 = &quot;&quot;&quot;&quot;&quot;&quot; 2 │[0m 3 │[0m # A newline immediately following the opening delimiter will be trimmed. 4 │[0m empty-2 = &quot;&quot;&quot; 5 │[0m &quot;&quot;&quot; 6 │[0m 7 │[0m # \ at the end of line trims newlines as well; note that last \ is followed by 8 │[0m # two spaces, which are ignored. 9 │[0m empty-3 = &quot;&quot;&quot;\ 10 │[0m     &quot;&quot;&quot; 11 │[0m empty-4 = &quot;&quot;&quot;\ 12 │[0m    \ 13 │[0m    \ 14 │[0m    &quot;&quot;&quot;</p>
+<p>output from parser-cmd (PID 127163) (stderr): 1 │[0m decode TOML: line 11: invalid escape 2 │[0m 3 │[0m Exit 1</p>
+<p>want: &lt;empty&gt;</p>
+<p>FAIL valid/string/multiline-quotes decode TOML: line 4: trailing characters</p>
+<p>Exit 1</p>
+<p>input sent to parser-cmd (PID 127183): 1 │[0m # Make sure that quotes inside multiline strings are allowed, including right 2 │[0m # after the opening &#x27;&#x27;&#x27;/&quot;&quot;&quot; and before the closing &#x27;&#x27;&#x27;/&quot;&quot;&quot; 3 │[0m 4 │[0m lit_one = &#x27;&#x27;&#x27;&#x27;one quote&#x27;&#x27;&#x27;&#x27; 5 │[0m lit_two = &#x27;&#x27;&#x27;&#x27;&#x27;two quotes&#x27;&#x27;&#x27;&#x27;&#x27; 6 │[0m lit_one_space = &#x27;&#x27;&#x27; &#x27;one quote&#x27; &#x27;&#x27;&#x27; 7 │[0m lit_two_space = &#x27;&#x27;&#x27; &#x27;&#x27;two quotes&#x27;&#x27; &#x27;&#x27;&#x27; 8 │[0m 9 │[0m one = &quot;&quot;&quot;&quot;one quote&quot;&quot;&quot;&quot; 10 │[0m two = &quot;&quot;&quot;&quot;&quot;two quotes&quot;&quot;&quot;&quot;&quot; 11 │[0m one_space = &quot;&quot;&quot; &quot;one quote&quot; &quot;&quot;&quot; 12 │[0m two_space = &quot;&quot;&quot; &quot;&quot;two quotes&quot;&quot; &quot;&quot;&quot; 13 │[0m 14 │[0m mismatch1 = &quot;&quot;&quot;aaa&#x27;&#x27;&#x27;bbb&quot;&quot;&quot; 15 │[0m mismatch2 = &#x27;&#x27;&#x27;aaa&quot;&quot;&quot;bbb&#x27;&#x27;&#x27; 16 │[0m 17 │[0m # Three opening &quot;&quot;&quot;, then one escaped &quot;, then two &quot;&quot; (allowed), and then three 18 │[0m # closing &quot;&quot;&quot; 19 │[0m escaped = &quot;&quot;&quot;lol\&quot;&quot;&quot;&quot;&quot;&quot; 20 │[0m 21 │[0m five-quotes = &quot;&quot;&quot; 22 │[0m Closing with five quotes 23 │[0m &quot;&quot;&quot;&quot;&quot; 24 │[0m four-quotes = &quot;&quot;&quot; 25 │[0m Closing with four quotes 26 │[0m &quot;&quot;&quot;&quot;</p>
+<p>output from parser-cmd (PID 127183) (stderr): 1 │[0m decode TOML: line 4: trailing characters 2 │[0m 3 │[0m Exit 1</p>
+<p>want: &lt;empty&gt;</p>
+<p>FAIL valid/string/raw-multiline decode TOML: line 2: trailing characters</p>
+<p>Exit 1</p>
+<p>input sent to parser-cmd (PID 127231): 1 │[0m # Single &#x27; should be allowed. 2 │[0m oneline = &#x27;&#x27;&#x27;This string has a &#x27; quote character.&#x27;&#x27;&#x27; 3 │[0m 4 │[0m # A newline immediately following the opening delimiter will be trimmed. 5 │[0m firstnl = &#x27;&#x27;&#x27; 6 │[0m This string has a &#x27; quote character.&#x27;&#x27;&#x27; 7 │[0m 8 │[0m # All other whitespace and newline characters remain intact. 9 │[0m multiline = &#x27;&#x27;&#x27; 10 │[0m This string 11 │[0m has &#x27; a quote character 12 │[0m and more than 13 │[0m one newline 14 │[0m in it.&#x27;&#x27;&#x27; 15 │[0m 16 │[0m # Tab character in literal string does not need to be escaped 17 │[0m multiline_with_tab = &#x27;&#x27;&#x27;First line 18 │[0m 	 Followed by a tab&#x27;&#x27;&#x27; 19 │[0m 20 │[0m this-str-has-apostrophes=&#x27;&#x27;&#x27;&#x27; there&#x27;s one already 21 │[0m &#x27;&#x27; two more 22 │[0m &#x27;&#x27;&#x27;&#x27;&#x27;</p>
+<p>output from parser-cmd (PID 127231) (stderr): 1 │[0m decode TOML: line 2: trailing characters 2 │[0m 3 │[0m Exit 1</p>
+<p>want: &lt;empty&gt;</p>
+<p>FAIL invalid/control/bare-cr Expected an error, but no error was reported.</p>
+<p>input sent to parser-cmd (PID 127598): 1 │[0m # The following line contains a single carriage return control character 2 │[0m</p>
+<p>output from parser-cmd (PID 127598) (stdout): 1 │[0m {}</p>
+<p>want: Exit code 1</p>
+<p>FAIL invalid/control/comment-cr Expected an error, but no error was reported.</p>
+<p>input sent to parser-cmd (PID 127596): 1 │[0m comment-cr   = &quot;Carriage return in comment&quot; # a=1</p>
+<p>output from parser-cmd (PID 127596) (stdout): 1 │[0m { 2 │[0m   &quot;comment-cr&quot;: {&quot;type&quot;: &quot;string&quot;, &quot;value&quot;: &quot;Carriage return in comment&quot;} 3 │[0m }</p>
+<p>want: Exit code 1</p>
+<p>FAIL invalid/control/rawstring-cr Expected an error, but no error was reported.</p>
+<p>input sent to parser-cmd (PID 127746): 1 │[0m rawstring-cr   = &#x27;null &#x27;</p>
+<p>output from parser-cmd (PID 127746) (stdout): 1 │[0m { 2 │[0m   &quot;rawstring-cr&quot;: {&quot;type&quot;: &quot;string&quot;, &quot;value&quot;: &quot;null\r&quot;} 3 │[0m }</p>
+<p>want: Exit code 1</p>
+<p>FAIL invalid/control/string-cr Expected an error, but no error was reported.</p>
+<p>input sent to parser-cmd (PID 127760): 1 │[0m string-cr   = &quot;null &quot;</p>
+<p>output from parser-cmd (PID 127760) (stdout): 1 │[0m { 2 │[0m   &quot;string-cr&quot;: {&quot;type&quot;: &quot;string&quot;, &quot;value&quot;: &quot;null\r&quot;} 3 │[0m }</p>
+<p>want: Exit code 1</p>
+<p>FAIL invalid/encoding/ideographic-space Expected an error, but no error was reported.</p>
+<p>input sent to parser-cmd (PID 127986): 1 │[0m # First on next line is U+3000 IDEOGRAPHIC SPACE 2 │[0m 　foo = &quot;bar&quot;</p>
+<p>output from parser-cmd (PID 127986) (stdout): 1 │[0m { 2 │[0m   &quot;foo&quot;: {&quot;type&quot;: &quot;string&quot;, &quot;value&quot;: &quot;bar&quot;} 3 │[0m }</p>
+<p>want: Exit code 1</p>
+<p>FAIL invalid/float/exp-dot-02 Expected an error, but no error was reported.</p>
+<p>input sent to parser-cmd (PID 128203): 1 │[0m exp-dot-02 = 1.e2</p>
+<p>output from parser-cmd (PID 128203) (stdout): 1 │[0m { 2 │[0m   &quot;exp-dot-02&quot;: {&quot;type&quot;: &quot;float&quot;, &quot;value&quot;: &quot;1.e2&quot;} 3 │[0m }</p>
+<p>want: Exit code 1</p>
+<p>FAIL invalid/float/exp-dot-03 Expected an error, but no error was reported.</p>
+<p>input sent to parser-cmd (PID 128055): 1 │[0m exp-dot-03 = 3.e+20</p>
+<p>output from parser-cmd (PID 128055) (stdout): 1 │[0m { 2 │[0m   &quot;exp-dot-03&quot;: {&quot;type&quot;: &quot;float&quot;, &quot;value&quot;: &quot;3.e+20&quot;} 3 │[0m }</p>
+<p>want: Exit code 1</p>
+<p>FAIL invalid/float/leading-dot-neg Expected an error, but no error was reported.</p>
+<p>input sent to parser-cmd (PID 128106): 1 │[0m leading-dot-neg = -.12345</p>
+<p>output from parser-cmd (PID 128106) (stdout): 1 │[0m { 2 │[0m   &quot;leading-dot-neg&quot;: {&quot;type&quot;: &quot;float&quot;, &quot;value&quot;: &quot;-.12345&quot;} 3 │[0m }</p>
+<p>want: Exit code 1</p>
+<p>FAIL invalid/float/leading-dot-plus Expected an error, but no error was reported.</p>
+<p>input sent to parser-cmd (PID 128107): 1 │[0m leading-dot-plus = +.12345</p>
+<p>output from parser-cmd (PID 128107) (stdout): 1 │[0m { 2 │[0m   &quot;leading-dot-plus&quot;: {&quot;type&quot;: &quot;float&quot;, &quot;value&quot;: &quot;+.12345&quot;} 3 │[0m }</p>
+<p>want: Exit code 1</p>
+<p>FAIL invalid/float/leading-zero Expected an error, but no error was reported.</p>
+<p>input sent to parser-cmd (PID 128144): 1 │[0m leading-zero = 03.14</p>
+<p>output from parser-cmd (PID 128144) (stdout): 1 │[0m { 2 │[0m   &quot;leading-zero&quot;: {&quot;type&quot;: &quot;float&quot;, &quot;value&quot;: &quot;03.14&quot;} 3 │[0m }</p>
+<p>want: Exit code 1</p>
+<p>FAIL invalid/float/leading-zero-neg Expected an error, but no error was reported.</p>
+<p>input sent to parser-cmd (PID 128197): 1 │[0m leading-zero-neg = -03.14</p>
+<p>output from parser-cmd (PID 128197) (stdout): 1 │[0m { 2 │[0m   &quot;leading-zero-neg&quot;: {&quot;type&quot;: &quot;float&quot;, &quot;value&quot;: &quot;-03.14&quot;} 3 │[0m }</p>
+<p>want: Exit code 1</p>
+<p>FAIL invalid/float/leading-zero-plus Expected an error, but no error was reported.</p>
+<p>input sent to parser-cmd (PID 128143): 1 │[0m leading-zero-plus = +03.14</p>
+<p>output from parser-cmd (PID 128143) (stdout): 1 │[0m { 2 │[0m   &quot;leading-zero-plus&quot;: {&quot;type&quot;: &quot;float&quot;, &quot;value&quot;: &quot;+03.14&quot;} 3 │[0m }</p>
+<p>want: Exit code 1</p>
+<p>FAIL invalid/integer/leading-zero-01 Expected an error, but no error was reported.</p>
+<p>input sent to parser-cmd (PID 128471): 1 │[0m leading-zero-01 = 01</p>
+<p>output from parser-cmd (PID 128471) (stdout): 1 │[0m { 2 │[0m   &quot;leading-zero-01&quot;: {&quot;type&quot;: &quot;integer&quot;, &quot;value&quot;: &quot;01&quot;} 3 │[0m }</p>
+<p>want: Exit code 1</p>
+<p>FAIL invalid/integer/leading-zero-02 Expected an error, but no error was reported.</p>
+<p>input sent to parser-cmd (PID 128470): 1 │[0m leading-zero-02 = 00</p>
+<p>output from parser-cmd (PID 128470) (stdout): 1 │[0m { 2 │[0m   &quot;leading-zero-02&quot;: {&quot;type&quot;: &quot;integer&quot;, &quot;value&quot;: &quot;00&quot;} 3 │[0m }</p>
+<p>want: Exit code 1</p>
+<p>FAIL invalid/integer/leading-zero-03 Expected an error, but no error was reported.</p>
+<p>input sent to parser-cmd (PID 128472): 1 │[0m leading-zero-03 = 0_0</p>
+<p>output from parser-cmd (PID 128472) (stdout): 1 │[0m { 2 │[0m   &quot;leading-zero-03&quot;: {&quot;type&quot;: &quot;integer&quot;, &quot;value&quot;: &quot;0_0&quot;} 3 │[0m }</p>
+<p>want: Exit code 1</p>
+<p>FAIL invalid/integer/leading-zero-sign-01 Expected an error, but no error was reported.</p>
+<p>input sent to parser-cmd (PID 128489): 1 │[0m leading-zero-sign-01 = -01</p>
+<p>output from parser-cmd (PID 128489) (stdout): 1 │[0m { 2 │[0m   &quot;leading-zero-sign-01&quot;: {&quot;type&quot;: &quot;integer&quot;, &quot;value&quot;: &quot;-01&quot;} 3 │[0m }</p>
+<p>want: Exit code 1</p>
+<p>FAIL invalid/integer/leading-zero-sign-02 Expected an error, but no error was reported.</p>
+<p>input sent to parser-cmd (PID 128551): 1 │[0m leading-zero-sign-02 = +01</p>
+<p>output from parser-cmd (PID 128551) (stdout): 1 │[0m { 2 │[0m   &quot;leading-zero-sign-02&quot;: {&quot;type&quot;: &quot;integer&quot;, &quot;value&quot;: &quot;+01&quot;} 3 │[0m }</p>
+<p>want: Exit code 1</p>
+<p>FAIL invalid/integer/leading-zero-sign-03 Expected an error, but no error was reported.</p>
+<p>input sent to parser-cmd (PID 128493): 1 │[0m leading-zero-sign-03 = +0_1</p>
+<p>output from parser-cmd (PID 128493) (stdout): 1 │[0m { 2 │[0m   &quot;leading-zero-sign-03&quot;: {&quot;type&quot;: &quot;integer&quot;, &quot;value&quot;: &quot;+0_1&quot;} 3 │[0m }</p>
+<p>want: Exit code 1</p>
+<p>FAIL invalid/integer/negative-bin Expected an error, but no error was reported.</p>
+<p>input sent to parser-cmd (PID 128599): 1 │[0m negative-bin = -0b11010110</p>
+<p>output from parser-cmd (PID 128599) (stdout): 1 │[0m { 2 │[0m   &quot;negative-bin&quot;: {&quot;type&quot;: &quot;integer&quot;, &quot;value&quot;: &quot;-0b11010110&quot;} 3 │[0m }</p>
+<p>want: Exit code 1</p>
+<p>FAIL invalid/integer/negative-hex Expected an error, but no error was reported.</p>
+<p>input sent to parser-cmd (PID 128501): 1 │[0m negative-hex = -0xff</p>
+<p>output from parser-cmd (PID 128501) (stdout): 1 │[0m { 2 │[0m   &quot;negative-hex&quot;: {&quot;type&quot;: &quot;integer&quot;, &quot;value&quot;: &quot;-0xff&quot;} 3 │[0m }</p>
+<p>want: Exit code 1</p>
+<p>FAIL invalid/integer/negative-oct Expected an error, but no error was reported.</p>
+<p>input sent to parser-cmd (PID 128504): 1 │[0m negative-oct = -0o755</p>
+<p>output from parser-cmd (PID 128504) (stdout): 1 │[0m { 2 │[0m   &quot;negative-oct&quot;: {&quot;type&quot;: &quot;integer&quot;, &quot;value&quot;: &quot;-0o755&quot;} 3 │[0m }</p>
+<p>want: Exit code 1</p>
+<p>FAIL invalid/integer/positive-bin Expected an error, but no error was reported.</p>
+<p>input sent to parser-cmd (PID 128505): 1 │[0m positive-bin = +0b11010110</p>
+<p>output from parser-cmd (PID 128505) (stdout): 1 │[0m { 2 │[0m   &quot;positive-bin&quot;: {&quot;type&quot;: &quot;integer&quot;, &quot;value&quot;: &quot;+0b11010110&quot;} 3 │[0m }</p>
+<p>want: Exit code 1</p>
+<p>FAIL invalid/integer/positive-hex Expected an error, but no error was reported.</p>
+<p>input sent to parser-cmd (PID 128509): 1 │[0m positive-hex = +0xff</p>
+<p>output from parser-cmd (PID 128509) (stdout): 1 │[0m { 2 │[0m   &quot;positive-hex&quot;: {&quot;type&quot;: &quot;integer&quot;, &quot;value&quot;: &quot;+0xff&quot;} 3 │[0m }</p>
+<p>want: Exit code 1</p>
+<p>FAIL invalid/integer/positive-oct Expected an error, but no error was reported.</p>
+<p>input sent to parser-cmd (PID 128559): 1 │[0m positive-oct = +0o755</p>
+<p>output from parser-cmd (PID 128559) (stdout): 1 │[0m { 2 │[0m   &quot;positive-oct&quot;: {&quot;type&quot;: &quot;integer&quot;, &quot;value&quot;: &quot;+0o755&quot;} 3 │[0m }</p>
+<p>want: Exit code 1</p>
+<p>FAIL invalid/table/append-with-dotted-keys-01 Expected an error, but no error was reported.</p>
+<p>input sent to parser-cmd (PID 129525): 1 │[0m # First a.b.c defines a table: a.b.c = {z=9} 2 │[0m # 3 │[0m # Then we define a.b.c.t = &quot;str&quot; to add a str to the above table, making it: 4 │[0m # 5 │[0m #   a.b.c = {z=9, t=&quot;...&quot;} 6 │[0m # 7 │[0m # While this makes sense, logically, it was decided this is not valid TOML as 8 │[0m # it&#x27;s too confusing/convoluted. 9 │[0m # 10 │[0m # See: https://github.com/toml-lang/toml/issues/846 11 │[0m #      https://github.com/toml-lang/toml/pull/859 12 │[0m 13 │[0m [a.b.c] 14 │[0m   z = 9 15 │[0m 16 │[0m [a] 17 │[0m   b.c.t = &quot;Using dotted keys to add to [a.b.c] after explicitly defining it above is not allowed&quot;</p>
+<p>output from parser-cmd (PID 129525) (stdout): 1 │[0m { 2 │[0m   &quot;a&quot;: { 3 │[0m     &quot;b&quot;: { 4 │[0m       &quot;c&quot;: { 5 │[0m         &quot;z&quot;: {&quot;type&quot;: &quot;integer&quot;, &quot;value&quot;: &quot;9&quot;}, 6 │[0m         &quot;t&quot;: { 7 │[0m           &quot;type&quot;:  &quot;string&quot;, 8 │[0m           &quot;value&quot;: &quot;Using dotted keys to add to [a.b.c] after explicitly defining it above is not allowed&quot; 9 │[0m         } 10 │[0m       } 11 │[0m     } 12 │[0m   } 13 │[0m }</p>
+<p>want: Exit code 1</p>
+<p>FAIL invalid/table/append-with-dotted-keys-02 Expected an error, but no error was reported.</p>
+<p>input sent to parser-cmd (PID 129526): 1 │[0m # This is the same issue as in injection-1.toml, except that nests one level 2 │[0m # deeper. See that file for a more complete description. 3 │[0m 4 │[0m [a.b.c.d] 5 │[0m   z = 9 6 │[0m 7 │[0m [a] 8 │[0m   b.c.d.k.t = &quot;Using dotted keys to add to [a.b.c.d] after explicitly defining it above is not allowed&quot;</p>
+<p>output from parser-cmd (PID 129526) (stdout): 1 │[0m { 2 │[0m   &quot;a&quot;: { 3 │[0m     &quot;b&quot;: { 4 │[0m       &quot;c&quot;: { 5 │[0m         &quot;d&quot;: { 6 │[0m           &quot;z&quot;: {&quot;type&quot;: &quot;integer&quot;, &quot;value&quot;: &quot;9&quot;}, 7 │[0m           &quot;k&quot;: { 8 │[0m             &quot;t&quot;: { 9 │[0m               &quot;type&quot;:  &quot;string&quot;, 10 │[0m               &quot;value&quot;: &quot;Using dotted keys to add to [a.b.c.d] after explicitly defining it above is not allowed&quot; 11 │[0m             } 12 │[0m           } 13 │[0m         } 14 │[0m       } 15 │[0m     } 16 │[0m   } 17 │[0m }</p>
+<p>want: Exit code 1</p>
+<p>FAIL invalid/table/append-with-dotted-keys-08 Expected an error, but no error was reported.</p>
+<p>input sent to parser-cmd (PID 129548): 1 │[0m [a.b.c] 2 │[0m z = 9 3 │[0m 4 │[0m [[totally_unrelated]] 5 │[0m x = 123 6 │[0m 7 │[0m [a] 8 │[0m b.c.t = &quot;this should NOT be allowed&quot;</p>
+<p>output from parser-cmd (PID 129548) (stdout): 1 │[0m { 2 │[0m   &quot;totally_unrelated&quot;: [{ 3 │[0m     &quot;x&quot;: {&quot;type&quot;: &quot;integer&quot;, &quot;value&quot;: &quot;123&quot;} 4 │[0m   }], 5 │[0m   &quot;a&quot;: { 6 │[0m     &quot;b&quot;: { 7 │[0m       &quot;c&quot;: { 8 │[0m         &quot;t&quot;: {&quot;type&quot;: &quot;string&quot;, &quot;value&quot;: &quot;this should NOT be allowed&quot;}, 9 │[0m         &quot;z&quot;: {&quot;type&quot;: &quot;integer&quot;, &quot;value&quot;: &quot;9&quot;} 10 │[0m       } 11 │[0m     } 12 │[0m   } 13 │[0m }</p>
+<p>want: Exit code 1</p>
+<p>toml-test v2.2.0 [/mnt/c/Users/barlo/projects/drydock/uat/Toml/runs/20261021.013141/build/toml/toml-decoder] [no encoder] valid tests: 187 passed, 18 failed encoder tests: no encoder command given invalid tests: 447 passed, 27 failed</p>
+<p>harness: /home/barlo/.local/bin/toml-test toml-test v2.2.0; go1.24.6 linux/amd64; race=false; cgo=true stderr: --- drydock: values at failure --- result = CompletedProcess(args=[&#x27;sh&#x27;, &#x27;sources/full_test.sh&#x27;], returncode=1, stdout=&#x27;FAIL valid/integer/float64-max\n     Values for key &quot;max_int&quot; don\&#x27;t match:\n       Expected:     9007199254740991\n       Your encoder: 9_007_199_254_740_991\n\n     input sent to parser-cmd (PID 126809):\n        1 │\x1b[0m # Maximum and minimum safe float64 natural numbers. Mainly here for\n        2 │\x1b[0m # -int-as-… (+35072 chars) --- drydock: end values --- Traceback (most recent call last): File &quot;complete-conformance.py&quot;, line 12, in &lt;module&gt; assert result.returncode == 0 ^^^^^^^^^^^^^^^^^^^^^^ AssertionError</p>
+<h2>Post-build programmatic acceptance</h2>
+<ul><li>PASS: complete-conformance (FEATURE-Conformance.md)</li></ul>
+<p>intent: Run the complete pinned TOML v1.0.0 conformance suite after all parser capabilities are implemented. target interpreter: /mnt/c/Users/barlo/projects/drydock/.venv/bin/python provisioning: not required return code: 0 stdout: toml-test v2.2.0 [/mnt/c/Users/barlo/projects/drydock/uat/Toml/runs/20261021.013141/build/toml/toml-decoder] [no encoder] valid tests: 205 passed,  0 failed encoder tests: no encoder command given invalid tests: 474 passed,  0 failed</p>
+<p>harness: /home/barlo/.local/bin/toml-test toml-test v2.2.0; go1.24.6 linux/amd64; race=false; cgo=true</p>
+<h2>Build summary</h2>
+<p>RESULT: SUCCESS</p>
+<p>FILES CHANGED:</p>
+<ul><li>internal/toml/toml.go</li><li>internal/toml/toml_test.go</li><li>toml-decoder</li></ul>
+<p>SUMMARY: Implemented conformance fixes. Go tests pass, and toml-test v2.2.0 passes all 205 valid and 474 invalid cases.</p>
+<p>BLOCKERS:</p>
+<ul><li>None</li></ul></article>
+</main>
+</body>
+</html>

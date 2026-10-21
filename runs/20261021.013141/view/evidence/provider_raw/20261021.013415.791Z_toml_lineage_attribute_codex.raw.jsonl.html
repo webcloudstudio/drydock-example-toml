@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>evidence/provider_raw/20261021.013415.791Z_toml_lineage_attribute_codex.raw.jsonl</title>
+<link rel="stylesheet" href="../../../assets/kit.css">
+</head>
+<body>
+<main>
+<header class="fileheader"><div class="kind">Run artifact</div><h1>evidence/provider_raw/20261021.013415.791Z_toml_lineage_attribute_codex.raw.jsonl</h1><div class="filenav"><a href="../../../index.html">&larr; Report</a><a href="../../../evidence/provider_raw/20261021.013415.791Z_toml_lineage_attribute_codex.raw.jsonl">Raw file</a></div></header>
+<article class="doc"><pre>{&quot;type&quot;:&quot;thread.started&quot;,&quot;thread_id&quot;:&quot;01a15c18-41a5-7430-afdc-2b9e7ca0cdd0&quot;}
+{&quot;type&quot;:&quot;turn.started&quot;}
+{&quot;type&quot;:&quot;item.completed&quot;,&quot;item&quot;:{&quot;id&quot;:&quot;item_0&quot;,&quot;type&quot;:&quot;agent_message&quot;,&quot;text&quot;:&quot;&lt;requirement name=\&quot;standard-library-go-module\&quot; stories=\&quot;architecture\&quot;&gt;\ntest -f go.mod\nif grep -Eq &#x27;^[[:space:]]*require[[:space:](]&#x27; go.mod; then\n  echo \&quot;go.mod declares a forbidden third-party dependency\&quot; &gt;&amp;2\n  exit 1\nfi\ngo build ./cmd/toml-decoder\n&lt;/requirement&gt;\n&lt;requirement name=\&quot;decoder-contract\&quot; stories=\&quot;decoder-contract,parser-lexical-scalars,parser-arrays-inline\&quot;&gt;\ngo build -o toml-decoder ./cmd/toml-decoder\nstage_dir=\&quot;$(mktemp -d)\&quot;\ntrap &#x27;rm -rf \&quot;$stage_dir\&quot;&#x27; EXIT HUP INT TERM\n\nprintf &#x27;answer = 42\\n&#x27; | ./toml-decoder &gt;\&quot;$stage_dir/valid.json\&quot; 2&gt;\&quot;$stage_dir/valid.err\&quot;\ntest ! -s \&quot;$stage_dir/valid.err\&quot;\npython - \&quot;$stage_dir/valid.json\&quot; &lt;&lt;&#x27;PY&#x27;\nimport json\nimport sys\n\nwith open(sys.argv[1], encoding=\&quot;utf-8\&quot;) as stream:\n    decoded = json.load(stream)\nassert decoded == {\&quot;answer\&quot;: {\&quot;type\&quot;: \&quot;integer\&quot;, \&quot;value\&quot;: \&quot;42\&quot;}}\nPY\n\nif printf &#x27;answer = [\\n&#x27; | ./toml-decoder &gt;\&quot;$stage_dir/invalid.out\&quot; 2&gt;\&quot;$stage_dir/invalid.err\&quot;; then\n  echo \&quot;malformed TOML exited successfully\&quot; &gt;&amp;2\n  exit 1\nfi\ntest ! -s \&quot;$stage_dir/invalid.out\&quot;\ntest -s \&quot;$stage_dir/invalid.err\&quot;\n&lt;/requirement&gt;\n&lt;unattached story=\&quot;parser-strings\&quot;/&gt;\n&lt;unattached story=\&quot;parser-lexical-boundaries\&quot;/&gt;\n&lt;unattached story=\&quot;parser-keys\&quot;/&gt;\n&lt;unattached story=\&quot;parser-tables\&quot;/&gt;\n&lt;unattached story=\&quot;parser-datetimes\&quot;/&gt;\n&lt;unattached story=\&quot;conformance\&quot;/&gt;&quot;}}
+{&quot;type&quot;:&quot;turn.completed&quot;,&quot;usage&quot;:{&quot;input_tokens&quot;:13064,&quot;cached_input_tokens&quot;:10240,&quot;cache_write_input_tokens&quot;:0,&quot;output_tokens&quot;:1104,&quot;reasoning_output_tokens&quot;:712}}
+</pre></article>
+</main>
+</body>
+</html>

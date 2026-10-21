@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>evidence/commands/17-score-acceptance.stdout.log</title>
+<link rel="stylesheet" href="../../../assets/kit.css">
+</head>
+<body>
+<main>
+<header class="fileheader"><div class="kind">Run artifact</div><h1>evidence/commands/17-score-acceptance.stdout.log</h1><div class="filenav"><a href="../../../index.html">&larr; Report</a><a href="../../../evidence/commands/17-score-acceptance.stdout.log">Raw file</a></div></header>
+<article class="doc"><pre>Drydock 0.2.0  Copyright (c) 2026 Web Cloud Studio. All rights reserved.
+  ✓ PASS        [1/18]  architecture-gate                      architecture               ARCHITECTURE.md
+  ✓ PASS        [2/18]  architecture-artifacts                 architecture               ARCHITECTURE.md
+  ✓ PASS        [3/18]  decoder-contract-gate                  decoder-contract           FEATURE-Decoder-Contract.md
+  ✓ PASS        [4/18]  decoder-executable                     decoder-contract           FEATURE-Decoder-Contract.md
+  ✓ PASS        [5/18]  parser-strings-conformance             parser-strings             FEATURE-Parser-Strings.md
+  ✓ PASS        [6/18]  parser-lexical-boundaries-conformance  parser-lexical-boundaries  FEATURE-Parser-Lexical-Boundaries.md
+  ✓ PASS        [7/18]  parser-lexical-boundaries-executable   parser-lexical-boundaries  FEATURE-Parser-Lexical-Boundaries.md
+  ✓ PASS        [8/18]  parser-lexical-scalars-conformance     parser-lexical-scalars     FEATURE-Parser-Lexical-Scalars.md
+  ✓ PASS        [9/18]  parser-lexical-scalars-boundary        parser-lexical-scalars     FEATURE-Parser-Lexical-Scalars.md
+  ✓ PASS        [10/18]  parser-keys-conformance                parser-keys                FEATURE-Parser-Keys.md
+  ✓ PASS        [11/18]  parser-keys-input-boundaries           parser-keys                FEATURE-Parser-Keys.md
+  ✓ PASS        [12/18]  parser-tables-conformance              parser-tables              FEATURE-Parser-Tables.md
+  ✓ PASS        [13/18]  parser-tables-input-boundaries         parser-tables              FEATURE-Parser-Tables.md
+  ✓ PASS        [14/18]  parser-arrays-inline-conformance       parser-arrays-inline       FEATURE-Parser-Arrays-Inline.md
+  ✓ PASS        [15/18]  parser-arrays-inline-input-boundaries  parser-arrays-inline       FEATURE-Parser-Arrays-Inline.md
+  ✓ PASS        [16/18]  parser-datetimes-conformance           parser-datetimes           FEATURE-Parser-Datetimes.md
+  ✓ PASS        [17/18]  parser-datetimes-input-boundaries      parser-datetimes           FEATURE-Parser-Datetimes.md
+  ✓ PASS        [18/18]  complete-conformance                   conformance                FEATURE-Conformance.md
+
+Acceptance verification: toml  (2026-10-21T01:50:42+00:00)
+  PASS 5   FAIL 0   UNVERIFIED 0   PREPASSED 13   (18 AC)
+
+  ✓ PASS        architecture-gate                      architecture               ARCHITECTURE.md
+  ✓ PASS        architecture-artifacts                 architecture               ARCHITECTURE.md
+  ~ PREPASSED   decoder-contract-gate                  decoder-contract           FEATURE-Decoder-Contract.md
+  ~ PREPASSED   decoder-executable                     decoder-contract           FEATURE-Decoder-Contract.md
+  ~ PREPASSED   parser-strings-conformance             parser-strings             FEATURE-Parser-Strings.md
+  ~ PREPASSED   parser-lexical-boundaries-conformance  parser-lexical-boundaries  FEATURE-Parser-Lexical-Boundaries.md
+  ~ PREPASSED   parser-lexical-boundaries-executable   parser-lexical-boundaries  FEATURE-Parser-Lexical-Boundaries.md
+  ~ PREPASSED   parser-lexical-scalars-conformance     parser-lexical-scalars     FEATURE-Parser-Lexical-Scalars.md
+  ~ PREPASSED   parser-lexical-scalars-boundary        parser-lexical-scalars     FEATURE-Parser-Lexical-Scalars.md
+  ~ PREPASSED   parser-keys-conformance                parser-keys                FEATURE-Parser-Keys.md
+  ~ PREPASSED   parser-keys-input-boundaries           parser-keys                FEATURE-Parser-Keys.md
+  ~ PREPASSED   parser-tables-conformance              parser-tables              FEATURE-Parser-Tables.md
+  ✓ PASS        parser-tables-input-boundaries         parser-tables              FEATURE-Parser-Tables.md
+  ~ PREPASSED   parser-arrays-inline-conformance       parser-arrays-inline       FEATURE-Parser-Arrays-Inline.md
+  ~ PREPASSED   parser-arrays-inline-input-boundaries  parser-arrays-inline       FEATURE-Parser-Arrays-Inline.md
+  ~ PREPASSED   parser-datetimes-conformance           parser-datetimes           FEATURE-Parser-Datetimes.md
+  ✓ PASS        parser-datetimes-input-boundaries      parser-datetimes           FEATURE-Parser-Datetimes.md
+  ✓ PASS        complete-conformance                   conformance                FEATURE-Conformance.md
+
+  ~ PREPASSED   decoder-contract-gate
+        intent: The executable satisfies the supplied valid-input and invalid-input stream contract.
+        green at this block&#x27;s baseline too, before its code existed — confirm the criterion exercises the story&#x27;s work
+
+  ~ PREPASSED   decoder-executable
+        intent: The decoder executable is produced at the declared command boundary.
+        green at this block&#x27;s baseline too, before its code existed — confirm the criterion exercises the story&#x27;s work
+
+  ~ PREPASSED   parser-strings-conformance
+        intent: The decoder passes the authoritative TOML string cases selected by `valid/string/**|invalid/string/**`; the selector is expected to match the string corpus and the scoped run must execute successfully.
+        green at this block&#x27;s baseline too, before its code existed — confirm the criterion exercises the story&#x27;s work
+
+  ~ PREPASSED   parser-lexical-boundaries-conformance
+        intent: The decoder passes the authoritative comment, control-character, and encoding cases selected by `valid/comment/**|invalid/control/**|invalid/encoding/**`; the selector is expected to match the boundary corpus and the scoped run must execute successfully.
+        green at this block&#x27;s baseline too, before its code existed — confirm the criterion exercises the story&#x27;s work
+
+  ~ PREPASSED   parser-lexical-boundaries-executable
+        intent: The decoder executable remains available at the command boundary after lexical boundary support is added.
+        green at this block&#x27;s baseline too, before its code existed — confirm the criterion exercises the story&#x27;s work
+
+  ~ PREPASSED   parser-lexical-scalars-conformance
+        intent: The decoder passes the authoritative boolean, integer, and float cases selected by `valid/bool/**|valid/integer/**|valid/float/**|invalid/bool/**|invalid/integer/**|invalid/float/**`; the selector is expected to match all three scalar corpora and the scoped run must execute successfully.
+        green at this block&#x27;s baseline too, before its code existed — confirm the criterion exercises the story&#x27;s work
+
+  ~ PREPASSED   parser-lexical-scalars-boundary
+        intent: The scalar parser preserves the decoder&#x27;s executable boundary after scalar support is added.
+        green at this block&#x27;s baseline too, before its code existed — confirm the criterion exercises the story&#x27;s work
+
+  ~ PREPASSED   parser-keys-conformance
+        intent: Execute every valid/key and invalid/key case in the authoritative TOML suite.
+        green at this block&#x27;s baseline too, before its code existed — confirm the criterion exercises the story&#x27;s work
+
+  ~ PREPASSED   parser-keys-input-boundaries
+        intent: Verify that a dotted key supplied as input creates nested object state and that a duplicate definition is rejected.
+        green at this block&#x27;s baseline too, before its code existed — confirm the criterion exercises the story&#x27;s work
+
+  ~ PREPASSED   parser-tables-conformance
+        intent: Execute every valid/table, invalid/table, and applicable spec-1.0.0 case in the authoritative TOML suite.
+        green at this block&#x27;s baseline too, before its code existed — confirm the criterion exercises the story&#x27;s work
+
+  ~ PREPASSED   parser-arrays-inline-conformance
+        intent: Execute every valid array and inline-table case and every corresponding invalid case in the authoritative TOML suite.
+        green at this block&#x27;s baseline too, before its code existed — confirm the criterion exercises the story&#x27;s work
+
+  ~ PREPASSED   parser-arrays-inline-input-boundaries
+        intent: Verify that a nested mixed array is decoded and that extending an inline table is rejected.
+        green at this block&#x27;s baseline too, before its code existed — confirm the criterion exercises the story&#x27;s work
+
+  ~ PREPASSED   parser-datetimes-conformance
+        intent: Execute every valid datetime case and every invalid datetime, local-date, local-datetime, and local-time case in the authoritative TOML suite.
+        green at this block&#x27;s baseline too, before its code existed — confirm the criterion exercises the story&#x27;s work
+
+  Run `drydock score ac toml --full` for untruncated output per failure.
+
+
+  Proof coverage: 5 of 18 criteria are proof — green here, and observed red before the work that turned them green.
+    13 are not. Each names a story whose acceptance did not test it.
+
+    PREPASSED  decoder-contract-gate  decoder-contract  FEATURE-Decoder-Contract.md
+               green before its block built
+    PREPASSED  decoder-executable  decoder-contract  FEATURE-Decoder-Contract.md
+               green before its block built
+    PREPASSED  parser-strings-conformance  parser-strings  FEATURE-Parser-Strings.md
+               green before its block built
+    PREPASSED  parser-lexical-boundaries-conformance  parser-lexical-boundaries  FEATURE-Parser-Lexical-Boundaries.md
+               green before its block built
+    PREPASSED  parser-lexical-boundaries-executable  parser-lexical-boundaries  FEATURE-Parser-Lexical-Boundaries.md
+               green before its block built
+    PREPASSED  parser-lexical-scalars-conformance  parser-lexical-scalars  FEATURE-Parser-Lexical-Scalars.md
+               green before its block built
+    PREPASSED  parser-lexical-scalars-boundary  parser-lexical-scalars  FEATURE-Parser-Lexical-Scalars.md
+               green before its block built
+    PREPASSED  parser-keys-conformance  parser-keys  FEATURE-Parser-Keys.md
+               green before its block built
+    PREPASSED  parser-keys-input-boundaries  parser-keys  FEATURE-Parser-Keys.md
+               green before its block built
+    PREPASSED  parser-tables-conformance  parser-tables  FEATURE-Parser-Tables.md
+               green before its block built
+    PREPASSED  parser-arrays-inline-conformance  parser-arrays-inline  FEATURE-Parser-Arrays-Inline.md
+               green before its block built
+    PREPASSED  parser-arrays-inline-input-boundaries  parser-arrays-inline  FEATURE-Parser-Arrays-Inline.md
+               green before its block built
+    PREPASSED  parser-datetimes-conformance  parser-datetimes  FEATURE-Parser-Datetimes.md
+               green before its block built
+
+Soundings: /mnt/c/Users/barlo/projects/drydock/uat/Toml/runs/20261021.013141/workspace/targets/toml/SOUNDINGS.md
+Target - committed project workspace git store
+</pre></article>
+</main>
+</body>
+</html>

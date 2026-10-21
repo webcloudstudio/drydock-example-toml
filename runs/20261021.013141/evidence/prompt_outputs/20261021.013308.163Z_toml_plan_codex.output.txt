@@ -1,0 +1,452 @@
+=== BEGIN ARTIFACT FEATURE-Parser-Keys.md ===
+# FEATURE: Parser Keys
+
+| Field       | Value |
+|-------------|-------|
+| Version     | 20261021 V1 |
+| Description | Parse TOML key forms and enforce key-definition uniqueness. |
+| Depends On  | FEATURE-Decoder-Contract.md, FEATURE-Parser-Strings.md, FEATURE-Parser-Lexical-Scalars.md, FEATURE-Parser-Lexical-Boundaries.md |
+| Provides    | TOML bare, quoted, dotted, and numeric-looking key parsing |
+| Consumes    | stdin TOML decoder, TOML string parsing, TOML scalar parsing |
+
+## Questions
+
+- None.
+
+## Purpose
+
+Implement TOML v1.0.0 bare, quoted, dotted, empty quoted, and numeric-looking keys. Construct nested tables for dotted keys while preserving quoted key spelling and rejecting duplicate or conflicting definitions.
+
+## Behavior
+
+- Bare keys contain only ASCII letters, digits, underscores, and dashes.
+- Quoted keys use basic or literal string syntax and may contain broader Unicode content.
+- Dotted keys create nested tables and ignore whitespace around separators.
+- Numeric-looking bare keys remain string keys.
+- Equivalent key spellings cannot define the same key more than once.
+- A value cannot later be reinterpreted as a table.
+
+## Programmatic Acceptance
+
+Requires: executable=go; scope=test
+Requires: executable=sh; scope=test
+Requires: executable=toml-test; scope=test
+
+=== AC parser-keys-conformance ===
+Intent: Execute every valid/key and invalid/key case in the authoritative TOML suite.
+Suite: scoped
+Probe: --list
+Probe Count: lines
+
+import os
+import subprocess
+
+selector = "valid/key/**|invalid/key/**"
+result = subprocess.run(
+    ["sh", "sources/stage_test.sh", selector],
+    capture_output=True,
+    text=True,
+    env={**os.environ, "TOML_TEST_VERSION": "v2.2.0"},
+)
+print(result.stdout)
+print(result.stderr)
+assert result.returncode == 0
+=== END AC parser-keys-conformance ===
+
+=== AC parser-keys-input-boundaries ===
+Intent: Verify that a dotted key supplied as input creates nested object state and that a duplicate definition is rejected.
+import json
+import subprocess
+
+dotted_source = 'fruit.apple = "red"\n'
+duplicate_source = 'name = "Tom"\nname = "Pradyun"\n'
+
+dotted = subprocess.run(
+    ["./toml-decoder"],
+    input=dotted_source,
+    capture_output=True,
+    text=True,
+)
+assert dotted.returncode == 0
+decoded = json.loads(dotted.stdout)
+assert decoded["fruit"]["apple"]["type"] == "string"
+assert decoded["fruit"]["apple"]["value"] == "red"
+
+duplicate = subprocess.run(
+    ["./toml-decoder"],
+    input=duplicate_source,
+    capture_output=True,
+    text=True,
+)
+assert duplicate.returncode != 0
+assert duplicate.stdout == ""
+=== END AC parser-keys-input-boundaries ===
+
+## User Acceptance
+
+- None.
+
+## Guardrails
+
+- Do not permit duplicate definitions through alternate bare and quoted spellings.
+- Do not reinterpret scalar values as tables.
+- Do not modify the supplied conformance harness.
+
+=== END ARTIFACT ===
+=== BEGIN ARTIFACT FEATURE-Parser-Tables.md ===
+# FEATURE: Parser Tables
+
+| Field       | Value |
+|-------------|-------|
+| Version     | 20261021 V1 |
+| Description | Parse TOML tables and arrays of tables with redefinition semantics. |
+| Depends On  | FEATURE-Parser-Keys.md |
+| Provides    | TOML standard tables and arrays-of-tables |
+| Consumes    | TOML key parsing, TOML scalar parsing |
+
+## Questions
+
+- None.
+
+## Purpose
+
+Implement standard tables, implicit parent tables, arrays of tables, nested array elements, and TOML table conflict rules.
+
+## Behavior
+
+- Table headers create the selected table and implicit parents.
+- A table cannot be defined more than once.
+- Arrays of tables append elements in source order.
+- Nested tables and arrays resolve against the most recently defined array element.
+- Static arrays and incompatible table forms cannot be converted into tables or arrays of tables.
+- Parent arrays must exist before child tables or child arrays are declared.
+
+## Programmatic Acceptance
+
+Requires: executable=go; scope=test
+Requires: executable=sh; scope=test
+Requires: executable=toml-test; scope=test
+
+=== AC parser-tables-conformance ===
+Intent: Execute every valid/table, invalid/table, and applicable spec-1.0.0 case in the authoritative TOML suite.
+Suite: scoped
+Probe: --list
+Probe Count: lines
+
+import os
+import subprocess
+
+selector = "valid/table/**|invalid/table/**|valid/spec-1.0.0/**|invalid/spec-1.0.0/**"
+result = subprocess.run(
+    ["sh", "sources/stage_test.sh", selector],
+    capture_output=True,
+    text=True,
+    env={**os.environ, "TOML_TEST_VERSION": "v2.2.0"},
+)
+print(result.stdout)
+print(result.stderr)
+assert result.returncode == 0
+=== END AC parser-tables-conformance ===
+
+=== AC parser-tables-input-boundaries ===
+Intent: Verify that an array of tables preserves element order and that table redefinition is rejected.
+import json
+import subprocess
+
+valid_source = '[[products]]\nname = "Hammer"\n[[products]]\nname = "Nail"\n'
+invalid_source = '[fruit]\napple = "red"\n[fruit]\norange = "orange"\n'
+
+valid = subprocess.run(
+    ["./toml-decoder"],
+    input=valid_source,
+    capture_output=True,
+    text=True,
+)
+assert valid.returncode == 0
+decoded = json.loads(valid.stdout)
+assert len(decoded["products"]) == 2
+assert decoded["products"][0]["name"]["value"] == "Hammer"
+assert decoded["products"][1]["name"]["value"] == "Nail"
+
+invalid = subprocess.run(
+    ["./toml-decoder"],
+    input=invalid_source,
+    capture_output=True,
+    text=True,
+)
+assert invalid.returncode != 0
+assert invalid.stdout == ""
+=== END AC parser-tables-input-boundaries ===
+
+## User Acceptance
+
+- None.
+
+## Guardrails
+
+- Reject table and array-of-table redefinitions and incompatible structural conflicts.
+- Preserve array-of-table source order.
+- Do not weaken invalid-input rejection to increase valid acceptance.
+
+=== END ARTIFACT ===
+=== BEGIN ARTIFACT FEATURE-Parser-Arrays-Inline.md ===
+# FEATURE: Parser Arrays Inline
+
+| Field       | Value |
+|-------------|-------|
+| Version     | 20261021 V1 |
+| Description | Parse TOML arrays and inline tables with nesting and closure rules. |
+| Depends On  | FEATURE-Parser-Keys.md, FEATURE-Parser-Tables.md |
+| Provides    | TOML arrays and inline tables |
+| Consumes    | TOML key parsing, TOML scalar parsing, TOML string parsing |
+
+## Questions
+
+- None.
+
+## Purpose
+
+Implement TOML arrays and inline tables, including nesting, mixed values, multiline arrays, trailing commas, and inline-table closure semantics.
+
+## Behavior
+
+- Arrays may be empty, nested, mixed-type, multiline, and trailing-comma terminated.
+- Array comments and whitespace are accepted where TOML permits them.
+- Inline tables may contain nested inline tables and dotted keys.
+- Inline tables do not permit a trailing comma or invalid multiline layout.
+- Inline tables are closed to later extension.
+- Duplicate keys and structural conflicts are rejected.
+
+## Programmatic Acceptance
+
+Requires: executable=go; scope=test
+Requires: executable=sh; scope=test
+Requires: executable=toml-test; scope=test
+
+=== AC parser-arrays-inline-conformance ===
+Intent: Execute every valid array and inline-table case and every corresponding invalid case in the authoritative TOML suite.
+Suite: scoped
+Probe: --list
+Probe Count: lines
+
+import os
+import subprocess
+
+selector = "valid/array/**|valid/inline-table/**|invalid/array/**|invalid/inline-table/**"
+result = subprocess.run(
+    ["sh", "sources/stage_test.sh", selector],
+    capture_output=True,
+    text=True,
+    env={**os.environ, "TOML_TEST_VERSION": "v2.2.0"},
+)
+print(result.stdout)
+print(result.stderr)
+assert result.returncode == 0
+=== END AC parser-arrays-inline-conformance ===
+
+=== AC parser-arrays-inline-input-boundaries ===
+Intent: Verify that a nested mixed array is decoded and that extending an inline table is rejected.
+import json
+import subprocess
+
+valid_source = 'values = [[1, 2], ["a", "b"]]\n'
+invalid_source = '[product]\ntype = { name = "Nail" }\ntype.edible = false\n'
+
+valid = subprocess.run(
+    ["./toml-decoder"],
+    input=valid_source,
+    capture_output=True,
+    text=True,
+)
+assert valid.returncode == 0
+decoded = json.loads(valid.stdout)
+assert len(decoded["values"]) == 2
+assert len(decoded["values"][0]) == 2
+assert decoded["values"][0][0]["type"] == "integer"
+assert decoded["values"][1][0]["type"] == "string"
+
+invalid = subprocess.run(
+    ["./toml-decoder"],
+    input=invalid_source,
+    capture_output=True,
+    text=True,
+)
+assert invalid.returncode != 0
+assert invalid.stdout == ""
+=== END AC parser-arrays-inline-input-boundaries ===
+
+## User Acceptance
+
+- None.
+
+## Guardrails
+
+- Do not permit inline-table extension after closure.
+- Do not accept trailing commas in inline tables.
+- Do not reinterpret malformed arrays as valid values.
+
+=== END ARTIFACT ===
+=== BEGIN ARTIFACT FEATURE-Parser-Datetimes.md ===
+# FEATURE: Parser Datetimes
+
+| Field       | Value |
+|-------------|-------|
+| Version     | 20261021 V1 |
+| Description | Parse TOML offset and local date and time values. |
+| Depends On  | FEATURE-Parser-Keys.md, FEATURE-Parser-Lexical-Scalars.md |
+| Provides    | TOML offset datetime, local datetime, local date, and local time parsing |
+| Consumes    | TOML key parsing, TOML scalar parsing |
+
+## Questions
+
+- None.
+
+## Purpose
+
+Implement TOML v1.0.0 offset datetime, local datetime, local date, and local time values with tagged JSON representations and required precision handling.
+
+## Behavior
+
+- Offset datetimes accept RFC 3339 forms with `T` or space separators.
+- Local datetimes omit the offset and retain local semantics.
+- Local dates and local times receive their distinct tagged types.
+- Fractional seconds beyond supported precision are truncated rather than rounded.
+- Invalid calendar dates, clock values, offsets, and malformed fractional forms are rejected.
+- Tagged values use `datetime`, `datetime-local`, `date-local`, and `time-local`.
+
+## Programmatic Acceptance
+
+Requires: executable=go; scope=test
+Requires: executable=sh; scope=test
+Requires: executable=toml-test; scope=test
+
+=== AC parser-datetimes-conformance ===
+Intent: Execute every valid datetime case and every invalid datetime, local-date, local-datetime, and local-time case in the authoritative TOML suite.
+Suite: scoped
+Probe: --list
+Probe Count: lines
+
+import os
+import subprocess
+
+selector = "valid/datetime/**|invalid/datetime/**|invalid/local-date/**|invalid/local-datetime/**|invalid/local-time/**"
+result = subprocess.run(
+    ["sh", "sources/stage_test.sh", selector],
+    capture_output=True,
+    text=True,
+    env={**os.environ, "TOML_TEST_VERSION": "v2.2.0"},
+)
+print(result.stdout)
+print(result.stderr)
+assert result.returncode == 0
+=== END AC parser-datetimes-conformance ===
+
+=== AC parser-datetimes-input-boundaries ===
+Intent: Verify that supplied date and time forms receive distinct tagged types and that an invalid calendar value is rejected.
+import json
+import subprocess
+
+valid_source = (
+    'odt = 1979-05-27T07:32:00Z\n'
+    'ldt = 1979-05-27T07:32:00\n'
+    'date = 1979-05-27\n'
+    'time = 07:32:00\n'
+)
+invalid_source = 'date = 1979-02-30\n'
+
+valid = subprocess.run(
+    ["./toml-decoder"],
+    input=valid_source,
+    capture_output=True,
+    text=True,
+)
+assert valid.returncode == 0
+decoded = json.loads(valid.stdout)
+assert decoded["odt"]["type"] == "datetime"
+assert decoded["ldt"]["type"] == "datetime-local"
+assert decoded["date"]["type"] == "date-local"
+assert decoded["time"]["type"] == "time-local"
+
+invalid = subprocess.run(
+    ["./toml-decoder"],
+    input=invalid_source,
+    capture_output=True,
+    text=True,
+)
+assert invalid.returncode != 0
+assert invalid.stdout == ""
+=== END AC parser-datetimes-input-boundaries ===
+
+## User Acceptance
+
+- None.
+
+## Guardrails
+
+- Preserve local versus offset datetime distinctions.
+- Truncate unsupported fractional precision rather than rounding.
+- Reject impossible dates and times.
+
+=== END ARTIFACT ===
+=== BEGIN ARTIFACT FEATURE-Conformance.md ===
+# FEATURE: Conformance
+
+| Field       | Value |
+|-------------|-------|
+| Version     | 20261021 V1 |
+| Description | Verify the completed decoder against the complete supplied TOML conformance suite. |
+| Depends On  | FEATURE-Parser-Strings.md, FEATURE-Parser-Lexical-Scalars.md, FEATURE-Parser-Lexical-Boundaries.md, FEATURE-Parser-Keys.md, FEATURE-Parser-Tables.md, FEATURE-Parser-Arrays-Inline.md, FEATURE-Parser-Datetimes.md |
+| Provides    | complete TOML conformance verification |
+| Consumes    | completed toml-decoder |
+
+## Questions
+
+- None.
+
+## Purpose
+
+Run the pinned upstream `toml-test` v2.2.0 suite without filtering or reinterpretation and use its exit status as the completed decoder verdict.
+
+## Verification Contract
+
+- `sources/full_test.sh` builds the decoder and runs the complete suite.
+- The harness assets remain unchanged.
+- `TOML_TEST_VERSION` identifies the expected suite version.
+- A zero exit status is required; any non-zero status fails conformance.
+- The suite is the sole release-level correctness measurement.
+
+## Programmatic Acceptance
+
+Requires: executable=go; scope=test
+Requires: executable=sh; scope=test
+Requires: executable=toml-test; scope=test
+
+=== AC complete-conformance ===
+Intent: Run the complete pinned TOML v1.0.0 conformance suite after all parser capabilities are implemented.
+Suite: full
+
+import os
+import subprocess
+
+result = subprocess.run(
+    ["sh", "sources/full_test.sh"],
+    capture_output=True,
+    text=True,
+    env={**os.environ, "TOML_TEST_VERSION": "v2.2.0"},
+)
+print(result.stdout)
+print(result.stderr)
+assert result.returncode == 0
+=== END AC complete-conformance ===
+
+## User Acceptance
+
+- None.
+
+## Guardrails
+
+- Do not filter, skip, reinterpret, or replace any supplied conformance case.
+- Do not modify the supplied harness files.
+- Do not treat printed summary text as the release verdict; use the harness exit status.
+
+=== END ARTIFACT ===

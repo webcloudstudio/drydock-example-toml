@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>workspace/targets/toml/blueprint/ARCHITECTURE.md</title>
+<link rel="stylesheet" href="../../../../../assets/kit.css">
+</head>
+<body>
+<main>
+<header class="fileheader"><div class="kind">Run artifact</div><h1>workspace/targets/toml/blueprint/ARCHITECTURE.md</h1><div class="filenav"><a href="../../../../../index.html">&larr; Report</a><a href="../../../../../workspace/targets/toml/blueprint/ARCHITECTURE.md">Raw file</a></div></header>
+<article class="doc"><h1>ARCHITECTURE: TOML Decoder Architecture</h1>
+<div class="scroll"><table><thead><tr><th>Field</th><th>Value</th></tr></thead><tbody><tr><td>Version</td><td>20261021 V1</td></tr><tr><td>Description</td><td>Standard-library-only Go architecture for the TOML 1.0.0 decoder.</td></tr><tr><td>Depends On</td><td>—</td></tr><tr><td>Provides</td><td>Go module, cmd/toml-decoder, internal/toml</td></tr><tr><td>Consumes</td><td>—</td></tr></tbody></table></div>
+<h2>Purpose</h2>
+<p>The project is a Go command-line filter that parses TOML 1.0.0 from standard input and emits the required tagged JSON representation to standard output.</p>
+<h2>Modules and Boundaries</h2>
+<div class="scroll"><table><thead><tr><th>Module</th><th>Responsibility</th></tr></thead><tbody><tr><td><code>cmd/toml-decoder</code></td><td>Process startup, stdin reading, parser delegation, JSON encoding, diagnostics, and exit status.</td></tr><tr><td><code>internal/toml</code></td><td>TOML lexical analysis, parsing, document structure, semantic validation, and tagged values.</td></tr></tbody></table></div>
+<p>The command package must not contain TOML parsing logic. The parser package must use only the Go standard library and must not read files, environment configuration, or external services.</p>
+<h2>Interface</h2>
+<p>The executable accepts no required arguments. It reads the complete TOML document from stdin.</p>
+<p>Valid input produces one JSON document on stdout and exits zero. Invalid input produces a diagnostic on stderr, no decoded JSON on stdout, and exits non-zero.</p>
+<h2>Technology Stack</h2>
+<ul><li>Go 1.22 or newer, governed by <code>go.md</code>.</li><li>POSIX shell support for the supplied harness, governed by <code>common.md</code>.</li><li>Go module dependencies are restricted to the standard library; <code>go.mod</code> declares no <code>require</code> dependencies.</li></ul>
+<h2>Module Ownership</h2>
+<div class="scroll"><table><thead><tr><th>Boundary</th><th>Owner</th><th>Allowed access</th></tr></thead><tbody><tr><td>Process startup and streams</td><td><code>cmd/toml-decoder</code></td><td><code>os</code>, <code>io</code>, <code>encoding/json</code>, and <code>internal/toml</code></td></tr><tr><td>TOML parsing</td><td><code>internal/toml</code></td><td>Go standard-library parsing and validation packages</td></tr><tr><td>Persistence</td><td>None</td><td>The decoder has no persistent state.</td></tr><tr><td>Configuration</td><td>None</td><td>The decoder reads no configuration files or environment settings.</td></tr><tr><td>File store</td><td>None</td><td>The decoder reads only stdin.</td></tr><tr><td>External services</td><td>None</td><td>The decoder has no external service calls.</td></tr></tbody></table></div>
+<h2>Programmatic Acceptance</h2>
+<p>=== AC architecture-gate ===<br>Intent: The Go module and decoder command satisfy the supplied architecture contract.</p>
+<p>import subprocess</p>
+<p>result = subprocess.run( [&quot;sh&quot;, &quot;sources/stage_contract.sh&quot;, &quot;architecture&quot;], capture_output=True, text=True, ) print(result.stdout) print(result.stderr) assert result.returncode == 0 === END AC architecture-gate ===</p>
+<p>=== AC architecture-artifacts ===<br>Intent: The foundation exposes the declared Go module and command package.</p>
+<p>from pathlib import Path</p>
+<p>assert Path(&quot;go.mod&quot;).is_file() assert Path(&quot;cmd/toml-decoder&quot;).is_dir() assert Path(&quot;internal/toml&quot;).is_dir() === END AC architecture-artifacts ===</p>
+<h2>User Acceptance</h2>
+<ul><li>None.</li></ul>
+<h2>Guardrails</h2>
+<ul><li>Do not add a third-party TOML parsing dependency.</li><li>Do not move parser responsibilities into the command package.</li><li>Do not modify supplied harness files.</li></ul></article>
+</main>
+</body>
+</html>

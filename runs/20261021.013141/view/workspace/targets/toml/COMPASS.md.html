@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>workspace/targets/toml/COMPASS.md</title>
+<link rel="stylesheet" href="../../../../assets/kit.css">
+</head>
+<body>
+<main>
+<header class="fileheader"><div class="kind">Run artifact</div><h1>workspace/targets/toml/COMPASS.md</h1><div class="filenav"><a href="../../../../index.html">&larr; Report</a><a href="../../../../workspace/targets/toml/COMPASS.md">Raw file</a></div></header>
+<article class="doc"><h1>COMPASS: Toml</h1>
+<h2>Compass</h2>
+<p>Build a Go command-line filter that parses TOML v1.0.0 and emits the required tagged JSON representation. It serves the supplied conformance harness and must correctly accept valid documents while rejecting invalid ones.</p>
+<h2>Constraints</h2>
+<ul><li>Use Go and the standard library only.</li><li>Provide the decoder at <code>cmd/toml-decoder</code>.</li><li>Read TOML exclusively from stdin and emit JSON exclusively to stdout.</li><li>Invalid TOML must produce stderr diagnostics and a non-zero exit.</li><li>The supplied harness files are read-only and must remain unchanged.</li><li>Conform to TOML v1.0.0 semantics and the pinned <code>toml-test</code> suite.</li></ul>
+<h2>Guardrails</h2>
+<ul><li>Never add a third-party TOML parsing dependency.</li><li>Never weaken invalid-input rejection to improve permissive acceptance.</li><li>Never emit decoded output for invalid input.</li><li>Never change, filter, skip, or reinterpret the supplied scoring harness.</li><li>Preserve lossless tagged representations required by the decoder contract.</li></ul>
+<p>&lt;!-- drydock:build-write-guardrail:start --&gt;</p>
+<h2>Build Write Guardrail</h2>
+<ul><li>Authorized build directory: <code>/mnt/c/Users/barlo/projects/drydock/uat/Toml/runs/20261021.013141/build/toml</code></li><li>Authorized Target directory: <code>/mnt/c/Users/barlo/projects/drydock/uat/Toml/runs/20261021.013141/workspace/targets/toml</code></li><li>Build agents have permission to create, modify, and remove files required by the active build block inside these authorized directories.</li><li>No path outside these authorized directories may be modified.</li><li>Protected Drydock artifacts:<ul><li><code>/mnt/c/Users/barlo/projects/drydock/uat/Toml/runs/20261021.013141/workspace/targets/toml/blueprint/</code></li><li><code>/mnt/c/Users/barlo/projects/drydock/uat/Toml/runs/20261021.013141/workspace/targets/toml/MANIFEST.md</code></li><li><code>/mnt/c/Users/barlo/projects/drydock/uat/Toml/runs/20261021.013141/workspace/targets/toml/COMPASS.md</code></li><li><code>/mnt/c/Users/barlo/projects/drydock/uat/Toml/runs/20261021.013141/workspace/targets/toml/QuarterDeck/</code></li><li><code>/mnt/c/Users/barlo/projects/drydock/uat/Toml/runs/20261021.013141/workspace/targets/toml/evidence/</code></li></ul></li></ul>
+<p>&lt;!-- drydock:build-write-guardrail:end --&gt;</p></article>
+</main>
+</body>
+</html>

@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>build/toml/README.md</title>
+<link rel="stylesheet" href="../../../assets/kit.css">
+</head>
+<body>
+<main>
+<header class="fileheader"><div class="kind">Run artifact</div><h1>build/toml/README.md</h1><div class="filenav"><a href="../../../index.html">&larr; Report</a><a href="../../../build/toml/README.md">Raw file</a></div></header>
+<article class="doc"><h1>toml</h1>
+<p>A standard-library-only Go parser that decodes TOML 1.0.0 from stdin into tagged JSON.</p>
+<h2>Intent</h2>
+<p>Build a Go command-line filter that parses TOML v1.0.0 and emits the required tagged JSON representation. It serves the supplied conformance harness and must correctly accept valid documents while rejecting invalid ones.</p>
+<h2>What It Does</h2>
+<p>Run the pinned upstream <code>toml-test</code> v2.2.0 suite without filtering or reinterpretation and use its exit status as the completed decoder verdict.</p>
+<p>Provide a deterministic command-line filter for TOML input. The command delegates parsing to <code>internal/toml</code> and serializes the resulting tagged representation as JSON.</p>
+<p>Implement TOML arrays and inline tables, including nesting, mixed values, multiline arrays, trailing commas, and inline-table closure semantics.</p>
+<p>Implement TOML v1.0.0 offset datetime, local datetime, local date, and local time values with tagged JSON representations and required precision handling.</p>
+<p>Implement TOML v1.0.0 bare, quoted, dotted, empty quoted, and numeric-looking keys. Construct nested tables for dotted keys while preserving quoted key spelling and rejecting duplicate or conflicting definitions.</p>
+<p>Implement standard tables, implicit parent tables, arrays of tables, nested array elements, and TOML table conflict rules.</p>
+<h2>Stack</h2>
+<p>Go</p>
+<h2>Next Steps</h2>
+<ul><li>Complete the first-run checks above.</li></ul></article>
+</main>
+</body>
+</html>

@@ -1,0 +1,1 @@
+2026-10-21T01:36:36.379344Z ERROR codex_core::tools::router: error=apply_patch verification failed: invalid patch: multiple operations target /mnt/c/Users/barlo/projects/drydock/uat/Toml/runs/20261021.013141/build/toml/internal/toml/toml.go

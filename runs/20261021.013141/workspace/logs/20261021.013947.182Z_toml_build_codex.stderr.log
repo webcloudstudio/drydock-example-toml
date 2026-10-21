@@ -1,0 +1,2 @@
+2026-10-21T01:41:11.322563Z ERROR codex_core::tools::router: error=apply_patch verification failed: Failed to find expected lines in /mnt/c/Users/barlo/projects/drydock/uat/Toml/runs/20261021.013141/build/toml/internal/toml/debug_test.go:
+func TestDebug(t *testing.T) { s := "literal = 'C:\\\\tmp#file' # trailing comment\n"; t.Logf("%q => %q", s, stripComment(s)); t.Logf("complete=%v", complete(stripComment(s))) }

@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>workspace/targets/toml/SCORECARD.md</title>
+<link rel="stylesheet" href="../../../../assets/kit.css">
+</head>
+<body>
+<main>
+<header class="fileheader"><div class="kind">Run artifact</div><h1>workspace/targets/toml/SCORECARD.md</h1><div class="filenav"><a href="../../../../index.html">&larr; Report</a><a href="../../../../workspace/targets/toml/SCORECARD.md">Raw file</a></div></header>
+<article class="doc"><h1>Scorecard: toml</h1>
+<h2>Specification</h2>
+<blockquote><p><strong>NOT YET RUN</strong> drydock score spec toml</p></blockquote>
+<h2>Acceptance</h2>
+<blockquote><p><strong>PASSED</strong> drydock score ac toml · 2026-10-21T01:50:56.666+00:00</p></blockquote>
+<p>PASS 5   FAIL 0   UNVERIFIED 0   PREPASSED 13   (18 AC total)</p>
+<h2>Build</h2>
+<blockquote><p><strong>RECORDED</strong> drydock score build toml</p></blockquote>
+<p>Blocks: 6   Repaired: 0   Failed: 0<br>Tokens: 5,635,616 (cached 5,251,840, output 66,150)   Cache hit rate: 94.3%</p>
+<h2>Release</h2>
+<blockquote><p><strong>RELEASED</strong> drydock score release toml · 2026-10-21T01:51:08.252+00:00</p></blockquote>
+<ul><li>Verdict: PASSED</li></ul>
+<p>toml: PASSED — 1 of 1</p>
+<p>st-001  MET       sh sources/full_test.sh: return code 0; governed gate stdout: 205 valid tests passed and 474 invalid tests passed reported: Build directory has uncommitted changes</p>
+<h2>Project acceptance</h2>
+<div class="scroll"><table><thead><tr><th>ID</th><th>Type</th><th>Criterion</th><th>Verdict</th><th>Observed</th></tr></thead><tbody><tr><td>st-001</td><td>technical</td><td>The completed parser shall make sh sources/full_test.sh exit zero; that script&#x27;s exit status is the sole acceptance verdict.</td><td>MET</td><td>sh sources/full_test.sh: return code 0; governed gate stdout: 205 valid tests passed and 474 invalid tests passed</td></tr></tbody></table></div>
+<p><strong>Advisory warnings:</strong></p>
+<ul><li>Build directory has uncommitted changes</li></ul>
+<p><strong>Ranked improvements:</strong></p>
+<ol><li>Review and commit the reported uncommitted changes before release.</li></ol></article>
+</main>
+</body>
+</html>

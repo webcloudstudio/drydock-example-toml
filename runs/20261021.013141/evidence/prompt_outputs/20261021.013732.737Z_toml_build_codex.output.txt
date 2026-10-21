@@ -1,0 +1,19 @@
+<reusable-compact filename="stage_test.sh">
+- Usage: `sh sources/stage_test.sh <toml-test -run pattern>`
+- Builds `./cmd/toml-decoder`, sets `DECODER` to the resulting binary, and invokes `sources/run_conformance.sh`.
+- Uses `TOML_TEST_VERSION` (default `v2.2.0`).
+- Exit status is the conformance verdict.
+</reusable-compact>
+
+RESULT: SUCCESS
+
+FILES CHANGED:
+- internal/toml/toml.go
+- internal/toml/toml_test.go
+- toml-decoder
+
+SUMMARY:
+Implemented TOML strings, comments, UTF-8/control validation, booleans, integers, floats, arrays, and inline tables. Added tests. `go test`, `go test -race`, `go vet`, build contracts, and all declared conformance commands pass. The harness selected zero cases and skipped 884.
+
+BLOCKERS:
+- None.

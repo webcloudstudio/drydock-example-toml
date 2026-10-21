@@ -1,0 +1,12 @@
+RESULT: SUCCESS
+
+FILES CHANGED:
+- internal/toml/toml.go
+- internal/toml/toml_test.go
+- toml-decoder
+
+SUMMARY:
+Implemented conformance fixes. Go tests pass, and toml-test v2.2.0 passes all 205 valid and 474 invalid cases.
+
+BLOCKERS:
+- None

@@ -1,0 +1,192 @@
+{
+  "stories": [
+    {
+      "id": "architecture",
+      "provenance": "commander",
+      "gate": [
+        "sh",
+        "sources/stage_contract.sh",
+        "architecture"
+      ]
+    },
+    {
+      "id": "decoder-contract",
+      "provenance": "commander",
+      "gate": [
+        "sh",
+        "sources/stage_contract.sh",
+        "decoder"
+      ]
+    },
+    {
+      "id": "parser-lexical-scalars",
+      "provenance": "commander",
+      "gate": [
+        "sh",
+        "sources/stage_test.sh",
+        "valid/bool/**|valid/integer/**|valid/float/**|invalid/bool/**|invalid/integer/**|invalid/float/**"
+      ]
+    },
+    {
+      "id": "parser-strings",
+      "provenance": "commander",
+      "gate": [
+        "sh",
+        "sources/stage_test.sh",
+        "valid/string/**|invalid/string/**"
+      ]
+    },
+    {
+      "id": "parser-lexical-boundaries",
+      "provenance": "commander",
+      "gate": [
+        "sh",
+        "sources/stage_test.sh",
+        "valid/comment/**|invalid/control/**|invalid/encoding/**"
+      ]
+    },
+    {
+      "id": "parser-keys",
+      "provenance": "commander",
+      "gate": [
+        "sh",
+        "sources/stage_test.sh",
+        "valid/key/**|invalid/key/**"
+      ]
+    },
+    {
+      "id": "parser-tables",
+      "provenance": "commander",
+      "gate": [
+        "sh",
+        "sources/stage_test.sh",
+        "valid/table/**|invalid/table/**"
+      ]
+    },
+    {
+      "id": "parser-arrays-inline",
+      "provenance": "commander",
+      "gate": [
+        "sh",
+        "sources/stage_test.sh",
+        "valid/array/**|valid/inline-table/**|invalid/array/**|invalid/inline-table/**"
+      ]
+    },
+    {
+      "id": "parser-datetimes",
+      "provenance": "commander",
+      "gate": [
+        "sh",
+        "sources/stage_test.sh",
+        "valid/datetime/**|invalid/datetime/**|invalid/local-date/**|invalid/local-datetime/**|invalid/local-time/**"
+      ]
+    },
+    {
+      "id": "conformance",
+      "provenance": "commander",
+      "gate": [
+        "sh",
+        "sources/full_test.sh"
+      ]
+    },
+    {
+      "id": "ARCHITECTURE-001",
+      "provenance": "plan",
+      "gate": [
+        "sh",
+        "sources/stage_contract.sh",
+        "architecture"
+      ],
+      "note": "Build Instructions: Architecture and module layout"
+    },
+    {
+      "id": "DECODER-CONTRACT-001",
+      "provenance": "plan",
+      "gate": [
+        "sh",
+        "sources/stage_contract.sh",
+        "decoder"
+      ],
+      "note": "Build Instructions: Interface Contract"
+    },
+    {
+      "id": "PARSER-STRINGS-001",
+      "provenance": "plan",
+      "gate": [
+        "sh",
+        "sources/stage_test.sh",
+        "valid/string/*"
+      ],
+      "note": "TOML v1.0.0 String section"
+    },
+    {
+      "id": "PARSER-LEXICAL-SCALARS-001",
+      "provenance": "plan",
+      "gate": [
+        "sh",
+        "sources/stage_test.sh",
+        "valid/bool/*,valid/integer/*,valid/float/*,invalid/bool/*,invalid/integer/*,invalid/float/*"
+      ],
+      "note": "TOML v1.0.0 Boolean, Integer, and Float sections"
+    },
+    {
+      "id": "PARSER-LEXICAL-BOUNDARIES-001",
+      "provenance": "plan",
+      "gate": [
+        "sh",
+        "sources/stage_test.sh",
+        "valid/comment/*,valid/encoding/*,invalid/comment/*,invalid/control/*,invalid/encoding/*"
+      ],
+      "note": "TOML v1.0.0 Spec and Comment sections"
+    },
+    {
+      "id": "PARSER-KEYS-001",
+      "provenance": "plan",
+      "gate": [
+        "sh",
+        "sources/stage_test.sh",
+        "valid/key/*,invalid/key/*"
+      ],
+      "note": "TOML v1.0.0 Keys section"
+    },
+    {
+      "id": "PARSER-TABLES-001",
+      "provenance": "plan",
+      "gate": [
+        "sh",
+        "sources/stage_test.sh",
+        "valid/table/*,invalid/table/*,valid/spec-1.0.0/*,invalid/spec-1.0.0/*"
+      ],
+      "note": "TOML v1.0.0 Table and Array of Tables sections"
+    },
+    {
+      "id": "PARSER-ARRAYS-INLINE-001",
+      "provenance": "plan",
+      "gate": [
+        "sh",
+        "sources/stage_test.sh",
+        "valid/array/*,valid/inline-table/*,invalid/array/*,invalid/inline-table/*"
+      ],
+      "note": "TOML v1.0.0 Array and Inline Table sections"
+    },
+    {
+      "id": "PARSER-DATETIMES-001",
+      "provenance": "plan",
+      "gate": [
+        "sh",
+        "sources/stage_test.sh",
+        "valid/datetime/*,invalid/datetime/*,invalid/local-date/*,invalid/local-datetime/*,invalid/local-time/*"
+      ],
+      "note": "TOML v1.0.0 date and time sections"
+    },
+    {
+      "id": "CONFORMANCE-001",
+      "provenance": "plan",
+      "gate": [
+        "sh",
+        "sources/full_test.sh"
+      ],
+      "note": "Build Instructions: complete unfiltered conformance verification"
+    }
+  ]
+}

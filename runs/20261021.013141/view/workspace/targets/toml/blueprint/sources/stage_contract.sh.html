@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>workspace/targets/toml/blueprint/sources/stage_contract.sh</title>
+<link rel="stylesheet" href="../../../../../../assets/kit.css">
+</head>
+<body>
+<main>
+<header class="fileheader"><div class="kind">Run artifact</div><h1>workspace/targets/toml/blueprint/sources/stage_contract.sh</h1><div class="filenav"><a href="../../../../../../index.html">&larr; Report</a><a href="../../../../../../workspace/targets/toml/blueprint/sources/stage_contract.sh">Raw file</a></div></header>
+<article class="doc"><pre>#!/bin/sh
+# stage_contract.sh — governed gates for boundaries not represented by one toml-test slice.
+set -eu
+
+if [ $# -ne 1 ]; then
+  echo &quot;usage: stage_contract.sh &lt;architecture|decoder&gt;&quot; &gt;&amp;2
+  exit 2
+fi
+
+case &quot;$1&quot; in
+  architecture)
+    test -f go.mod
+    if grep -Eq &#x27;^[[:space:]]*require[[:space:](]&#x27; go.mod; then
+      echo &quot;go.mod declares a forbidden third-party dependency&quot; &gt;&amp;2
+      exit 1
+    fi
+    go build ./cmd/toml-decoder
+    ;;
+  decoder)
+    go build -o toml-decoder ./cmd/toml-decoder
+    stage_dir=&quot;$(mktemp -d)&quot;
+    trap &#x27;rm -rf &quot;$stage_dir&quot;&#x27; EXIT HUP INT TERM
+
+    printf &#x27;answer = 42\n&#x27; | ./toml-decoder &gt;&quot;$stage_dir/valid.json&quot; 2&gt;&quot;$stage_dir/valid.err&quot;
+    test ! -s &quot;$stage_dir/valid.err&quot;
+    python - &quot;$stage_dir/valid.json&quot; &lt;&lt;&#x27;PY&#x27;
+import json
+import sys
+
+with open(sys.argv[1], encoding=&quot;utf-8&quot;) as stream:
+    decoded = json.load(stream)
+assert decoded == {&quot;answer&quot;: {&quot;type&quot;: &quot;integer&quot;, &quot;value&quot;: &quot;42&quot;}}
+PY
+
+    if printf &#x27;answer = [\n&#x27; | ./toml-decoder &gt;&quot;$stage_dir/invalid.out&quot; 2&gt;&quot;$stage_dir/invalid.err&quot;; then
+      echo &quot;malformed TOML exited successfully&quot; &gt;&amp;2
+      exit 1
+    fi
+    test ! -s &quot;$stage_dir/invalid.out&quot;
+    test -s &quot;$stage_dir/invalid.err&quot;
+    ;;
+  *)
+    echo &quot;unknown stage contract: $1&quot; &gt;&amp;2
+    exit 2
+    ;;
+esac
+</pre></article>
+</main>
+</body>
+</html>

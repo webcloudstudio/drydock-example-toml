@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>workspace/targets/toml/evidence/block-2.md</title>
+<link rel="stylesheet" href="../../../../../assets/kit.css">
+</head>
+<body>
+<main>
+<header class="fileheader"><div class="kind">Run artifact</div><h1>workspace/targets/toml/evidence/block-2.md</h1><div class="filenav"><a href="../../../../../index.html">&larr; Report</a><a href="../../../../../workspace/targets/toml/evidence/block-2.md">Raw file</a></div></header>
+<article class="doc"><h1>Evidence: Block 2 · Service (block-2)</h1>
+<ul><li>block type: block</li><li>date: 2026-10-20</li><li>resulting state: closed/verified</li><li>story points (combined assembled cost): 4584</li><li>execution id: 20261021.013610.964Z-acd37d69</li></ul>
+<h2>Stories built</h2>
+<ul><li>Implement the stdin, tagged-JSON, diagnostics, and exit-status contract. (decoder-contract) [story]</li></ul>
+<h2>Missing context</h2>
+<ul><li>context: INSTRUCTIONS.md</li></ul>
+<h2>Stacked context</h2>
+<ul><li>stack: go_compact.md (SP 1173)</li><li>compass: COMPASS.md (SP 521)</li><li>implements: FEATURE-Decoder-Contract.md (SP 510)</li><li>context: stage_contract.sh (SP 317)</li><li>context: ARCHITECTURE_compact.md (SP 136)</li><li>stack: common.md (SP 1812)</li></ul>
+<h2>Build directory changes</h2>
+<ul><li>cmd/toml-decoder/main.go</li><li>cmd/toml-decoder/main_test.go</li><li>internal/toml/toml.go</li><li>internal/toml/toml_test.go</li><li>toml-decoder</li></ul>
+<h2>Pre-build acceptance observation</h2>
+<ul><li>GREEN (prepassed): decoder-contract-gate (FEATURE-Decoder-Contract.md)</li></ul>
+<p>intent: The executable satisfies the supplied valid-input and invalid-input stream contract. return code: 0</p>
+<ul><li>GREEN (prepassed): decoder-executable (FEATURE-Decoder-Contract.md)</li></ul>
+<p>intent: The decoder executable is produced at the declared command boundary. return code: 0</p>
+<h2>Post-build programmatic acceptance</h2>
+<ul><li>PASS: decoder-contract-gate (FEATURE-Decoder-Contract.md)</li></ul>
+<p>intent: The executable satisfies the supplied valid-input and invalid-input stream contract. target interpreter: /mnt/c/Users/barlo/projects/drydock/.venv/bin/python provisioning: not required return code: 0</p>
+<ul><li>PASS: decoder-executable (FEATURE-Decoder-Contract.md)</li></ul>
+<p>intent: The decoder executable is produced at the declared command boundary. target interpreter: /mnt/c/Users/barlo/projects/drydock/.venv/bin/python provisioning: not required return code: 0</p>
+<h2>Build summary</h2>
+<p>RESULT: SUCCESS</p>
+<p>FILES CHANGED:</p>
+<ul><li>cmd/toml-decoder/main.go</li><li>cmd/toml-decoder/main_test.go</li><li>internal/toml/toml.go</li><li>internal/toml/toml_test.go</li><li>toml-decoder</li></ul>
+<p>SUMMARY: Implemented tagged TOML decoding, stdin/stdout contract, diagnostics, exit statuses, argument rejection, tables, arrays, and scalar types. Verified with Go tests, vet, build, and decoder contract gate.</p>
+<p>BLOCKERS:</p>
+<ul><li>None</li></ul></article>
+</main>
+</body>
+</html>

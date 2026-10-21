@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>evidence/prompt_outputs/20261021.013434.291Z_toml_lineage_attribute_codex.output.txt</title>
+<link rel="stylesheet" href="../../../assets/kit.css">
+</head>
+<body>
+<main>
+<header class="fileheader"><div class="kind">Run artifact</div><h1>evidence/prompt_outputs/20261021.013434.291Z_toml_lineage_attribute_codex.output.txt</h1><div class="filenav"><a href="../../../index.html">&larr; Report</a><a href="../../../evidence/prompt_outputs/20261021.013434.291Z_toml_lineage_attribute_codex.output.txt">Raw file</a></div></header>
+<article class="doc"><pre>&lt;requirement name=&quot;lexical-boundaries&quot; stories=&quot;parser-lexical-boundaries&quot;&gt;
+* TOML is case-sensitive.
+* A TOML file must be a valid UTF-8 encoded Unicode document.
+* Whitespace means tab (0x09) or space (0x20).
+* Newline means LF (0x0A) or CRLF (0x0D 0x0A).
+A hash symbol marks the rest of the line as a comment, except when inside a string.
+Control characters other than tab (U+0000 to U+0008, U+000A to U+001F, U+007F) are not permitted in comments.
+&lt;/requirement&gt;
+&lt;requirement name=&quot;parse-key-value-pairs&quot; stories=&quot;parser-keys&quot;&gt;
+The primary building block of a TOML document is the key/value pair.
+Keys are on the left of the equals sign and values are on the right. Whitespace is ignored around key names and values. The key, equals sign, and value must be on the same line (though some values can be broken over multiple lines).
+&lt;/requirement&gt;
+&lt;requirement name=&quot;parse-strings&quot; stories=&quot;parser-strings&quot;&gt;
+There are four ways to express strings: basic, multi-line basic, literal, and multi-line literal. All strings must contain only valid UTF-8 characters.
+&lt;/requirement&gt;
+&lt;requirement name=&quot;parse-scalars&quot; stories=&quot;parser-lexical-scalars&quot;&gt;
+Values must have one of the following types.
+&lt;/requirement&gt;
+&lt;requirement name=&quot;parse-datetimes&quot; stories=&quot;parser-datetimes&quot;&gt;
+To unambiguously represent a specific instant in time, you may use an RFC 3339 formatted date-time with offset.
+&lt;/requirement&gt;
+&lt;requirement name=&quot;parse-arrays-and-inline-tables&quot; stories=&quot;parser-arrays-inline&quot;&gt;
+Arrays are square brackets with values inside. Whitespace is ignored. Elements are separated by commas.
+Inline tables provide a more compact syntax for expressing tables.
+&lt;/requirement&gt;
+&lt;requirement name=&quot;parse-tables&quot; stories=&quot;parser-tables&quot;&gt;
+Tables (also known as hash tables or dictionaries) are collections of key/value pairs.
+The last syntax that has not yet been described allows writing arrays of tables.
+&lt;/requirement&gt;
+&lt;unattached story=&quot;architecture&quot;/&gt;
+&lt;unattached story=&quot;decoder-contract&quot;/&gt;
+&lt;unattached story=&quot;conformance&quot;/&gt;</pre></article>
+</main>
+</body>
+</html>

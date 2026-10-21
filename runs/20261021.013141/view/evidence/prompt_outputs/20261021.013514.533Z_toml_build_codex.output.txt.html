@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>evidence/prompt_outputs/20261021.013514.533Z_toml_build_codex.output.txt</title>
+<link rel="stylesheet" href="../../../assets/kit.css">
+</head>
+<body>
+<main>
+<header class="fileheader"><div class="kind">Run artifact</div><h1>evidence/prompt_outputs/20261021.013514.533Z_toml_build_codex.output.txt</h1><div class="filenav"><a href="../../../index.html">&larr; Report</a><a href="../../../evidence/prompt_outputs/20261021.013514.533Z_toml_build_codex.output.txt">Raw file</a></div></header>
+<article class="doc"><pre>&lt;reusable-compact filename=&quot;ARCHITECTURE.md&quot;&gt;
+- Go 1.22+ standard-library-only module.
+- `cmd/toml-decoder`: stdin/stdout process boundary, diagnostics on stderr, non-zero on invalid TOML.
+- `internal/toml`: TOML lexing, parsing, validation, document structure, and tagged values; no file, environment, or service access.
+- No third-party dependencies or persistence.
+- Required artifacts: `go.mod`, `cmd/toml-decoder/`, `internal/toml/`.
+&lt;/reusable-compact&gt;
+
+RESULT: SUCCESS
+
+FILES CHANGED:
+- go.mod
+- cmd/toml-decoder/main.go
+- internal/toml/toml.go
+- internal/toml/toml_test.go
+- toml-decoder
+
+SUMMARY:
+Created the standard-library-only Go module and decoder/parser boundaries. `gofmt`, race tests, vet, builds, architecture contract, and decoder smoke tests pass.
+
+BLOCKERS:
+- None</pre></article>
+</main>
+</body>
+</html>

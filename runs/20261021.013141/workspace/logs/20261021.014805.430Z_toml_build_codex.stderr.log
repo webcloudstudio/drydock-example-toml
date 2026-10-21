@@ -1,0 +1,9 @@
+2026-10-21T01:49:02.161864Z ERROR codex_core::tools::router: error=apply_patch verification failed: invalid hunk at line 2, Update file hunk for path '/mnt/c/Users/barlo/projects/drydock/uat/Toml/runs/20261021.013141/build/toml/internal/toml.go' is empty
+2026-10-21T01:49:05.808190Z ERROR codex_core::tools::router: error=apply_patch verification failed: Failed to read file to update /mnt/c/Users/barlo/projects/drydock/uat/Toml/runs/20261021.013141/build/toml/internal/toml.go: No such file or directory (os error 2)
+2026-10-21T01:49:07.527791Z ERROR codex_core::tools::router: error=apply_patch verification failed: invalid hunk at line 2, Update file hunk for path '/mnt/c/Users/barlo/projects/drydock/uat/uat/Toml/runs/20261021.013141/build/toml/internal/toml/toml.go' is empty
+2026-10-21T01:49:47.951045Z ERROR codex_core::tools::router: error=apply_patch verification failed: Failed to find expected lines in /mnt/c/Users/barlo/projects/drydock/uat/Toml/runs/20261021.013141/build/toml/internal/toml/toml.go:
+		if multi && p.i+2 < len(p.s) && p.s[p.i:p.i+3] == strings.Repeat(string(q), 3) {
+			run := p.i
+			for run < len(p.s) && p.s[run] == q {
+				run++
+			}

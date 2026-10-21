@@ -1,0 +1,4 @@
+{"type":"thread.started","thread_id":"01a15c27-a348-7a03-b3fb-12c4ba168282"}
+{"type":"turn.started"}
+{"type":"item.completed","item":{"id":"item_0","type":"agent_message","text":"{\"criteria\":[{\"id\":\"st-001\",\"verdict\":\"MET\",\"rationale\":\"The governed full test passed with exit code 0, including 205 valid and 474 invalid parser tests.\",\"evidence\":[\"sh sources/full_test.sh: return code 0\",\"governed gate stdout: 205 valid tests passed and 474 invalid tests passed\"]}],\"improvements\":[\"Review and commit the reported uncommitted changes before release.\"]}"}}
+{"type":"turn.completed","usage":{"input_tokens":11375,"cached_input_tokens":8960,"cache_write_input_tokens":0,"output_tokens":140,"reasoning_output_tokens":43}}

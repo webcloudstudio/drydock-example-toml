@@ -1,0 +1,14 @@
+RESULT: SUCCESS
+
+FILES CHANGED:
+- cmd/toml-decoder/main.go
+- cmd/toml-decoder/main_test.go
+- internal/toml/toml.go
+- internal/toml/toml_test.go
+- toml-decoder
+
+SUMMARY:
+Implemented tagged TOML decoding, stdin/stdout contract, diagnostics, exit statuses, argument rejection, tables, arrays, and scalar types. Verified with Go tests, vet, build, and decoder contract gate.
+
+BLOCKERS:
+- None

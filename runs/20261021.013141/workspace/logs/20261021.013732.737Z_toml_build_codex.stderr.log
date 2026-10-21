@@ -1,0 +1,2 @@
+2026-10-21T01:38:09.419370Z ERROR codex_core::tools::router: error=apply_patch verification failed: invalid patch: multiple operations target /mnt/c/Users/barlo/projects/drydock/uat/Toml/runs/20261021.013141/build/toml/internal/toml/toml.go
+2026-10-21T01:38:55.326269Z ERROR codex_core::tools::router: error=apply_patch verification failed: Failed to read file to update /mnt/c/Users/barlo/projects/drydock/uat/Toml/runs/20261021.013141/build/toml/internal/toml_test.go: No such file or directory (os error 2)

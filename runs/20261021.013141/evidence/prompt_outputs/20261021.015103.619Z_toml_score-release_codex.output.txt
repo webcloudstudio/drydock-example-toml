@@ -1,0 +1,1 @@
+{"criteria":[{"id":"st-001","verdict":"MET","rationale":"The governed full test passed with exit code 0, including 205 valid and 474 invalid parser tests.","evidence":["sh sources/full_test.sh: return code 0","governed gate stdout: 205 valid tests passed and 474 invalid tests passed"]}],"improvements":["Review and commit the reported uncommitted changes before release."]}

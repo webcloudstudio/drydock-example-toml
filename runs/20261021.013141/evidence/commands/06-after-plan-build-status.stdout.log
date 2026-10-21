@@ -1,0 +1,31 @@
+Drydock 0.2.0  Copyright (c) 2026 Web Cloud Studio. All rights reserved.
+Next: drydock build toml
+
+Blueprint: toml
+Target: /mnt/c/Users/barlo/projects/drydock/uat/Toml/runs/20261021.013141/workspace/targets/toml
+Rows: <state> <type>  <Name>  [<id>]   — pass [<id>] to --step
+
+Block: Build Block 1 · Foundational  [block-1]   — 0/1 stories complete
+  [pending] story  Establish the standard-library-only Go module and decoder command boundary.  [architecture]  <- next
+
+Block: Build Block 2 · Service  [block-2]   — 0/1 stories complete
+  [pending] story  Implement the stdin, tagged-JSON, diagnostics, and exit-status contract.  [decoder-contract]
+
+Block: Build Block 3 · Service  [block-3]   — 0/3 stories complete
+  [pending] story  Parse TOML basic, literal, and multiline string forms.  [parser-strings]
+  [pending] story  Enforce TOML comments, UTF-8 validity, and control-character boundaries.  [parser-lexical-boundaries]
+  [pending] story  Parse booleans, integers, and floating-point TOML scalars.  [parser-lexical-scalars]
+
+Block: Build Block 4 · Service  [block-4]   — 0/2 stories complete
+  [pending] story  Parse TOML key forms and enforce key-definition uniqueness.  [parser-keys]
+  [pending] story  Parse tables and arrays of tables with TOML redefinition semantics.  [parser-tables]
+
+Block: Build Block 5 · Service  [block-5]   — 0/2 stories complete
+  [pending] story  Parse arrays and inline tables with closure and nesting rules.  [parser-arrays-inline]
+  [pending] story  Parse offset and local TOML date and time values.  [parser-datetimes]
+
+Block: Build Block 6 · Service  [block-6]   — 0/1 stories complete
+  [pending] story  Verify the completed decoder against the complete supplied TOML suite.  [conformance]
+
+Steps: 10 total — 0 done, 0 built (await verify), 0 in review, 10 pending, 0 blocked by questions, 0 failed (0% complete)
+Buildable now: block-1

@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>evidence/commands/10-initial-build-1.stdout.log</title>
+<link rel="stylesheet" href="../../../assets/kit.css">
+</head>
+<body>
+<main>
+<header class="fileheader"><div class="kind">Run artifact</div><h1>evidence/commands/10-initial-build-1.stdout.log</h1><div class="filenav"><a href="../../../index.html">&larr; Report</a><a href="../../../evidence/commands/10-initial-build-1.stdout.log">Raw file</a></div></header>
+<article class="doc"><pre>Drydock 0.2.0  Copyright (c) 2026 Web Cloud Studio. All rights reserved.
+Build: toml
+scope: entire project
+frontier: architecture
+git: baseline toml 62304167dd7a
+git: baseline toml 5ce824760260
+
+BLOCK block-1  name=&quot;Block 1 · Foundational&quot;  calls_max=7
+  story=architecture  &quot;Establish the standard-library-only Go module and decoder command boundary.&quot;
+
+  [call 1/7]  kind=initial  llm=codex/gpt-5.6-luna
+    result=ok  rc=0  execution=20261021.013514.533Z-e70ca1b7
+    acceptance=2/2
+git: block-1 | go.md, ARCHITECTURE.md | call=1 | app=1a76eaf99497 target=c8eaa7c7069d
+
+  DONE  story=architecture  state=closed/verified  execution=20261021.013514.533Z-e70ca1b7  elapsed=55.6s
+git: block-1 | go.md, ARCHITECTURE.md | step_completed | app=unchanged target=90486d2aeb3b
+WARNING: common_compact.md is stale (common.md changed) — using full file; run drydock rigging compact --include-file /mnt/c/Users/barlo/projects/drydock/Rigging/stack/common.md
+
+BLOCK block-2  name=&quot;Block 2 · Service&quot;  calls_max=7
+  story=decoder-contract  &quot;Implement the stdin, tagged-JSON, diagnostics, and exit-status contract.&quot;
+
+  [call 1/7]  kind=initial  llm=codex/gpt-5.6-luna
+    result=ok  rc=0  execution=20261021.013610.964Z-acd37d69
+    acceptance=2/2
+git: block-2 | FEATURE-Decoder-Contract.md | call=1 | app=39a390d733ed target=d72010514737
+
+  DONE  story=decoder-contract  state=closed/verified  execution=20261021.013610.964Z-acd37d69  elapsed=1m17s
+git: block-2 | FEATURE-Decoder-Contract.md | step_completed | app=unchanged target=6acf45513d03
+WARNING: common_compact.md is stale (common.md changed) — using full file; run drydock rigging compact --include-file /mnt/c/Users/barlo/projects/drydock/Rigging/stack/common.md
+
+BLOCK block-3  name=&quot;Block 3 · Service&quot;  calls_max=7
+  story=parser-strings  &quot;Parse TOML basic, literal, and multiline string forms.&quot;
+  story=parser-lexical-boundaries  &quot;Enforce TOML comments, UTF-8 validity, and control-character boundaries.&quot;
+  story=parser-lexical-scalars  &quot;Parse booleans, integers, and floating-point TOML scalars.&quot;
+
+  [call 1/7]  kind=initial  llm=codex/gpt-5.6-luna
+    result=ok  rc=0  execution=20261021.013732.737Z-79ebe26c
+    acceptance=2/5  skipped=parser-strings-conformance,parser-lexical-boundaries-conformance,parser-lexical-scalars-conformance
+git: block-3 | FEATURE-Parser-Strings.md, FEATURE-Parser-Lexical-Boundaries.md, FEATURE-Parser-Lexical-Scalars.md | call=1 | app=a9e2f8347c90 target=0404fa5895cd
+
+  DONE  story=parser-strings  state=closed/verified  execution=20261021.013732.737Z-79ebe26c  elapsed=2m11s
+git: block-3 | FEATURE-Parser-Strings.md, FEATURE-Parser-Lexical-Boundaries.md, FEATURE-Parser-Lexical-Scalars.md | step_completed | app=unchanged target=f6d989a13650
+WARNING: common_compact.md is stale (common.md changed) — using full file; run drydock rigging compact --include-file /mnt/c/Users/barlo/projects/drydock/Rigging/stack/common.md
+
+BLOCK block-4  name=&quot;Block 4 · Service&quot;  calls_max=7
+  story=parser-keys  &quot;Parse TOML key forms and enforce key-definition uniqueness.&quot;
+  story=parser-tables  &quot;Parse tables and arrays of tables with TOML redefinition semantics.&quot;
+
+  [call 1/7]  kind=initial  llm=codex/gpt-5.6-luna
+    result=ok  rc=0  execution=20261021.013947.182Z-61c9cd87
+    acceptance=2/4  skipped=parser-keys-conformance,parser-tables-conformance
+git: block-4 | FEATURE-Parser-Keys.md, FEATURE-Parser-Tables.md | call=1 | app=26285e7e73dd target=16825ba8cf61
+
+  DONE  story=parser-keys  state=closed/verified  execution=20261021.013947.182Z-61c9cd87  elapsed=2m38s
+git: block-4 | FEATURE-Parser-Keys.md, FEATURE-Parser-Tables.md | step_completed | app=unchanged target=894e4329ee4b
+WARNING: common_compact.md is stale (common.md changed) — using full file; run drydock rigging compact --include-file /mnt/c/Users/barlo/projects/drydock/Rigging/stack/common.md
+
+BLOCK block-5  name=&quot;Block 5 · Service&quot;  calls_max=7
+  story=parser-arrays-inline  &quot;Parse arrays and inline tables with closure and nesting rules.&quot;
+  story=parser-datetimes  &quot;Parse offset and local TOML date and time values.&quot;
+
+  [call 1/7]  kind=initial  llm=codex/gpt-5.6-luna
+    result=ok  rc=0  execution=20261021.014235.392Z-b07ddd77
+    acceptance=2/4  skipped=parser-arrays-inline-conformance,parser-datetimes-conformance
+git: block-5 | FEATURE-Parser-Arrays-Inline.md, FEATURE-Parser-Datetimes.md | call=1 | app=05b00d4632b2 target=9535a7a02fe6
+
+  DONE  story=parser-arrays-inline  state=closed/verified  execution=20261021.014235.392Z-b07ddd77  elapsed=5m34s
+git: block-5 | FEATURE-Parser-Arrays-Inline.md, FEATURE-Parser-Datetimes.md | step_completed | app=unchanged target=4925818b9332
+WARNING: common_compact.md is stale (common.md changed) — using full file; run drydock rigging compact --include-file /mnt/c/Users/barlo/projects/drydock/Rigging/stack/common.md
+
+BLOCK block-6  name=&quot;Block 6 · Service&quot;  calls_max=7
+  story=conformance  &quot;Verify the completed decoder against the complete supplied TOML suite.&quot;
+
+  [call 1/7]  kind=initial  llm=codex/gpt-5.6-luna
+    result=ok  rc=0  execution=20261021.014805.430Z-3ffad54a
+    acceptance=1/1
+git: block-6 | FEATURE-Conformance.md | call=1 | app=3fc09cd639f5 target=da11fa4329e4
+
+  DONE  story=conformance  state=closed/verified  execution=20261021.014805.430Z-3ffad54a  elapsed=2m26s
+git: block-6 | FEATURE-Conformance.md | step_completed | app=unchanged target=c19acef379c3
+git: build complete toml 0e5a1e79827c
+git: build complete toml a24f217720e5
+
+result: 10 built, 0 failed, 0 unchanged
+elapsed: 15 minutes 27 seconds
+Target - committed project workspace git store
+</pre></article>
+</main>
+</body>
+</html>

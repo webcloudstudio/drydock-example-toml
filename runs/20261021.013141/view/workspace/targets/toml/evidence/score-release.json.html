@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>workspace/targets/toml/evidence/score-release.json</title>
+<link rel="stylesheet" href="../../../../../assets/kit.css">
+</head>
+<body>
+<main>
+<header class="fileheader"><div class="kind">Run artifact</div><h1>workspace/targets/toml/evidence/score-release.json</h1><div class="filenav"><a href="../../../../../index.html">&larr; Report</a><a href="../../../../../workspace/targets/toml/evidence/score-release.json">Raw file</a></div></header>
+<article class="doc"><pre>{
+  &quot;schema_version&quot;: 5,
+  &quot;recorded_at&quot;: &quot;2026-10-21T01:51:07+00:00&quot;,
+  &quot;target&quot;: &quot;toml&quot;,
+  &quot;verdict&quot;: &quot;PASSED&quot;,
+  &quot;verdict_line&quot;: &quot;toml: PASSED \u2014 1 of 1&quot;,
+  &quot;statement&quot;: &quot;toml: PASSED \u2014 1 of 1\n\n  st-001  MET       sh sources/full_test.sh: return code 0; governed gate stdout: 205 valid tests passed and 474 invalid tests passed\n  reported: Build directory has uncommitted changes&quot;,
+  &quot;complete&quot;: true,
+  &quot;governed_gate&quot;: {
+    &quot;name&quot;: &quot;full&quot;,
+    &quot;outcome&quot;: &quot;PASS&quot;,
+    &quot;argv&quot;: [
+      &quot;sh&quot;,
+      &quot;sources/full_test.sh&quot;
+    ],
+    &quot;return_code&quot;: 0,
+    &quot;duration_ms&quot;: 1509,
+    &quot;detail&quot;: &quot;&quot;,
+    &quot;timed_out&quot;: false,
+    &quot;build_identity&quot;: &quot;a1057c8fd4e4ba87&quot;,
+    &quot;stdout&quot;: &quot;toml-test v2.2.0 [/mnt/c/Users/barlo/projects/drydock/uat/Toml/runs/20261021.013141/build/toml/toml-decoder] [no encoder]\n  valid tests: 205 passed,  0 failed\nencoder tests: no encoder command given\ninvalid tests: 474 passed,  0 failed\n&quot;,
+    &quot;stderr&quot;: &quot;harness: /home/barlo/.local/bin/toml-test toml-test v2.2.0; go1.24.6 linux/amd64; race=false; cgo=true\n&quot;
+  },
+  &quot;criteria&quot;: [
+    {
+      &quot;criterion_id&quot;: &quot;st-001&quot;,
+      &quot;verdict&quot;: &quot;MET&quot;,
+      &quot;rationale&quot;: &quot;The governed full test passed with exit code 0, including 205 valid and 474 invalid parser tests.&quot;,
+      &quot;evidence&quot;: [
+        &quot;sh sources/full_test.sh: return code 0&quot;,
+        &quot;governed gate stdout: 205 valid tests passed and 474 invalid tests passed&quot;
+      ]
+    }
+  ],
+  &quot;guardrail_ids&quot;: [],
+  &quot;observations&quot;: [],
+  &quot;blockers&quot;: [],
+  &quot;attestations&quot;: [],
+  &quot;kit_faults&quot;: [],
+  &quot;warnings&quot;: [
+    &quot;Build directory has uncommitted changes&quot;
+  ],
+  &quot;improvements&quot;: [
+    &quot;Review and commit the reported uncommitted changes before release.&quot;
+  ],
+  &quot;identities&quot;: {
+    &quot;code&quot;: &quot;0e5a1e79827cc5b5c39c06ee0fe33fd73e461212&quot;,
+    &quot;sea_trials&quot;: &quot;30b259abc2d3688f5186ceaae44c6fcba1c044dc48d139e573917222ba90b90a&quot;,
+    &quot;blueprint&quot;: {
+      &quot;ARCHITECTURE.md&quot;: &quot;00843c32c693ec143737b680714da79857b5ad055ffd9679a6cf73a43ebfc843&quot;,
+      &quot;ARCHITECTURE_compact.md&quot;: &quot;0be024554734531c0a5837a20ad42ebeb55794296d52e3d481385babc928bb84&quot;,
+      &quot;FEATURE-Conformance.md&quot;: &quot;1dafd94929571006feeb9be07220e7940b60a4ad6c7805a1c32b556f14c29e37&quot;,
+      &quot;FEATURE-Decoder-Contract.md&quot;: &quot;6c82d8b922fe808e169bb7a7440e185375c531b5ac160e498cc04d0e30bb3920&quot;,
+      &quot;FEATURE-Parser-Arrays-Inline.md&quot;: &quot;0f43beaabf7f29a3cc6c1b647ac99bb3cc61034d8da8384628793e1ba48bb4e3&quot;,
+      &quot;FEATURE-Parser-Datetimes.md&quot;: &quot;b05abfc6100e6c4992743f60d3abed67e4afbfcc3e6230ba022d62f254a28eaf&quot;,
+      &quot;FEATURE-Parser-Keys.md&quot;: &quot;5913833661b8782412f4ebdba88ec238bdd2c733e817cfae7126d8c3ea278595&quot;,
+      &quot;FEATURE-Parser-Lexical-Boundaries.md&quot;: &quot;eaaa9b789b0c7f697a42250030748bf4bb1d92f7ab3ccf2d79721f2af6fac75b&quot;,
+      &quot;FEATURE-Parser-Lexical-Scalars.md&quot;: &quot;15dd5d16116bbbf3d914d6b7c22c32c5ac8b9ab6f5bca610dd33e720e2d45b16&quot;,
+      &quot;FEATURE-Parser-Strings.md&quot;: &quot;a18e2bbecfff17d9de73a96cdcf35b30d2d71cee31d6256e40571aae837834cc&quot;,
+      &quot;FEATURE-Parser-Tables.md&quot;: &quot;909531471a54f506e407f4ceb29fcbb57a6c57c0ee3675ca592208f81403ef8d&quot;,
+      &quot;stage_test_compact.md&quot;: &quot;735885fc4ea73e9464fc6b68830360bbe729c3654b25b60f4213e7519751464a&quot;
+    }
+  },
+  &quot;execution_id&quot;: &quot;20261021.015103.619Z-f7c156cc&quot;
+}
+</pre></article>
+</main>
+</body>
+</html>

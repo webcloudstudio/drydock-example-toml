@@ -1,0 +1,214 @@
+=== BEGIN ARTIFACT TOPOLOGY.md ===
+## Declarations
+
+## story architecture
+summary:      Establish the standard-library-only Go module and decoder command boundary.
+type:         foundational
+kind:         capability
+phase:        1
+implements:   ARCHITECTURE.md
+covers:       ARCHITECTURE-001
+context:      sources/INSTRUCTIONS.md
+stack:        go.md, common.md
+provides:     Go module, cmd/toml-decoder
+consumes:
+depends:
+acceptance:   yes
+scope:        target
+instructions: |
+  Create the Go module and standard project layout required by the foundation contract.
+  Provide cmd/toml-decoder as the executable package and internal/toml as the parser package
+  boundary. Use only the Go standard library and declare no require dependencies. Ensure
+  go build ./cmd/toml-decoder succeeds.
+
+## story decoder-contract
+summary:      Implement the stdin, tagged-JSON, diagnostics, and exit-status contract.
+type:         service
+kind:         capability
+phase:        1
+implements:   FEATURE-Decoder-Contract.md
+covers:       DECODER-CONTRACT-001
+context:      sources/INSTRUCTIONS.md, sources/stage_contract.sh
+stack:        go.md, common.md
+provides:     stdin TOML decoder, tagged JSON stdout, stderr diagnostics
+consumes:     Go module, cmd/toml-decoder
+depends:      architecture
+acceptance:   yes
+scope:        target
+instructions: |
+  Implement the command as a filter that reads TOML exclusively from stdin and emits
+  tagged JSON exclusively to stdout. Every TOML value must encode as an object containing
+  type and string-valued value fields, while tables and arrays retain JSON object and array
+  structure. Invalid input must emit a diagnostic on stderr, emit no decoded stdout, and exit
+  non-zero. Preserve the no-arguments and no-side-effects contract. Run the governed decoder
+  contract gate.
+
+## story parser-strings
+summary:      Parse TOML basic, literal, and multiline string forms.
+type:         service
+kind:         capability
+phase:        2
+implements:   FEATURE-Parser-Strings.md
+covers:       PARSER-STRINGS-001
+context:      sources/toml-v1.0.0.md, sources/stage_test.sh
+stack:        go.md, common.md
+provides:     TOML string parsing
+consumes:     stdin TOML decoder
+depends:      decoder-contract
+acceptance:   yes
+scope:        target
+instructions: |
+  Implement TOML v1.0.0 basic, multiline basic, literal, and multiline literal strings,
+  including valid escapes, Unicode scalar escapes, newline trimming, line-ending
+  backslashes, literal preservation, delimiter rules, and prohibited controls. Run the
+  governed valid/string and invalid/string conformance slice.
+
+## story parser-lexical-scalars
+summary:      Parse booleans, integers, and floating-point TOML scalars.
+type:         service
+kind:         capability
+phase:        2
+implements:   FEATURE-Parser-Lexical-Scalars.md
+covers:       PARSER-LEXICAL-SCALARS-001
+context:      sources/toml-v1.0.0.md, sources/stage_test.sh
+stack:        go.md, common.md
+provides:     TOML boolean, integer, and float parsing
+consumes:     stdin TOML decoder
+depends:      decoder-contract
+acceptance:   yes
+scope:        target
+instructions: |
+  Implement TOML booleans, decimal and radix integers, underscores, signed values,
+  lossless signed 64-bit bounds, decimal floats, exponents, special values, and all
+  associated lexical rejection rules. Preserve the original TOML value representation
+  required by tagged JSON. Run the governed boolean, integer, and float conformance slice.
+
+## story parser-lexical-boundaries
+summary:      Enforce TOML comments, UTF-8 validity, and control-character boundaries.
+type:         service
+kind:         capability
+phase:        2
+implements:   FEATURE-Parser-Lexical-Boundaries.md
+covers:       PARSER-LEXICAL-BOUNDARIES-001
+context:      sources/toml-v1.0.0.md, sources/stage_test.sh
+stack:        go.md, common.md
+provides:     TOML comment and encoding validation
+consumes:     stdin TOML decoder
+depends:      decoder-contract
+acceptance:   yes
+scope:        target
+instructions: |
+  Implement line and inline comment handling, permitted whitespace and newlines, valid
+  UTF-8 enforcement, and rejection of prohibited control characters in comments and
+  strings. Ensure comment markers inside strings remain content. Run the governed comment,
+  control, and encoding conformance slice.
+
+## story parser-keys
+summary:      Parse TOML key forms and enforce key-definition uniqueness.
+type:         service
+kind:         capability
+phase:        3
+implements:   FEATURE-Parser-Keys.md
+covers:       PARSER-KEYS-001
+context:      sources/toml-v1.0.0.md, sources/stage_test.sh
+stack:        go.md, common.md
+provides:     TOML bare, quoted, dotted, and numeric-looking key parsing
+consumes:     TOML lexical scalar and string parsing
+depends:      parser-strings, parser-lexical-scalars, parser-lexical-boundaries
+acceptance:   yes
+scope:        target
+instructions: |
+  Implement bare, quoted, dotted, empty quoted, and numeric-looking keys with whitespace
+  around separators. Build nested objects for dotted keys and enforce that equivalent
+  spellings cannot define a key twice or redefine a value as a table. Run the governed
+  valid/key and invalid/key conformance slice.
+
+## story parser-tables
+summary:      Parse tables and arrays of tables with TOML redefinition semantics.
+type:         service
+kind:         capability
+phase:        3
+implements:   FEATURE-Parser-Tables.md
+covers:       PARSER-TABLES-001
+context:      sources/toml-v1.0.0.md, sources/stage_test.sh
+stack:        go.md, common.md
+provides:     TOML standard tables and arrays-of-tables
+consumes:     TOML key parsing, TOML scalar parsing
+depends:      parser-keys
+acceptance:   yes
+scope:        target
+instructions: |
+  Implement standard table headers, implicit parent tables, table ordering, table
+  redefinition rejection, arrays of tables, nested arrays of tables, most-recent-element
+  resolution, and conflicts with static arrays or incompatible table forms. Run the governed
+  valid/table, invalid/table, and applicable spec-1.0.0 conformance slice.
+
+## story parser-arrays-inline
+summary:      Parse arrays and inline tables with closure and nesting rules.
+type:         service
+kind:         capability
+phase:        4
+implements:   FEATURE-Parser-Arrays-Inline.md
+covers:       PARSER-ARRAYS-INLINE-001
+context:      sources/toml-v1.0.0.md, sources/stage_test.sh
+stack:        go.md, common.md
+provides:     TOML arrays and inline tables
+consumes:     TOML key parsing, TOML scalar parsing, TOML string parsing
+depends:      parser-keys, parser-tables
+acceptance:   yes
+scope:        target
+instructions: |
+  Implement empty, nested, mixed-type, multiline, and trailing-comma arrays plus nested
+  inline tables. Enforce inline-table single-line and no-trailing-comma rules, closure against
+  later extension, duplicate-key rejection, and conflicts with surrounding table definitions.
+  Run the governed array and inline-table valid and invalid conformance slice.
+
+## story parser-datetimes
+summary:      Parse offset and local TOML date and time values.
+type:         service
+kind:         capability
+phase:        4
+implements:   FEATURE-Parser-Datetimes.md
+covers:       PARSER-DATETIMES-001
+context:      sources/toml-v1.0.0.md, sources/stage_test.sh
+stack:        go.md, common.md
+provides:     TOML offset datetime, local datetime, local date, and local time parsing
+consumes:     TOML key parsing, TOML scalar parsing
+depends:      parser-keys, parser-lexical-scalars
+acceptance:   yes
+scope:        target
+instructions: |
+  Implement RFC 3339 offset datetimes, local datetimes, local dates, and local times,
+  including permitted separators, fractional precision truncation, tagged JSON type names,
+  normalized values, and invalid calendar or clock forms. Run the governed datetime,
+  local-date, local-datetime, and local-time conformance slice.
+
+## story conformance
+summary:      Verify the completed decoder against the complete supplied TOML suite.
+type:         service
+kind:         test harness
+phase:        5
+implements:   FEATURE-Conformance.md
+covers:       CONFORMANCE-001
+accepts:      st-001
+context:      sources/full_test.sh, sources/run_conformance.sh, sources/setup_harness.sh
+context_roles: |
+  sources/full_test.sh: test harness
+  sources/run_conformance.sh: test harness
+  sources/setup_harness.sh: test helper
+stack:        go.md, common.md
+provides:     complete TOML conformance verification
+consumes:     completed toml-decoder
+depends:      parser-strings, parser-lexical-scalars, parser-lexical-boundaries, parser-keys, parser-tables, parser-arrays-inline, parser-datetimes
+acceptance:   yes
+scope:        target
+instructions: |
+  Ensure the pinned toml-test v2.2.0 harness is available as required by the supplied setup
+  script, then run sources/full_test.sh unfiltered from the completed application root.
+  Do not modify, filter, skip, reinterpret, or replace any supplied harness asset. The full
+  suite exit status is the release verdict and must be zero.
+
+=== END ARTIFACT ===
+=== BEGIN ARTIFACT DECISIONS.json ===
+[]
+=== END ARTIFACT ===

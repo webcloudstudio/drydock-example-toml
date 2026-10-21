@@ -1,0 +1,30 @@
+<requirement name="go-decoder-boundary" stories="architecture">
+The implementation language is Go, fixed by this Target's `TECHNOLOGY_STACK.md` and governed by `stack/go.md`.
+</requirement>
+<requirement name="stdin-tagged-json-contract" stories="decoder-contract">
+The program is a filter: read TOML from **stdin**, write tagged JSON to **stdout**, exit `0`.
+</requirement>
+<requirement name="parse-toml-strings" stories="parser-strings">
+**Scalars** — booleans, integers (including `0x`, `0o`, `0b`, underscores), floats (including `inf`, `nan`, exponents), basic and literal strings, then multi-line strings with their line-ending backslash and trimming rules.
+</requirement>
+<requirement name="enforce-lexical-boundaries" stories="parser-lexical-boundaries">
+**Invalid-input hardening** — control characters, bad UTF-8, duplicate keys, redefinition after an inline table, unterminated constructs.
+</requirement>
+<requirement name="parse-lexical-scalars" stories="parser-lexical-scalars">
+**Scalars** — booleans, integers (including `0x`, `0o`, `0b`, underscores), floats (including `inf`, `nan`, exponents), basic and literal strings, then multi-line strings with their line-ending backslash and trimming rules.
+</requirement>
+<requirement name="parse-key-semantics" stories="parser-keys">
+**Keys** — bare, quoted, and dotted keys; the redefinition rules.
+</requirement>
+<requirement name="parse-tables" stories="parser-tables">
+**Tables** — `[table]`, `[a.b.c]` implicit creation, `[[array of tables]]`, and the rules governing which of these may follow which.
+</requirement>
+<requirement name="parse-arrays-inline-tables" stories="parser-arrays-inline">
+**Inline tables and arrays** — including nesting and the TOML 1.0 restriction that inline tables are closed to later extension.
+</requirement>
+<requirement name="parse-datetimes" stories="parser-datetimes">
+**Datetimes** — offset, local datetime, local date, local time.
+</requirement>
+<requirement name="pass-complete-conformance-suite" stories="conformance">
+Every supplied valid and invalid case passes: the failed, errored, and skipped counts are all zero.
+</requirement>

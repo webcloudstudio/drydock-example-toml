@@ -1,0 +1,13 @@
+<requirement name="build-and-run-stage-suite" stories="architecture,conformance">
+Same contract as full_test.sh, scoped to the cases a single story owns: build the decoder, then run the installed toml-test suite over the pattern given as $1.
+</requirement>
+<requirement name="preserve-verdict" stories="decoder-contract">
+Exit status is the verdict and the whole verdict. Do not filter, skip, or reinterpret.
+</requirement>
+<unattached story="parser-strings"/>
+<unattached story="parser-lexical-boundaries"/>
+<unattached story="parser-lexical-scalars"/>
+<unattached story="parser-keys"/>
+<unattached story="parser-tables"/>
+<unattached story="parser-arrays-inline"/>
+<unattached story="parser-datetimes"/>

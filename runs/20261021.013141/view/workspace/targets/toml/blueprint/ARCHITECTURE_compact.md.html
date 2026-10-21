@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>workspace/targets/toml/blueprint/ARCHITECTURE_compact.md</title>
+<link rel="stylesheet" href="../../../../../assets/kit.css">
+</head>
+<body>
+<main>
+<header class="fileheader"><div class="kind">Run artifact</div><h1>workspace/targets/toml/blueprint/ARCHITECTURE_compact.md</h1><div class="filenav"><a href="../../../../../index.html">&larr; Report</a><a href="../../../../../workspace/targets/toml/blueprint/ARCHITECTURE_compact.md">Raw file</a></div></header>
+<article class="doc"><p>&lt;!-- Compacted from ARCHITECTURE.md sha256=00843c32c693ec143737b680714da79857b5ad055ffd9679a6cf73a43ebfc843 on 2026-10-20 by drydock build agent --&gt;</p>
+<ul><li>Go 1.22+ standard-library-only module.</li><li><code>cmd/toml-decoder</code>: stdin/stdout process boundary, diagnostics on stderr, non-zero on invalid TOML.</li><li><code>internal/toml</code>: TOML lexing, parsing, validation, document structure, and tagged values; no file, environment, or service access.</li><li>No third-party dependencies or persistence.</li><li>Required artifacts: <code>go.mod</code>, <code>cmd/toml-decoder/</code>, <code>internal/toml/</code>.</li></ul></article>
+</main>
+</body>
+</html>

@@ -1,0 +1,12 @@
+RESULT: SUCCESS
+
+FILES CHANGED:
+- internal/toml/toml.go
+- internal/toml/toml_test.go
+- toml-decoder
+
+SUMMARY:
+Implemented nested/trailing-comma arrays, inline-table closure rules, temporal parsing with validation and precision truncation. All Go tests, race tests, vet/build checks, boundary probes, and scoped conformance suites pass.
+
+BLOCKERS:
+- None
