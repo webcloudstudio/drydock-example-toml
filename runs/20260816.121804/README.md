@@ -1,6 +1,9 @@
-# Toml: PASSED
+# TOML
 
-6 of 6 receipt claims proven. Open `index.html` for the linked proof kit; verify it with `sha256sum -c SHA256SUMS`.
+- Short description: A standard-library-only Go command-line filter that parses TOML 1.0.0 into tagged JSON.
+- Status: BUILT
+
+4 of 4 receipt claims proven. Open `index.html` for the linked proof kit; verify it with `sha256sum -c SHA256SUMS`.
 
 ## Receipt
 
@@ -8,8 +11,6 @@
 |---|---|---|---|
 | Lifecycle completed | PASS | 18 lifecycle commands executed; the run ended at 18-score-release. | [result.json](result.json) |
 | External conformance suite passed | PASS | sh sources/full_test.sh exited 0. | [evidence/commands/15-test.stdout.log](evidence/commands/15-test.stdout.log) |
-| Target completion check passed | PASS | drydock status toml --check exited 0. | [evidence/commands/11-initial-complete.stdout.log](evidence/commands/11-initial-complete.stdout.log) |
-| Acceptance score passed | PASS | drydock score acceptance exited 0. | [evidence/commands/16-score-acceptance.stdout.log](evidence/commands/16-score-acceptance.stdout.log) |
 | Release score passed | PASS | drydock score release exited 0. | [evidence/commands/18-score-release.stdout.log](evidence/commands/18-score-release.stdout.log) |
 | Integrity verification passed | PASS | 215 files digested; verify with sha256sum -c SHA256SUMS. | [SHA256SUMS](SHA256SUMS) |
 
@@ -18,16 +19,13 @@
 - Drydock: `0.1.8` (commit `0345a497799dd4903923852244d1cf493fb2f964`)
 - Provider and model: `codex` / `gpt-5.6-luna`
 - Platform: `Linux-6.6.87.2-microsoft-standard-WSL2-x86_64-with-glibc2.35` on Python `3.12.13`
-- Target: `toml`
 - Run: `20260816.121804`
-- Ran: 2026-08-16 08:18:05 EDT — 2026-08-16 09:06:23 EDT
 - Elapsed: 2898.0s
 - LLM calls: 21
 - Tokens: cached 6,733,056; uncached 673,070; output 90,116
 - LLM elapsed: 2240.0s
 - Build passes: 1; repairs: 6 attempts allowed
 - Conformance: passed
-- Verdict: expected PASSED, observed PASSED
 - Advisory scores: acceptance=exit 0, build-report=exit 0, release=exit 0
 
 ## RUN SUMMARY
@@ -35,11 +33,6 @@
 - Input specification: [`sources/toml-v1.0.0.md`](sources/toml-v1.0.0.md)
 - Delivered Code: [`build/toml/`](build/toml)
 - Test Results: [`evidence/commands/15-test.stdout.log`](evidence/commands/15-test.stdout.log)
-
-## RUN NOTES:
-
-- One run is evidence of one run. It is not a benchmark.
-- It is not a security certification of the delivered code.
 
 ## Commands
 
